@@ -3,9 +3,15 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+<<<<<<< HEAD
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/v00.0002_criacao_de_tabelas.xml"
+=======
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <include file="config/liquibase/changelog/v00.0003_criacao_de_tabelas.xml"
+>>>>>>> origin/sprint-1
              relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

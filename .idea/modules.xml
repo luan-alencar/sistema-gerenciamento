@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/backend-sge/service.iml" filepath="$PROJECT_DIR$/backend-sge/service.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/sistema-gerenciamento.iml" filepath="$PROJECT_DIR$/.idea/sistema-gerenciamento.iml" />
+>>>>>>> origin/sprint-1
     </modules>
   </component>
 </project>
