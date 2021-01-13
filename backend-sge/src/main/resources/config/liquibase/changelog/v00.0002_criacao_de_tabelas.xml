@@ -201,12 +201,11 @@
             <column name="resposta" type="TEXT"/>
 
         </createTable>
-        <addPrimaryKey tableName="resposta" columnNames="id,id_evento_pergunta" constraintName="pk_resposta"/>
+        <addPrimaryKey tableName="resposta" columnNames="id" constraintName="pk_resposta"/>
 
         <addForeignKeyConstraint baseTableName="resposta" baseColumnNames="id_evento_pergunta"
-                                 constraintName="fk_evento_pergunta" referencedColumnNames="id"
-                                 referencedTableName="pergunta"/>
-        <!--        <createSequence sequenceName="sq_pergunta" cycle="false"  pk_evento cacheSize="20" incrementBy="1" startValue="1"/>-->
+                                    constraintName="fk_evento_pergunta" referencedTableName="pergunta" referencedColumnNames="id_evento,id_pergunta"
+                                 />
     </changeSet>
 
 
