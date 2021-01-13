@@ -173,6 +173,7 @@
     <changeSet id="7" author="luan.augusto">
         <createTable tableName="evento_pergunta">
             <column name="id_evento" type="NUMBER">
+                <constraints nullable="false"/>
             </column>
             <column name="id_pergunta" type="NUMBER">
                 <constraints nullable="false"/>
@@ -191,7 +192,7 @@
         <!--        <createSequence sequenceName="sq_pergunta" cycle="false"  pk_evento cacheSize="20" incrementBy="1" startValue="1"/>-->
     </changeSet>
 
-    <changeSet id="7" author="luan.augusto">
+    <changeSet id="8" author="luan.augusto">
         <createTable tableName="resposta">
             <column name="id" type="NUMBER">
             </column>
