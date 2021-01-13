@@ -81,7 +81,7 @@
 
         <addPrimaryKey tableName="evento" columnNames="id" constraintName="pk_evento"/>
         <createSequence sequenceName="sq_evento" cycle="false" cacheSize="20" incrementBy="1" startValue="1"/>
-        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_evento"
+        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id"
                                  constraintName="fk_evento" referencedTableName="evento"
                                  referencedColumnNames="id"/>
     </changeSet>
@@ -110,16 +110,13 @@
 
         <addPrimaryKey tableName="pre_inscricao" columnNames="id" constraintName="pk_pre_inscricao"/>
         <createSequence sequenceName="sq_pre_inscricao" cycle="false" cacheSize="20" incrementBy="1" startValue="1"/>
-        <addForeignKeyConstraint baseTableName="usuario" baseColumnNames="id_usuario"
+        <addForeignKeyConstraint baseTableName="usuario" baseColumnNames="id"
                                  constraintName="fk_usuario" referencedTableName="usuario"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_usuario"
+        <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id"
                                  constraintName="fk_pre_inscricao" referencedTableName="pre_inscricao"
                                  referencedColumnNames="id"/>
     </changeSet>
-
-
-
 
     <changeSet id="4" author="luan.augusto">
         <createTable tableName="tipo_evento">
@@ -132,8 +129,8 @@
         </createTable>
         <addPrimaryKey tableName="tipo_evento" columnNames="id" constraintName="pk_tipo_evento"/>
                 <createSequence sequenceName="sq_reserva" cycle="false" cacheSize="20" incrementBy="1" startValue="1"/>
-                <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_evento"
-                                         constraintName="fk_reserva_sala" referencedTableName="sala"
+                <addForeignKeyConstraint baseTableName="tipo_evento" baseColumnNames="id"
+                                         constraintName="fk_evento" referencedTableName="evento"
                                          referencedColumnNames="id"/>
         <!--        <addForeignKeyConstraint baseTableName="reserva" baseColumnNames="id_cliente"-->
         <!--                                 constraintName="fk_reserva_cliente" referencedTableName="cliente"-->
@@ -149,8 +146,10 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="tpo_usuario" columnNames="id" constraintName="pk_usuario"/>
-        <createSequence sequenceName="sq_usuario" cycle="false" cacheSize="20" incrementBy="1" startValue="1"/>
+        <addPrimaryKey tableName="tipo_situacao" columnNames="id" />
+        <addForeignKeyConstraint baseTableName="tipo_situacao" baseColumnNames="id"
+                                 constraintName="fk_tipo_situacao" referencedTableName="pre_inscricao"
+                                 referencedColumnNames="id"/>
     </changeSet>
 
     <changeSet id="6" author="luan.augusto">
@@ -164,8 +163,8 @@
         <addPrimaryKey tableName="pergunta" columnNames="id" constraintName="pk_pergunta"/>
         <createSequence sequenceName="sq_pergunta" cycle="false" cacheSize="20" incrementBy="1" startValue="1"/>
 
-        <addForeignKeyConstraint baseTableName="pergunta" baseColumnNames="id_evento"
-                                 constraintName="sq_pergunta" referencedTableName="evento"
+        <addForeignKeyConstraint baseTableName="pergunta" baseColumnNames="id"
+                                 constraintName="fk_pergunta" referencedTableName="evento"
                                  referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="pergunta" baseColumnNames="id_evento_pergunta"
                                  constraintName="fk_evento_pergunta" referencedTableName="evento_pergunta"
