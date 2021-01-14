@@ -15,12 +15,9 @@ import java.io.Serializable;
 public class PreInscricaoResposta implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    private Integer id_pre_inscricao;
+    private PreInscricao id_pre_inscricao;
 
-    @Id
-    private Integer id_evento;
+    private Evento id_evento;
 
-    @Id
-    private Integer id_pergunta;
+    private Pergunta id_pergunta;
 }
