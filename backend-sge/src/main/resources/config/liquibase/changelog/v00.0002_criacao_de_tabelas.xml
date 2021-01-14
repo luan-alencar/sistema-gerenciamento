@@ -63,9 +63,7 @@
         <createTable tableName="evento">
 
             <column name="id" type="NUMBER ">
-
                 <constraints nullable="false"/>
-
             </column>  <!-- Lembra de usar NUMBER e não INT-->
 
             <column name="horario" type="TIMESTAMP">
@@ -102,8 +100,7 @@
 
         <addPrimaryKey tableName="evento" columnNames="id" constraintName="pk_evento"/>
         <createSequence sequenceName="sq_evento" incrementBy="1" startValue="1"/>
-        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_tipo_evento" constraintName="fk_tipo_evento"
-                                 referencedTableName="tipo_evento"
+        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_tipo_evento" constraintName="fk_tipo_evento" referencedTableName="tipo_evento"
                                  referencedColumnNames="id"/>
 
     </changeSet>
@@ -214,10 +211,8 @@
                        constraintName="pk_pre_inscricao_resposta"/>
 
         <addForeignKeyConstraint baseTableName="pre_inscricao_resposta" baseColumnNames="id_pre_inscricao"
-                                 constraintName="fk_pre_inscricao" referencedTableName="pre_inscricao"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="pre_inscricao_resposta" baseColumnNames="id_evento, id_pergunta"
-                                 constraintName="fk_evento_pergunta" referencedTableName="evento_pergunta"
+                                    constraintName="fk_pre_inscricao" referencedTableName="pre_inscricao" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="pre_inscricao_resposta" baseColumnNames="id_evento, id_pergunta" constraintName="fk_evento_pergunta" referencedTableName="evento_pergunta"
                                  referencedColumnNames="id_evento, id_pergunta"/>
     </changeSet>
 

@@ -1,0 +1,136 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n\txsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\n\t<modelVersion>4.0.0</modelVersion>\n\t<parent>\n\t\t<groupId>org.springframework.boot</groupId>\n\t\t<artifactId>spring-boot-starter-parent</artifactId>\n\t\t<version>2.4.1</version>\n\t\t<relativePath/> <!-- lookup parent from repository -->\n\t</parent>\n\t<groupId>com.basis.sge</groupId>\n\t<artifactId>sge</artifactId>\n\t<version>0.0.1-SNAPSHOT</version>\n\t<name>sge</name>\n\t<description>Sistema de Gerenciamento de Eventos</description>\n\n\t<properties>\n\t\t<java.version>1.8</java.version>\n\t\t<spring-cloud.version>2020.0.0</spring-cloud.version>\n\t\t<testcontainers.version>1.15.1</testcontainers.version>\n\t</properties>\n\n\t<dependencies>\n\t\t<dependency>\n\t\t\t<groupId>org.springframework.boot</groupId>\n\t\t\t<artifactId>spring-boot-starter-data-jpa</artifactId>\n\t\t</dependency>\n\t\t<dependency>\n\t\t\t<groupId>org.springframework.boot</groupId>\n\t\t\t<artifactId>spring-boot-starter-web</artifactId>\n\t\t</dependency>\n\t\t<dependency>\n\t\t\t<groupId>org.liquibase</groupId>\n\t\t\t<artifactId>liquibase-core</artifactId>\n\t\t</dependency>\n\t\t<dependency>\n\t\t\t<groupId>org.springframework.cloud</groupId>\n\t\t\t<artifactId>spring-cloud-stream</artifactId>\n\t\t</dependency>\n\n\t\t<dependency>\n\t\t\t<groupId>com.h2database</groupId>\n\t\t\t<artifactId>h2</artifactId>\n\t\t\t<scope>runtime</scope>\n\t\t</dependency>\n\t\t<dependency>\n\t\t\t<groupId>org.postgresql</groupId>\n\t\t\t<artifactId>postgresql</artifactId>\n\t\t\t<scope>runtime</scope>\n\t\t</dependency>\n\t\t<dependency>\n\t\t\t<groupId>org.projectlombok</groupId>\n\t\t\t<artifactId>lombok</artifactId>\n\t\t\t<optional>true</optional>\n\t\t</dependency>\n\t\t<dependency>\n\t\t\t<groupId>org.springframework.boot</groupId>\n\t\t\t<artifactId>spring-boot-starter-test</artifactId>\n\t\t\t<scope>test</scope>\n\t\t</dependency>\n\t\t<dependency>\n\t\t\t<groupId>org.springframework.cloud</groupId>\n\t\t\t<artifactId>spring-cloud-stream</artifactId>\n\t\t\t<scope>test</scope>\n\t\t\t<classifier>test-binder</classifier>\n\t\t\t<type>test-jar</type>\n\t\t</dependency>\n\t\t<dependency>\n\t\t\t<groupId>org.testcontainers</groupId>\n\t\t\t<artifactId>junit-jupiter</artifactId>\n\t\t\t<scope>test</scope>\n\t\t</dependency>\n\t\t<dependency>\n\t\t\t<groupId>org.testcontainers</groupId>\n\t\t\t<artifactId>postgresql</artifactId>\n\t\t\t<scope>test</scope>\n\t\t</dependency>\n\t</dependencies>\n\n\t<dependencyManagement>\n\t\t<dependencies>\n\t\t\t<dependency>\n\t\t\t\t<groupId>org.springframework.cloud</groupId>\n\t\t\t\t<artifactId>spring-cloud-dependencies</artifactId>\n\t\t\t\t<version>${spring-cloud.version}</version>\n\t\t\t\t<type>pom</type>\n\t\t\t\t<scope>import</scope>\n\t\t\t</dependency>\n\t\t\t<dependency>\n\t\t\t\t<groupId>org.testcontainers</groupId>\n\t\t\t\t<artifactId>testcontainers-bom</artifactId>\n\t\t\t\t<version>${testcontainers.version}</version>\n\t\t\t\t<type>pom</type>\n\t\t\t\t<scope>import</scope>\n\t\t\t</dependency>\n\t\t</dependencies>\n\t</dependencyManagement>\n\n\t<build>\n\t\t<plugins>\n\t\t\t<plugin>\n\t\t\t\t<groupId>org.springframework.boot</groupId>\n\t\t\t\t<artifactId>spring-boot-maven-plugin</artifactId>\n\t\t\t\t<configuration>\n\t\t\t\t\t<excludes>\n\t\t\t\t\t\t<exclude>\n\t\t\t\t\t\t\t<groupId>org.projectlombok</groupId>\n\t\t\t\t\t\t\t<artifactId>lombok</artifactId>\n\t\t\t\t\t\t</exclude>\n\t\t\t\t\t</excludes>\n\t\t\t\t</configuration>\n\t\t\t</plugin>\n\t\t</plugins>\n\t</build>\n\n\t<repositories>\n\t\t<repository>\n\t\t\t<id>spring-milestones</id>\n\t\t\t<name>Spring Milestones</name>\n\t\t\t<url>https://repo.spring.io/milestone</url>\n\t\t</repository>\n\t</repositories>\n\n</project>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 3e6404b41207aa96e0ce4345fa7a0515a837d61f)
++++ b/pom.xml	(date 1610475764977)
+@@ -1,25 +1,20 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
++<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 	<modelVersion>4.0.0</modelVersion>
+ 	<parent>
+ 		<groupId>org.springframework.boot</groupId>
+ 		<artifactId>spring-boot-starter-parent</artifactId>
+ 		<version>2.4.1</version>
+-		<relativePath/> <!-- lookup parent from repository -->
++		<relativePath/>
++		<!--  lookup parent from repository  -->
+ 	</parent>
+ 	<groupId>com.basis.sge</groupId>
+ 	<artifactId>sge</artifactId>
+ 	<version>0.0.1-SNAPSHOT</version>
+-	<name>sge</name>
+-	<description>Sistema de Gerenciamento de Eventos</description>
+-
++	<name>Eventos</name>
++	<description>Sistema de Gestão de Eventos</description>
+ 	<properties>
+ 		<java.version>1.8</java.version>
+-		<spring-cloud.version>2020.0.0</spring-cloud.version>
+-		<testcontainers.version>1.15.1</testcontainers.version>
+ 	</properties>
+-
+ 	<dependencies>
+ 		<dependency>
+ 			<groupId>org.springframework.boot</groupId>
+@@ -34,10 +29,11 @@
+ 			<artifactId>liquibase-core</artifactId>
+ 		</dependency>
+ 		<dependency>
+-			<groupId>org.springframework.cloud</groupId>
+-			<artifactId>spring-cloud-stream</artifactId>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-devtools</artifactId>
++			<scope>runtime</scope>
++			<optional>true</optional>
+ 		</dependency>
+-
+ 		<dependency>
+ 			<groupId>com.h2database</groupId>
+ 			<artifactId>h2</artifactId>
+@@ -58,44 +54,7 @@
+ 			<artifactId>spring-boot-starter-test</artifactId>
+ 			<scope>test</scope>
+ 		</dependency>
+-		<dependency>
+-			<groupId>org.springframework.cloud</groupId>
+-			<artifactId>spring-cloud-stream</artifactId>
+-			<scope>test</scope>
+-			<classifier>test-binder</classifier>
+-			<type>test-jar</type>
+-		</dependency>
+-		<dependency>
+-			<groupId>org.testcontainers</groupId>
+-			<artifactId>junit-jupiter</artifactId>
+-			<scope>test</scope>
+-		</dependency>
+-		<dependency>
+-			<groupId>org.testcontainers</groupId>
+-			<artifactId>postgresql</artifactId>
+-			<scope>test</scope>
+-		</dependency>
+ 	</dependencies>
+-
+-	<dependencyManagement>
+-		<dependencies>
+-			<dependency>
+-				<groupId>org.springframework.cloud</groupId>
+-				<artifactId>spring-cloud-dependencies</artifactId>
+-				<version>${spring-cloud.version}</version>
+-				<type>pom</type>
+-				<scope>import</scope>
+-			</dependency>
+-			<dependency>
+-				<groupId>org.testcontainers</groupId>
+-				<artifactId>testcontainers-bom</artifactId>
+-				<version>${testcontainers.version}</version>
+-				<type>pom</type>
+-				<scope>import</scope>
+-			</dependency>
+-		</dependencies>
+-	</dependencyManagement>
+-
+ 	<build>
+ 		<plugins>
+ 			<plugin>
+@@ -112,13 +71,4 @@
+ 			</plugin>
+ 		</plugins>
+ 	</build>
+-
+-	<repositories>
+-		<repository>
+-			<id>spring-milestones</id>
+-			<name>Spring Milestones</name>
+-			<url>https://repo.spring.io/milestone</url>
+-		</repository>
+-	</repositories>
+-
+-</project>
++</project>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectModuleManager\">\n    <modules>\n      <module fileurl=\"file://$PROJECT_DIR$/.idea/Basis Projeto.iml\" filepath=\"$PROJECT_DIR$/.idea/Basis Projeto.iml\" />\n    </modules>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+--- a/.idea/modules.xml	(revision 3e6404b41207aa96e0ce4345fa7a0515a837d61f)
++++ b/.idea/modules.xml	(date 1610474783770)
+@@ -3,6 +3,7 @@
+   <component name="ProjectModuleManager">
+     <modules>
+       <module fileurl="file://$PROJECT_DIR$/.idea/Basis Projeto.iml" filepath="$PROJECT_DIR$/.idea/Basis Projeto.iml" />
++      <module fileurl="file://$PROJECT_DIR$/backend-sge/service.iml" filepath="$PROJECT_DIR$/backend-sge/service.iml" />
+     </modules>
+   </component>
+ </project>
+\ No newline at end of file
