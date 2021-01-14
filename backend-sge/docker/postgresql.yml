@@ -6,6 +6,6 @@ services:
     #     - ~/volumes/jhipster/srsservice/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=sge
-      - POSTGRES_PASSWORD=123
+      - POSTGRES_PASSWORD=sge
     ports:
       - 5432:5432
