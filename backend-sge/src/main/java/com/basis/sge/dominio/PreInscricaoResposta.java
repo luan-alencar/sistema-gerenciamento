@@ -3,6 +3,8 @@ package com.basis.sge.dominio;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -16,7 +18,9 @@ public class PreInscricaoResposta implements Serializable {
 
 //    private PreInscricao id_pre_inscricao;
 
-    private Evento id_evento;
+    @EmbeddedId
+    private IdPreInscricaoResposta idPreInscricaoResposta;
 
-    private Pergunta id_pergunta;
+    @Column(name = "resposta")
+    private String resposta;
 }
