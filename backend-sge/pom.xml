@@ -1,15 +1,9 @@
-
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.1</version>
+		<version>2.3.4.RELEASE</version>
 		<relativePath/>
 		<!--  lookup parent from repository  -->
 	</parent>
@@ -17,13 +11,11 @@
 	<artifactId>sge</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sge</name>
-
 	<description>Sistema de Gerenciamento de Eventos</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2020.0.0</spring-cloud.version>
 		<testcontainers.version>1.15.1</testcontainers.version>
-		<spring.profiles.active>local,no-liquibase</spring.profiles.active>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -69,10 +61,6 @@
 			<classifier>test-binder</classifier>
 			<type>test-jar</type>
 		</dependency>
-
-	</dependencies>
-
-
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>junit-jupiter</artifactId>
@@ -83,8 +71,12 @@
 			<artifactId>postgresql</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-jdk8</artifactId>
+			<version>1.3.1.Final</version>
+		</dependency>
 	</dependencies>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -94,9 +86,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
-
-
 			<dependency>
 				<groupId>org.testcontainers</groupId>
 				<artifactId>testcontainers-bom</artifactId>
@@ -112,18 +101,30 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
 				<configuration>
-					<excludes>
-						<exclude>
+					<source>1.8</source>
+					<target>1.8</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>1.3.1.Final</version>
+						</path>
+						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>
@@ -131,5 +132,4 @@
 			<url>https://repo.spring.io/milestone</url>
 		</repository>
 	</repositories>
-
 </project>
