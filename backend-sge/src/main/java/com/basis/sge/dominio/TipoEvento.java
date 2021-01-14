@@ -1,4 +1,4 @@
-package com.basis.sge.service.dominio;
+package com.basis.sge.dominio;
 
 import lombok.Getter;
 import lombok.Setter;
