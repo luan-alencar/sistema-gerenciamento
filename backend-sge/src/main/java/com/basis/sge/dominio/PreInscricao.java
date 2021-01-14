@@ -24,18 +24,18 @@ public class PreInscricao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pre_inscricao")
-    @SequenceGenerator(name = "pre_inscricao", allocationSize = 1, sequenceName = "sq_pre_inscricao")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_pre_inscricao")
+    @SequenceGenerator(name = "sq_pre_inscricao", allocationSize = 1, sequenceName = "sq_pre_inscricao")
     private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private Integer id_usuario;
+    private Integer idUsuario;
 
     @ManyToMany
     @JoinColumn(name = "id_evento")
-    private Integer id_evento;
+    private Integer idEvento;
 
     @JoinColumn(name = "id_tipo_situacao")
-    private Integer id_tipo_situacao;
+    private Integer idTipoSituacao;
 }
