@@ -10,7 +10,7 @@
     <include file="/config/liquibase/changelog/v00.0001_criacao_de_tabelas.xml"
              relativeToChangelogFile="false"/>
    -->
-    <include file="/config/liquibase/changelog/v00.0002_criacao_de_tabelas.xml"
+    <include file="/config/liquibase/changelog/v00.0003_criacao_de_tabelas.xml"
              relativeToChangelogFile="false"/>
 
 

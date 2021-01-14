@@ -1,4 +1,4 @@
-package com.basis.sge.service.dominio;
+package com.basis.sge.dominio;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -17,7 +19,7 @@ import java.io.Serializable;
 @Table(name = "pre_inscricao")
 @Setter
 @Getter
-public class pre_inscricao implements Serializable {
+public class PreInscricao implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,15 +28,14 @@ public class pre_inscricao implements Serializable {
     @SequenceGenerator(name = "pre_inscricao", allocationSize = 1, sequenceName = "sq_pre_inscricao")
     private Integer id;
 
-    @Column(name = "id_usuario")
-    @ManyToMany
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
     private Integer id_usuario;
 
-    @Column(name = "id_evento")
     @ManyToMany
+    @JoinColumn(name = "id_evento")
     private Integer id_evento;
 
-    @Column(name = "id_tipo_situacao")
-
+    @JoinColumn(name = "id_tipo_situacao")
     private Integer id_tipo_situacao;
 }

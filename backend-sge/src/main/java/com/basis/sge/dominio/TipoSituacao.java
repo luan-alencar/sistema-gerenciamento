@@ -1,4 +1,4 @@
-package com.basis.sge.service.dominio;
+package com.basis.sge.dominio;
 
 
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Table(name = "tipo_situacao")
 @Setter
 @Getter
-public class tipo_situacao implements Serializable {
+public class TipoSituacao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

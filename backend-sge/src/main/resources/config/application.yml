@@ -8,7 +8,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/sge
         username: sge
-        password: 123
+        password: sge
     jackson:
         date-format: yyyy-MM-dd
         deserialization:
