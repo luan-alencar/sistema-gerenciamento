@@ -1,4 +1,4 @@
-package com.basis.sge.recursos;
+package com.basis.sge.recurso;
 
 
 import com.basis.sge.servico.PerguntaServico;
