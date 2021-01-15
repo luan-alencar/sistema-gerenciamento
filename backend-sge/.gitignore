@@ -4,8 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .mvn/
-.idea
 
+.idea/
 ### STS ###
 .apt_generated
 .classpath
@@ -33,3 +33,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+##Intellij
+
+.idea
