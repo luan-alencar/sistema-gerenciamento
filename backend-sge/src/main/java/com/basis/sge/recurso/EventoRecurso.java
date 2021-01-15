@@ -22,7 +22,7 @@ public class EventoRecurso {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventoDTO> pegarEventoPorId(@PathVariable Integer id){
+    public ResponseEntity<EventoDTO> obterEventoPorId(@PathVariable Integer id){
         return ResponseEntity.ok(eventoServico.obterEventoPorId(id));
     }
 
