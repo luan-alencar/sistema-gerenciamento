@@ -26,5 +26,7 @@ public class UsuarioRecurso {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> 
+    public ResponseEntity<Void> deletar() {
+        return ResponseEntity.ok().build();
+    }
 }
