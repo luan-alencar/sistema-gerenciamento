@@ -3,7 +3,7 @@ package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Pergunta;
 import com.basis.sge.repositorio.PerguntaRepositorio;
-import com.basis.sge.servico.dto.Mapper.PerguntaMapper;
+import com.basis.sge.servico.mapper.PerguntaMapper;
 import com.basis.sge.servico.dto.PerguntaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
