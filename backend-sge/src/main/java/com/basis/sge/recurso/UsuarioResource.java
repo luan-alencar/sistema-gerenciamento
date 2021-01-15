@@ -7,7 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/api/usuarios")
 @RestController
@@ -15,12 +18,10 @@ import java.util.List;
 public class UsuarioResource {
 
     private final UsuarioServico usuarioService;
-    private final UsuarioCadastroServico usuarioCadastroServico;
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> buscarTodos() {
-        List<Usuario> list = usuarioService.buscarTodos();
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
+        return ResponseEntity.ok(usuarioService.listar());
     }
 
     @GetMapping("/{id}")
@@ -30,12 +31,19 @@ public class UsuarioResource {
     }
 
     @PostMapping
-    public Usuario salvar(@RequestBody Usuario usuario) {
-        return usuarioCadastroServico.salvar(usuario);
+    public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
+        usuarioService.salvar(usuarioDTO);
+        return ResponseEntity.created(URI.create("/usuarios" + usuarioDTO.getId())).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable Integer id) {
-        return null;
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+        usuarioService.deletar(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> atualizar(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.ok(usuarioService.atualizar(usuarioDTO));
     }
 }

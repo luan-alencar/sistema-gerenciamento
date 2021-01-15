@@ -1,54 +1,52 @@
 package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Usuario;
-import com.basis.sge.exceptions.ResourceNotFoundException;
 import com.basis.sge.repositorio.UsuarioRepositorio;
+import com.basis.sge.servico.dto.UsuarioDTO;
+import com.basis.sge.servico.exception.RegraNegocioException;
+import com.basis.sge.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UsuarioServico {
 
     private final UsuarioRepositorio usuarioRepositorio;
+    private final UsuarioMapper usuarioMapper;
 
     // buscar todos
-    public List<Usuario> buscarTodos() {
-        List<Usuario> list = usuarioRepositorio.findAll();
-        list.forEach(record -> {
-            if (list.isEmpty()) {
-                // Caso o sistema não possua nenhum cadastrado
-                throw new ResourceNotFoundException("Sistema sem usuarios cadastrados!", HttpStatus.NOT_FOUND);
-            }
-        });
-        return usuarioRepositorio.findAll();
+    public List<UsuarioDTO> listar() {
+        List<Usuario> usuarios = usuarioRepositorio.findAll();
+        return usuarioMapper.toDto(usuarios);
     }
 
-    public Optional<Usuario> buscar(Integer id) {
-        List<Usuario> list = usuarioRepositorio.findAll();
-        list.forEach(record -> {
-            // Optional para evitar um NullPointerException
-            if (record.getId() == null){
-                throw new ResourceNotFoundException("Usuario não encontrado", HttpStatus.NOT_FOUND);
-            }
-        });
-        return usuarioRepositorio.findById(id);
+    public UsuarioDTO buscar(Integer id) {
+        Usuario usuario = usuarioRepositorio.findById(id).get();
+        return usuarioMapper.toDto(usuario);
     }
 
-    public void deletar(Usuario usuario) {
-        usuarioRepositorio.delete(usuario);
+    public void deletar(Integer id) {
+        usuarioRepositorio.deleteById(id);
     }
 
-    public Usuario atualizar(Usuario usuario, Integer id) {
-        try {
-            Usuario usuarioDTO = usuarioRepositorio.getOne(id);
-        } catch (Exception e) {
-            System.err.print(e);
+    public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) {
+        Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
+        usuarioRepositorio.save(usuarioAtualizado);
+        return usuarioMapper.toDto(usuarioAtualizado);
+    }
+
+    public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
+        Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
+        if (usuario != null) {
+            throw new RegraNegocioException("Usuario já existente!");
         }
-        return usuarioRepositorio.save(usuario);
+        usuarioRepositorio.save(usuario);
+        return usuarioMapper.toDto(usuario);
     }
 }
