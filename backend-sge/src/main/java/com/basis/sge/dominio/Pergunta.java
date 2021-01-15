@@ -23,7 +23,9 @@ public class Pergunta implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "descricao")
-    private String descricao;
+    @Column(name = "titulo")
+    private String titulo;
 
+    @Column(name = "obrigatoriedade")
+    private Boolean obrigatoriedade;
 }
