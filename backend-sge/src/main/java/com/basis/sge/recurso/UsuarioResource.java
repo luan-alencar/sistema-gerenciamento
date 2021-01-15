@@ -1,6 +1,8 @@
 package com.basis.sge.recurso;
 
 import com.basis.sge.dominio.Usuario;
+import com.basis.sge.repositorio.UsuarioRepositorio;
+import com.basis.sge.servico.UsuarioCadastroServico;
 import com.basis.sge.servico.UsuarioServico;
 import com.basis.sge.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
@@ -8,30 +10,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequestMapping("/api/usuarios")
 @RestController
 @RequiredArgsConstructor
 public class UsuarioResource {
 
-    private UsuarioServico usuarioService;
-    List<Usuario> list = usuarioService.buscarTodos();
+    private final UsuarioServico usuarioService;
+    private final UsuarioCadastroServico usuarioCadastroServico;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
-        List<UsuarioDTO> usuarioDTOList = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<Usuario>> buscarTodos() {
+        List<Usuario> list = usuarioService.buscarTodos();
+        return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO> buscarUm(@PathVariable Integer id) {
+        usuarioService.buscar(id);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping
-    public ResponseEntity<Void> salvar(@RequestBody UsuarioDTO usuarioDTO) {
-        return null;
+    public Usuario salvar(@RequestBody Usuario usuario) {
+        return usuarioCadastroServico.salvar(usuario);
     }
 
     @DeleteMapping("/{id}")

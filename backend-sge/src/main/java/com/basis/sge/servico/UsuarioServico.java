@@ -3,6 +3,7 @@ package com.basis.sge.servico;
 import com.basis.sge.dominio.Usuario;
 import com.basis.sge.exceptions.ResourceNotFoundException;
 import com.basis.sge.repositorio.UsuarioRepositorio;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +11,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioServico {
 
-    private UsuarioRepositorio usuarioRepositorio;
-    List<Usuario> list = usuarioRepositorio.findAll();
+    private final UsuarioRepositorio usuarioRepositorio;
 
+    // buscar todos
     public List<Usuario> buscarTodos() {
+        List<Usuario> list = usuarioRepositorio.findAll();
         list.forEach(record -> {
             if (list.isEmpty()) {
                 // Caso o sistema não possua nenhum cadastrado
@@ -25,17 +28,15 @@ public class UsuarioServico {
         return usuarioRepositorio.findAll();
     }
 
-//    public Usuario buscar(Integer id) {
-//        list.forEach(record -> {
-//            if (!record){
-//
-//            }
-//        });
-//        return usuarioRepositorio.findById(id);
-//    }
-
-    public Usuario criar(Usuario usuario) {
-        return usuarioRepositorio.save(usuario);
+    public Optional<Usuario> buscar(Integer id) {
+        List<Usuario> list = usuarioRepositorio.findAll();
+        list.forEach(record -> {
+            // Optional para evitar um NullPointerException
+            if (record.getId() == null){
+                throw new ResourceNotFoundException("Usuario não encontrado", HttpStatus.NOT_FOUND);
+            }
+        });
+        return usuarioRepositorio.findById(id);
     }
 
     public void deletar(Usuario usuario) {

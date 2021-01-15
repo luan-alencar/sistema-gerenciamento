@@ -1,12 +1,9 @@
 package com.basis.sge.exceptions;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.server.ResponseStatusException;
 
+// Esta classe vai indicar que um Recurso não foi encontrado
 public class ResourceNotFoundException extends RuntimeException {
-
-    private HttpStatus notFound;
 
     public ResourceNotFoundException(String message, HttpStatus notFound) {
         super();
@@ -18,9 +15,5 @@ public class ResourceNotFoundException extends RuntimeException {
 
     public ResourceNotFoundException(String message) {
         super(message);
-    }
-
-    public ResourceNotFoundException(Throwable cause) {
-        super(cause);
     }
 }
