@@ -36,7 +36,7 @@ public class Evento implements Serializable {
     private String descricao;
 
     @Column(name = "qtd_vagas")
-    private Integer qtdVagas;
+    private Integer quantidadeDeVagas;
 
     @Column(name = "valor")
     private Double valor;
