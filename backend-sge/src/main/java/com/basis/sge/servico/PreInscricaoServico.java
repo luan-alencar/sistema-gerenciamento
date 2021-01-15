@@ -2,6 +2,8 @@ package com.basis.sge.servico;
 
 import com.basis.sge.dominio.PreInscricao;
 import com.basis.sge.repositorio.PreInscricaoRepository;
+import com.basis.sge.servico.dto.PreInscricaoDTO;
+import com.basis.sge.servico.mapper.PreInscricaoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class PreInscricaoServico {
     }
 
     public void deletar(Integer id) {
-        usuarioRepositorio.deleteById(id);
+        preInscricaoRepository.deleteById(id);
     }
 
     public PreInscricaoDTO atualizar(PreInscricaoDTO preInscricaoDTO) {
