@@ -1,8 +1,6 @@
 package com.basis.sge.recurso;
 
 import com.basis.sge.dominio.Usuario;
-import com.basis.sge.repositorio.UsuarioRepositorio;
-import com.basis.sge.servico.UsuarioCadastroServico;
 import com.basis.sge.servico.UsuarioServico;
 import com.basis.sge.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
