@@ -4,7 +4,6 @@ import com.basis.sge.dominio.TipoEvento;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +22,7 @@ public class EventoDTO implements Serializable {
 
     private String descricao;
 
-    private Integer qtdVagas;
+    private Integer quantidadeDeVagas;
 
     private Double valor;
 
