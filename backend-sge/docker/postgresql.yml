@@ -9,3 +9,4 @@ services:
       - POSTGRES_PASSWORD=sge
     ports:
       - 5432:5432
+

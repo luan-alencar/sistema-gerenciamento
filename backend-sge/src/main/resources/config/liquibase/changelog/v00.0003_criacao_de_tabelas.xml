@@ -63,7 +63,9 @@
         <createTable tableName="evento">
 
             <column name="id" type="NUMBER ">
+
                 <constraints nullable="false"/>
+
             </column>  <!-- Lembra de usar NUMBER e não INT-->
 
             <column name="horario" type="TIMESTAMP">

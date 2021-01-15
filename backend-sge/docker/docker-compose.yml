@@ -5,3 +5,4 @@ services:
       file: postgresql.yml
       service: sge-postgresql
     container_name: sge-postgresql
+
