@@ -1,6 +1,7 @@
-package com.basis.sge.servico.dto.Mapper;
+package com.basis.sge.servico.mapper;
 
 import com.basis.sge.dominio.Pergunta;
+import com.basis.sge.servico.dto.Mapper.EntityMapper;
 import com.basis.sge.servico.dto.PerguntaDTO;
 import org.mapstruct.Mapper;
 
