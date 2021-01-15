@@ -28,5 +28,4 @@ public class Pergunta implements Serializable {
 
     @Column(name = "obrigatoriedade")
     private Boolean obrigatoriedade;
-
 }
