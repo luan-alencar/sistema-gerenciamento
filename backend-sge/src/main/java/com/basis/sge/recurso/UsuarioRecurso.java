@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioRecurso {
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> buscarUm(@PathVariable Integer id){
+    public ResponseEntity<UsuarioDTO> buscarUm(@PathVariable Integer id) {
         return null;
     }
 
     @GetMapping
-    public ResponseEntity<UsuarioDTO> buscarTodos(){
+    public ResponseEntity<UsuarioDTO> buscarTodos() {
         return ResponseEntity.ok().build();
     }
 
     @PostMapping
-    public ResponseEntity<Void> criar(@RequestBody UsuarioDTO usuarioDTO){
-        return null;
+    public ResponseEntity<Void> criar(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> 
 }
