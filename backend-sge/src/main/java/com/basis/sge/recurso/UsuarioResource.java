@@ -1,6 +1,7 @@
-package com.basis.sge.servico.dto;
+package com.basis.sge.recurso;
 
 import com.basis.sge.servico.UsuarioServico;
+import com.basis.sge.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
