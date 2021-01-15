@@ -1,10 +1,8 @@
 package com.basis.sge.recursos;
 
 
-import com.basis.sge.dominio.Pergunta;
-import com.basis.sge.repositorio.PerguntaRepositorio;
-import com.basis.sge.servicos.PerguntaServico;
-import com.basis.sge.servicos.dto.PerguntaDTO;
+import com.basis.sge.servico.PerguntaServico;
+import com.basis.sge.servico.dto.PerguntaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,11 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.security.PublicKey;
 import java.util.List;
 
 //Classe onde fica as rotas das urls | Injetar PerguntaServiço

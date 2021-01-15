@@ -1,4 +1,4 @@
-package com.basis.sge.servicos.dto;
+package com.basis.sge.servico.dto;
 
 
 //Classe onde fica as regras de negócios

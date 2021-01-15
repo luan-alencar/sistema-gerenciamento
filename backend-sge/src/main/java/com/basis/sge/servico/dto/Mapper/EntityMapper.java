@@ -1,4 +1,4 @@
-package com.basis.sge.servicos.dto.Mapper;
+package com.basis.sge.servico.dto.Mapper;
 
 import java.util.List;
 

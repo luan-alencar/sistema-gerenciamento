@@ -1,7 +1,7 @@
-package com.basis.sge.servicos.dto.Mapper;
+package com.basis.sge.servico.dto.Mapper;
 
 import com.basis.sge.dominio.Pergunta;
-import com.basis.sge.servicos.dto.PerguntaDTO;
+import com.basis.sge.servico.dto.PerguntaDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {})
