@@ -9,6 +9,9 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -18,12 +21,17 @@ public class UsuarioDTO implements Serializable {
     private static final long SerialVersionIUD = 1L;
 
     private Integer id;
+    @NotBlank(message = "{nome.not.blank}")
     private String nome;
+    @NotBlank(message = "{cpf.not.blank}")
     private String cpf;
+    @NotBlank(message = "{email.not.blank}")
     private String email;
+    @NotBlank(message = "{telefone.not.blank}")
     private String telefone;
     @DateTimeFormat(pattern = "yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @NotNull
     private LocalDate dataNascimento;
     private String chave;
 }
