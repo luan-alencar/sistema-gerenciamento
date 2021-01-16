@@ -1,12 +1,16 @@
 package com.basis.sge.dominio;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -27,6 +31,7 @@ public class Usuario implements Serializable {
     @Column(name = "nome")
     private String nome;
 
+    @CPF
     @Column(name = "cpf")
     private String cpf;
 
@@ -37,7 +42,7 @@ public class Usuario implements Serializable {
     private String telefone;
 
     @Column(name = "data_nascimento")
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
     @Column(name = "chave")
     private String chave;
