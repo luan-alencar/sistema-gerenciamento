@@ -20,7 +20,8 @@ public class Pergunta implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_pergunta")
+    @SequenceGenerator(name = "sequence_pergunta", sequenceName = "sq_pergunta", initialValue = 1)
     private Integer id;
 
     @Column(name = "titulo")

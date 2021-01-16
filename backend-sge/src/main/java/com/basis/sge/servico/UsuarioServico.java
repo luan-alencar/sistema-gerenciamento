@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO buscar(Integer id) {
-        Usuario usuario = usuarioRepositorio.findById(id).get();
+        Usuario usuario = usuarioRepositorio.getOne(id);
         return usuarioMapper.toDto(usuario);
     }
 
@@ -43,10 +44,10 @@ public class UsuarioServico {
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
-//        if (usuario.getCpf().equals(usuarioDTO.getCpf())) {
-//            throw new RegraNegocioException("Usuario já existente!");
-//        }
-        usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO));
+        if (usuario.getCpf().equals(usuarioDTO.getCpf())) {
+            throw new RegraNegocioException("Usuario já existente!");
+        }
+        usuarioRepositorio.saveAll(Arrays.asList(usuarioMapper.toEntity(usuarioDTO)));
         return usuarioMapper.toDto(usuario);
     }
 }
