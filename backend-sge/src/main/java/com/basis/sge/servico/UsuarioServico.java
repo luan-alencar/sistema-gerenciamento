@@ -43,10 +43,10 @@ public class UsuarioServico {
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
-        if (usuario != null) {
-            throw new RegraNegocioException("Usuario já existente!");
-        }
-        usuarioRepositorio.save(usuario);
+//        if (usuario.getCpf().equals(usuarioDTO.getCpf())) {
+//            throw new RegraNegocioException("Usuario já existente!");
+//        }
+        usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO));
         return usuarioMapper.toDto(usuario);
     }
 }

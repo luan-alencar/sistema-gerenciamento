@@ -32,9 +32,9 @@ public class UsuarioResource {
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(usuarioDTO.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+//                .path("/{id}").buildAndExpand(usuarioDTO.getId()).toUri();
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
