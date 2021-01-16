@@ -19,6 +19,6 @@ public class UsuarioDTO implements Serializable {
     private String cpf;
     private String email;
     private String telefone;
-    private LocalDate dataNascimento;
+    private String dataNascimento;
     private String chave;
 }

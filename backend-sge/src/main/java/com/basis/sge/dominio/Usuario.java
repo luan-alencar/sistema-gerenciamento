@@ -20,7 +20,7 @@ public class Usuario implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequece_usuario")
     @SequenceGenerator(name = "sequence_usuario", sequenceName = "sq_usuario", allocationSize = 1)
     private Integer id;
 
@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
     private String telefone;
 
     @Column(name = "data_nascimento")
-    private Date dataNascimento;
+    private String dataNascimento;
 
     @Column(name = "chave")
     private String chave;
