@@ -1,8 +1,10 @@
 package com.basis.sge.servico;
 
 import com.basis.sge.dominio.PreInscricao;
+import com.basis.sge.dominio.Usuario;
 import com.basis.sge.repositorio.PreInscricaoRepository;
 import com.basis.sge.servico.dto.PreInscricaoDTO;
+import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.PreInscricaoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ public class PreInscricaoServico {
     private final PreInscricaoMapper preInscricaoMapper;
 
     // buscar todos
-    public List<PreInscricao> listar() {
+    public List<PreInscricaoDTO> listar() {
         List<PreInscricao> preInscricaoLista = preInscricaoRepository.findAll();
         return preInscricaoMapper.toDto(preInscricaoLista);
     }
@@ -40,6 +42,11 @@ public class PreInscricaoServico {
     }
 
     public PreInscricaoDTO salvar(PreInscricaoDTO preInscricaoDTO) {
-        preInscricaoRepository.save(preInscricaoDTO);
-        return preInscricaoMapper.toDto(preInscricaoDTO);
-    }}
+        PreInscricao preInscricao = preInscricaoRepository.findById(preInscricaoDTO.getId()).get();
+        if (preInscricao != null) {
+            throw new RegraNegocioException("Usuario já existente!");
+        }
+        preInscricaoRepository.save(preInscricao);
+        return preInscricaoMapper.toDto(preInscricao);
+    }
+}

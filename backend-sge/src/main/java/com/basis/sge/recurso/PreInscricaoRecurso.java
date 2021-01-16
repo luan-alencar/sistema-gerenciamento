@@ -1,6 +1,5 @@
 package com.basis.sge.recurso;
 
-import com.basis.sge.dominio.PreInscricao;
 import com.basis.sge.servico.PreInscricaoServico;
 import com.basis.sge.servico.dto.PreInscricaoDTO;
 import lombok.RequiredArgsConstructor;
@@ -45,4 +44,3 @@ public class PreInscricaoRecurso {
     }
 
 }
-
