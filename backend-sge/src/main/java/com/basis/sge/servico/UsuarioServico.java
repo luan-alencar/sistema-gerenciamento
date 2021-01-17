@@ -7,13 +7,10 @@ import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
-import static java.util.Optional.*;
 
 @Service
 @Transactional
@@ -43,7 +40,7 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuarioAtualizado);
     }
 
-    public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException{
+    public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
         Usuario usuario = Optional.ofNullable(usuarioRepositorio.findByCpf(usuarioDTO.getCpf()))
                 .orElseThrow(() -> new RegraNegocioException("Usuario já existe!"));
         usuarioRepositorio.save(usuario);

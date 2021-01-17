@@ -1,7 +1,5 @@
 package com.basis.sge.servico.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +10,6 @@ import java.time.LocalDate;
 @Setter
 public class UsuarioDTO implements Serializable {
     private static final long SerialVersionIUD = 1L;
-
 
     private Integer id;
     private String nome;
