@@ -29,7 +29,6 @@ public class UsuarioDTO implements Serializable {
     private String email;
     @NotBlank(message = "{telefone.not.blank}")
     private String telefone;
-    @DateTimeFormat(pattern = "yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull
     private LocalDate dataNascimento;

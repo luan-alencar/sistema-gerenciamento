@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,35 +25,33 @@ public class UsuarioServico {
     private final UsuarioMapper usuarioMapper;
 
     // buscar todos
-    public List<UsuarioDTO> listar() {
+    public Optional<List<UsuarioDTO>> listar() {
         List<Usuario> usuarios = usuarioRepositorio.findAll();
-        return usuarioMapper.toDto(usuarios);
+        return Optional.ofNullable(usuarioMapper.toDto(usuarios));
     }
 
-    public UsuarioDTO buscar(Integer id) {
-        Usuario usuario = usuarioRepositorio.getOne(id);
+    public Optional<UsuarioDTO> buscar(Integer id) {
+        Optional<Usuario> usuario = Optional.of(usuarioRepositorio.getOne(id));
         return usuarioMapper.toDto(usuario);
     }
-    @Transactional(readOnly = false)
+
     public void deletar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
 
-    @Transactional(readOnly = false)
-    public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) {
+    public Optional<List<UsuarioDTO>> atualizar(UsuarioDTO usuarioDTO) {
         Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
         usuarioRepositorio.save(usuarioAtualizado);
-        return usuarioMapper.toDto(usuarioAtualizado);
+        return Optional.of(usuarioMapper.toDto((List<Usuario>) usuarioAtualizado));
     }
 
-    @Transactional(readOnly = false)
     @ResponseStatus(HttpStatus.CREATED)
-    public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
+    public Optional<List<UsuarioDTO>> salvar(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
         if (usuario != null) {
             throw new RegraNegocioException("Usuario já existente!");
         }
         usuarioRepositorio.save(usuario);
-        return usuarioMapper.toDto(usuario);
+        return Optional.of(usuarioMapper.toDto(Collections.singletonList(usuario)));
     }
 }

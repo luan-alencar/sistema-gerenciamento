@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping(value = "/api/usuarios/")
 @RestController
@@ -18,7 +19,7 @@ public class UsuarioResource {
     private final UsuarioServico usuarioService;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
+    public ResponseEntity<Optional<List<UsuarioDTO>>> buscarTodos() {
         return ResponseEntity.ok(usuarioService.listar());
     }
 
@@ -29,7 +30,7 @@ public class UsuarioResource {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvar(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<?> salvar(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
         return ResponseEntity.created(URI.create("/usuarios/" + usuarioDTO.getId())).build();
     }
@@ -41,7 +42,7 @@ public class UsuarioResource {
     }
 
     @PutMapping
-    public ResponseEntity<UsuarioDTO> atualizar(@RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<Optional<List<UsuarioDTO>>> atualizar(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.ok(usuarioService.atualizar(usuarioDTO));
     }
 }
