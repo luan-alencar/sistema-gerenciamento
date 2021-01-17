@@ -26,7 +26,7 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO buscar(Integer id) {
-        Usuario usuario = Optional.ofNullable(usuarioRepositorio.getOne(id)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
+        Usuario usuario = usuarioRepositorio.findById(id).get();
         return usuarioMapper.toDto(usuario);
     }
 
