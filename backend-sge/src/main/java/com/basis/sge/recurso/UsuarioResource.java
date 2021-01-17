@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping(value = "/api/usuarios", produces = "application/json")
 @RestController
@@ -37,7 +36,7 @@ public class UsuarioResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+    public ResponseEntity deletar(@PathVariable Integer id) {
         usuarioService.deletar(id);
         return ResponseEntity.ok().build();
     }
