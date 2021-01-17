@@ -23,7 +23,7 @@ public class UsuarioResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> buscarUm(@PathVariable Integer id) {
+    public ResponseEntity<UsuarioDTO> buscarUm(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.buscar(id);
         return ResponseEntity.ok().build();
     }
