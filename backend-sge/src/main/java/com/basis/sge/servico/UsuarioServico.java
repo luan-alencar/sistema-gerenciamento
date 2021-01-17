@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Optional.*;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -27,31 +29,30 @@ public class UsuarioServico {
     // buscar todos
     public Optional<List<UsuarioDTO>> listar() {
         List<Usuario> usuarios = usuarioRepositorio.findAll();
-        return Optional.ofNullable(usuarioMapper.toDto(usuarios));
+        return ofNullable(usuarioMapper.toDto(usuarios));
     }
 
     public Optional<UsuarioDTO> buscar(Integer id) {
-        Optional<Usuario> usuario = Optional.of(usuarioRepositorio.getOne(id));
-        return usuarioMapper.toDto(usuario);
+        Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
+        return usuarioMapper.toDto(Optional.of(usuario));
     }
 
     public void deletar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
 
-    public Optional<List<UsuarioDTO>> atualizar(UsuarioDTO usuarioDTO) {
+    public Optional<UsuarioDTO> atualizar(UsuarioDTO usuarioDTO) {
         Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
-        usuarioRepositorio.save(usuarioAtualizado);
-        return Optional.of(usuarioMapper.toDto((List<Usuario>) usuarioAtualizado));
+        Optional.of(usuarioRepositorio.save(usuarioAtualizado)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
+        return usuarioMapper.toDto(Optional.of(usuarioAtualizado));
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    public Optional<List<UsuarioDTO>> salvar(UsuarioDTO usuarioDTO) {
+    public Optional<UsuarioDTO> salvar(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
-        if (usuario != null) {
+        if (usuario == null) {
             throw new RegraNegocioException("Usuario já existente!");
         }
-        usuarioRepositorio.save(usuario);
-        return Optional.of(usuarioMapper.toDto(Collections.singletonList(usuario)));
+        Optional.of(usuarioRepositorio.save(usuario)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
+        return usuarioMapper.toDto(Optional.of(usuario));
     }
 }

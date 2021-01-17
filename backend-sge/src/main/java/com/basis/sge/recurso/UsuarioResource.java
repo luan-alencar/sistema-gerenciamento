@@ -32,7 +32,7 @@ public class UsuarioResource {
     @PostMapping
     public ResponseEntity<?> salvar(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
-        return ResponseEntity.created(URI.create("/usuarios/" + usuarioDTO.getId())).build();
+        return ResponseEntity.created(URI.create("/usuarios" + usuarioDTO.getId())).build();
     }
 
     @DeleteMapping("/{id}")
@@ -42,7 +42,7 @@ public class UsuarioResource {
     }
 
     @PutMapping
-    public ResponseEntity<Optional<List<UsuarioDTO>>> atualizar(@RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<?> atualizar(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.ok(usuarioService.atualizar(usuarioDTO));
     }
 }

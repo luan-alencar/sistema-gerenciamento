@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -23,8 +24,10 @@ public class UsuarioDTO implements Serializable {
     private Integer id;
     @NotBlank(message = "{nome.not.blank}")
     private String nome;
+    @CPF
     @NotBlank(message = "{cpf.not.blank}")
     private String cpf;
+    @Email
     @NotBlank(message = "{email.not.blank}")
     private String email;
     @NotBlank(message = "{telefone.not.blank}")

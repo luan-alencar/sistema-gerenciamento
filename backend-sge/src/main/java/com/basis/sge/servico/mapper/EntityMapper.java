@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface EntityMapper<D, E> {
 
     E toEntity(D dto);
-    Optional<UsuarioDTO> toDto(Optional<Usuario> entity);
+    D toDto(E entity);
     List<E> toEntity(List<D> dtoList);
     List<D> toDto(List<E> entityList);
 
