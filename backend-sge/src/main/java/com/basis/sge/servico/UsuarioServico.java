@@ -34,7 +34,7 @@ public class UsuarioServico {
 
     public Optional<UsuarioDTO> buscar(Integer id) {
         Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
-        return usuarioMapper.toDto(Optional.of(usuario));
+        return Optional.of(usuarioMapper.toDto(usuario));
     }
 
     public void deletar(Integer id) {
@@ -44,7 +44,7 @@ public class UsuarioServico {
     public Optional<UsuarioDTO> atualizar(UsuarioDTO usuarioDTO) {
         Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
         Optional.of(usuarioRepositorio.save(usuarioAtualizado)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
-        return usuarioMapper.toDto(Optional.of(usuarioAtualizado));
+        return Optional.of(usuarioMapper.toDto(usuarioAtualizado));
     }
 
     public Optional<UsuarioDTO> salvar(UsuarioDTO usuarioDTO) {
@@ -53,6 +53,6 @@ public class UsuarioServico {
             throw new RegraNegocioException("Usuario já existente!");
         }
         Optional.of(usuarioRepositorio.save(usuario)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
-        return usuarioMapper.toDto(Optional.of(usuario));
+        return Optional.of(usuarioMapper.toDto(usuario));
     }
 }
