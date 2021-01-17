@@ -22,15 +22,15 @@ public class UsuarioDTO implements Serializable {
     private static final long SerialVersionIUD = 1L;
 
     private Integer id;
-    @NotBlank(message = "{nome.not.blank}")
+    @NotBlank
     private String nome;
     @CPF
-    @NotBlank(message = "{cpf.not.blank}")
+    @NotBlank
     private String cpf;
     @Email
-    @NotBlank(message = "{email.not.blank}")
+    @NotBlank
     private String email;
-    @NotBlank(message = "{telefone.not.blank}")
+    @NotBlank
     private String telefone;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull

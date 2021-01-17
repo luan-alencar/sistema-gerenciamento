@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping(value = "/api/usuarios/")
+@RequestMapping(value = "/api/usuarios")
 @RestController
 @RequiredArgsConstructor
 public class UsuarioResource {

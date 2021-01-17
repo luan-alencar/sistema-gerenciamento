@@ -6,13 +6,10 @@ import com.basis.sge.servico.dto.UsuarioDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,11 +45,9 @@ public class UsuarioServico {
     }
 
     public Optional<UsuarioDTO> salvar(UsuarioDTO usuarioDTO) {
-        Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
-        if (usuario == null) {
-            throw new RegraNegocioException("Usuario já existente!");
-        }
-        Optional.of(usuarioRepositorio.save(usuario)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
-        return Optional.of(usuarioMapper.toDto(usuario));
+        Optional<Usuario> usuario = Optional.ofNullable(Optional.ofNullable(usuarioRepositorio.findByCpf(usuarioDTO.getCpf()))
+                .orElseThrow(() -> new RegraNegocioException("Usuario não existe!")));
+        usuarioRepositorio.save(usuario);
+        return usuarioMapper.toDto(usuario);
     }
 }
