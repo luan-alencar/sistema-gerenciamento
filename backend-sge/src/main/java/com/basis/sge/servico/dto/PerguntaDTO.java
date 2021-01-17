@@ -16,7 +16,9 @@ public class PerguntaDTO implements Serializable {
 
     private Integer id;
 
-    private String descricao;
+    private String titulo;
+
+    private Boolean obrigatoriedade;
 
 
 }

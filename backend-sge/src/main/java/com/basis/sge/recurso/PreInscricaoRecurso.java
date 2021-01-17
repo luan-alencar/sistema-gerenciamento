@@ -1,5 +1,6 @@
 package com.basis.sge.recurso;
 
+import com.basis.sge.servico.PreInscricaoServico;
 import com.basis.sge.servico.dto.PreInscricaoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class PreInscricaoRecurso {
     }
 
     @PutMapping
-    public ResponseEntity<PreInscricaoDTO> editar(@RequestBody PreincricaoDTO preincricaoDTO){
+    public ResponseEntity<PreInscricaoDTO> editar(@RequestBody PreInscricaoDTO preincricaoDTO){
         return ResponseEntity.ok(preInscricaoServico.editar(preincricaoDTO));
     }
 
