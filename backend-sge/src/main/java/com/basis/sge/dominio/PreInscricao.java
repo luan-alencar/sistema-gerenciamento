@@ -15,8 +15,8 @@ public class PreInscricao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_pre_inscricao")
-    @SequenceGenerator(name = "sq_pre_inscricao", allocationSize = 1, sequenceName = "sq_pre_inscricao")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_pre_inscricao")
+    @SequenceGenerator(name = "sequence_pre_inscricao", initialValue = 1, allocationSize = 1, sequenceName = "sq_pre_inscricao")
     private Integer id;
 
     @ManyToOne

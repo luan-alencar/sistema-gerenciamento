@@ -1,27 +1,23 @@
 package com.basis.sge.dominio;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "usuario")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(name = "sequence_usuario", sequenceName = "sq_usuario", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_usuario")
+    @SequenceGenerator(name = "sequence_usuario", sequenceName = "sq_usuario", initialValue = 1, allocationSize = 1)
     private Integer id;
 
     @Column(name = "nome")
@@ -36,8 +32,9 @@ public class Usuario implements Serializable {
     @Column(name = "telefone")
     private String telefone;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "data_nascimento")
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     @Column(name = "chave")
     private String chave;

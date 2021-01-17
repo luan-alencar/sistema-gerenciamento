@@ -7,8 +7,8 @@ import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,14 +20,13 @@ public class UsuarioServico {
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
 
-    // buscar todos
     public List<UsuarioDTO> listar() {
-        List<Usuario> usuarios = usuarioRepositorio.findAll();
+        List<Usuario> usuarios = Optional.ofNullable(usuarioRepositorio.findAll()).orElseThrow(() -> new RegraNegocioException("Sistema sem usuarios cadastrados!"));
         return usuarioMapper.toDto(usuarios);
     }
 
     public UsuarioDTO buscar(Integer id) {
-        Usuario usuario = usuarioRepositorio.findById(id).get();
+        Usuario usuario = Optional.ofNullable(usuarioRepositorio.getOne(id)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
         return usuarioMapper.toDto(usuario);
     }
 
@@ -36,16 +35,14 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) {
-        Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
+        Usuario usuarioAtualizado = Optional.of(usuarioMapper.toEntity(usuarioDTO)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!s"));
         usuarioRepositorio.save(usuarioAtualizado);
         return usuarioMapper.toDto(usuarioAtualizado);
     }
 
+    @Transactional(readOnly = false)
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
-        Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
-        if (usuario != null) {
-            throw new RegraNegocioException("Usuario já existente!");
-        }
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
