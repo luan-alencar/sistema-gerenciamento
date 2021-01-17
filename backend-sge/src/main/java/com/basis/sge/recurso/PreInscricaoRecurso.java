@@ -1,6 +1,5 @@
 package com.basis.sge.recurso;
 
-import com.basis.sge.dominio.PreInscricao;
 import com.basis.sge.servico.dto.PreInscricaoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class PreInscricaoRecurso {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventoDTO> obterPreInscricaoPorId(@PathVariable Integer id){
+    public ResponseEntity<PreInscricaoDTO> obterPreInscricaoPorId(@PathVariable Integer id){
         return ResponseEntity.ok(preInscricaoServico.obterPreInscricaoPorId(id));
     }
 
