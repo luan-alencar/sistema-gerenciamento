@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
-@RequestMapping(value = "/api/usuarios")
+@RequestMapping("/api/usuarios")
 @RestController
 @RequiredArgsConstructor
 public class UsuarioResource {
@@ -19,7 +18,7 @@ public class UsuarioResource {
     private final UsuarioServico usuarioService;
 
     @GetMapping
-    public ResponseEntity<Optional<List<UsuarioDTO>>> buscarTodos() {
+    public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
         return ResponseEntity.ok(usuarioService.listar());
     }
 

@@ -23,25 +23,24 @@ public class UsuarioServico {
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
 
-    // buscar todos
-    public Optional<List<UsuarioDTO>> listar() {
-        List<Usuario> usuarios = usuarioRepositorio.findAll();
-        return ofNullable(usuarioMapper.toDto(usuarios));
+    public List<UsuarioDTO> listar() {
+        List<Usuario> usuarios = Optional.ofNullable(usuarioRepositorio.findAll()).orElseThrow(() -> new RegraNegocioException("Sistema sem usuarios cadastrados!"));
+        return usuarioMapper.toDto(usuarios);
     }
 
-    public Optional<UsuarioDTO> buscar(Integer id) {
-        Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
-        return Optional.of(usuarioMapper.toDto(usuario));
+    public UsuarioDTO buscar(Integer id) {
+        Usuario usuario = Optional.ofNullable(usuarioRepositorio.getOne(id)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
+        return usuarioMapper.toDto(usuario);
     }
 
     public void deletar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
 
-    public Optional<UsuarioDTO> atualizar(UsuarioDTO usuarioDTO) {
-        Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
-        Optional.of(usuarioRepositorio.save(usuarioAtualizado)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
-        return Optional.of(usuarioMapper.toDto(usuarioAtualizado));
+    public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) {
+        Usuario usuarioAtualizado = Optional.of(usuarioMapper.toEntity(usuarioDTO)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!s"));
+        usuarioRepositorio.save(usuarioAtualizado);
+        return usuarioMapper.toDto(usuarioAtualizado);
     }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException{
