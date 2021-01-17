@@ -10,7 +10,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/eventos")
+@RequestMapping("api/evento")
 @RequiredArgsConstructor
 public class EventoRecurso {
 

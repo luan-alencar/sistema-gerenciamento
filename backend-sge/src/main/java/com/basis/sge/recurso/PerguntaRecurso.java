@@ -21,7 +21,7 @@ import java.util.List;
 //Exemplo: private final PerguntaServiço ps, perguntaServico.listar e etc
 
 @RestController
-@RequestMapping("/api/pergunta")
+@RequestMapping("/api/perguntas")
 @RequiredArgsConstructor //
 public class PerguntaRecurso {
 
