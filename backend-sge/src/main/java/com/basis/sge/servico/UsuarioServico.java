@@ -44,9 +44,9 @@ public class UsuarioServico {
         return Optional.of(usuarioMapper.toDto(usuarioAtualizado));
     }
 
-    public Optional<UsuarioDTO> salvar(UsuarioDTO usuarioDTO) {
-        Optional<Usuario> usuario = Optional.ofNullable(Optional.ofNullable(usuarioRepositorio.findByCpf(usuarioDTO.getCpf()))
-                .orElseThrow(() -> new RegraNegocioException("Usuario não existe!")));
+    public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException{
+        Usuario usuario = Optional.ofNullable(usuarioRepositorio.findByCpf(usuarioDTO.getCpf()))
+                .orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
