@@ -1,6 +1,7 @@
 package com.basis.sge.recurso;
 
 import com.basis.sge.dominio.Usuario;
+import com.basis.sge.repositorio.UsuarioRepositorio;
 import com.basis.sge.servico.UsuarioServico;
 import com.basis.sge.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping(value = "/api/usuarios", produces = "application/json")
 @RestController
@@ -16,6 +18,7 @@ import java.util.List;
 public class UsuarioResource {
 
     private final UsuarioServico usuarioService;
+    private final UsuarioRepositorio usuarioRepositorio;
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
@@ -23,14 +26,13 @@ public class UsuarioResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> buscarUm(@PathVariable Integer id) {
-        usuarioService.buscar(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Usuario> buscarUm(@PathVariable Integer id) {
+        return ResponseEntity.ok(usuarioService.buscar(id));
     }
 
     @PostMapping
     public ResponseEntity<Usuario> salvar(@RequestBody UsuarioDTO usuarioDTO) {
-       usuarioService.salvar(usuarioDTO);
+        usuarioService.salvar(usuarioDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
