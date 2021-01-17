@@ -40,9 +40,9 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuarioAtualizado);
     }
 
+    @Transactional(readOnly = false)
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
-        Usuario usuario = Optional.ofNullable(usuarioRepositorio.findByCpf(usuarioDTO.getCpf()))
-                .orElseThrow(() -> new RegraNegocioException("Usuario já existe!"));
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
