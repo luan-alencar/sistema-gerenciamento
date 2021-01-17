@@ -1,8 +1,8 @@
 package com.basis.sge.dominio;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,7 +23,6 @@ public class Usuario implements Serializable {
     @Column(name = "nome")
     private String nome;
 
-    @CPF
     @Column(name = "cpf")
     private String cpf;
 
@@ -33,6 +32,7 @@ public class Usuario implements Serializable {
     @Column(name = "telefone")
     private String telefone;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
