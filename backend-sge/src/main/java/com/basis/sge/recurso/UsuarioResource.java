@@ -5,13 +5,12 @@ import com.basis.sge.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-@RequestMapping(value = "/api/usuarios")
+@RequestMapping(value = "/api/usuarios/")
 @RestController
 @RequiredArgsConstructor
 public class UsuarioResource {
@@ -32,9 +31,7 @@ public class UsuarioResource {
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}").buildAndExpand(usuarioDTO.getId()).toUri();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.created(URI.create("/usuarios/" + usuarioDTO.getId())).build();
     }
 
     @DeleteMapping("/{id}")

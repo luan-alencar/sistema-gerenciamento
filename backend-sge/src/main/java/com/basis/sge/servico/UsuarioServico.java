@@ -6,12 +6,14 @@ import com.basis.sge.servico.dto.UsuarioDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,23 +33,26 @@ public class UsuarioServico {
         Usuario usuario = usuarioRepositorio.getOne(id);
         return usuarioMapper.toDto(usuario);
     }
-
+    @Transactional(readOnly = false)
     public void deletar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
 
+    @Transactional(readOnly = false)
     public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) {
         Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
         usuarioRepositorio.save(usuarioAtualizado);
         return usuarioMapper.toDto(usuarioAtualizado);
     }
 
+    @Transactional(readOnly = false)
+    @ResponseStatus(HttpStatus.CREATED)
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
-        if (usuario.getCpf().equals(usuarioDTO.getCpf())) {
+        if (usuario != null) {
             throw new RegraNegocioException("Usuario já existente!");
         }
-        usuarioRepositorio.saveAll(Arrays.asList(usuarioMapper.toEntity(usuarioDTO)));
+        usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
 }
