@@ -27,11 +27,7 @@ public class UsuarioResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarUm(@PathVariable Integer id) {
-        Optional<Usuario> usuarioDTORetorno = usuarioRepositorio.findById(id);
-        if(usuarioDTORetorno.isPresent()){
-            return ResponseEntity.ok(usuarioDTORetorno.get());
-        }
-        return  ResponseEntity.notFound().build();
+        return ResponseEntity.ok(usuarioService.buscar(id));
     }
 
     @PostMapping

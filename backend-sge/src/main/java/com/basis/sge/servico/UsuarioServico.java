@@ -6,6 +6,7 @@ import com.basis.sge.servico.dto.UsuarioDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,9 +26,12 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuarios);
     }
 
-    public UsuarioDTO buscar(Integer id) {
-        Usuario usuario = usuarioRepositorio.findById(id).get();
-        return usuarioMapper.toDto(usuario);
+    public Usuario buscar(Integer id) {
+        Optional<Usuario> usuarioDTORetorno = usuarioRepositorio.findById(id);
+        if(usuarioDTORetorno.isPresent()){
+            return usuarioDTORetorno.get();
+        }
+        throw new RegraNegocioException("Usuario não existe!");
     }
 
     public void deletar(Integer id) {
