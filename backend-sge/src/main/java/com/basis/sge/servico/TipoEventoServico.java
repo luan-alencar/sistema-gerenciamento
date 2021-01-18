@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TipoEventoServico {
 
-
     private final TipoEventoRepositorio tipoEventoRepositorio;
     private final TipoEventoMapper tipoEventoMapper;
 
