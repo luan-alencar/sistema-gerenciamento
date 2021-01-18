@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class PreInscricaoDTO implements Serializable {
+public class InscricaoDTO implements Serializable {
 
 
     private static final long serialVersionUID = 1L;
