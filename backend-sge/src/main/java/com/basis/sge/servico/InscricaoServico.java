@@ -1,7 +1,7 @@
 package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Inscricao;
-import com.basis.sge.repositorio.InscricaoRepository;
+import com.basis.sge.repositorio.InscricaoRepositorio;
 import com.basis.sge.servico.dto.PreInscricaoDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.PreInscricaoMapper;
@@ -16,36 +16,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InscricaoServico {
 
-    private final InscricaoRepository inscricaoRepository;
+    private final InscricaoRepositorio inscricaoRepositorio;
     private final PreInscricaoMapper preInscricaoMapper;
 
     // buscar todos
     public List<PreInscricaoDTO> listar() {
-        List<Inscricao> inscricaoLista = inscricaoRepository.findAll();
+        List<Inscricao> inscricaoLista = inscricaoRepositorio.findAll();
         return preInscricaoMapper.toDto(inscricaoLista);
     }
 
     public PreInscricaoDTO obterPreInscricaoPorId(Integer id) {
-        Inscricao inscricao = inscricaoRepository.findById(id).get();
+        Inscricao inscricao = inscricaoRepositorio.findById(id).get();
         return preInscricaoMapper.toDto(inscricao);
     }
 
     public void deletar(Integer id) {
-        inscricaoRepository.deleteById(id);
+        inscricaoRepositorio.deleteById(id);
     }
 
     public PreInscricaoDTO atualizar(PreInscricaoDTO preInscricaoDTO) {
         Inscricao inscricaoAtualizado = preInscricaoMapper.toEntity(preInscricaoDTO);
-        inscricaoRepository.save(inscricaoAtualizado);
+        inscricaoRepositorio.save(inscricaoAtualizado);
         return preInscricaoMapper.toDto(inscricaoAtualizado);
     }
 
     public PreInscricaoDTO salvar(PreInscricaoDTO preInscricaoDTO) {
-        Inscricao inscricao = inscricaoRepository.findById(preInscricaoDTO.getId()).get();
+        Inscricao inscricao = inscricaoRepositorio.findById(preInscricaoDTO.getId()).get();
         if (inscricao != null) {
             throw new RegraNegocioException("Usuario já existente!");
         }
-        inscricaoRepository.save(inscricao);
+        inscricaoRepositorio.save(inscricao);
         return preInscricaoMapper.toDto(inscricao);
     }
 }
