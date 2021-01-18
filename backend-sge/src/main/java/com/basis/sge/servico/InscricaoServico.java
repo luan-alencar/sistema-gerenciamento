@@ -1,7 +1,12 @@
 package com.basis.sge.servico;
 
+<<<<<<< HEAD:backend-sge/src/main/java/com/basis/sge/servico/InscricaoServico.java
 import com.basis.sge.dominio.Inscricao;
 import com.basis.sge.repositorio.PreInscricaoRepository;
+=======
+import com.basis.sge.dominio.PreInscricao;
+import com.basis.sge.repositorio.PreInscricaoRepositorio;
+>>>>>>> sprint-luan:backend-sge/src/main/java/com/basis/sge/servico/PreInscricaoServico.java
 import com.basis.sge.servico.dto.PreInscricaoDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.PreInscricaoMapper;
@@ -16,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PreInscricaoServico {
 
-    private final PreInscricaoRepository preInscricaoRepository;
+    private final PreInscricaoRepositorio preInscricaoRepository;
     private final PreInscricaoMapper preInscricaoMapper;
 
     // buscar todos
