@@ -6,12 +6,14 @@ import com.basis.sge.dominio.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.awt.*;
 import java.io.Serializable;
 
 
 @Getter
 @Setter
 public class PreInscricaoDTO implements Serializable {
+
 
     private static final long serialVersionUID = 1L;
 
@@ -22,4 +24,5 @@ public class PreInscricaoDTO implements Serializable {
     private Evento idEvento;
 
     private TipoSituacao idTipoSituacao;
+
 }
