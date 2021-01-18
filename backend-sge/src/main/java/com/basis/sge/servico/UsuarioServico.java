@@ -27,7 +27,11 @@ public class UsuarioServico {
     }
 
     public Usuario buscar(Integer id) {
-        return getUsuarioId(id); // método extraido
+        Optional<Usuario> usuarioDTORetorno = usuarioRepositorio.findById(id);
+        if (usuarioDTORetorno.isPresent()) {
+            return usuarioDTORetorno.get();
+        }
+        throw new RegraNegocioException("Usuario não existe!");
     }
 
     public void deletar(Integer id) {
@@ -37,7 +41,7 @@ public class UsuarioServico {
     // atualizar dados
     public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
         if (!usuarioRepositorio.existsById(usuarioDTO.getId())) {
-            throw new RegraNegocioException("Usuario não existe!s");
+            throw new RegraNegocioException("Usuario não existe!");
         }
         Usuario newUser = buscar(usuarioDTO.getId());
         updateData(newUser, usuarioDTO);
@@ -60,14 +64,5 @@ public class UsuarioServico {
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
-    }
-
-    @NotNull
-    private Usuario getUsuarioId(Integer id) throws RegraNegocioException {
-        Optional<Usuario> usuarioDTORetorno = usuarioRepositorio.findById(id);
-        if (usuarioDTORetorno.isPresent()) {
-            return usuarioDTORetorno.get();
-        }
-        throw new RegraNegocioException("Usuario não existe!");
     }
 }
