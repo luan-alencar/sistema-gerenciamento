@@ -17,6 +17,7 @@ import java.util.List;
 public class UsuarioResource {
 
     private final UsuarioServico usuarioService;
+    private final UsuarioRepositorio usuarioRepositorio;
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
@@ -40,8 +41,13 @@ public class UsuarioResource {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
-    public ResponseEntity<?> atualizar(@RequestBody UsuarioDTO usuarioDTO) {
-        return ResponseEntity.ok(usuarioService.atualizar(usuarioDTO));
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizar(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
+        if (!usuarioRepositorio.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        usuarioDTO.setId(id);
+        usuarioDTO = usuarioService.salvar(usuarioDTO);
+        return ResponseEntity.ok(usuarioDTO);
     }
 }
