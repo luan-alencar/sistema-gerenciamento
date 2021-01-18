@@ -23,5 +23,4 @@ public class IdEventoPergunta implements Serializable {
 
     @Column(name = "id_pergunta")
     private Integer idPergunta;
-
 }

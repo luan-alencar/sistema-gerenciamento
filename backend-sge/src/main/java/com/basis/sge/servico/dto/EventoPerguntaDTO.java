@@ -2,7 +2,9 @@ package com.basis.sge.servico.dto;
 
 import com.basis.sge.dominio.IdEventoPergunta;
 
-public class EventoPerguntaDTO {
+import java.io.Serializable;
+
+public class EventoPerguntaDTO implements Serializable {
 
     private IdEventoPergunta id;
 }
