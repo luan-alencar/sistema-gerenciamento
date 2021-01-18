@@ -2,12 +2,12 @@ package com.basis.sge.servico.mapper;
 
 
 <<<<<<< HEAD:backend-sge/src/main/java/com/basis/sge/servico/mapper/InscricaoMapper.java
-import com.basis.sge.dominio.PreInscricao;
+import com.basis.sge.dominio.Inscricao;
 import com.basis.sge.servico.dto.InscricaoDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {})
-public interface InscricaoMapper extends EntityMapper<InscricaoDTO, PreInscricao> {
+public interface InscricaoMapper extends EntityMapper<InscricaoDTO, Inscricao> {
 =======
 import com.basis.sge.dominio.Inscricao;
 import com.basis.sge.servico.dto.PreInscricaoDTO;
