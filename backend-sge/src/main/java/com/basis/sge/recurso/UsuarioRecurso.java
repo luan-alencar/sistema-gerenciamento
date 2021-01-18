@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(value = "/api/usuarios", produces = "application/json")
 @RestController
 @RequiredArgsConstructor
-public class UsuarioResource {
+public class UsuarioRecurso {
 
     private final UsuarioServico usuarioService;
     private final UsuarioRepositorio usuarioRepositorio;
@@ -26,7 +26,7 @@ public class UsuarioResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarUm(@PathVariable Integer id) {
-        return ResponseEntity.ok(usuarioService.buscar(id));
+        return ResponseEntity.ok(usuarioService.obterUsuarioPorId(id));
     }
 
     @PostMapping
@@ -37,18 +37,18 @@ public class UsuarioResource {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletar(@PathVariable("id") Integer id) {
-        usuarioService.deletar(id);
+        usuarioService.remover(id);
         return ResponseEntity.ok().build();
     }
 
-    // atualizar db
+    // editar db
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
         if (!usuarioRepositorio.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         usuarioDTO.setId(id);
-        usuarioDTO = usuarioService.atualizar(usuarioDTO);
+        usuarioDTO = usuarioService.editar(usuarioDTO);
         return ResponseEntity.ok(usuarioDTO);
     }
 }
