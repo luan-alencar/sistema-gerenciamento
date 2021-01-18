@@ -14,11 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TipoEventoServico {
 
-
     private final TipoEventoRepositorio tipoEventoRepositorio;
     private final TipoEventoMapper tipoEventoMapper;
 
-    @RequestMapping(name = "/api/tiposeventos")
     public List<TipoEventoDTO> listar() {
         List<TipoEvento> tipoEventoList = tipoEventoRepositorio.findAll();
         return tipoEventoMapper.toDto(tipoEventoList);

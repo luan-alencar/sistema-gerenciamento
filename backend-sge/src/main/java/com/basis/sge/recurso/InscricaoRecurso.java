@@ -42,5 +42,4 @@ public class InscricaoRecurso {
         inscricaoServico.deletar(id);
         return ResponseEntity.ok().build();
     }
-
 }

@@ -16,10 +16,8 @@ import java.io.Serializable;
 public class InscricaoResposta implements Serializable {
     private static final long serialVersionUID = 1L;
 
-//    private PreInscricao id_pre_inscricao;
-
     @EmbeddedId
-    private IdPreInscricaoResposta idPreInscricaoResposta;
+    private IdInscricaoResposta idInscricaoResposta;
 
     @Column(name = "resposta")
     private String resposta;
