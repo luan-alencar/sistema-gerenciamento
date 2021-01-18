@@ -1,6 +1,5 @@
 package com.basis.sge.servico.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +16,6 @@ public class UsuarioDTO implements Serializable {
     private String cpf;
     private String email;
     private String telefone;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
     private String chave;
 }

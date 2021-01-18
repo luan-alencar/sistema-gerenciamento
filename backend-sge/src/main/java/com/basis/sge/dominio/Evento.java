@@ -54,8 +54,10 @@ public class Evento implements Serializable {
     @Column(name = "data_fim")
     private LocalDateTime dataFim;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "id_tipo_evento")
     private List<TipoEvento> idTipoEvento;
 
+    @ManyToMany
+    private List<Pergunta> perguntas;
 }
