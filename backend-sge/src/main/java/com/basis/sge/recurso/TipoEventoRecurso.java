@@ -15,5 +15,6 @@ public class TipoEventoRecurso {
 
     public ResponseEntity<?> listar(){
         tipoEventoServico.listar();
+        return ResponseEntity.ok().build();
     }
 }
