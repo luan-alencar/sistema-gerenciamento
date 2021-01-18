@@ -9,7 +9,6 @@
         <createTable tableName="usuario">
 
             <column name="id" type="NUMBER">
-                <constraints nullable="false"/>
             </column>
 
             <column name="nome" type="VARCHAR(50)">
@@ -32,7 +31,6 @@
             </column>
 
             <column name="chave" type="VARCHAR(255)">
-                <constraints nullable="false"/>
             </column>
 
         </createTable>

@@ -5,24 +5,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "tipo_evento")
+@Embeddable
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TipoEvento implements Serializable {
+public class IdEventoPergunta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id_evento")
+    private Integer idEvento;
 
-    @Column(name = "descricao")
-    private String descricao;
+    @Column(name = "id_pergunta")
+    private Integer idPergunta;
 
 }
