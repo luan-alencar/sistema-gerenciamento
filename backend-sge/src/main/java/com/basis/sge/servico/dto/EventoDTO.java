@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,9 +27,9 @@ public class EventoDTO implements Serializable {
 
     private Double valor;
 
-    private Date dataInicio;
+    private LocalDateTime dataInicio;
 
-    private Date dataFim;
+    private LocalDateTime dataFim;
 
     private List<TipoEvento> idTipoEvento;
 
