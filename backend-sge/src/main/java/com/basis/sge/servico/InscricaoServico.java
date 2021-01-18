@@ -1,7 +1,6 @@
 package com.basis.sge.servico;
 
-import com.basis.sge.dominio.PreInscricao;
-import com.basis.sge.dominio.Usuario;
+import com.basis.sge.dominio.Inscricao;
 import com.basis.sge.repositorio.PreInscricaoRepository;
 import com.basis.sge.servico.dto.PreInscricaoDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
@@ -22,13 +21,13 @@ public class PreInscricaoServico {
 
     // buscar todos
     public List<PreInscricaoDTO> listar() {
-        List<PreInscricao> preInscricaoLista = preInscricaoRepository.findAll();
-        return preInscricaoMapper.toDto(preInscricaoLista);
+        List<Inscricao> inscricaoLista = preInscricaoRepository.findAll();
+        return preInscricaoMapper.toDto(inscricaoLista);
     }
 
     public PreInscricaoDTO obterPreInscricaoPorId(Integer id) {
-        PreInscricao preInscricao = preInscricaoRepository.findById(id).get();
-        return preInscricaoMapper.toDto(preInscricao);
+        Inscricao inscricao = preInscricaoRepository.findById(id).get();
+        return preInscricaoMapper.toDto(inscricao);
     }
 
     public void deletar(Integer id) {
@@ -36,17 +35,17 @@ public class PreInscricaoServico {
     }
 
     public PreInscricaoDTO atualizar(PreInscricaoDTO preInscricaoDTO) {
-        PreInscricao preInscricaoAtualizado = preInscricaoMapper.toEntity(preInscricaoDTO);
-        preInscricaoRepository.save(preInscricaoAtualizado);
-        return preInscricaoMapper.toDto(preInscricaoAtualizado);
+        Inscricao inscricaoAtualizado = preInscricaoMapper.toEntity(preInscricaoDTO);
+        preInscricaoRepository.save(inscricaoAtualizado);
+        return preInscricaoMapper.toDto(inscricaoAtualizado);
     }
 
     public PreInscricaoDTO salvar(PreInscricaoDTO preInscricaoDTO) {
-        PreInscricao preInscricao = preInscricaoRepository.findById(preInscricaoDTO.getId()).get();
-        if (preInscricao != null) {
+        Inscricao inscricao = preInscricaoRepository.findById(preInscricaoDTO.getId()).get();
+        if (inscricao != null) {
             throw new RegraNegocioException("Usuario já existente!");
         }
-        preInscricaoRepository.save(preInscricao);
-        return preInscricaoMapper.toDto(preInscricao);
+        preInscricaoRepository.save(inscricao);
+        return preInscricaoMapper.toDto(inscricao);
     }
 }
