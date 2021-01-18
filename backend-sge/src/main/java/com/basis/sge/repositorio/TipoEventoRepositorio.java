@@ -1,11 +1,11 @@
 package com.basis.sge.repositorio;
 
-import com.basis.sge.dominio.Pergunta;
-import com.basis.sge.dominio.Usuario;
+import com.basis.sge.dominio.TipoEvento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PerguntaRepositorio extends JpaRepository<Pergunta, Integer> {
+public interface TipoEventoRepositorio extends JpaRepository<TipoEvento, Integer> {
+
 
 }

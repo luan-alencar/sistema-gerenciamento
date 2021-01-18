@@ -34,5 +34,4 @@ public class EmailServico {
             throw new RuntimeException( ERROR_TITLE);
         }
     }
-
 }
