@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "pre_inscricao")
 @Setter
 @Getter
-public class PreInscricao implements Serializable {
+public class Inscricao implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
