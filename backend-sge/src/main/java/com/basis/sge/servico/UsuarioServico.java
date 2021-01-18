@@ -6,7 +6,6 @@ import com.basis.sge.servico.dto.UsuarioDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,9 +39,6 @@ public class UsuarioServico {
 
     // atualizar dados
     public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
-        if (!usuarioRepositorio.existsById(usuarioDTO.getId())) {
-            throw new RegraNegocioException("Usuario não existe!");
-        }
         Usuario newUser = buscar(usuarioDTO.getId());
         updateData(newUser, usuarioDTO);
         usuarioRepositorio.save(newUser);
@@ -58,10 +54,8 @@ public class UsuarioServico {
 
     @Transactional(readOnly = false)
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
-        if (usuarioRepositorio.existsById(usuarioDTO.getId())) {
-            throw new RegraNegocioException("Usuario não existe!s");
-        }
-        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        Usuario usuario = buscar(usuarioDTO.getId());
+        usuarioMapper.toEntity(usuarioDTO);
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
