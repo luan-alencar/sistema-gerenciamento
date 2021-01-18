@@ -1,15 +1,10 @@
 package com.basis.sge.servico;
 
-<<<<<<< HEAD:backend-sge/src/main/java/com/basis/sge/servico/InscricaoServico.java
 import com.basis.sge.dominio.Inscricao;
-import com.basis.sge.repositorio.PreInscricaoRepository;
-=======
-import com.basis.sge.dominio.PreInscricao;
-import com.basis.sge.repositorio.PreInscricaoRepositorio;
->>>>>>> sprint-luan:backend-sge/src/main/java/com/basis/sge/servico/PreInscricaoServico.java
-import com.basis.sge.servico.dto.PreInscricaoDTO;
+import com.basis.sge.repositorio.InscricaoRepositorio;
+import com.basis.sge.servico.dto.InscricaoDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
-import com.basis.sge.servico.mapper.PreInscricaoMapper;
+import com.basis.sge.servico.mapper.InscricaoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,38 +14,38 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PreInscricaoServico {
+public class InscricaoServico {
 
-    private final PreInscricaoRepositorio preInscricaoRepository;
-    private final PreInscricaoMapper preInscricaoMapper;
+    private final InscricaoRepositorio inscricaoRepositorio;
+    private final InscricaoMapper preInscricaoMapper;
 
     // buscar todos
-    public List<PreInscricaoDTO> listar() {
-        List<Inscricao> inscricaoLista = preInscricaoRepository.findAll();
+    public List<InscricaoDTO> listar() {
+        List<Inscricao> inscricaoLista = inscricaoRepositorio.findAll();
         return preInscricaoMapper.toDto(inscricaoLista);
     }
 
-    public PreInscricaoDTO obterPreInscricaoPorId(Integer id) {
-        Inscricao inscricao = preInscricaoRepository.findById(id).get();
+    public InscricaoDTO obterPreInscricaoPorId(Integer id) {
+        Inscricao inscricao = inscricaoRepositorio.findById(id).get();
         return preInscricaoMapper.toDto(inscricao);
     }
 
     public void deletar(Integer id) {
-        preInscricaoRepository.deleteById(id);
+        inscricaoRepositorio.deleteById(id);
     }
 
-    public PreInscricaoDTO atualizar(PreInscricaoDTO preInscricaoDTO) {
+    public InscricaoDTO atualizar(InscricaoDTO preInscricaoDTO) {
         Inscricao inscricaoAtualizado = preInscricaoMapper.toEntity(preInscricaoDTO);
-        preInscricaoRepository.save(inscricaoAtualizado);
+        inscricaoRepositorio.save(inscricaoAtualizado);
         return preInscricaoMapper.toDto(inscricaoAtualizado);
     }
 
-    public PreInscricaoDTO salvar(PreInscricaoDTO preInscricaoDTO) {
-        Inscricao inscricao = preInscricaoRepository.findById(preInscricaoDTO.getId()).get();
+    public InscricaoDTO salvar(InscricaoDTO preInscricaoDTO) {
+        Inscricao inscricao = inscricaoRepositorio.findById(preInscricaoDTO.getId()).get();
         if (inscricao != null) {
             throw new RegraNegocioException("Usuario já existente!");
         }
-        preInscricaoRepository.save(inscricao);
+        inscricaoRepositorio.save(inscricao);
         return preInscricaoMapper.toDto(inscricao);
     }
 }

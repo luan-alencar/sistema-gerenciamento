@@ -10,13 +10,13 @@ import java.io.Serializable;
 @Table(name = "pre_inscricao")
 @Setter
 @Getter
-public class PreInscricao implements Serializable {
+public class Inscricao implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_pre_inscricao")
-    @SequenceGenerator(name = "sequence_pre_inscricao", initialValue = 1, allocationSize = 1, sequenceName = "sq_pre_inscricao")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_inscricao")
+    @SequenceGenerator(name = "sequence_inscricao", initialValue = 1, allocationSize = 1, sequenceName = "sq_inscricao")
     private Integer id;
 
     @ManyToOne

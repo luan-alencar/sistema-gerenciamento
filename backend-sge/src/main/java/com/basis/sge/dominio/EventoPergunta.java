@@ -22,5 +22,4 @@ public class EventoPergunta implements Serializable {
 
     @EmbeddedId
     private IdEventoPergunta id;
-
 }

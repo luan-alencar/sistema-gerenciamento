@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class PreInscricaoDTO implements Serializable {
+public class InscricaoDTO implements Serializable {
 
     private Integer id;
 
