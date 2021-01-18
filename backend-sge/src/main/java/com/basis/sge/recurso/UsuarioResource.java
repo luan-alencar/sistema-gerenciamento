@@ -41,13 +41,14 @@ public class UsuarioResource {
         return ResponseEntity.ok().build();
     }
 
+    // atualizar db
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
         if (!usuarioRepositorio.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         usuarioDTO.setId(id);
-        usuarioDTO = usuarioService.salvar(usuarioDTO);
+        usuarioDTO = usuarioService.atualizar(usuarioDTO);
         return ResponseEntity.ok(usuarioDTO);
     }
 }
