@@ -1,5 +1,8 @@
 package com.basis.sge.servico.dto;
 
+import com.basis.sge.dominio.Evento;
+import com.basis.sge.dominio.TipoSituacao;
+import com.basis.sge.dominio.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +17,9 @@ public class PreInscricaoDTO implements Serializable {
 
     private Integer id;
 
-    private Integer idUsuario;
+    private Usuario idUsuario;
 
-    private Integer idEvento;
+    private Evento idEvento;
 
-    private Integer idTipoSituacao;
-
+    private TipoSituacao idTipoSituacao;
 }

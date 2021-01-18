@@ -22,8 +22,8 @@ public class Evento implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_evento")
-    @SequenceGenerator(name = "sq_evento", sequenceName = "sq_evento", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_evento")
+    @SequenceGenerator(name = "sequence_evento", sequenceName = "sq_evento", initialValue = 1, allocationSize = 1)
     private Integer id;
 
     @Column(name = "local")
@@ -36,7 +36,7 @@ public class Evento implements Serializable {
     private String descricao;
 
     @Column(name = "qtd_vagas")
-    private Integer qtdVagas;
+    private Integer quantidadeDeVagas;
 
     @Column(name = "valor")
     private Double valor;
