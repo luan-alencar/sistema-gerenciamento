@@ -1,7 +1,7 @@
 package com.basis.sge.recurso;
 
 import com.basis.sge.servico.InscricaoServico;
-import com.basis.sge.servico.dto.PreInscricaoDTO;
+import com.basis.sge.servico.dto.InscricaoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,23 +17,23 @@ public class InscricaoRecurso {
     private final InscricaoServico inscricaoServico;
 
     @GetMapping
-    public ResponseEntity<List<PreInscricaoDTO>> listar() {
+    public ResponseEntity<List<InscricaoDTO>> listar() {
         return ResponseEntity.ok(inscricaoServico.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PreInscricaoDTO> obterPreInscricaoPorId(@PathVariable Integer id) {
+    public ResponseEntity<InscricaoDTO> obterPreInscricaoPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(inscricaoServico.obterPreInscricaoPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<PreInscricaoDTO> salvar(@RequestBody PreInscricaoDTO preInscricaoDTO) {
+    public ResponseEntity<InscricaoDTO> salvar(@RequestBody InscricaoDTO preInscricaoDTO) {
         inscricaoServico.salvar(preInscricaoDTO);
         return ResponseEntity.created(URI.create("/inscricao" + preInscricaoDTO.getId())).build();
     }
 
     @PutMapping
-    public ResponseEntity<PreInscricaoDTO> editar(@RequestBody PreInscricaoDTO preincricaoDTO) {
+    public ResponseEntity<InscricaoDTO> editar(@RequestBody InscricaoDTO preincricaoDTO) {
         return ResponseEntity.ok(inscricaoServico.atualizar(preincricaoDTO));
     }
 
