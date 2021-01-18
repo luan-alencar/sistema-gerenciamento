@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class IdPreInscricaoResposta  implements Serializable {
+public class IdInscricaoResposta implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Inscricao idInscricao;

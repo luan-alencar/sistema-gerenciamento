@@ -1,7 +1,7 @@
 package com.basis.sge.recurso;
 
-import com.basis.sge.servico.PreInscricaoServico;
-import com.basis.sge.servico.dto.PreInscricaoDTO;
+import com.basis.sge.servico.InscricaoServico;
+import com.basis.sge.servico.dto.InscricaoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,34 +12,34 @@ import java.util.List;
 @RestController
 @RequestMapping("api/inscricoes")
 @RequiredArgsConstructor
-public class PreInscricaoRecurso {
+public class InscricaoRecurso {
 
-    private final PreInscricaoServico preInscricaoServico;
+    private final InscricaoServico inscricaoServico;
 
     @GetMapping
-    public ResponseEntity<List<PreInscricaoDTO>> listar() {
-        return ResponseEntity.ok(preInscricaoServico.listar());
+    public ResponseEntity<List<InscricaoDTO>> listar() {
+        return ResponseEntity.ok(inscricaoServico.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PreInscricaoDTO> obterPreInscricaoPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(preInscricaoServico.obterPreInscricaoPorId(id));
+    public ResponseEntity<InscricaoDTO> obterInscricaoPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok(inscricaoServico.obterPreInscricaoPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<PreInscricaoDTO> salvar(@RequestBody PreInscricaoDTO preInscricaoDTO) {
-        preInscricaoServico.salvar(preInscricaoDTO);
-        return ResponseEntity.created(URI.create("/inscricao" + preInscricaoDTO.getId())).build();
+    public ResponseEntity<InscricaoDTO> salvar(@RequestBody InscricaoDTO inscricaoDTO) {
+        inscricaoServico.salvar(inscricaoDTO);
+        return ResponseEntity.created(URI.create("/inscricao" + inscricaoDTO.getId())).build();
     }
 
     @PutMapping
-    public ResponseEntity<PreInscricaoDTO> editar(@RequestBody PreInscricaoDTO preincricaoDTO) {
-        return ResponseEntity.ok(preInscricaoServico.atualizar(preincricaoDTO));
+    public ResponseEntity<InscricaoDTO> editar(@RequestBody InscricaoDTO preincricaoDTO) {
+        return ResponseEntity.ok(inscricaoServico.atualizar(preincricaoDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id) {
-        preInscricaoServico.deletar(id);
+        inscricaoServico.deletar(id);
         return ResponseEntity.ok().build();
     }
 

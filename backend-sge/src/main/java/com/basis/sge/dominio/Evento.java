@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,8 +21,9 @@ public class Evento implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_evento")
-    @SequenceGenerator(name = "sequence_evento", sequenceName = "sq_evento", initialValue = 1, allocationSize = 1)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_evento")
+    @SequenceGenerator(name = "sq_evento", sequenceName = "sq_evento", allocationSize = 1)
     private Integer id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -40,7 +40,7 @@ public class Evento implements Serializable {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column(name = "qtd_vagas")
-    private Integer quantidadeDeVagas;
+    private Integer qtdVagas;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column(name = "valor")
@@ -54,8 +54,14 @@ public class Evento implements Serializable {
     @Column(name = "data_fim")
     private LocalDateTime dataFim;
 
-    @OneToMany
+    @Column(name = "tipo_inscricao")
+    private Boolean tipoInscricao;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_tipo_evento")
-    private List<TipoEvento> idTipoEvento;
+    private TipoEvento tipoEvento;
+
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = EventoPergunta.class, mappedBy = "evento")
+    private List<Pergunta> perguntas;
 
 }
