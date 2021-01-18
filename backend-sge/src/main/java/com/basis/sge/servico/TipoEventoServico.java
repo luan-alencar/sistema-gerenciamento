@@ -20,9 +20,4 @@ public class TipoEventoServico {
         List<TipoEvento> tipoEventoList = tipoEventoRepositorio.findAll();
         return tipoEventoMapper.toDto(tipoEventoList);
     }
-
-    public TipoEventoDTO buscar(Integer id) {
-        TipoEvento tipoEvento = tipoEventoRepositorio.findById(id).get();
-        return tipoEventoMapper.toDto(tipoEvento);
-    }
 }

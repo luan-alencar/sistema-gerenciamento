@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "inscricao")
@@ -15,19 +16,23 @@ public class Inscricao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_inscricao")
-    @SequenceGenerator(name = "sequence_inscricao", initialValue = 1, allocationSize = 1, sequenceName = "sq_inscricao")
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_inscricao")
+    @SequenceGenerator(name = "sq_inscricao", allocationSize = 1, sequenceName = "sq_inscricao")
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
     private Usuario idUsuario;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_evento")
     private Evento idEvento;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_situacao")
     private TipoSituacao idTipoSituacao;
+
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = InscricaoResposta.class, mappedBy = "inscricao")
+    private List<EventoPergunta> respostas;
 }

@@ -1,6 +1,5 @@
 package com.basis.sge.dominio;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -47,10 +45,10 @@ public class Evento implements Serializable {
     @Column(name = "data_fim")
     private LocalDateTime dataFim;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_evento")
-    private List<TipoEvento> idTipoEvento;
+    private TipoEvento tipoEvento;
 
-    @ManyToMany
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true,targetEntity = EventoPergunta.class, mappedBy = "evento")
     private List<Pergunta> perguntas;
 }

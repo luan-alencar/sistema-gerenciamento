@@ -4,6 +4,7 @@ import com.basis.sge.dominio.TipoEvento;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -12,8 +13,6 @@ import java.util.List;
 @Getter
 @Setter
 public class EventoDTO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     private Integer id;
 
@@ -31,6 +30,6 @@ public class EventoDTO implements Serializable {
 
     private LocalDateTime dataFim;
 
-    private List<Integer> idTipoEvento;
+    private Integer tipoEvento;
 
 }

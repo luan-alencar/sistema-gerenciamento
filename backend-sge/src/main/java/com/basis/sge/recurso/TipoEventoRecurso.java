@@ -20,10 +20,4 @@ public class TipoEventoRecurso {
         tipoEventoServico.listar();
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> buscar(@PathVariable Integer id){
-        tipoEventoServico.buscar(id);
-        return ResponseEntity.ok().build();
-    }
 }
