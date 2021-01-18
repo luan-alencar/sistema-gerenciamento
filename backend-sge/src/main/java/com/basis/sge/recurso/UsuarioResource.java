@@ -17,7 +17,6 @@ import java.util.List;
 public class UsuarioResource {
 
     private final UsuarioServico usuarioService;
-    private final UsuarioRepositorio usuarioRepositorio;
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
@@ -36,7 +35,7 @@ public class UsuarioResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletar(@PathVariable Integer id) {
+    public ResponseEntity deletar(@PathVariable("id") Integer id) {
         usuarioService.deletar(id);
         return ResponseEntity.ok().build();
     }
