@@ -36,13 +36,19 @@ public class UsuarioResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletar(@PathVariable Integer id) {
+    public ResponseEntity deletar(@PathVariable("id") Integer id) {
         usuarioService.deletar(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
-    public ResponseEntity<?> atualizar(@RequestBody UsuarioDTO usuarioDTO) {
-        return ResponseEntity.ok(usuarioService.atualizar(usuarioDTO));
+    // atualizar db
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizar(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
+        if (!usuarioRepositorio.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        usuarioDTO.setId(id);
+        usuarioDTO = usuarioService.atualizar(usuarioDTO);
+        return ResponseEntity.ok(usuarioDTO);
     }
 }

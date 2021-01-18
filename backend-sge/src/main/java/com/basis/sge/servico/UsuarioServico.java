@@ -6,7 +6,6 @@ import com.basis.sge.servico.dto.UsuarioDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +27,7 @@ public class UsuarioServico {
 
     public Usuario buscar(Integer id) {
         Optional<Usuario> usuarioDTORetorno = usuarioRepositorio.findById(id);
-        if(usuarioDTORetorno.isPresent()){
+        if (usuarioDTORetorno.isPresent()) {
             return usuarioDTORetorno.get();
         }
         throw new RegraNegocioException("Usuario não existe!");
@@ -38,15 +37,25 @@ public class UsuarioServico {
         usuarioRepositorio.deleteById(id);
     }
 
-    public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) {
-        Usuario usuarioAtualizado = Optional.of(usuarioMapper.toEntity(usuarioDTO)).orElseThrow(() -> new RegraNegocioException("Usuario não existe!s"));
-        usuarioRepositorio.save(usuarioAtualizado);
-        return usuarioMapper.toDto(usuarioAtualizado);
+    // atualizar dados
+    public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
+        Usuario newUser = buscar(usuarioDTO.getId());
+        updateData(newUser, usuarioDTO);
+        usuarioRepositorio.save(newUser);
+        return usuarioMapper.toDto(newUser);
+    }
+
+    // vai no db e seta o nome, email e telefone ao novo obj
+    private void updateData(Usuario newUser, UsuarioDTO user) {
+        newUser.setNome(user.getNome());
+        newUser.setEmail(user.getNome());
+        newUser.setEmail(user.getTelefone());
     }
 
     @Transactional(readOnly = false)
-    public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
-        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+    public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
+        Usuario usuario = buscar(usuarioDTO.getId());
+        usuarioMapper.toEntity(usuarioDTO);
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
