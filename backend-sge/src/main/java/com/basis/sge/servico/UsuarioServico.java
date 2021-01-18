@@ -8,6 +8,7 @@ import com.basis.sge.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,25 +38,16 @@ public class UsuarioServico {
         usuarioRepositorio.deleteById(id);
     }
 
-    // atualizar dados
+    //   ATUALIZAR DADOS
     public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
-        Usuario newUser = buscar(usuarioDTO.getId());
-        updateData(newUser, usuarioDTO);
-        usuarioRepositorio.save(newUser);
-        return usuarioMapper.toDto(newUser);
-    }
-
-    // vai no db e seta o nome, email e telefone ao novo obj
-    private void updateData(Usuario newUser, UsuarioDTO user) {
-        newUser.setNome(user.getNome());
-        newUser.setEmail(user.getNome());
-        newUser.setEmail(user.getTelefone());
+        Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
+        usuarioRepositorio.save(usuarioAtualizado);
+        return usuarioMapper.toDto(usuarioAtualizado);
     }
 
     @Transactional(readOnly = false)
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
-        Usuario usuario = buscar(usuarioDTO.getId());
-        usuarioMapper.toEntity(usuarioDTO);
+        Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
