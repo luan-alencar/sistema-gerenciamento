@@ -3,6 +3,7 @@ package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Pergunta;
 import com.basis.sge.repositorio.PerguntaRepositorio;
+import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.PerguntaMapper;
 import com.basis.sge.servico.dto.PerguntaDTO;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -29,8 +31,10 @@ public class PerguntaServico {
 
     public PerguntaDTO buscarPerguntaId(Integer id){
 
-        Pergunta pergunta = perguntaRepositorio.findById(id).get();     //  get () só pode retornar um valor se o objeto empacotado
-        return perguntaMapper.toDto(pergunta);                    // não for nulo, caso contrário, ele lança uma exceção de nenhum elemento:
+        Pergunta pergunta = perguntaRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Pergunta não encontrada"));
+
+        return  perguntaMapper.toDto(pergunta);
 
     }
 
@@ -52,6 +56,9 @@ public class PerguntaServico {
     }
 
     public void deletar (Integer id){
+
+        perguntaRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Pergunta não encontrada"));
 
         perguntaRepositorio.deleteById(id);
 

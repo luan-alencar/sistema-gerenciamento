@@ -4,6 +4,7 @@ package com.basis.sge.recurso;
 import com.basis.sge.servico.PerguntaServico;
 import com.basis.sge.servico.dto.PerguntaDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +48,7 @@ public class PerguntaRecurso {
 
 
           perguntaServico.salvar(perguntaDTO);
-          return ResponseEntity.created(URI.create("/pergunta"+perguntaDTO.getId())).build();
+          return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/atualizar")
