@@ -31,6 +31,6 @@ public class EventoDTO implements Serializable {
 
     private LocalDateTime dataFim;
 
-    private List<TipoEvento> idTipoEvento;
+    private List<Integer> idTipoEvento;
 
 }

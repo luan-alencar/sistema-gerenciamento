@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "pre_inscricao")
+@Table(name = "inscricao")
 @Setter
 @Getter
 public class Inscricao implements Serializable {

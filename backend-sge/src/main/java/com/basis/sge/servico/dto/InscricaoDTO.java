@@ -15,9 +15,9 @@ public class InscricaoDTO implements Serializable {
 
     private Integer id;
 
-    private Usuario idUsuario;
+    private Integer idUsuario;
 
-    private Evento idEvento;
+    private Integer idEvento;
 
-    private TipoSituacao idTipoSituacao;
+    private Integer idTipoSituacao;
 }
