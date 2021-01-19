@@ -5,17 +5,15 @@ import com.basis.sge.servico.dto.EventoDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {EventoPerguntaMapper.class})
 public interface EventoMapper extends EntityMapper<EventoDTO, Evento> {
 
     @Override
-    @Mapping(source = "idTipoEvento", target = "tipoEvento.id")//notacao para mudar o comportamento do metodo
-    @Mapping(source = "perguntas", target = "perguntas.id")
+    @Mapping(source = "tipoEvento", target = "tipoEvento.id")//notacao para mudar o comportamento do metodo
     Evento toEntity(EventoDTO eventoDTO);
 
     @Override
-    @Mapping(source = "tipoEvento.id", target = "idTipoEvento")//notacao para mudar o comportamento do metodo
-    @Mapping(source = "perguntas.id", target = "perguntas")
+    @Mapping(source = "tipoEvento.id", target = "tipoEvento")//notacao para mudar o comportamento do metodo
     EventoDTO toDto(Evento evento);
 
 }

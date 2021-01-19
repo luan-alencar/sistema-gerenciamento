@@ -47,7 +47,7 @@ public class UsuarioRecurso {
             return ResponseEntity.notFound().build();
         }
         usuarioDTO.setId(id);
-        usuarioDTO = usuarioService.atualizar(usuarioDTO);
+        usuarioDTO = usuarioService.editar(usuarioDTO);
         return ResponseEntity.ok(usuarioDTO);
     }
 }
