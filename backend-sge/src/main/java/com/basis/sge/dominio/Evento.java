@@ -54,6 +54,6 @@ public class Evento implements Serializable {
     private TipoEvento tipoEvento;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = EventoPergunta.class, mappedBy = "evento")
-    private List<Pergunta> perguntas;
+    private List<EventoPergunta> perguntas;
 
 }
