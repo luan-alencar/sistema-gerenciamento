@@ -45,7 +45,6 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuarioAtualizado);
     }
 
-    @Transactional(readOnly = false)
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
         Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
         usuarioRepositorio.save(usuario);

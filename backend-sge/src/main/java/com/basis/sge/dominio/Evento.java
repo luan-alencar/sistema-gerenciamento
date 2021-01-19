@@ -50,6 +50,6 @@ public class Evento implements Serializable {
     @JoinColumn(name = "id_tipo_evento")
     private TipoEvento tipoEvento;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true,targetEntity = EventoPergunta.class, mappedBy = "evento")
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true,targetEntity = InscricaoResposta.class, mappedBy = "evento")
     private List<EventoPergunta> perguntas;
 }

@@ -13,13 +13,9 @@ import java.io.Serializable;
 public class IdInscricaoResposta implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
     private Inscricao idInscricao;
-    @ManyToOne
     private Evento idEvento;
-    @ManyToOne
     private Pergunta idPergunta;
-    @ManyToOne
     private TipoSituacao tipoSituacao;
-
+//    private String resposta;
 }

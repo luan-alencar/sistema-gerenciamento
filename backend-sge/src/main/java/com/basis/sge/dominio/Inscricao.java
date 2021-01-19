@@ -1,6 +1,5 @@
 package com.basis.sge.dominio;
 
-import com.basis.sge.servico.dto.EventoPerguntaDTO;
 import lombok.Getter;
 import lombok.Setter;
 

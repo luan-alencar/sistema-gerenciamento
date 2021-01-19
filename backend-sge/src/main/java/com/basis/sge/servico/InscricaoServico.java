@@ -17,35 +17,35 @@ import java.util.List;
 public class InscricaoServico {
 
     private final InscricaoRepositorio inscricaoRepositorio;
-    private final InscricaoMapper preInscricaoMapper;
+    private final InscricaoMapper inscricaoMapper;
 
     // buscar todos
     public List<InscricaoDTO> listar() {
         List<Inscricao> inscricaoLista = inscricaoRepositorio.findAll();
-        return preInscricaoMapper.toDto(inscricaoLista);
+        return inscricaoMapper.toDto(inscricaoLista);
     }
 
     public InscricaoDTO obterPreInscricaoPorId(Integer id) {
         Inscricao inscricao = inscricaoRepositorio.findById(id).get();
-        return preInscricaoMapper.toDto(inscricao);
+        return inscricaoMapper.toDto(inscricao);
     }
 
     public void deletar(Integer id) {
         inscricaoRepositorio.deleteById(id);
     }
 
-    public InscricaoDTO atualizar(InscricaoDTO preInscricaoDTO) {
-        Inscricao inscricaoAtualizado = preInscricaoMapper.toEntity(preInscricaoDTO);
+    public InscricaoDTO atualizar(InscricaoDTO inscricaoDTO) {
+        Inscricao inscricaoAtualizado = inscricaoMapper.toEntity(inscricaoDTO);
         inscricaoRepositorio.save(inscricaoAtualizado);
-        return preInscricaoMapper.toDto(inscricaoAtualizado);
+        return inscricaoMapper.toDto(inscricaoAtualizado);
     }
 
-    public InscricaoDTO salvar(InscricaoDTO preInscricaoDTO) {
-        Inscricao inscricao = inscricaoRepositorio.findById(preInscricaoDTO.getId()).get();
+    public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
+        Inscricao inscricao = inscricaoRepositorio.findById(inscricaoDTO.getId()).get();
         if (inscricao != null) {
             throw new RegraNegocioException("Usuario já existente!");
         }
         inscricaoRepositorio.save(inscricao);
-        return preInscricaoMapper.toDto(inscricao);
+        return inscricaoMapper.toDto(inscricao);
     }
 }
