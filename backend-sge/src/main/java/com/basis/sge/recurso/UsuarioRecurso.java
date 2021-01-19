@@ -4,10 +4,10 @@ import com.basis.sge.repositorio.UsuarioRepositorio;
 import com.basis.sge.servico.UsuarioServico;
 import com.basis.sge.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RequestMapping(value = "/api/usuarios", produces = "application/json")
@@ -31,7 +31,7 @@ public class UsuarioRecurso {
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.created(URI.create("/usuario"+usuarioDTO.getId())).build();
     }
 
     @DeleteMapping("/{id}")
@@ -47,7 +47,7 @@ public class UsuarioRecurso {
             return ResponseEntity.notFound().build();
         }
         usuarioDTO.setId(id);
-        usuarioDTO = usuarioService.atualizar(usuarioDTO);
+        usuarioDTO = usuarioService.editar(usuarioDTO);
         return ResponseEntity.ok(usuarioDTO);
     }
 }

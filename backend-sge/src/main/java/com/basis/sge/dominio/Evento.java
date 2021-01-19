@@ -49,11 +49,11 @@ public class Evento implements Serializable {
     @Column(name = "tipo_inscricao")
     private Boolean tipoInscricao;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_evento")
     private TipoEvento tipoEvento;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = EventoPergunta.class, mappedBy = "evento")
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "evento")
     private List<EventoPergunta> perguntas;
 
 

@@ -2,6 +2,7 @@ package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Usuario;
 import com.basis.sge.repositorio.UsuarioRepositorio;
+import com.basis.sge.servico.dto.EmailDTO;
 import com.basis.sge.servico.dto.UsuarioDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.UsuarioMapper;
@@ -20,6 +21,7 @@ public class UsuarioServico {
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
+    private final EmailServico emailServico;
 
     public List<UsuarioDTO> listar() {
         List<Usuario> usuarios = Optional.ofNullable(usuarioRepositorio.findAll()).orElseThrow(() -> new RegraNegocioException("Sistema sem usuarios cadastrados!"));
@@ -44,9 +46,16 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
-        Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuario.setChave(UUID.randomUUID().toString());
         usuarioRepositorio.save(usuario);
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Cadastro de usuário");
+        emailDTO.setCorpo("Você foi cadastrado com sucesso na plataforma de eventos, esta é sua chave de inscrição em eventos: <b>"+usuario.getChave()+"</b>");
+        emailDTO.setDestinatario(usuario.getEmail());
+        emailServico.sendMail(emailDTO);
+
         return usuarioMapper.toDto(usuario);
     }
 }

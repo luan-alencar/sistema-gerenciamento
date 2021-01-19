@@ -22,14 +22,8 @@ public class TipoEventoServico {
         return tipoEventoMapper.toDto(tipoEventoList);
     }
 
-    public TipoEventoDTO buscar(Integer id) {
+    public TipoEventoDTO obterTipoEventoPorId(Integer id) {
         TipoEvento tipoEvento = tipoEventoRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Id não encontrado!"));
-        return tipoEventoMapper.toDto(tipoEvento);
-    }
-
-    public TipoEventoDTO salvar(TipoEventoDTO tipoEventoDTO){
-        TipoEvento tipoEvento = tipoEventoMapper.toEntity(tipoEventoDTO);
-        tipoEventoRepositorio.save(tipoEvento);
         return tipoEventoMapper.toDto(tipoEvento);
     }
 

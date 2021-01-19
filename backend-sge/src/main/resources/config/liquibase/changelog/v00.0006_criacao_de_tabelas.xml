@@ -53,7 +53,6 @@
             </column>
         </createTable>
         <addPrimaryKey tableName="tipo_evento" columnNames="id" constraintName="pk_tipo_evento"/>
-        <createSequence sequenceName="sq_reserva" incrementBy="1" startValue="1"/>
     </changeSet>
 
     <changeSet id="3" author="italo.neves">
@@ -61,12 +60,6 @@
         <createTable tableName="evento">
 
             <column name="id" type="NUMBER ">
-
-                <constraints nullable="false"/>
-
-            </column>  <!-- Lembra de usar NUMBER e não INT-->
-
-            <column name="horario" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
 
@@ -79,11 +72,9 @@
             </column>
 
             <column name="qtd_vagas" type="NUMBER">
-                <constraints nullable="false"/>
             </column>
 
             <column name="valor" type="DOUBLE">
-                <constraints nullable="false"/>
             </column>
 
             <column name="data_inicio" type="TIMESTAMP">
@@ -93,6 +84,14 @@
             <column name="data_fim" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
+
+            <column name="local" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="tipo_inscricao" type="BOOLEAN">
+            </column>
+
             <column name="id_tipo_evento" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
@@ -217,6 +216,25 @@
         <addForeignKeyConstraint baseTableName="inscricao_resposta" baseColumnNames="id_evento, id_pergunta"
                                  constraintName="fk_evento_pergunta" referencedTableName="evento_pergunta"
                                  referencedColumnNames="id_evento, id_pergunta"/>
+    </changeSet>
+
+    <changeSet id="9" author="aline.cantalice">
+        <insert tableName="tipo_evento">
+            <column name="id" value="1"/>
+            <column name="descricao" value="Workshop"/>
+        </insert>
+        <insert tableName="tipo_evento">
+            <column name="id" value="2"/>
+            <column name="descricao" value="Palestra"/>
+        </insert>
+        <insert tableName="tipo_evento">
+            <column name="id" value="3"/>
+            <column name="descricao" value="Mini Curso"/>
+        </insert>
+        <insert tableName="tipo_evento">
+            <column name="id" value="4"/>
+            <column name="descricao" value="Treinamento"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>
