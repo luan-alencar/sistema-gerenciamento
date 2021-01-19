@@ -14,8 +14,6 @@ import java.io.Serializable;
 @Table(name = "evento_pergunta")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class EventoPergunta implements Serializable {
 
     private static final long serialVersionUID = 1L;

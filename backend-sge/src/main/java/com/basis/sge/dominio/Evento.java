@@ -1,5 +1,6 @@
 package com.basis.sge.dominio;
 
+import com.basis.sge.servico.dto.PerguntaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
