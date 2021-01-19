@@ -20,5 +20,4 @@ public class IdEventoPergunta implements Serializable {
     private Integer idEvento;
 
     private Integer idPergunta;
-
 }

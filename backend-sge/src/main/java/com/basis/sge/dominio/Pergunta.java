@@ -9,11 +9,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "pergunta")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "pergunta")
 public class Pergunta implements Serializable {
 
     private static final long serialVersionUID = 1L;
