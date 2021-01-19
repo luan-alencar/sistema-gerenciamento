@@ -9,7 +9,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class UsuarioDTO implements Serializable {
-    private static final long SerialVersionIUD = 1L;
 
     private Integer id;
 
@@ -24,4 +23,3 @@ public class UsuarioDTO implements Serializable {
     private LocalDate dataNascimento;
 
 }
-

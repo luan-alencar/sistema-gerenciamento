@@ -21,6 +21,4 @@ public class TipoSituacao implements Serializable {
 
     @Column(name = "descricao", columnDefinition = "VARCHAR(255)")
     private String descricao;
-
-
 }

@@ -1,8 +1,6 @@
 package com.basis.sge.dominio;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,9 +10,7 @@ import java.io.Serializable;
 @Table(name = "evento_pergunta")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class EventoPergunta implements Serializable {
+public class EventoPergunta implements Serializable { // é a chave estrangeira dessa tabela
 
     private static final long serialVersionUID = 1L;
 
