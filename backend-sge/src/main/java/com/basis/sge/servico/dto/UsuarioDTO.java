@@ -24,3 +24,4 @@ public class UsuarioDTO implements Serializable {
     private LocalDate dataNascimento;
 
 }
+

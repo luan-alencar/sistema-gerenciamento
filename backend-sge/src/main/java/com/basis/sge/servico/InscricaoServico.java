@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InscricaoServico {
 
+
     private final InscricaoRepositorio preInscricaoRepository;
     private final InscricaoMapper inscricaoMapper;
 

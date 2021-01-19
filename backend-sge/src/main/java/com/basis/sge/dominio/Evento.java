@@ -1,6 +1,5 @@
 package com.basis.sge.dominio;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,31 +25,24 @@ public class Evento implements Serializable {
     @SequenceGenerator(name = "sq_evento", sequenceName = "sq_evento", allocationSize = 1)
     private Integer id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column(name = "local")
     private String local;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column(name = "titulo")
     private String titulo;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column(name = "descricao")
     private String descricao;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column(name = "qtd_vagas")
     private Integer qtdVagas;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column(name = "valor")
     private Double valor;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "data_inicio")
     private LocalDateTime dataInicio;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "data_fim")
     private LocalDateTime dataFim;
 
