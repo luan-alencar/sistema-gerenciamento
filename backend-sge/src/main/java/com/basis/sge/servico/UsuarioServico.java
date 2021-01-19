@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -47,6 +48,7 @@ public class UsuarioServico {
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
         Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
+        usuario.setChave(UUID.randomUUID().toString());
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
