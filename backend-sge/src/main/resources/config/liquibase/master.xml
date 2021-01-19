@@ -6,11 +6,8 @@
 
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <include file="/config/liquibase/changelog/v00.0005_criacao_de_tabelas.xml"
+    <include file="/config/liquibase/changelog/v00.0006_criacao_de_tabelas.xml"
              relativeToChangelogFile="false"/>
-
-
-
 
 
 </databaseChangeLog>
