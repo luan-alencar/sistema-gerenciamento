@@ -3,6 +3,7 @@ package com.basis.sge.servico;
 import com.basis.sge.dominio.TipoEvento;
 import com.basis.sge.repositorio.TipoEventoRepositorio;
 import com.basis.sge.servico.dto.TipoEventoDTO;
+import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.TipoEventoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,4 +21,16 @@ public class TipoEventoServico {
         List<TipoEvento> tipoEventoList = tipoEventoRepositorio.findAll();
         return tipoEventoMapper.toDto(tipoEventoList);
     }
+
+    public TipoEventoDTO buscar(Integer id) {
+        TipoEvento tipoEvento = tipoEventoRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Id não encontrado!"));
+        return tipoEventoMapper.toDto(tipoEvento);
+    }
+
+    public TipoEventoDTO salvar(TipoEventoDTO tipoEventoDTO){
+        TipoEvento tipoEvento = tipoEventoMapper.toEntity(tipoEventoDTO);
+        tipoEventoRepositorio.save(tipoEvento);
+        return tipoEventoMapper.toDto(tipoEvento);
+    }
+
 }

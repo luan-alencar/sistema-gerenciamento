@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Setter
 @Table(name = "inscricao_resposta")
 public class InscricaoResposta implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
 
     @EmbeddedId
     private IdInscricaoResposta idInscricaoResposta;
@@ -21,7 +21,7 @@ public class InscricaoResposta implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_inscricao")
     private Inscricao inscricao;
-    
+
     @MapsId("idEvento")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_evento")

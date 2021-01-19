@@ -26,20 +26,18 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuarios);
     }
 
-    public Usuario buscar(Integer id) {
-        Optional<Usuario> usuarioDTORetorno = usuarioRepositorio.findById(id);
-        if (usuarioDTORetorno.isPresent()) {
-            return usuarioDTORetorno.get();
-        }
-        throw new RegraNegocioException("Usuario não existe!");
+    public UsuarioDTO obterUsuarioPorId(Integer id) {
+        Usuario usuarioDTORetorno = usuarioRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
+        return usuarioMapper.toDto(usuarioDTORetorno);
     }
 
-    public void deletar(Integer id) {
+    public void remover(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
 
     //   ATUALIZAR DADOS
-    public UsuarioDTO atualizar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
+    public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
         Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
         usuarioRepositorio.save(usuarioAtualizado);
         return usuarioMapper.toDto(usuarioAtualizado);

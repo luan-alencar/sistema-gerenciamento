@@ -11,9 +11,15 @@ import java.time.LocalDate;
 public class UsuarioDTO implements Serializable {
 
     private Integer id;
+
     private String nome;
+
     private String cpf;
+
     private String email;
+
     private String telefone;
+
     private LocalDate dataNascimento;
+
 }

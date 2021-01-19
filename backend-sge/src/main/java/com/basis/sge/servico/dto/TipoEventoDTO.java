@@ -9,5 +9,7 @@ import java.io.Serializable;
 public class TipoEventoDTO implements Serializable {
 
     private Integer id;
+
     private String descricao;
+
 }

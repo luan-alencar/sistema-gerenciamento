@@ -1,6 +1,5 @@
 package com.basis.sge.dominio;
 
-import com.basis.sge.servico.dto.PerguntaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +20,9 @@ public class Evento implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_evento")
-    @SequenceGenerator(name = "sequence_evento", sequenceName = "sq_evento", initialValue = 1, allocationSize = 1)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_evento")
+    @SequenceGenerator(name = "sq_evento", sequenceName = "sq_evento", allocationSize = 1)
     private Integer id;
 
     @Column(name = "local")
@@ -35,7 +35,7 @@ public class Evento implements Serializable {
     private String descricao;
 
     @Column(name = "qtd_vagas")
-    private Integer quantidadeDeVagas;
+    private Integer qtdVagas;
 
     @Column(name = "valor")
     private Double valor;
@@ -46,10 +46,15 @@ public class Evento implements Serializable {
     @Column(name = "data_fim")
     private LocalDateTime dataFim;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "tipo_inscricao")
+    private Boolean tipoInscricao;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_tipo_evento")
     private TipoEvento tipoEvento;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true,targetEntity = InscricaoResposta.class, mappedBy = "evento")
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = EventoPergunta.class, mappedBy = "evento")
     private List<EventoPergunta> perguntas;
+
+
 }

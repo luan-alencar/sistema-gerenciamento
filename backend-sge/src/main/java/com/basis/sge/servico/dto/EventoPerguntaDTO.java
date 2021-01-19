@@ -1,14 +1,8 @@
 package com.basis.sge.servico.dto;
 
-import com.basis.sge.dominio.IdEventoPergunta;
-import lombok.Getter;
-import lombok.Setter;
+public class EventoPerguntaDTO {
 
-import java.io.Serializable;
+    private Integer idEvento;
 
-@Getter
-@Setter
-public class EventoPerguntaDTO implements Serializable {
-
-    private IdEventoPergunta id;
+    private Integer idPergunta;
 }
