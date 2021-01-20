@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,7 +23,7 @@ public class UsuarioServico {
     private final EmailServico emailServico;
 
     public List<UsuarioDTO> listar() {
-        List<Usuario> usuarios = Optional.ofNullable(usuarioRepositorio.findAll()).orElseThrow(() -> new RegraNegocioException("Sistema sem usuarios cadastrados!"));
+        List<Usuario> usuarios = usuarioRepositorio.findAll();
         return usuarioMapper.toDto(usuarios);
     }
 
@@ -49,13 +48,15 @@ public class UsuarioServico {
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuario.setChave(UUID.randomUUID().toString());
         usuarioRepositorio.save(usuario);
+        enviarEmail(usuario);
+        return usuarioMapper.toDto(usuario);
+    }
 
+    public void enviarEmail(Usuario usuario){
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro de usuário");
         emailDTO.setCorpo("Você foi cadastrado com sucesso na plataforma de eventos, esta é sua chave de inscrição em eventos: <b>"+usuario.getChave()+"</b>");
         emailDTO.setDestinatario(usuario.getEmail());
         emailServico.sendMail(emailDTO);
-
-        return usuarioMapper.toDto(usuario);
     }
 }
