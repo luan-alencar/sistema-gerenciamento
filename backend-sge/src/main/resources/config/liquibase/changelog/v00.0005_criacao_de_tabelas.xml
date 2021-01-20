@@ -224,5 +224,18 @@
                                  referencedColumnNames="id_evento, id_pergunta"/>
     </changeSet>
 
+    <changeSet id="10" author="luan.augusto">
+        <insert tableName="tipo_situacao">
+            <column  name="id"  value="1"/>
+            <column  name="id"  value="2"/>
+            <column  name="id"  value="3"/>
+            <column  name="id"  value="4"/>
+            <column  name="descricao"  value="Aguardando Aprovação"/>
+            <column  name="descricao"  value="Aprovada"/>
+            <column  name="descricao"  value="Recusada"/>
+            <column  name="descricao"  value="Cancelada"/>
+        </insert>
+    </changeSet>
+
 
 </databaseChangeLog>
