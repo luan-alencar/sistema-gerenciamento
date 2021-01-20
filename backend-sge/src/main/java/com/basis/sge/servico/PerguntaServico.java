@@ -22,14 +22,14 @@ public class PerguntaServico {
     private final PerguntaMapper perguntaMapper;
 
 
-    public List<PerguntaDTO> listar(){
+    public List<PerguntaDTO> listar() {
 
         List<Pergunta> listaPergunta = perguntaRepositorio.findAll(); //Busca no repositório todas as perguntas
         return perguntaMapper.toDto(listaPergunta); //Passa as perguntas para o dto e envia para os recursos uma listaDto
 
     }
 
-    public PerguntaDTO buscarPerguntaId(Integer id){
+    public PerguntaDTO buscarPerguntaId(Integer id) {
 
         Pergunta pergunta = perguntaRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Pergunta não encontrada"));
@@ -38,7 +38,7 @@ public class PerguntaServico {
 
     }
 
-    public PerguntaDTO salvar (PerguntaDTO perguntaDTO){
+    public PerguntaDTO salvar(PerguntaDTO perguntaDTO) {
 
         Pergunta pergunta = perguntaMapper.toEntity(perguntaDTO);
         perguntaRepositorio.save(pergunta);
@@ -47,7 +47,8 @@ public class PerguntaServico {
 
 
     }
-    public  PerguntaDTO atualizar(PerguntaDTO perguntaDTO){
+
+    public PerguntaDTO atualizar(PerguntaDTO perguntaDTO) {
 
         Pergunta pergunta = perguntaMapper.toEntity(perguntaDTO);
         perguntaRepositorio.save(pergunta);
@@ -55,7 +56,7 @@ public class PerguntaServico {
 
     }
 
-    public void deletar (Integer id){
+    public void deletar(Integer id) {
 
         perguntaRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Pergunta não encontrada"));
@@ -64,10 +65,6 @@ public class PerguntaServico {
 
 
     }
-
-
-
-
 
 
 }

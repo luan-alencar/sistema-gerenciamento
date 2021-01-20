@@ -14,9 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "pre_inscricao")
+@Table(name = "inscricao")
 @Setter
 @Getter
 public class Inscricao implements Serializable {
@@ -28,18 +29,17 @@ public class Inscricao implements Serializable {
     @SequenceGenerator(name = "sq_pre_inscricao", allocationSize = 1, sequenceName = "sq_pre_inscricao")
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
     private Usuario idUsuario;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_evento")
     private Evento idEvento;
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_situação")
     private TipoSituacao idTipoSituacao;
-
 
 
 }

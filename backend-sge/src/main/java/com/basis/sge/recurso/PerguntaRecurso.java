@@ -30,14 +30,14 @@ public class PerguntaRecurso {
 
 
     @GetMapping
-    public ResponseEntity <List<PerguntaDTO>> listarPerguntas(){
+    public ResponseEntity <List<PerguntaDTO>> listar(){
 
         return ResponseEntity.ok(perguntaServico.listar()); //Recebe do serviço a lista dto e encaminha para quem chamou em json
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PerguntaDTO> buscarporId(@PathVariable Integer id){ //informação vem da rota
+    public ResponseEntity<PerguntaDTO> obterPerguntaporId(@PathVariable Integer id){ //informação vem da rota
 
        return  ResponseEntity.ok(perguntaServico.buscarPerguntaId(id));
 
@@ -51,14 +51,14 @@ public class PerguntaRecurso {
           return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/atualizar")
-    public ResponseEntity <PerguntaDTO> atualizar(@RequestBody PerguntaDTO perguntaDTO){
+    @PutMapping("/editar")
+    public ResponseEntity <PerguntaDTO> editar(@RequestBody PerguntaDTO perguntaDTO){
 
         return  ResponseEntity.ok(perguntaServico.atualizar(perguntaDTO));
 
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<PerguntaDTO> deletar(@PathVariable Integer id){
+    public ResponseEntity<PerguntaDTO> remover(@PathVariable Integer id){
 
         perguntaServico.deletar(id);
         return ResponseEntity.ok().build();

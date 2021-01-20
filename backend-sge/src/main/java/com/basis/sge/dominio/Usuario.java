@@ -23,6 +23,7 @@ public class Usuario implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_usuario")
     @SequenceGenerator(name = "sq_usuario", sequenceName = "sq_usuario", allocationSize = 1)
+
     private Integer id;
 
     @Column(name = "nome")
