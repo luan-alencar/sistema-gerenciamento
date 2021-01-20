@@ -2,8 +2,10 @@ package com.basis.sge.servico.mapper;
 
 import com.basis.sge.dominio.EventoPergunta;
 import com.basis.sge.servico.dto.EventoPerguntaDTO;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+@Mapper(componentModel = "spring", uses = {EventoPerguntaMapper.class})
 public interface EventoPerguntaMapper extends EntityMapper<EventoPerguntaDTO, EventoPergunta> {
 
     @Override
