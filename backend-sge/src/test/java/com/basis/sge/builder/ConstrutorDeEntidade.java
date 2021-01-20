@@ -1,8 +1,5 @@
 package com.basis.sge.builder;
 
-import com.basis.sge.dominio.Evento;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.text.ParseException;
 import java.util.Collection;
 
@@ -61,8 +58,6 @@ public abstract class ConstrutorDeEntidade<E> {
      */
     protected abstract E persistir(E entidade);
 
-    protected abstract Evento persistir(Evento evento);
-
     /**
      * Este método deve persistir e retornar a entidade recebida no parametro
      * <b>entidade</b>
@@ -78,7 +73,7 @@ public abstract class ConstrutorDeEntidade<E> {
      * @param id id
      * @return entidade persistida
      */
-    protected abstract E obterPorId(Integer id);
+    protected abstract E obterPorId(Long id);
 
     /**
      * Is customizado boolean.
