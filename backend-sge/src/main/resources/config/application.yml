@@ -2,6 +2,10 @@
 application:
     appName: sge
 
+    mail:
+        endereco-remetente: sapedteste@gmail.com
+        nome-remetente: basis
+
 spring:
     application:
         name: sgeservice
