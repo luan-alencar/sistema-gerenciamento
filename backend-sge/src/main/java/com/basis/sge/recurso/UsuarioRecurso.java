@@ -31,7 +31,7 @@ public class UsuarioRecurso {
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return  ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
