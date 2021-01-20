@@ -22,14 +22,14 @@ public class InscricaoRecurso {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InscricaoDTO> obterInscricaoPorId(@PathVariable Integer id) {
+    public ResponseEntity<InscricaoDTO> obterPreInscricaoPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(inscricaoServico.obterPreInscricaoPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<InscricaoDTO> salvar(@RequestBody InscricaoDTO inscricaoDTO) {
-        inscricaoServico.salvar(inscricaoDTO);
-        return ResponseEntity.created(URI.create("/inscricao" + inscricaoDTO.getId())).build();
+    public ResponseEntity<InscricaoDTO> salvar(@RequestBody InscricaoDTO preInscricaoDTO) {
+        inscricaoServico.salvar(preInscricaoDTO);
+        return ResponseEntity.created(URI.create("/inscricao" + preInscricaoDTO.getId())).build();
     }
 
     @PutMapping

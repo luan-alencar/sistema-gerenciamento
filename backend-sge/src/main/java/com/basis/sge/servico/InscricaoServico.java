@@ -20,24 +20,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InscricaoServico {
 
+
     private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
     private final InscricaoRepositorio inscricaoRepositorio;
     private final InscricaoMapper inscricaoMapper;
     private final UsuarioRepositorio usuarioRepositorio;
 
+
     // buscar todos
     public List<InscricaoDTO> listar() {
         List<Inscricao> inscricaoLista = inscricaoRepositorio.findAll();
+
         return inscricaoMapper.toDto(inscricaoLista);
+
     }
 
     public InscricaoDTO obterPreInscricaoPorId(Integer id) {
         Inscricao inscricao = inscricaoRepositorio.findById(id).get();
+
         return inscricaoMapper.toDto(inscricao);
+
     }
 
     public void deletar(Integer id) {
-        preInscricaoRepository.deleteById(id);
+        inscricaoRepositorio.deleteById(id);
     }
 
     public InscricaoDTO atualizar(InscricaoDTO inscricaoDTO) {
@@ -61,5 +67,6 @@ public class InscricaoServico {
         inscricaoRespostaRepositorio.saveAll(respostas);
 
         return inscricaoMapper.toDto(inscricao);
+
     }
 }
