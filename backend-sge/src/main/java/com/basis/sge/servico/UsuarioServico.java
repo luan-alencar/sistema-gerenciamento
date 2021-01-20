@@ -51,9 +51,9 @@ public class UsuarioServico {
         usuarioRepositorio.save(usuario);
 
         EmailDTO emailDTO = new EmailDTO();
-
         emailDTO.setAssunto("Cadastro de usuário");
-        emailDTO.setCorpo("Você foi cadastrado com sucesso na plataforma de eventos, esta é sua chave de inscrição em eventos: <b>" + usuario.getChave() + "</b>");
+        emailDTO.setCorpo("Você foi cadastrado com sucesso na plataforma de eventos, esta é sua chave de inscrição em eventos: <b>"+usuario.getChave()+"</b>");
+
         emailDTO.setDestinatario(usuario.getEmail());
         emailServico.sendMail(emailDTO);
 

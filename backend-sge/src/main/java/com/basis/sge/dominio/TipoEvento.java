@@ -16,8 +16,7 @@ public class TipoEvento implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_reserva")
-    @SequenceGenerator(name = "sq_reserva", sequenceName = "sq_reserva", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "descricao")

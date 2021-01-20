@@ -20,5 +20,5 @@ public class InscricaoDTO implements Serializable {
 
     private Integer idTipoSituacao;
 
-    private List<InscricaoRespostaDTO> respostas;
+    private List<InscricaoRespostaDTO> resposta;
 }

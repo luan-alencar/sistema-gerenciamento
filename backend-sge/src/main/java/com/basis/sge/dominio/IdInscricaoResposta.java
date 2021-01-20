@@ -16,9 +16,7 @@ import java.io.Serializable;
 public class IdInscricaoResposta implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Inscricao idInscricao;
-    private Evento idEvento;
-    private Pergunta idPergunta;
-    private TipoSituacao tipoSituacao;
-//    private String resposta;
+    private Integer idInscricao;
+    private Integer idEvento;
+    private Integer idPergunta;
 }
