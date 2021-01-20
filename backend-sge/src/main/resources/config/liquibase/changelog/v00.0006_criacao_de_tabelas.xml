@@ -254,6 +254,7 @@
                 <column name="id" value="4"/>
                 <column name="descricao" value="Cancelada"/>
             </insert>
+
     </changeSet>
 
 </databaseChangeLog>

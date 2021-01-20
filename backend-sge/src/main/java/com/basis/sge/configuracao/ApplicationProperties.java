@@ -15,4 +15,5 @@ public class ApplicationProperties {
 
     private String nomeRemetente;
 
+
 }
