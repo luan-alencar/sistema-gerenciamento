@@ -1,7 +1,10 @@
 package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Inscricao;
+import com.basis.sge.dominio.InscricaoResposta;
 import com.basis.sge.repositorio.InscricaoRepositorio;
+import com.basis.sge.repositorio.InscricaoRespostaRepositorio;
+import com.basis.sge.repositorio.UsuarioRepositorio;
 import com.basis.sge.servico.dto.InscricaoDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.InscricaoMapper;
@@ -9,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,9 +20,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InscricaoServico {
 
-
+    private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
     private final InscricaoRepositorio inscricaoRepositorio;
     private final InscricaoMapper inscricaoMapper;
+    private final UsuarioRepositorio usuarioRepositorio;
 
     // buscar todos
     public List<InscricaoDTO> listar() {
@@ -42,11 +47,19 @@ public class InscricaoServico {
     }
 
     public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
-        Inscricao inscricao = inscricaoRepositorio.findById(inscricaoDTO.getId()).get();
-        if (inscricao != null) {
-            throw new RegraNegocioException("Usuario já existente!");
-        }
+        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
+        usuarioRepositorio.findById(inscricaoDTO.getIdUsuario()).orElseThrow(() -> new RegraNegocioException("Usuario não existe"));
+        List<InscricaoResposta> respostas = inscricao.getResposta();
+
+        inscricao.setResposta(new ArrayList<>());
         inscricaoRepositorio.save(inscricao);
+
+        respostas.forEach(resposta -> {
+            resposta.setInscricao(inscricao);
+        });
+
+        inscricaoRespostaRepositorio.saveAll(respostas);
+
         return inscricaoMapper.toDto(inscricao);
     }
 }

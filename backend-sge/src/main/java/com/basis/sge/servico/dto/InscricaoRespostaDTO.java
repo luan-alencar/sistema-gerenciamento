@@ -3,9 +3,11 @@ package com.basis.sge.servico.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-public class InscricaoRespostaDTO {
+public class InscricaoRespostaDTO implements Serializable {
 
     private Integer idInscricao;
 

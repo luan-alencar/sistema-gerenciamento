@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -54,7 +55,7 @@ public class Evento implements Serializable {
     private TipoEvento tipoEvento;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "evento")
-    private List<EventoPergunta> perguntas;
+    private List<EventoPergunta> perguntas = new ArrayList<>();
 
 
 }
