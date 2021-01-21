@@ -40,7 +40,7 @@ public class EventoRecursoIT extends IntTestComum {
         eventoBuilder.construir();
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
-        Assert.assertEquals( 4, eventoRepositorio.findAll().size());
+        Assert.assertEquals( 0, eventoRepositorio.findAll().size());
     }
 
     @Test
