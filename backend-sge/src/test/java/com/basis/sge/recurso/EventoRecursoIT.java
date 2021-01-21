@@ -23,7 +23,7 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     public void listarTest () throws Exception{
-        eventoBuilder.construir();
+        eventoBuilder.construirEntidade();
         getMockMvc().perform(get("api/eventos"))
         .andExpect(status().isOk());
     }

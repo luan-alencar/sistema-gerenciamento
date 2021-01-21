@@ -28,6 +28,6 @@ public class EventoIT extends IntTestComum {
     }
 
     public void listaTest() throws Exception{
-
+        eventoRepositorio.findAll();
     }
 }
