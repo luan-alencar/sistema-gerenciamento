@@ -24,20 +24,21 @@ public class UsuarioRecurso {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarUm(@PathVariable Integer id) {
-        return ResponseEntity.ok(usuarioService.buscar(id));
+    public ResponseEntity<UsuarioDTO> buscarUm(@PathVariable Integer id) {
+        usuarioService.obterUsuarioPorId(id);
+        return ResponseEntity.ok(usuarioService.obterUsuarioPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
-        return ResponseEntity.created(URI.create("/usuario"+usuarioDTO.getId())).build();
+        return ResponseEntity.created(URI.create("/usuario" + usuarioDTO.getId())).build();
 
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletar(@PathVariable("id") Integer id) {
-        usuarioService.deletar(id);
+        usuarioService.remover(id);
         return ResponseEntity.ok().build();
     }
 
@@ -48,7 +49,7 @@ public class UsuarioRecurso {
             return ResponseEntity.notFound().build();
         }
         usuarioDTO.setId(id);
-        usuarioDTO = usuarioService.atualizar(usuarioDTO);
+        usuarioDTO = usuarioService.editar(usuarioDTO);
         return ResponseEntity.ok(usuarioDTO);
     }
 }

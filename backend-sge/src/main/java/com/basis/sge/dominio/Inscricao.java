@@ -3,16 +3,7 @@ package com.basis.sge.dominio;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -25,8 +16,9 @@ public class Inscricao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_pre_inscricao")
-    @SequenceGenerator(name = "sq_pre_inscricao", allocationSize = 1, sequenceName = "sq_pre_inscricao")
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_inscricao")
+    @SequenceGenerator(name = "sq_inscricao", allocationSize = 1, sequenceName = "sq_inscricao")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,12 +29,10 @@ public class Inscricao implements Serializable {
     @JoinColumn(name = "id_evento")
     private Evento idEvento;
 
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_situação")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_situacao")
     private TipoSituacao idTipoSituacao;
-
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "inscricao")
     private List<InscricaoResposta> resposta;
-
 }

@@ -1,10 +1,10 @@
+
 package com.basis.sge.servico.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-
-import java.awt.*;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,8 +19,7 @@ public class InscricaoDTO implements Serializable {
 
     private Integer idEvento;
 
-    private TipoSituacao idTipoSituacao;
+    private Integer idTipoSituacao;
 
     private List<InscricaoRespostaDTO> resposta;
 }
-

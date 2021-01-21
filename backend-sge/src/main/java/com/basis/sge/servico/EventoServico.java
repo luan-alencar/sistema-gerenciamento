@@ -23,20 +23,20 @@ public class EventoServico {
     private final EventoPerguntaRepositorio eventoPerguntaRepositorio;
     private final EventoMapper eventoMapper;
 
-    public List<EventoDTO> listar(){
+    public List<EventoDTO> listar() {
         List<Evento> lista = eventoRepositorio.findAll();
         return eventoMapper.toDto(lista);
     }
 
-    public EventoDTO obterEventoPorId(Integer id){
+    public EventoDTO obterEventoPorId(Integer id) {
         Evento evento = eventoRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado"));
         return eventoMapper.toDto(evento);
     }
 
-    public EventoDTO salvar(EventoDTO eventoDTO){
+    public EventoDTO salvar(EventoDTO eventoDTO) {
 
-        if(eventoDTO.getTipoInscricao() == null){
+        if (eventoDTO.getIdTipoInscricao() == null) {
             throw new RegraNegocioException("Escolha o tipo de inscrição para o evento");
         }
 
@@ -55,13 +55,13 @@ public class EventoServico {
         return eventoMapper.toDto(evento);
     }
 
-    public EventoDTO editar(EventoDTO eventoDTO){
+    public EventoDTO editar(EventoDTO eventoDTO) {
         Evento evento = eventoMapper.toEntity(eventoDTO);
         eventoRepositorio.save(evento);
         return eventoMapper.toDto(evento);
     }
 
-    public void remover(Integer id){
+    public void remover(Integer id) {
         eventoRepositorio.delete(eventoRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
