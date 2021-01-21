@@ -1,0 +1,251 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1" author="chrysthian.moizes">
+        <createTable tableName="tipo_evento" remarks="Tabela que armazena os tipos de eventos">
+            <column name="id" type="NUMBER">
+                <constraints nullable="false" />
+            </column>
+            <column name="descricao" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="tipo_evento" columnNames="id" />
+    </changeSet>
+
+    <changeSet id="2" author="chrysthian.moizes">
+        <createTable tableName="evento" remarks="Tabela que armazena os eventos">
+            <column name="id" type="NUMBER" remarks="Chave primária da tabela">
+                <constraints nullable="false" />
+            </column>
+            <column name="titulo" type="varchar(255)" remarks="Armazena o título do evento">
+                <constraints nullable="false" />
+            </column>
+            <column name="data_inicio" type="timestamp" remarks="Armazena a data e hora de ínicio">
+                <constraints nullable="false" />
+            </column>
+            <column name="data_termino" type="timestamp" remarks="Armazena a data e hora de término">
+                <constraints nullable="false" />
+            </column>
+            <column name="descricao" type="text">
+                <constraints nullable="true" />
+            </column>
+            <column name="qt_vagas" type="number">
+                <constraints nullable="true" />
+            </column>
+            <column name="valor" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="local" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tipo_inscricao" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_tipo_evento" type="number">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="evento" columnNames="id" constraintName="pk_evento" />
+        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_tipo_evento"
+                                 constraintName="fk_evento_tipo_evento"
+                                 referencedTableName="tipo_evento"
+                                 referencedColumnNames="id" />
+        <createSequence sequenceName="sq_evento" incrementBy="1" startValue="1" />
+    </changeSet>
+
+    <changeSet id="3" author="chrysthian.moizes">
+        <createTable tableName="usuario">
+            <column name="id" type="number">
+                <constraints nullable="false" />
+            </column>
+            <column name="nome" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="cpf" type="varchar(11)">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="telefone" type="varchar(14)">
+                <constraints nullable="true" />
+            </column>
+            <column name="data_nascimento" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="chave" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="usuario" columnNames="id" constraintName="pk_usuario" />
+        <createSequence sequenceName="sq_usuario" startValue="1" incrementBy="1" />
+        <addUniqueConstraint tableName="usuario" columnNames="cpf" constraintName="un_cpf_usuario" />
+        <addUniqueConstraint tableName="usuario" columnNames="email" constraintName="un_email_usuario" />
+        <addUniqueConstraint tableName="usuario" columnNames="chave" constraintName="un_chave_usuario" />
+
+    </changeSet>
+
+    <changeSet id="4" author="chrysthian.moizes">
+        <createTable tableName="pergunta">
+            <column name="id" type="number">
+                <constraints nullable="false" />
+            </column>
+            <column name="titulo" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="obrigatoria" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="pergunta" columnNames="id" constraintName="pk_pergunta" />
+        <createSequence sequenceName="sq_pergunta" startValue="1" incrementBy="1" />
+    </changeSet>
+
+    <changeSet id="5" author="chrysthian.moizes">
+        <createTable tableName="tipo_situacao">
+            <column name="id" type="number">
+                <constraints nullable="false" />
+            </column>
+            <column name="descricao" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="tipo_situacao" columnNames="id" constraintName="pk_tipo_situacao" />
+    </changeSet>
+
+    <changeSet id="6" author="chrysthian.moizes">
+        <createTable tableName="evento_pergunta">
+            <column name="id_pergunta" type="number">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_evento" type="number">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="evento_pergunta" columnNames="id_pergunta, id_evento"
+                       constraintName="pk_evento_pergunta" />
+        <addForeignKeyConstraint baseTableName="evento_pergunta" baseColumnNames="id_pergunta"
+                                 constraintName="fk_ev_pergunta_pergunta"
+                                 referencedTableName="pergunta"
+                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="evento_pergunta" baseColumnNames="id_evento"
+                                 constraintName="fk_ev_pergunta_evento"
+                                 referencedTableName="evento"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="7" author="chrysthian.moizes">
+        <createTable tableName="inscricao">
+            <column name="id" type="number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_usuario" type="number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_evento" type="number">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_tipo_situacao" type="number">
+                <constraints nullable="false" />
+            </column>
+
+        </createTable>
+
+        <createSequence sequenceName="sq_inscricao" incrementBy="1" startValue="1" />
+        <addPrimaryKey tableName="inscricao" columnNames="id" constraintName="pk_inscricao" />
+        <addForeignKeyConstraint baseTableName="inscricao" baseColumnNames="id_usuario"
+                                 constraintName="fk_inscricao_usuario"
+                                 referencedTableName="usuario"
+                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="inscricao" baseColumnNames="id_evento"
+                                 constraintName="fk_inscricao_evento"
+                                 referencedTableName="evento"
+                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="inscricao" baseColumnNames="id_tipo_situacao"
+                                 constraintName="fk_inscricao_tipo_situacao"
+                                 referencedTableName="tipo_situacao"
+                                 referencedColumnNames="id" />
+
+    </changeSet>
+
+    <changeSet id="8" author="chrysthian.moizes">
+        <createTable tableName="inscricao_resposta">
+            <column name="id_inscricao" type="number">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_evento" type="number">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_pergunta" type="number">
+                <constraints nullable="false" />
+            </column>
+            <column name="resposta" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="inscricao_resposta"
+                       columnNames="id_inscricao, id_evento, id_pergunta"
+                       constraintName="pk_inscricao_resposta" />
+        <addForeignKeyConstraint baseTableName="inscricao_resposta" baseColumnNames="id_inscricao"
+                                 constraintName="fk_ins_resp_inscricao"
+                                 referencedTableName="inscricao"
+                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="inscricao_resposta" baseColumnNames="id_evento, id_pergunta"
+                                 constraintName="fk_ins_resp_evento"
+                                 referencedTableName="evento_pergunta"
+                                 referencedColumnNames="id_evento, id_pergunta" />
+
+    </changeSet>
+
+    <changeSet id="9" author="chrysthian.moizes">
+        <insert tableName="tipo_evento">
+            <column name="id" value="1"/>
+            <column name="descricao" value="Workshop" />
+        </insert>
+        <insert tableName="tipo_evento">
+            <column name="id" value="2"/>
+            <column name="descricao" value="Minicurso" />
+        </insert>
+        <insert tableName="tipo_evento">
+            <column name="id" value="3"/>
+            <column name="descricao" value="Treinamento" />
+        </insert>
+        <insert tableName="tipo_evento">
+            <column name="id" value="4"/>
+            <column name="descricao" value="Palestra" />
+        </insert>
+
+    </changeSet>
+
+    <changeSet id="10" author="chrysthian.moizes">
+        <insert tableName="tipo_situacao">
+            <column name="id" value="1"/>
+            <column name="descricao" value="Aguardando Aprovação" />
+        </insert>
+        <insert tableName="tipo_situacao">
+            <column name="id" value="2"/>
+            <column name="descricao" value="Aprovado" />
+        </insert>
+        <insert tableName="tipo_situacao">
+            <column name="id" value="3"/>
+            <column name="descricao" value="Recusado" />
+        </insert>
+        <insert tableName="tipo_situacao">
+            <column name="id" value="4"/>
+            <column name="descricao" value="Cancelado" />
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
