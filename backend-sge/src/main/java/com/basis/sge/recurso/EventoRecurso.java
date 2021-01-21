@@ -4,6 +4,7 @@ import com.basis.sge.dominio.Evento;
 import com.basis.sge.servico.EventoServico;
 import com.basis.sge.servico.dto.EventoDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RequestMapping(value = "/api/eventos", produces = "application/json")
 @RestController
+@ComponentScan
 @RequiredArgsConstructor
 public class EventoRecurso {
 
@@ -30,7 +32,7 @@ public class EventoRecurso {
     @PostMapping
     public ResponseEntity<Evento> salvar(@RequestBody EventoDTO eventoDTO) {
         eventoServico.salvar(eventoDTO);
-        return ResponseEntity.created(URI.create("/evento"+eventoDTO.getId())).build();
+        return ResponseEntity.created(URI.create("/eventos" + eventoDTO.getId())).build();
     }
 
     @PutMapping
