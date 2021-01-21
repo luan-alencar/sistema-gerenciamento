@@ -26,6 +26,6 @@ public class EventoDTO implements Serializable {
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private Boolean tipoInscricao;
-    private Integer tipoEvento;
+    private Integer idTipoEvento;
     private List<EventoPergunta> perguntas;
 }

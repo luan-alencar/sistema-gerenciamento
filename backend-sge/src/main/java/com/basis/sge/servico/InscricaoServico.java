@@ -37,7 +37,7 @@ public class InscricaoServico {
     }
 
     public void deletar(Integer id) {
-        preInscricaoRepository.deleteById(id);
+        inscricaoRepositorio.deleteById(id);
     }
 
     public InscricaoDTO atualizar(InscricaoDTO inscricaoDTO) {

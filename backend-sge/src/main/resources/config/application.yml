@@ -1,30 +1,13 @@
 application:
-    appName: sge
-
-    mail:
-        endereco-remetente: sapedteste@gmail.com
-        nome-remetente: basis
-
-spring:
-    application:
-        name: sgeservice
-    datasource:
-        type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/sge
-        username: sge
-        password: sge
-
-        hikari:
-            poolName: Hikari
-            auto-commit: false
+  appName: sge
 
   mail:
-    endereco-remetente: basistreinamento@gmail.com
+    endereco-remetente: sapedteste@gmail.com
     nome-remetente: basis
 
 spring:
   application:
-    name: sgeservice
+    name: sgeserviceX
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/sge
