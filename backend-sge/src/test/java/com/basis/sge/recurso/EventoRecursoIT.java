@@ -1,9 +1,16 @@
 package com.basis.sge.recurso;
 
 import com.basis.sge.builder.EventoBuilder;
+import com.basis.sge.dominio.Evento;
 import com.basis.sge.servico.mapper.EventoMapper;
 import com.basis.sge.util.IntTestComum;
+import com.basis.sge.util.TestUtil;
 import org.junit.Test;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,9 +29,20 @@ public class EventoRecursoIT extends IntTestComum {
     private EventoMapper eventoMapper;
 
     @Test
-    public void listarTest () throws Exception{
-        eventoBuilder.construirEntidade();
-        getMockMvc().perform(get("api/eventos"))
-        .andExpect(status().isOk());
+    public void listarTest() throws Exception {
+        eventoBuilder.construir();
+        getMockMvc().perform(get("/api/eventos"))
+                .andExpect(status().isOk());
     }
+
+    @Test
+    public void salvarTest() throws Exception {
+        Evento evento = eventoBuilder.construirEntidade();
+
+        getMockMvc().perform(post("/api/eventos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
+                .andExpect(status().isCreated());
+    }
+
 }

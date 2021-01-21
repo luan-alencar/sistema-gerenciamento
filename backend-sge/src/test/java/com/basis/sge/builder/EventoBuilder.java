@@ -1,8 +1,6 @@
 package com.basis.sge.builder;
 
 import com.basis.sge.dominio.Evento;
-import com.basis.sge.dominio.TipoEvento;
-import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.servico.EventoServico;
 import com.basis.sge.servico.dto.EventoDTO;
 import com.basis.sge.servico.mapper.EventoMapper;
@@ -12,11 +10,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @Transactional
-public class EventoBuilder extends ConstrutorDeEntidade {
+public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
 
     @Autowired
     private EventoServico eventoServico;
@@ -25,34 +24,37 @@ public class EventoBuilder extends ConstrutorDeEntidade {
     private EventoMapper eventoMapper;
 
     @Override
-    public EventoDTO construirEntidade() throws ParseException {
+    public Evento construirEntidade() throws ParseException {
 
         Evento evento = new Evento();
         evento.setLocal("Avenida Clean Code");
         evento.setTitulo("Arquitetura Limpa");
         evento.setDescricao("Workshop sobre o livro Arquitetura Limpa");
         evento.setQtdVagas(20);
-        evento.setValor(null);
-        evento.setDataInicio(null);
-        evento.setDataFim(null);
+        evento.setValor(10.00);
+        evento.setDataInicio(LocalDateTime.of(2021, 07, 22, 10, 15, 30));
+        evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
         evento.setTipoInscricao(false);
-        evento.setIdTipoEvento(evento.getIdTipoEvento());
+        evento.setIdTipoEvento(null);
         evento.setPerguntas(evento.getPerguntas());
-        return null;
+        return evento;
     }
 
     @Override
-    protected EventoDTO persistir(Object entidade) {
-        return null;
+    protected Evento persistir(Evento evento) {
+        EventoDTO eventoDTO = eventoServico.salvar(eventoMapper.toDto(evento));
+        return eventoMapper.toEntity(eventoDTO);
     }
 
     @Override
-    protected List<EventoDTO> obterTodos() {
-        return eventoServico.listar();
+    protected List<Evento> obterTodos() {
+        List<EventoDTO> list = eventoServico.listar();
+        return eventoMapper.toEntity(list);
     }
 
     @Override
-    protected EventoDTO obterPorId(Long id) {
-        return null;
+    protected Evento obterPorId(Integer id) {
+        EventoDTO eventoDTO = eventoServico.obterEventoPorId(id);
+        return eventoMapper.toEntity(eventoDTO);
     }
 }
