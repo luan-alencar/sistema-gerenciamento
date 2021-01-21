@@ -18,6 +18,7 @@ public class TipoEventoRecurso {
 
     private final TipoEventoServico tipoEventoServico;
 
+
     @GetMapping
     public ResponseEntity<List<TipoEventoDTO>> listar(){
         return ResponseEntity.ok(tipoEventoServico.listar());
@@ -26,6 +27,7 @@ public class TipoEventoRecurso {
     @GetMapping("/{id}")
     public ResponseEntity<TipoEventoDTO> obterTipoEventoPorId(@PathVariable Integer id){
         return ResponseEntity.ok(tipoEventoServico.obterTipoEventoPorId(id));
+
     }
 
 }

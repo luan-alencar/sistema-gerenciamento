@@ -24,8 +24,8 @@ public class UsuarioRecurso {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> obterUsuarioPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(usuarioService.obterUsuarioPorId(id));
+    public ResponseEntity<Usuario> buscarUm(@PathVariable Integer id) {
+        return ResponseEntity.ok(usuarioService.buscar(id));
     }
 
     @PostMapping
@@ -36,8 +36,8 @@ public class UsuarioRecurso {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity remover(@PathVariable("id") Integer id) {
-        usuarioService.remover(id);
+    public ResponseEntity deletar(@PathVariable("id") Integer id) {
+        usuarioService.deletar(id);
         return ResponseEntity.ok().build();
     }
 
@@ -48,7 +48,7 @@ public class UsuarioRecurso {
             return ResponseEntity.notFound().build();
         }
         usuarioDTO.setId(id);
-        usuarioDTO = usuarioService.editar(usuarioDTO);
+        usuarioDTO = usuarioService.atualizar(usuarioDTO);
         return ResponseEntity.ok(usuarioDTO);
     }
 }

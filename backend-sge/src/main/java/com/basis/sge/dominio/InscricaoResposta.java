@@ -17,21 +17,6 @@ public class InscricaoResposta implements Serializable {
     @EmbeddedId
     private IdInscricaoResposta id;
 
-    @MapsId("idInscricao")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_inscricao")
-    private Inscricao inscricao;
-
-    @MapsId("idEvento")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_evento")
-    private Evento evento;
-
-    @MapsId("idPergunta")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_pergunta")
-    private Pergunta pergunta;
-
     @Column(name = "resposta")
     private String resposta;
 }
