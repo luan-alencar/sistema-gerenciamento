@@ -38,9 +38,9 @@ public class EventoRecursoIT extends IntTestComum {
     @Test
     public void listarTest() throws Exception {
         eventoBuilder.construir();
-        getMockMvc().perform(get("/api/eventos"))
+        getMockMvc().perform(get("/api/tiposeventos"))
                 .andExpect(status().isOk());
-        Assert.assertEquals( 0, eventoRepositorio.findAll().size());
+        Assert.assertEquals( 4, eventoRepositorio.findAll().size());
     }
 
     @Test
