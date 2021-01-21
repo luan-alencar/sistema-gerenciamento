@@ -1,4 +1,4 @@
-package com.basis.sge.builder;
+package com.basis.sge.util;
 
 import com.basis.sge.SgeApplication;
 import org.junit.jupiter.api.BeforeEach;

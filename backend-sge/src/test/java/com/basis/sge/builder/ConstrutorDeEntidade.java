@@ -1,8 +1,5 @@
 package com.basis.sge.builder;
 
-import com.basis.sge.CustomizacaoEntidade;
-import liquibase.pro.packaged.br;
-
 import java.text.ParseException;
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package com.basis.sge;
+package com.basis.sge.builder;
 
 /**
  * Interface que define um contrato para permitir a custimização de uma entidade

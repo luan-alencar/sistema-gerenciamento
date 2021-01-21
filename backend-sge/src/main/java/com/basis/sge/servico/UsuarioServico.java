@@ -52,7 +52,7 @@ public class UsuarioServico {
 
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro de usuário");
-        emailDTO.setCorpo("Você foi cadastrado com sucesso na plataforma de eventos, esta é sua chave de inscrição em eventos: <b>"+usuario.getChave()+"</b>");
+        emailDTO.setCorpo("<h1> Você foi cadastrado com sucesso na plataforma de evento! </h1> <p>Esta é sua chave de inscrição em eventos: <b>" + usuario.getChave() + "</b> </p>");
 
         emailDTO.setDestinatario(usuario.getEmail());
         emailServico.sendMail(emailDTO);
