@@ -36,7 +36,7 @@ public class EventoRecursoIT extends IntTestComum {
 //    }
 
     @Test
-    public void listarTest() throws Exception {
+    protected void listarTest() throws Exception {
         eventoBuilder.construir();
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
@@ -44,7 +44,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarTest() throws Exception {
+    protected void salvarTest() throws Exception {
         Evento evento = eventoBuilder.construirEntidade();
 
         getMockMvc().perform(post("/api/eventos")
