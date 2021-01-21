@@ -24,32 +24,29 @@ public class UsuarioRecurso {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> buscarUm(@PathVariable Integer id) {
-        usuarioService.obterUsuarioPorId(id);
+    public ResponseEntity<UsuarioDTO> obterUsuarioPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(usuarioService.obterUsuarioPorId(id));
+    }
+
+    @GetMapping("/{cpf}")
+    public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf){
+        return ResponseEntity.ok(usuarioService.obterUsuarioPorCpf(cpf));
     }
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
-        return ResponseEntity.created(URI.create("/usuario" + usuarioDTO.getId())).build();
-
+        return ResponseEntity.created(URI.create("/usuario"+usuarioDTO.getId())).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletar(@PathVariable("id") Integer id) {
+    public ResponseEntity remover(@PathVariable Integer id) {
         usuarioService.remover(id);
         return ResponseEntity.ok().build();
     }
 
-    // editar db
-    @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> editar(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
-        if (!usuarioRepositorio.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        usuarioDTO.setId(id);
-        usuarioDTO = usuarioService.editar(usuarioDTO);
-        return ResponseEntity.ok(usuarioDTO);
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.ok(usuarioService.editar(usuarioDTO));
     }
 }

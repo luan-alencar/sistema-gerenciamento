@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,20 +25,29 @@ public class UsuarioServico {
 
     public List<UsuarioDTO> listar() {
         List<Usuario> usuarios = usuarioRepositorio.findAll();
+        if(usuarios.isEmpty()){
+            throw new RegraNegocioException("Nenhum usuario cadastrado!");
+        }
         return usuarioMapper.toDto(usuarios);
     }
 
     public UsuarioDTO obterUsuarioPorId(Integer id) {
-        Usuario usuarioDTORetorno = usuarioRepositorio.findById(id)
+        Usuario usuario = usuarioRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
-        return usuarioMapper.toDto(usuarioDTORetorno);
+        return usuarioMapper.toDto(usuario);
+    }
+
+    public UsuarioDTO obterUsuarioPorCpf(String cpf){
+        Usuario usuario = usuarioRepositorio.findByCpf(cpf)
+                .orElseThrow(() -> new RegraNegocioException("Cpf não cadastrado"));
+        return usuarioMapper.toDto(usuario);
     }
 
     public void remover(Integer id) {
-        usuarioRepositorio.deleteById(id);
+        usuarioRepositorio.delete(usuarioRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
 
-    //   ATUALIZAR DADOS
     public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
         Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
         usuarioRepositorio.save(usuarioAtualizado);
@@ -45,7 +55,25 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
+        List<Usuario> usuarioBD = usuarioRepositorio.findAll();
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+
+        for(Usuario lista : usuarioBD){
+            if(lista.getCpf().equals(usuario.getCpf())){
+                throw new RegraNegocioException("Já existe usuario cadastrado com esse cpf");
+            }
+
+            if(lista.getEmail().equals(usuario.getEmail())){
+                throw new RegraNegocioException("Já existe usuario cadastrado com esse e-mail");
+            }
+
+        }
+
+        int idade = LocalDate.now().getYear() - usuario.getDataNascimento().getYear();
+        if (usuario.getDataNascimento().equals(LocalDate.now()) || (idade > 115 || idade < 10)){
+            throw new RegraNegocioException("Data de nascimento inválida");
+        }
+
         usuario.setChave(UUID.randomUUID().toString());
         usuarioRepositorio.save(usuario);
         enviarEmail(usuario);
