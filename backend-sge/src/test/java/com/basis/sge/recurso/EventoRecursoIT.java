@@ -6,14 +6,12 @@ import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.servico.mapper.EventoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -32,17 +30,17 @@ public class EventoRecursoIT extends IntTestComum {
     @Autowired
     private EventoRepositorio eventoRepositorio;
 
-    @BeforeEach
-    public void inicializar() {
-        eventoRepositorio.deleteAll();
-    }
+//    @BeforeEach
+//    public void inicializar() {
+//        eventoRepositorio.deleteAll();
+//    }
 
     @Test
     public void listarTest() throws Exception {
         eventoBuilder.construir();
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
-//        .andExpect(assertEquals( 4, eventoRepositorio.findAll().size()));
+        Assert.assertEquals( 4, eventoRepositorio.findAll().size());
     }
 
     @Test
@@ -66,11 +64,6 @@ public class EventoRecursoIT extends IntTestComum {
 //                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
 //                .andExpect(status().isOk());
 //    }
-    @Test
-    public void editar() throws Exception {
 
-        Evento evento = eventoBuilder.construir();
-        evento.setDataInicio(LocalDateTime.of());
-    }
 
 }

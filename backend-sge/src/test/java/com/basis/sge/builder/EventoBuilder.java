@@ -31,16 +31,15 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         tipoEvento.setId(1);
 
         Evento evento = new Evento();
-        evento.setLocal("Avenida Clean Code");
-        evento.setTitulo("Arquitetura Limpa");
-        evento.setDescricao("Workshop sobre o livro Arquitetura Limpa");
+        evento.setLocal("Avenida");
+        evento.setTitulo("Arquitetura");
+        evento.setDescricao("Workshop");
         evento.setQtdVagas(20);
-        evento.setValor(10.00);
+        evento.setValor(null);
         evento.setDataInicio(LocalDateTime.of(2021, 07, 22, 10, 15, 30));
         evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
-        evento.setTipoInscricao(true);
+        evento.setTipoInscricao(false);
         evento.setIdTipoEvento(tipoEvento);
-        evento.setPerguntas(evento.getPerguntas());
         return evento;
     }
 
