@@ -21,13 +21,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class EventoRecursoIT extends IntTestComum {
 
-    @Autowired
+    @Autowired(required = true)
     private EventoBuilder eventoBuilder;
 
-    @Autowired
+    @Autowired(required = true)
     private EventoMapper eventoMapper;
 
-    @Autowired
+    @Autowired(required = true)
     private EventoRepositorio eventoRepositorio;
 
 //    @BeforeEach
@@ -38,9 +38,9 @@ public class EventoRecursoIT extends IntTestComum {
     @Test
     public void listarTest() throws Exception {
         eventoBuilder.construir();
-        getMockMvc().perform(get("/api/tiposeventos"))
+        getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
-        Assert.assertEquals( 4, eventoRepositorio.findAll().size());
+        Assert.assertEquals(0, eventoRepositorio.findAll().size());
     }
 
     @Test

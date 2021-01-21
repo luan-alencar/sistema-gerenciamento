@@ -18,13 +18,12 @@ import java.util.List;
 @Transactional
 public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
 
-    @Autowired
+    @Autowired(required = true)
     private EventoServico eventoServico;
 
-    @Autowired
+    @Autowired(required = true)
     private EventoMapper eventoMapper;
 
-    @Override
     public Evento construirEntidade() throws ParseException {
 
         TipoEvento tipoEvento = new TipoEvento();
