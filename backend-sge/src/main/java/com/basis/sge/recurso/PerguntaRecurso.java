@@ -51,7 +51,7 @@ public class PerguntaRecurso {
           return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/editar")
+    @PutMapping
     public ResponseEntity <PerguntaDTO> editar(@RequestBody PerguntaDTO perguntaDTO){
 
         return  ResponseEntity.ok(perguntaServico.atualizar(perguntaDTO));
