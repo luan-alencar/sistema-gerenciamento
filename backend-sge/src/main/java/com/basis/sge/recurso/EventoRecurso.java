@@ -30,14 +30,15 @@ public class EventoRecurso {
     }
 
     @PostMapping
-    public ResponseEntity<Evento> salvar(@RequestBody EventoDTO eventoDTO) {
+    public ResponseEntity<EventoDTO> salvar(@RequestBody EventoDTO eventoDTO) {
         eventoServico.salvar(eventoDTO);
         return ResponseEntity.created(URI.create("/eventos" + eventoDTO.getId())).build();
     }
 
     @PutMapping
     public ResponseEntity<EventoDTO> editar(@RequestBody EventoDTO eventoDTO) {
-        return ResponseEntity.ok(eventoServico.editar(eventoDTO));
+        EventoDTO newEventoDTO = eventoServico.salvar(eventoDTO);
+        return ResponseEntity.ok(newEventoDTO);
     }
 
     @DeleteMapping

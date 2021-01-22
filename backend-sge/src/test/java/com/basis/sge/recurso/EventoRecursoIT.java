@@ -7,17 +7,17 @@ import com.basis.sge.servico.mapper.EventoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
 import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @Transactional
 public class EventoRecursoIT extends IntTestComum {
 
@@ -30,10 +30,11 @@ public class EventoRecursoIT extends IntTestComum {
     @Autowired(required = true)
     private EventoRepositorio eventoRepositorio;
 
-//    @BeforeEach
-//    public void inicializar() {
-//        eventoRepositorio.deleteAll();
-//    }
+
+    @BeforeEach
+    public void inicializar() {
+        eventoRepositorio.deleteAll();
+    }
 
     @Test
     protected void listarTest() throws Exception {
@@ -53,17 +54,14 @@ public class EventoRecursoIT extends IntTestComum {
                 .andExpect(status().isCreated());
     }
 
-//    @Test
-//    public void editarTest() throws Exception {
-//
-//        Usuario usuario = usuarioBuilder.construir();
-//        usuario.setNome("Alterando usuario");
-//
-//        getMockMvc().perform(put( "/api/usuarios")
-//                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-//                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    public void editarTest() throws Exception {
 
-
+        Evento evento = eventoBuilder.construir();
+        evento.setLocal("Novo local: Avenida Floriano Peixoto");
+        getMockMvc().perform(put("/api/eventos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
+                .andExpect(status().isOk());
+    }
 }

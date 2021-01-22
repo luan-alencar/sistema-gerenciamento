@@ -5,8 +5,10 @@ import com.basis.sge.dominio.TipoEvento;
 import com.basis.sge.servico.EventoServico;
 import com.basis.sge.servico.dto.EventoDTO;
 import com.basis.sge.servico.mapper.EventoMapper;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +16,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @Transactional
 public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
 
@@ -24,6 +26,7 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
     @Autowired(required = true)
     private EventoMapper eventoMapper;
 
+    @Override
     public Evento construirEntidade() throws ParseException {
 
         TipoEvento tipoEvento = new TipoEvento();
@@ -50,13 +53,11 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
 
     @Override
     protected List<Evento> obterTodos() {
-        List<EventoDTO> list = eventoServico.listar();
-        return eventoMapper.toEntity(list);
+        return eventoMapper.toEntity(eventoServico.listar());
     }
 
     @Override
     protected Evento obterPorId(Integer id) {
-        EventoDTO eventoDTO = eventoServico.obterEventoPorId(id);
-        return eventoMapper.toEntity(eventoDTO);
+        return eventoMapper.toEntity(eventoServico.obterEventoPorId(id));
     }
 }
