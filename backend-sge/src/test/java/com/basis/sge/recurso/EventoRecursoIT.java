@@ -3,22 +3,21 @@ package com.basis.sge.recurso;
 import com.basis.sge.builder.EventoBuilder;
 import com.basis.sge.dominio.Evento;
 import com.basis.sge.repositorio.EventoRepositorio;
-import com.basis.sge.servico.EventoServico;
 import com.basis.sge.servico.mapper.EventoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @Transactional
 public class EventoRecursoIT extends IntTestComum {
 
@@ -30,10 +29,6 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Autowired
     private EventoRepositorio eventoRepositorio;
-
-    @Autowired
-    private EventoServico eventoServico;
-
 
     @BeforeEach
     public void inicializar() {
@@ -81,7 +76,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void buscarPorId() throws Exception {
+    public void buscarPorIdTest() throws Exception {
 
         Evento evento = eventoBuilder.construir();
 
@@ -90,13 +85,55 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void buscarPorIdNaoExistente() throws Exception {
+    public void buscarPorIdNaoExistenteTest() throws Exception {
 
-        Evento evento = eventoBuilder.construir();
-        evento.setId(2);
+        eventoBuilder.construir();
 
-        getMockMvc().perform(get("/api/eventos/{id}", evento.getId()))
-                .andExpect(status().isNotFound());
-        Assert.assertEquals(1, eventoRepositorio.findById(evento.getId()));
+        getMockMvc().perform(get("/api/eventos/{id}", 2))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void tituloNullTest() throws Exception {
+
+        Evento evento = eventoBuilder.construirEntidade();
+        evento.setTitulo(null);
+        getMockMvc().perform(post("/api/eventos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void dataInicioNullTest() throws Exception {
+
+        Evento evento = eventoBuilder.construirEntidade();
+        evento.setDataInicio(null);
+        getMockMvc().perform(post("/api/eventos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void dataFimNullTest() throws Exception {
+
+        Evento evento = eventoBuilder.construirEntidade();
+        evento.setDataFim(null);
+        getMockMvc().perform(post("/api/eventos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void descricaoNullTest() throws Exception {
+
+        Evento evento = eventoBuilder.construirEntidade();
+        evento.setDescricao(null);
+        getMockMvc().perform(post("/api/eventos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
+                .andExpect(status().isBadRequest());
     }
 }

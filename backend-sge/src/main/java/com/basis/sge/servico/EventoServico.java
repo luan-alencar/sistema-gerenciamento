@@ -41,6 +41,30 @@ public class EventoServico {
             throw new RegraNegocioException("Escolha o tipo de inscrição para o evento");
         }
 
+        if (eventoDTO.getTitulo() == null) {
+            throw new RegraNegocioException("Campo de titulo é obrigatorio!");
+        }
+
+        if (eventoDTO.getDataInicio() == null) {
+            throw new RegraNegocioException("O campo data de inicio e obrigatorio!");
+        }
+
+        if (eventoDTO.getDataFim() == null) {
+            throw new RegraNegocioException("O campo data de fim e obrigatorio!");
+        }
+
+        if (eventoDTO.getDataInicio() == null) {
+            throw new RegraNegocioException("Campo de titulo é obrigatorio!");
+        }
+
+        if (eventoDTO.getLocal() == null) {
+            throw new RegraNegocioException("O campo local é obrigatorio!");
+        }
+
+        if (eventoDTO.getDescricao() == null) {
+            throw new RegraNegocioException("A descrição do evento é obrigatória!");
+        }
+
         Evento evento = eventoMapper.toEntity(eventoDTO);
         List<EventoPergunta> perguntas = evento.getPerguntas();
 

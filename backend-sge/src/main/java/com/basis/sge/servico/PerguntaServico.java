@@ -3,15 +3,14 @@ package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Pergunta;
 import com.basis.sge.repositorio.PerguntaRepositorio;
+import com.basis.sge.servico.dto.PerguntaDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.PerguntaMapper;
-import com.basis.sge.servico.dto.PerguntaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
