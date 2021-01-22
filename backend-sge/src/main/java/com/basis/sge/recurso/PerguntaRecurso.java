@@ -50,7 +50,7 @@ public class PerguntaRecurso {
           return ResponseEntity.created(URI.create("/pergunta"+perguntaDTO.getId())).build();
     }
 
-    @PutMapping("/editar")
+    @PutMapping
     public ResponseEntity <PerguntaDTO> editar(@RequestBody PerguntaDTO perguntaDTO){
 
         return  ResponseEntity.ok(perguntaServico.atualizar(perguntaDTO));
