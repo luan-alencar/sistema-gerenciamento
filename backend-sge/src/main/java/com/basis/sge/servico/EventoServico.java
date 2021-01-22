@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -65,10 +64,16 @@ public class EventoServico {
             throw new RegraNegocioException("A descrição do evento é obrigatória!");
         }
 
+
         Evento evento = eventoMapper.toEntity(eventoDTO);
         List<EventoPergunta> perguntas = evento.getPerguntas();
 
         evento.setPerguntas(new ArrayList<>());
+
+        if (perguntas == null) {
+            throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
+        }
+
         eventoRepositorio.save(evento);
 
         perguntas.forEach(pergunta -> {

@@ -136,4 +136,14 @@ public class EventoRecursoIT extends IntTestComum {
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    public void perguntasNullTest() throws Exception {
+
+        Evento evento = eventoBuilder.construirEntidade();
+        getMockMvc().perform(post("/api/eventos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
+                .andExpect(status().isBadRequest());
+    }
 }
