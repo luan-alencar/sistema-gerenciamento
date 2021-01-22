@@ -64,15 +64,14 @@ public class EventoServico {
             throw new RegraNegocioException("A descrição do evento é obrigatória!");
         }
 
+        if (eventoDTO.getPerguntas() == null) {
+            throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
+        }
 
         Evento evento = eventoMapper.toEntity(eventoDTO);
         List<EventoPergunta> perguntas = evento.getPerguntas();
 
         evento.setPerguntas(new ArrayList<>());
-
-        if (perguntas == null) {
-            throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
-        }
 
         eventoRepositorio.save(evento);
 
