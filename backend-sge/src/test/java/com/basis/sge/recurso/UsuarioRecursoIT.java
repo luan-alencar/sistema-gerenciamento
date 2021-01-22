@@ -120,17 +120,6 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarUsuarioTelefoneNullTest() throws Exception {
-        Usuario usuario = usuarioBuilder.construirEntidade();
-        usuario.setTelefone(null);
-
-        getMockMvc().perform(post("/api/usuarios")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     public void salvarUsuarioNomeNullTest() throws Exception {
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setNome(null);
@@ -218,7 +207,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     public void removerTest() throws Exception {
         Usuario usuario = usuarioBuilder.construir();
 
-        getMockMvc().perform(delete( "/api/usuarios/{id}", usuario.getId()))
+        getMockMvc().perform(delete("/api/usuarios/" + usuario.getId()))
                 .andExpect(status().isOk());
 
     }

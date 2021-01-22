@@ -22,8 +22,8 @@ spring:
     date-format: yyyy-MM-dd
     deserialization:
       fail-on-unknown-properties: false
-  jpa:
 
+  jpa:
     database: POSTGRESQL
     show-sql: true
     open-in-view: false
@@ -52,5 +52,6 @@ spring:
             enable: true
             required: true
           quitwait: false
+
 server:
   port: 8080

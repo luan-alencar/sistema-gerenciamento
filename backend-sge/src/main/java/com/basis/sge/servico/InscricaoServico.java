@@ -31,7 +31,7 @@ public class InscricaoServico {
         return inscricaoMapper.toDto(inscricaoLista);
     }
 
-    public InscricaoDTO obterPreInscricaoPorId(Integer id) {
+    public InscricaoDTO obterInscricaoPorId(Integer id) {
         Inscricao inscricao = inscricaoRepositorio.findById(id).get();
         return inscricaoMapper.toDto(inscricao);
     }
