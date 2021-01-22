@@ -10,7 +10,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/inscricoes")
+@RequestMapping("/api/inscricoes")
 @RequiredArgsConstructor
 public class InscricaoRecurso {
 
@@ -23,7 +23,7 @@ public class InscricaoRecurso {
 
     @GetMapping("/{id}")
     public ResponseEntity<InscricaoDTO> obterInscricaoPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(inscricaoServico.obterPreInscricaoPorId(id));
+        return ResponseEntity.ok(inscricaoServico.obterInscricaoPorId(id));
     }
 
     @PostMapping

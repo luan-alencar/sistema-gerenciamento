@@ -57,45 +57,73 @@ public class UsuarioServico {
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
 
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        List<UsuarioDTO> usuarios = usuarioMapper.toDto(usuarioRepositorio.findAll());
 
-        if(usuarioDTO.equals(null)){
-            throw new RegraNegocioException("Usuário null não pode ser cadastrado");
-        }
-        else {
-
-            for (Usuario lista : usuarioRepositorio.findAll()) {
-                if (lista.getCpf().equals(usuario.getCpf())) {
-                    throw new RegraNegocioException("Já existe usuario cadastrado com esse cpf");
-                }
-
-                if(lista.getNome().equals(null)){
-                    throw new RegraNegocioException("Nome de usuário não informado");
-                }
-
-                if(lista.getCpf().equals(null)){
-                    throw new RegraNegocioException("Cpf não informado");
-                }
-
-                if (lista.getEmail().equals(usuario.getEmail())) {
-                    throw new RegraNegocioException("Já existe usuario cadastrado com esse e-mail");
-                }
-
-                if(lista.getEmail().equals(null)){
-                    throw new RegraNegocioException("E-mail não informado");
-                }
-
-            }
-
-            int idade = LocalDate.now().getYear() - usuario.getDataNascimento().getYear();
-            if (usuario.getDataNascimento().equals(LocalDate.now()) || (idade > 115 || idade < 10)) {
-                throw new RegraNegocioException("Data de nascimento inválida");
-            }
+        if(usuarios.isEmpty()){
+            validarDadosNull(usuarioDTO);
+            validarIdade(usuarioDTO);
 
             usuario.setChave(UUID.randomUUID().toString());
             usuarioRepositorio.save(usuario);
             enviarEmail(usuario);
         }
+        else {
+
+            if (usuarioDTO.equals(null)) {
+                throw new RegraNegocioException("Usuário null não pode ser cadastrado");
+            } else {
+
+                for (UsuarioDTO lista : usuarios) {
+
+                    validarDadosNull(lista);
+
+                    validarDadosDuplicados(lista);
+
+                }
+
+                validarIdade(usuarioDTO);
+
+                usuario.setChave(UUID.randomUUID().toString());
+                usuarioRepositorio.save(usuario);
+                enviarEmail(usuario);
+            }
+        }
         return usuarioMapper.toDto(usuario);
+    }
+
+    private void validarDadosNull(UsuarioDTO usuario){
+        if(usuario.getNome() == null){
+            throw new RegraNegocioException("Nome de usuário não informado");
+        }
+
+        if(usuario.getCpf() == null){
+            throw new RegraNegocioException("Cpf não informado");
+        }
+
+        if(usuario.getEmail() == null){
+            throw new RegraNegocioException("E-mail não informado");
+        }
+
+        if(usuario.getDataNascimento() == null){
+            throw new RegraNegocioException("Data de nascimento não informada");
+        }
+    }
+
+    private void validarDadosDuplicados(UsuarioDTO usuario){
+        if (usuarioRepositorio.findByCpf(usuario.getCpf()).isPresent()) {
+            throw new RegraNegocioException("Já existe usuario cadastrado com esse cpf");
+        }
+
+        if (usuarioRepositorio.findByEmail(usuario.getEmail()).isPresent()) {
+            throw new RegraNegocioException("Já existe usuario cadastrado com esse e-mail");
+        }
+    }
+
+    private void validarIdade(UsuarioDTO usuario){
+        int idade = LocalDate.now().getYear() - usuario.getDataNascimento().getYear();
+        if (idade > 115 || idade < 10) {
+            throw new RegraNegocioException("Data de nascimento inválida");
+        }
     }
 
     public void enviarEmail(Usuario usuario){

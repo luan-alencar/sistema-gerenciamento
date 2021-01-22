@@ -31,13 +31,13 @@ public class InscricaoServico {
         return inscricaoMapper.toDto(inscricaoLista);
     }
 
-    public InscricaoDTO obterPreInscricaoPorId(Integer id) {
+    public InscricaoDTO obterInscricaoPorId(Integer id) {
         Inscricao inscricao = inscricaoRepositorio.findById(id).get();
         return inscricaoMapper.toDto(inscricao);
     }
 
     public void deletar(Integer id) {
-        preInscricaoRepository.deleteById(id);
+        inscricaoRepositorio.deleteById(id);
     }
 
     public InscricaoDTO atualizar(InscricaoDTO inscricaoDTO) {

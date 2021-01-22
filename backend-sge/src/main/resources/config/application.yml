@@ -1,25 +1,8 @@
 application:
-    appName: sge
-
-    mail:
-        endereco-remetente: sapedteste@gmail.com
-        nome-remetente: basis
-
-spring:
-    application:
-        name: sgeservice
-    datasource:
-        type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/sge
-        username: sge
-        password: sge
-
-        hikari:
-            poolName: Hikari
-            auto-commit: false
+  appName: sge
 
   mail:
-    endereco-remetente: basistreinamento@gmail.com
+    endereco-remetente: sapedteste@gmail.com
     nome-remetente: basis
 
 spring:
@@ -39,8 +22,8 @@ spring:
     date-format: yyyy-MM-dd
     deserialization:
       fail-on-unknown-properties: false
-  jpa:
 
+  jpa:
     database: POSTGRESQL
     show-sql: true
     open-in-view: false
@@ -69,5 +52,6 @@ spring:
             enable: true
             required: true
           quitwait: false
+
 server:
   port: 8080

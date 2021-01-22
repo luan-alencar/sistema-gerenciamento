@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
-@RequestMapping(value = "/api/usuarios", produces = "application/json")
+@RequestMapping("/api/usuarios")
 @RestController
 @RequiredArgsConstructor
 public class UsuarioRecurso {
@@ -41,7 +41,7 @@ public class UsuarioRecurso {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity remover(@PathVariable Integer id) {
+    public ResponseEntity<Void> remover(@PathVariable Integer id) {
         usuarioService.remover(id);
         return ResponseEntity.ok().build();
     }
