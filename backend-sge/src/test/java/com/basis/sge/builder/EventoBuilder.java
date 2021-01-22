@@ -33,9 +33,9 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         tipoEvento.setId(1);
 
         Evento evento = new Evento();
-        evento.setLocal("Avenida");
-        evento.setTitulo("Arquitetura");
-        evento.setDescricao("Workshop");
+        evento.setLocal("Avenida Visconde Sabugosa");
+        evento.setTitulo("Arquitetura Limpa");
+        evento.setDescricao("Workshop sobre o livro Arquitetura Limpa do autor Robert Cecil Martin");
         evento.setQtdVagas(20);
         evento.setValor(null);
         evento.setDataInicio(LocalDateTime.of(2021, 07, 22, 10, 15, 30));
