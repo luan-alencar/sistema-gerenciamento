@@ -18,14 +18,14 @@ public class EventoDTO implements Serializable {
 
     private Integer id;
 
-    private Integer local;
-    private Integer titulo;
-    private Integer descricao;
+    private String local;
+    private String titulo;
+    private String descricao;
     private Integer qtdVagas;
     private Double valor;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
-    private Boolean idTipoInscricao;
+    private Boolean tipoInscricao;
     private Integer idTipoEvento;
     private List<EventoPergunta> perguntas;
 }

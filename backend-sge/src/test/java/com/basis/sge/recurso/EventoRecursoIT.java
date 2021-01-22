@@ -9,27 +9,25 @@ import com.basis.sge.util.TestUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
+@RunWith(SpringRunner.class)
 @Transactional
 public class EventoRecursoIT extends IntTestComum {
 
-    @Autowired(required = true)
+    @Autowired
     private EventoBuilder eventoBuilder;
 
-    @Autowired(required = true)
+    @Autowired
     private EventoMapper eventoMapper;
 
-    @Autowired(required = true)
+    @Autowired
     private EventoRepositorio eventoRepositorio;
 
 
@@ -40,10 +38,12 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     protected void listarTest() throws Exception {
-        eventoBuilder.construir();
+        eventoBuilder.construir(
+
+        );
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
-        Assert.assertEquals(0, eventoRepositorio.findAll().size());
+        Assert.assertEquals(1, eventoRepositorio.findAll().size());
     }
 
     @Test

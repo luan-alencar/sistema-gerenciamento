@@ -5,25 +5,20 @@ import com.basis.sge.dominio.TipoEvento;
 import com.basis.sge.servico.EventoServico;
 import com.basis.sge.servico.dto.EventoDTO;
 import com.basis.sge.servico.mapper.EventoMapper;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@ExtendWith(SpringExtension.class)
-@Transactional
+@Component
 public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
 
-    @Autowired(required = true)
+    @Autowired
     private EventoServico eventoServico;
 
-    @Autowired(required = true)
+    @Autowired
     private EventoMapper eventoMapper;
 
     @Override
@@ -41,7 +36,7 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         evento.setDataInicio(LocalDateTime.of(2021, 07, 22, 10, 15, 30));
         evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
         evento.setTipoInscricao(false);
-        evento.setIdTipoEvento(tipoEvento);
+        evento.setTipoEvento(tipoEvento);
         return evento;
     }
 

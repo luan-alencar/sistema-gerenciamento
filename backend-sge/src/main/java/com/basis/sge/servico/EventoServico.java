@@ -37,7 +37,7 @@ public class EventoServico {
 
     public EventoDTO salvar(EventoDTO eventoDTO) {
 
-        if (eventoDTO.getIdTipoInscricao() == null) {
+        if (eventoDTO.getTipoInscricao() == null) {
             throw new RegraNegocioException("Escolha o tipo de inscrição para o evento");
         }
 

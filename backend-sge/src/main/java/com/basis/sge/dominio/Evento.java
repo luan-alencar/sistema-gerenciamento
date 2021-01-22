@@ -52,7 +52,7 @@ public class Evento implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_evento")
-    private TipoEvento idTipoEvento;
+    private TipoEvento tipoEvento;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "evento")
     private List<EventoPergunta> perguntas = new ArrayList<>();
