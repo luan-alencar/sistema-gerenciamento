@@ -1,51 +1,65 @@
 package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Inscricao;
-import com.basis.sge.repositorio.PreInscricaoRepository;
-import com.basis.sge.servico.dto.PreInscricaoDTO;
+import com.basis.sge.dominio.InscricaoResposta;
+import com.basis.sge.repositorio.InscricaoRepositorio;
+import com.basis.sge.repositorio.InscricaoRespostaRepositorio;
+import com.basis.sge.repositorio.UsuarioRepositorio;
+import com.basis.sge.servico.dto.InscricaoDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
-import com.basis.sge.servico.mapper.PreInscricaoMapper;
+import com.basis.sge.servico.mapper.InscricaoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PreInscricaoServico {
+public class InscricaoServico {
 
-    private final PreInscricaoRepository preInscricaoRepository;
-    private final PreInscricaoMapper preInscricaoMapper;
+    private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
+    private final InscricaoRepositorio inscricaoRepositorio;
+    private final InscricaoMapper inscricaoMapper;
+    private final UsuarioRepositorio usuarioRepositorio;
 
     // buscar todos
-    public List<PreInscricaoDTO> listar() {
-        List<Inscricao> inscricaoLista = preInscricaoRepository.findAll();
-        return preInscricaoMapper.toDto(inscricaoLista);
+    public List<InscricaoDTO> listar() {
+        List<Inscricao> inscricaoLista = inscricaoRepositorio.findAll();
+        return inscricaoMapper.toDto(inscricaoLista);
     }
 
-    public PreInscricaoDTO obterPreInscricaoPorId(Integer id) {
-        Inscricao inscricao = preInscricaoRepository.findById(id).get();
-        return preInscricaoMapper.toDto(inscricao);
+    public InscricaoDTO obterInscricaoPorId(Integer id) {
+        Inscricao inscricao = inscricaoRepositorio.findById(id).get();
+        return inscricaoMapper.toDto(inscricao);
     }
 
     public void deletar(Integer id) {
-        preInscricaoRepository.deleteById(id);
+        inscricaoRepositorio.deleteById(id);
     }
 
-    public PreInscricaoDTO atualizar(PreInscricaoDTO preInscricaoDTO) {
-        Inscricao inscricaoAtualizado = preInscricaoMapper.toEntity(preInscricaoDTO);
-        preInscricaoRepository.save(inscricaoAtualizado);
-        return preInscricaoMapper.toDto(inscricaoAtualizado);
+    public InscricaoDTO atualizar(InscricaoDTO inscricaoDTO) {
+        Inscricao inscricaoAtualizado = inscricaoMapper.toEntity(inscricaoDTO);
+        inscricaoRepositorio.save(inscricaoAtualizado);
+        return inscricaoMapper.toDto(inscricaoAtualizado);
     }
 
-    public PreInscricaoDTO salvar(PreInscricaoDTO preInscricaoDTO) {
-        Inscricao inscricao = preInscricaoRepository.findById(preInscricaoDTO.getId()).get();
-        if (inscricao != null) {
-            throw new RegraNegocioException("Usuario já existente!");
-        }
-        preInscricaoRepository.save(inscricao);
-        return preInscricaoMapper.toDto(inscricao);
+    public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
+        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
+        usuarioRepositorio.findById(inscricaoDTO.getIdUsuario()).orElseThrow(() -> new RegraNegocioException("Usuario não existe"));
+        List<InscricaoResposta> respostas = inscricao.getResposta();
+
+        inscricao.setResposta(new ArrayList<>());
+        inscricaoRepositorio.save(inscricao);
+
+        respostas.forEach(resposta -> {
+            resposta.setInscricao(inscricao);
+        });
+
+        inscricaoRespostaRepositorio.saveAll(respostas);
+
+        return inscricaoMapper.toDto(inscricao);
     }
 }

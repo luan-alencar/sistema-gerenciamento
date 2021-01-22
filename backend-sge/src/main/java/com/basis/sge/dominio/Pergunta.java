@@ -9,19 +9,17 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "pergunta")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "pergunta")
 public class Pergunta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_pergunta")
-    @SequenceGenerator(name = "sequence_pergunta", sequenceName = "sq_pergunta", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_pergunta")
+    @SequenceGenerator(name = "sq_pergunta", sequenceName = "sq_pergunta", initialValue = 1, allocationSize = 1)
     private Integer id;
 
     @Column(name = "titulo")

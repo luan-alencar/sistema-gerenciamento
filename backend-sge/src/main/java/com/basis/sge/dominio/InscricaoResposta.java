@@ -3,23 +3,34 @@ package com.basis.sge.dominio;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "pre_inscricao_resposta")
+@Table(name = "inscricao_resposta")
 public class InscricaoResposta implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-//    private PreInscricao id_pre_inscricao;
-
     @EmbeddedId
-    private IdPreInscricaoResposta idPreInscricaoResposta;
+    private IdInscricaoResposta id;
+
+    @MapsId("idInscricao")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_inscricao")
+    private Inscricao inscricao;
+
+    @MapsId("idEvento")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_evento")
+    private Evento evento;
+
+    @MapsId("idPergunta")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pergunta")
+    private Pergunta pergunta;
 
     @Column(name = "resposta")
     private String resposta;

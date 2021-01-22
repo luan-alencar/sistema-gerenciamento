@@ -1,5 +1,6 @@
 package com.basis.sge.servico;
 
+import com.basis.sge.configuracao.ApplicationProperties;
 import com.basis.sge.servico.dto.EmailDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,12 +19,14 @@ public class EmailServico {
 
     private final JavaMailSender javaMailSender;
 
+    private final ApplicationProperties properties;
+
     public void sendMail(EmailDTO emailDTO) {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             message.setTo(emailDTO.getDestinatario());
-            message.setFrom("alguem", "outro alguem");
+            message.setFrom(properties.getEnderecoRemetente(), properties.getNomeRemetente());
             message.setSubject(emailDTO.getAssunto());
             for (String s : emailDTO.getCopias()) {
                 message.addCc(s);

@@ -1,17 +1,16 @@
 package com.basis.sge.recurso;
 
-import com.basis.sge.dominio.Usuario;
 import com.basis.sge.repositorio.UsuarioRepositorio;
 import com.basis.sge.servico.UsuarioServico;
 import com.basis.sge.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
-@RequestMapping(value = "/api/usuarios", produces = "application/json")
+@RequestMapping("/api/usuarios")
 @RestController
 @RequiredArgsConstructor
 public class UsuarioRecurso {
@@ -20,35 +19,35 @@ public class UsuarioRecurso {
     private final UsuarioRepositorio usuarioRepositorio;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
+    public ResponseEntity<List<UsuarioDTO>> listar() {
         return ResponseEntity.ok(usuarioService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarUm(@PathVariable Integer id) {
+    public ResponseEntity<UsuarioDTO> obterUsuarioPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(usuarioService.obterUsuarioPorId(id));
     }
 
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf){
+        return ResponseEntity.ok(usuarioService.obterUsuarioPorCpf(cpf));
+    }
+
     @PostMapping
-    public ResponseEntity<Usuario> salvar(@RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.created(URI.create("/usuario"+usuarioDTO.getId())).build();
+
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletar(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> remover(@PathVariable Integer id) {
         usuarioService.remover(id);
         return ResponseEntity.ok().build();
     }
 
-    // editar db
-    @PutMapping("/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
-        if (!usuarioRepositorio.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        usuarioDTO.setId(id);
-        usuarioDTO = usuarioService.editar(usuarioDTO);
-        return ResponseEntity.ok(usuarioDTO);
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.ok(usuarioService.editar(usuarioDTO));
     }
 }
