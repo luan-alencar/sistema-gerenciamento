@@ -3,6 +3,7 @@ package com.basis.sge.recurso;
 import com.basis.sge.builder.EventoBuilder;
 import com.basis.sge.dominio.Evento;
 import com.basis.sge.repositorio.EventoRepositorio;
+import com.basis.sge.servico.EventoServico;
 import com.basis.sge.servico.mapper.EventoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
@@ -29,6 +30,9 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Autowired
     private EventoRepositorio eventoRepositorio;
+
+    @Autowired
+    private EventoServico eventoServico;
 
 
     @BeforeEach
@@ -65,5 +69,34 @@ public class EventoRecursoIT extends IntTestComum {
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void removerTest() throws Exception {
+
+        Evento evento = eventoBuilder.construir();
+
+        getMockMvc().perform(delete("/api/eventos/{id}", evento.getId()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void buscarPorId() throws Exception {
+
+        Evento evento = eventoBuilder.construir();
+
+        getMockMvc().perform(get("/api/eventos/{id}", evento.getId()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void buscarPorIdNaoExistente() throws Exception {
+
+        Evento evento = eventoBuilder.construir();
+        evento.setId(2);
+
+        getMockMvc().perform(get("/api/eventos/{id}", evento.getId()))
+                .andExpect(status().isNotFound());
+        Assert.assertEquals(1, eventoRepositorio.findById(evento.getId()));
     }
 }

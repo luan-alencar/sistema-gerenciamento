@@ -47,12 +47,12 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
     }
 
     @Override
-    protected List<Evento> obterTodos() {
+    public List<Evento> obterTodos() {
         return eventoMapper.toEntity(eventoServico.listar());
     }
 
     @Override
-    protected Evento obterPorId(Integer id) {
+    public Evento obterPorId(Integer id) {
         return eventoMapper.toEntity(eventoServico.obterEventoPorId(id));
     }
 }
