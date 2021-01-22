@@ -28,7 +28,7 @@ public class UsuarioRecurso {
         return ResponseEntity.ok(usuarioService.obterUsuarioPorId(id));
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf){
         return ResponseEntity.ok(usuarioService.obterUsuarioPorCpf(cpf));
     }

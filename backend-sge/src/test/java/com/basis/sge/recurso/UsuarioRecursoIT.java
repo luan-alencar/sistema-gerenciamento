@@ -53,6 +53,38 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
+    public void obterUsuarioPorIdTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construir();
+
+        getMockMvc().perform(get("/api/usuarios/{id}", usuario.getId()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void obterUsuarioPorIdInvalidoTest() throws Exception {
+        usuarioBuilder.construir();
+
+        getMockMvc().perform(get("/api/usuarios/{id}", 2))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void obterUsuarioPorCpfTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construir();
+
+        getMockMvc().perform(get("/api/usuarios/cpf/{cpf}", usuario.getCpf()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void obterUsuarioPorCpfInvalidoTest() throws Exception {
+        usuarioBuilder.construir();
+
+        getMockMvc().perform(get("/api/usuarios/cpf/{cpf}", "25896314874"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void salvarTest() throws Exception {
         Usuario usuario = usuarioBuilder.construirEntidade();
 
@@ -63,6 +95,61 @@ public class UsuarioRecursoIT extends IntTestComum {
 
         Assert.assertEquals(1, usuarioRepositorio.findAll().size());
 
+    }
+
+    @Test
+    public void salvarUsuarioCpfNullTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        usuario.setCpf(null);
+
+        getMockMvc().perform(post("/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void salvarUsuarioEmailNullTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        usuario.setEmail(null);
+
+        getMockMvc().perform(post("/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void salvarUsuarioTelefoneNullTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        usuario.setTelefone(null);
+
+        getMockMvc().perform(post("/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void salvarUsuarioNomeNullTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        usuario.setNome(null);
+
+        getMockMvc().perform(post("/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void salvarUsuarioDataNascimentoNullTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        usuario.setDataNascimento(null);
+
+        getMockMvc().perform(post("/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -131,8 +218,17 @@ public class UsuarioRecursoIT extends IntTestComum {
     public void removerTest() throws Exception {
         Usuario usuario = usuarioBuilder.construir();
 
-        getMockMvc().perform(delete( "/api/usuarios/"+usuario.getId()))
+        getMockMvc().perform(delete( "/api/usuarios/{id}", usuario.getId()))
                 .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void removerIdInvalidoTest() throws Exception {
+        usuarioBuilder.construir();
+
+        getMockMvc().perform(delete( "/api/usuarios/2"))
+                .andExpect(status().isBadRequest());
 
     }
 

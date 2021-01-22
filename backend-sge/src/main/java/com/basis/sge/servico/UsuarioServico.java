@@ -55,28 +55,46 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
-        List<Usuario> usuarioBD = usuarioRepositorio.findAll();
+
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
 
-        for(Usuario lista : usuarioBD){
-            if(lista.getCpf().equals(usuario.getCpf())){
-                throw new RegraNegocioException("Já existe usuario cadastrado com esse cpf");
+        if(usuarioDTO.equals(null)){
+            throw new RegraNegocioException("Usuário null não pode ser cadastrado");
+        }
+        else {
+
+            for (Usuario lista : usuarioRepositorio.findAll()) {
+                if (lista.getCpf().equals(usuario.getCpf())) {
+                    throw new RegraNegocioException("Já existe usuario cadastrado com esse cpf");
+                }
+
+                if(lista.getNome().equals(null)){
+                    throw new RegraNegocioException("Nome de usuário não informado");
+                }
+
+                if(lista.getCpf().equals(null)){
+                    throw new RegraNegocioException("Cpf não informado");
+                }
+
+                if (lista.getEmail().equals(usuario.getEmail())) {
+                    throw new RegraNegocioException("Já existe usuario cadastrado com esse e-mail");
+                }
+
+                if(lista.getEmail().equals(null)){
+                    throw new RegraNegocioException("E-mail não informado");
+                }
+
             }
 
-            if(lista.getEmail().equals(usuario.getEmail())){
-                throw new RegraNegocioException("Já existe usuario cadastrado com esse e-mail");
+            int idade = LocalDate.now().getYear() - usuario.getDataNascimento().getYear();
+            if (usuario.getDataNascimento().equals(LocalDate.now()) || (idade > 115 || idade < 10)) {
+                throw new RegraNegocioException("Data de nascimento inválida");
             }
 
+            usuario.setChave(UUID.randomUUID().toString());
+            usuarioRepositorio.save(usuario);
+            enviarEmail(usuario);
         }
-
-        int idade = LocalDate.now().getYear() - usuario.getDataNascimento().getYear();
-        if (usuario.getDataNascimento().equals(LocalDate.now()) || (idade > 115 || idade < 10)){
-            throw new RegraNegocioException("Data de nascimento inválida");
-        }
-
-        usuario.setChave(UUID.randomUUID().toString());
-        usuarioRepositorio.save(usuario);
-        enviarEmail(usuario);
         return usuarioMapper.toDto(usuario);
     }
 
