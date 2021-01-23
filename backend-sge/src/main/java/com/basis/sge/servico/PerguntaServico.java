@@ -3,6 +3,7 @@ package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Pergunta;
 import com.basis.sge.repositorio.PerguntaRepositorio;
+import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.PerguntaMapper;
 import com.basis.sge.servico.dto.PerguntaDTO;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,9 @@ public class PerguntaServico {
     public List<PerguntaDTO> listar() {
 
         List<Pergunta> listaPergunta = perguntaRepositorio.findAll(); //Busca no repositório todas as perguntas
+        if(listaPergunta.isEmpty()){
+            throw new RegraNegocioException("Nenhuma pergunta cadastrada!");
+        }
         return perguntaMapper.toDto(listaPergunta); //Passa as perguntas para o dto e envia para os recursos uma listaDto
 
     }
@@ -37,10 +41,18 @@ public class PerguntaServico {
     public PerguntaDTO salvar(PerguntaDTO perguntaDTO) {
 
         Pergunta pergunta = perguntaMapper.toEntity(perguntaDTO);
+
+        if(pergunta.getTitulo() == null){
+            throw new RegraNegocioException("Título da pergunta não preenchido");
+        }
+
+        if(pergunta.getObrigatoriedade() == null){
+            throw new RegraNegocioException("Obrigatoriedade da pergunta não preenchida");
+        }
+
         perguntaRepositorio.save(pergunta);
 
         return perguntaDTO;
-
 
     }
 
@@ -53,10 +65,8 @@ public class PerguntaServico {
     }
 
     public void deletar(Integer id) {
-
-        perguntaRepositorio.deleteById(id);
-
-
+        perguntaRepositorio.delete(perguntaRepositorio.findById(id)
+            .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
 
 
