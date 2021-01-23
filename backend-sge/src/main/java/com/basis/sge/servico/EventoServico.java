@@ -28,10 +28,14 @@ public class EventoServico {
         return eventoMapper.toDto(lista);
     }
 
-    public EventoDTO obterEventoPorId(Integer id) {
-        Evento evento = eventoRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado"));
+    public EventoDTO obterPorId(Integer id) {
+        Evento evento = obterEventoPorId(id);
         return eventoMapper.toDto(evento);
+    }
+
+    private Evento obterEventoPorId(Integer id) {
+        return eventoRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Evento não encontrado"));
     }
 
     public EventoDTO salvar(EventoDTO eventoDTO) {
@@ -95,8 +99,7 @@ public class EventoServico {
     }
 
     public void remover(Integer id) {
-        eventoRepositorio.delete(eventoRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
+        Evento evento = obterEventoPorId(id);
+        eventoRepositorio.delete(evento);
     }
-
 }

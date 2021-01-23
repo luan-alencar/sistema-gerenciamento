@@ -54,6 +54,6 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
 
     @Override
     public Evento obterPorId(Integer id) {
-        return eventoMapper.toEntity(eventoServico.obterEventoPorId(id));
+        return eventoMapper.toEntity(eventoServico.obterPorId(id));
     }
 }
