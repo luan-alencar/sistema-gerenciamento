@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -47,11 +46,11 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         evento.setTitulo("Arquitetura Limpa");
         evento.setDescricao("Workshop sobre o livro Arquitetura Limpa do autor Robert Cecil Martin");
         evento.setQtdVagas(20);
-        evento.setValor(null);
+        evento.setValor(10.0);
         evento.setPerguntas(perguntas);
         evento.setDataInicio(LocalDateTime.of(2021, 07, 22, 10, 15, 30));
         evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
-        evento.setTipoInscricao(false);
+        evento.setTipoInscricao(true);
         evento.setTipoEvento(tipoEvento);
 
         return evento;
