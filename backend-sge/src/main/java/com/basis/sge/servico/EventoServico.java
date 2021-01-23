@@ -28,14 +28,10 @@ public class EventoServico {
         return eventoMapper.toDto(lista);
     }
 
-    public EventoDTO obterPorId(Integer id) {
-        Evento evento = obterEventoPorId(id);
-        return eventoMapper.toDto(evento);
-    }
-
-    private Evento obterEventoPorId(Integer id) {
-        return eventoRepositorio.findById(id)
+    public EventoDTO obterEventoPorId(Integer id) {
+        Evento evento =  eventoRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado"));
+        return eventoMapper.toDto(evento);
     }
 
     public EventoDTO salvar(EventoDTO eventoDTO) {
@@ -56,10 +52,6 @@ public class EventoServico {
             throw new RegraNegocioException("O campo data de fim e obrigatorio!");
         }
 
-        if (eventoDTO.getDataInicio() == null) {
-            throw new RegraNegocioException("Campo de titulo é obrigatorio!");
-        }
-
         if (eventoDTO.getLocal() == null) {
             throw new RegraNegocioException("O campo local é obrigatorio!");
         }
@@ -70,10 +62,6 @@ public class EventoServico {
 
         if (eventoDTO.getPerguntas() == null) {
             throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
-        }
-
-        if (eventoDTO.getTipoInscricao() == true && eventoDTO.getValor() < 0) {
-            throw new RegraNegocioException("O valor para ser cobrado tem que ser mais que 0!");
         }
 
         Evento evento = eventoMapper.toEntity(eventoDTO);
@@ -99,7 +87,7 @@ public class EventoServico {
     }
 
     public void remover(Integer id) {
-        Evento evento = obterEventoPorId(id);
-        eventoRepositorio.delete(evento);
+        eventoRepositorio.delete(eventoRepositorio.findById(id)
+            .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
 }

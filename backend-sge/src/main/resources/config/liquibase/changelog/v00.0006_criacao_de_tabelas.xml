@@ -71,7 +71,7 @@
             <column name="descricao" type="text">
                 <constraints nullable="true" />
             </column>
-            <column name="qt_vagas" type="number">
+            <column name="qtd_vagas" type="number">
                 <constraints nullable="true" />
             </column>
             <column name="valor" type="double">

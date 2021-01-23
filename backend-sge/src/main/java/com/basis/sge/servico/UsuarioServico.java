@@ -49,9 +49,9 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
-        Usuario usuarioAtualizado = usuarioMapper.toEntity(usuarioDTO);
-        usuarioRepositorio.save(usuarioAtualizado);
-        return usuarioMapper.toDto(usuarioAtualizado);
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuarioRepositorio.save(usuario);
+        return usuarioMapper.toDto(usuario);
     }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
