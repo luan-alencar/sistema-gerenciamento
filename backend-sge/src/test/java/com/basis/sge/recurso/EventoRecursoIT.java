@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,9 +39,7 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     protected void listarTest() throws Exception {
-        eventoBuilder.construir(
-
-        );
+        eventoBuilder.construir();
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
         Assert.assertEquals(1, eventoRepositorio.findAll().size());
@@ -48,7 +48,6 @@ public class EventoRecursoIT extends IntTestComum {
     @Test
     protected void salvarTest() throws Exception {
         Evento evento = eventoBuilder.construirEntidade();
-
         getMockMvc().perform(post("/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
@@ -56,10 +55,20 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTest() throws Exception {
-
+    public void editarLocalTest() throws Exception {
         Evento evento = eventoBuilder.construir();
         evento.setLocal("Novo local: Avenida Floriano Peixoto");
+        getMockMvcIsOkd(evento);
+    }
+
+    @Test
+    public void editarDateTest() throws Exception {
+        Evento evento = eventoBuilder.construir();
+        evento.setDataInicio(LocalDateTime.of(2021,05,21,18,00));
+        getMockMvcIsOkd(evento);
+    }
+
+    private void getMockMvcIsOkd(Evento evento) throws Exception {
         getMockMvc().perform(put("/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
@@ -68,34 +77,32 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     public void removerTest() throws Exception {
-
         Evento evento = eventoBuilder.construir();
-
         getMockMvc().perform(delete("/api/eventos/{id}", evento.getId()))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void buscarPorIdTest() throws Exception {
-
         Evento evento = eventoBuilder.construir();
-
         getMockMvc().perform(get("/api/eventos/{id}", evento.getId()))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void buscarPorIdNaoExistenteTest() throws Exception {
+        String result = getString();
+        Assert.assertEquals("Id informado não encontrado", result);
+    }
 
-        eventoBuilder.construir();
-
-        getMockMvc().perform(get("/api/eventos/{id}", 2))
-                .andExpect(status().isBadRequest());
+    @Test
+    public void buscarPorDataNaoCompativel() throws Exception {
+        String result = getString();
+        Assert.assertEquals("Escolha o tipo de inscrição para o evento", result);
     }
 
     @Test
     public void tituloNullTest() throws Exception {
-
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTitulo(null);
         getMockMvc().perform(post("/api/eventos")
@@ -106,7 +113,6 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     public void dataInicioNullTest() throws Exception {
-
         Evento evento = eventoBuilder.construirEntidade();
         evento.setDataInicio(null);
         getMockMvc().perform(post("/api/eventos")
@@ -128,7 +134,6 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     public void descricaoNullTest() throws Exception {
-
         Evento evento = eventoBuilder.construirEntidade();
         evento.setDescricao(null);
         getMockMvc().perform(post("/api/eventos")
@@ -145,5 +150,12 @@ public class EventoRecursoIT extends IntTestComum {
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
                 .andExpect(status().isBadRequest());
+    }
+
+    // método extraido
+    private String getString() throws Exception {
+        String result = getMockMvc().perform(get("/api/eventos/{id}", 2))
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+        return result;
     }
 }
