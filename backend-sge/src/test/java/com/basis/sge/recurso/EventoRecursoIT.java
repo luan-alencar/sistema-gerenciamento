@@ -7,11 +7,12 @@ import com.basis.sge.servico.mapper.EventoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
+@RunWith(SpringRunner.class)
 @Transactional
 public class EventoRecursoIT extends IntTestComum {
 
@@ -46,8 +47,9 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    protected void salvarTest() throws Exception {
+    public void salvarTest() throws Exception {
         Evento evento = eventoBuilder.construirEntidade();
+
         getMockMvc().perform(post("/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
@@ -58,21 +60,27 @@ public class EventoRecursoIT extends IntTestComum {
     public void editarLocalTest() throws Exception {
         Evento evento = eventoBuilder.construir();
         evento.setLocal("Novo local: Avenida Floriano Peixoto");
-        getMockMvcIsOkd(evento);
+        getMockMvcIsOk(evento);
     }
 
     @Test
-    public void editarDateTest() throws Exception {
+    public void editarDateInicioTest() throws Exception {
         Evento evento = eventoBuilder.construir();
-        evento.setDataInicio(LocalDateTime.of(2021,05,21,18,00));
-        getMockMvcIsOkd(evento);
+        evento.setDataInicio(LocalDateTime.of(2021, 05, 21, 18, 00));
+        getMockMvcIsOk(evento);
     }
 
-    private void getMockMvcIsOkd(Evento evento) throws Exception {
-        getMockMvc().perform(put("/api/eventos")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isOk());
+    @Test
+    public void editarDataFimTest() throws Exception {
+        Evento evento = new Evento();
+        getMockMvcIsOk(evento);
+        evento.setValor(10.0);
+        getMockMvcIsOk(evento);
+    }
+
+    @Test
+    public void editarDescricaoTest() throws Exception {
+
     }
 
     @Test
@@ -89,16 +97,28 @@ public class EventoRecursoIT extends IntTestComum {
                 .andExpect(status().isOk());
     }
 
+
+    @Test
+    void testExpectedException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Integer.parseInt("One");
+        });
+    }
+
+//    @Test
+//    void testValorException() throws ParseException {
+//        Evento evento = eventoBuilder.construirEntidade();
+//        evento.setValor(0.1);
+//        evento.setTipoInscricao(true);
+//        Assertions.assertThrows(NumberFormatException.class, () -> {
+//            IllegalArgumentException("O valor deve ser maior que 0 para ser cobrado");
+//        });
+//    }
+
     @Test
     public void buscarPorIdNaoExistenteTest() throws Exception {
         String result = getString();
         Assert.assertEquals("Id informado não encontrado", result);
-    }
-
-    @Test
-    public void buscarPorDataNaoCompativel() throws Exception {
-        String result = getString();
-        Assert.assertEquals("Escolha o tipo de inscrição para o evento", result);
     }
 
     @Test
@@ -123,7 +143,6 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     public void dataFimNullTest() throws Exception {
-
         Evento evento = eventoBuilder.construirEntidade();
         evento.setDataFim(null);
         getMockMvc().perform(post("/api/eventos")
@@ -144,7 +163,6 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     public void perguntasNullTest() throws Exception {
-
         Evento evento = eventoBuilder.construirEntidade();
         getMockMvc().perform(post("/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -157,5 +175,14 @@ public class EventoRecursoIT extends IntTestComum {
         String result = getMockMvc().perform(get("/api/eventos/{id}", 2))
                 .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
         return result;
+    }
+
+    // metodo extraido
+    private void getMockMvcIsOk(Evento evento) throws Exception {
+        eventoBuilder.construir();
+        getMockMvc().perform(put("/api/eventos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
+                .andExpect(status().isOk());
     }
 }
