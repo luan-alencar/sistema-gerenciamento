@@ -94,8 +94,6 @@ public class EventoServico {
         eventoRepositorio.delete(eventoRepositorio.findById(id)
             .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
-<<<<<<< HEAD
-=======
 
     public void enviarEmail(Usuario usuario){
         EmailDTO emailDTO = new EmailDTO();
@@ -105,5 +103,4 @@ public class EventoServico {
         emailServico.sendMail(emailDTO);
     }
 
->>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
 }

@@ -9,17 +9,10 @@ import com.basis.sge.util.TestUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-<<<<<<< HEAD
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-=======
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.test.context.junit4.SpringRunner;
->>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +23,7 @@ import java.time.LocalDateTime;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-<<<<<<< HEAD
 @ExtendWith(SpringExtension.class)
-=======
-@RunWith(SpringRunner.class)
->>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
 @Transactional
 public class EventoRecursoIT extends IntTestComum {
 
@@ -56,11 +45,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-<<<<<<< HEAD
     public void listarTest() throws Exception {
-=======
-    protected void listarTest() throws Exception {
->>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
         eventoBuilder.construir();
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
@@ -121,11 +106,7 @@ public class EventoRecursoIT extends IntTestComum {
 
 
     @Test
-<<<<<<< HEAD
     public void testValorException() throws ParseException {
-=======
-    void testValorException() throws ParseException {
->>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
         try {
             Evento evento = eventoBuilder.construirEntidade();
             evento.setValor(0.1);
