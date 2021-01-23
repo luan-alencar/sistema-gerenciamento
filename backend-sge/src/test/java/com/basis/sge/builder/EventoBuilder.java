@@ -32,12 +32,12 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         evento.setTitulo("Arquitetura Limpa");
         evento.setDescricao("Workshop sobre o livro Arquitetura Limpa do autor Robert Cecil Martin");
         evento.setQtdVagas(20);
-        evento.setValor(20.0);
+        evento.setValor(null);
         evento.setDataInicio(LocalDateTime.of(2021, 07, 22, 10, 15, 30));
         evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
-        evento.setTipoInscricao(true);
+        evento.setTipoInscricao(false);
         evento.setTipoEvento(tipoEvento);
-        
+
         return evento;
     }
 

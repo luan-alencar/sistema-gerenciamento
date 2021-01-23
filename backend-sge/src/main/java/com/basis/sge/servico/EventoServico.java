@@ -64,13 +64,13 @@ public class EventoServico {
             throw new RegraNegocioException("A descrição do evento é obrigatória!");
         }
 
-        if (eventoDTO.getPerguntas() == null) {
-            throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
-        }
+//        if (eventoDTO.getPerguntas() == null) {
+//            throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
+//        }
 
-        if (eventoDTO.getTipoInscricao() == true && eventoDTO.getValor() < 0) {
-            throw new RegraNegocioException("O valor para ser cobrado tem que ser mais que 0!");
-        }
+//        if (eventoDTO.getTipoInscricao() == true && eventoDTO.getValor() < 0) {
+//            throw new RegraNegocioException("O valor para ser cobrado tem que ser mais que 0!");
+//        }
 
         Evento evento = eventoMapper.toEntity(eventoDTO);
         List<EventoPergunta> perguntas = new ArrayList<>();

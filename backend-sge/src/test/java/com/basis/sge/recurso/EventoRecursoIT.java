@@ -97,11 +97,11 @@ public class EventoRecursoIT extends IntTestComum {
                 .andExpect(status().isOk());
     }
 
-
     @Test
-    void testExpectedException() {
+    void testExpectedException() throws Exception {
+        String result = getString();
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            Integer.parseInt("One");
+            String.format("Id informado não encontrado", result);
         });
     }
 
