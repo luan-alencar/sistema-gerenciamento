@@ -1,11 +1,11 @@
 package com.basis.sge.recurso;
 
-import com.basis.sge.repositorio.InscricaoRepositorio;
-import com.basis.sge.servico.mapper.InscricaoMapper;
 import com.basis.sge.util.IntTestComum;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
+@ExtendWith(SpringExtension.class)
+@Transactional
 public class InscricaoRecursoIT extends IntTestComum {
-
-
 }
