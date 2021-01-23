@@ -26,13 +26,12 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
 
     @Override
     public Evento construirEntidade() throws ParseException {
-
         TipoEvento tipoEvento = new TipoEvento();
         tipoEvento.setId(1);
 
         Pergunta pergunta = new Pergunta();
         pergunta.setTitulo("Quais seus objetivos?");
-        pergunta.setObrigatoriedade(false);
+        pergunta.setObrigatoriedade(true);
         pergunta.setId(1);
 
         List<EventoPergunta> perguntas = new ArrayList<>();
@@ -40,7 +39,6 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
             i.setPergunta(pergunta);
             i.setEvento(null);
         });
-
         Evento evento = new Evento();
         evento.setLocal("Avenida Visconde Sabugosa");
         evento.setTitulo("Arquitetura Limpa");
