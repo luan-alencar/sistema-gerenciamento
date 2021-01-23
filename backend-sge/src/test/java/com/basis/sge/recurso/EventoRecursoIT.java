@@ -73,14 +73,15 @@ public class EventoRecursoIT extends IntTestComum {
     @Test
     public void editarDataFimTest() throws Exception {
         Evento evento = new Evento();
-        getMockMvcIsOk(evento);
         evento.setValor(10.0);
         getMockMvcIsOk(evento);
     }
 
     @Test
     public void editarDescricaoTest() throws Exception {
-
+        Evento evento = new Evento();
+        evento.setDescricao("Design Patterns");
+        getMockMvcIsOk(evento);
     }
 
     @Test
