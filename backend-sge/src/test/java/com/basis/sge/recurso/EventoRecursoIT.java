@@ -7,16 +7,17 @@ import com.basis.sge.servico.mapper.EventoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.omg.IOP.ExceptionDetailMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -103,23 +104,19 @@ public class EventoRecursoIT extends IntTestComum {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    void testExpectedException() throws Exception {
-        String result = getString();
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            String.format("Id informado não encontrado", result);
-        });
-    }
 
-//    @Test
-//    void testValorException() throws ParseException {
-//        Evento evento = eventoBuilder.construirEntidade();
-//        evento.setValor(0.1);
-//        evento.setTipoInscricao(true);
-//        Assertions.assertThrows(NumberFormatException.class, () -> {
-//            IllegalArgumentException("O valor deve ser maior que 0 para ser cobrado");
-//        });
-//    }
+    @Test
+    void testValorException() throws ParseException {
+        try {
+            Evento evento = eventoBuilder.construirEntidade();
+            evento.setValor(0.1);
+            evento.setTipoInscricao(true);
+            getMockMvcIsOk(evento);
+        } catch (Exception e){
+            System.err.println(e);
+        }
+
+    }
 
     @Test
     public void buscarPorIdNaoExistenteTest() throws Exception {
@@ -151,10 +148,14 @@ public class EventoRecursoIT extends IntTestComum {
     public void dataFimNullTest() throws Exception {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setDataFim(null);
-        getMockMvc().perform(post("/api/eventos")
+        getMockMvcPost(evento, post("/api/eventos"), status().isBadRequest());
+    }
+
+    private void getMockMvcPost(Evento evento, MockHttpServletRequestBuilder post, ResultMatcher badRequest) throws Exception {
+        getMockMvc().perform(post
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(badRequest);
     }
 
     @Test
@@ -170,11 +171,9 @@ public class EventoRecursoIT extends IntTestComum {
     @Test
     public void perguntasNullTest() throws Exception {
         Evento evento = eventoBuilder.construirEntidade();
-        getMockMvc().perform(post("/api/eventos")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
-    }
+        evento.setPerguntas(null);
+        getMockMvcPost(evento, post("/api/eventos"), status().isBadRequest());    }
+
 
     // método extraido
     private String getString() throws Exception {
