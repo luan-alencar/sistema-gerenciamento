@@ -35,7 +35,7 @@ public class EventoServico {
 
     private Evento obterEventoPorId(Integer id) {
         return eventoRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Evento não encontrado"));
+                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado"));
     }
 
     public EventoDTO salvar(EventoDTO eventoDTO) {
