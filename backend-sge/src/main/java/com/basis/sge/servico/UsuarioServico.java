@@ -80,6 +80,7 @@ public class UsuarioServico {
                     validarDadosDuplicados(lista);
 
                 }
+<<<<<<< HEAD
 
                 validarIdade(usuarioDTO);
 
@@ -109,6 +110,37 @@ public class UsuarioServico {
         }
     }
 
+=======
+
+                validarIdade(usuarioDTO);
+
+                usuario.setChave(UUID.randomUUID().toString());
+                usuarioRepositorio.save(usuario);
+                enviarEmail(usuario);
+            }
+        }
+        return usuarioMapper.toDto(usuario);
+    }
+
+    private void validarDadosNull(UsuarioDTO usuario){
+        if(usuario.getNome() == null){
+            throw new RegraNegocioException("Nome de usuário não informado");
+        }
+
+        if(usuario.getCpf() == null){
+            throw new RegraNegocioException("Cpf não informado");
+        }
+
+        if(usuario.getEmail() == null){
+            throw new RegraNegocioException("E-mail não informado");
+        }
+
+        if(usuario.getDataNascimento() == null){
+            throw new RegraNegocioException("Data de nascimento não informada");
+        }
+    }
+
+>>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
     private void validarDadosDuplicados(UsuarioDTO usuario){
         if (usuarioRepositorio.findByCpf(usuario.getCpf()).isPresent()) {
             throw new RegraNegocioException("Já existe usuario cadastrado com esse cpf");

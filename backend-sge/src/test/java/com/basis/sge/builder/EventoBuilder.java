@@ -5,6 +5,10 @@ import com.basis.sge.dominio.EventoPergunta;
 import com.basis.sge.dominio.Pergunta;
 import com.basis.sge.dominio.TipoEvento;
 import com.basis.sge.servico.EventoServico;
+<<<<<<< HEAD
+=======
+import com.basis.sge.servico.dto.EventoDTO;
+>>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
 import com.basis.sge.servico.mapper.EventoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +16,10 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Collection;
+=======
+>>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
 import java.util.List;
 
 @Component
@@ -24,19 +31,29 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
     @Autowired
     private EventoMapper eventoMapper;
 
+<<<<<<< HEAD
     @Autowired
     private PerguntaBuilder perguntaBuilder;
 
+=======
+>>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
     @Override
     public Evento construirEntidade() throws ParseException {
 
         TipoEvento tipoEvento = new TipoEvento();
         tipoEvento.setId(1);
 
+<<<<<<< HEAD
         Pergunta pergunta = perguntaBuilder.construir();
 //        pergunta.setTitulo("Quais seus objetivos?");
 //        pergunta.setObrigatoriedade(false);
 //        pergunta.setId(1);
+=======
+        Pergunta pergunta = new Pergunta();
+        pergunta.setTitulo("Quais seus objetivos?");
+        pergunta.setObrigatoriedade(false);
+        pergunta.setId(1);
+>>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
 
         List<EventoPergunta> perguntas = new ArrayList<>();
         perguntas.forEach(i -> {
@@ -60,6 +77,7 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
     }
 
     @Override
+<<<<<<< HEAD
     public Evento persistir(Evento evento) {
         eventoServico.salvar(eventoMapper.toDto(evento));
         return evento;
@@ -67,6 +85,15 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
 
     @Override
     public Collection<Evento> obterTodos() {
+=======
+    protected Evento persistir(Evento evento) {
+        EventoDTO eventoDTO = eventoServico.salvar(eventoMapper.toDto(evento));
+        return eventoMapper.toEntity(eventoDTO);
+    }
+
+    @Override
+    public List<Evento> obterTodos() {
+>>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
         return eventoMapper.toEntity(eventoServico.listar());
     }
 

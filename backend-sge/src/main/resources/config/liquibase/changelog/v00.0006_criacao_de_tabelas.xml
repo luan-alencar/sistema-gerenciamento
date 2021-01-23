@@ -71,7 +71,11 @@
             <column name="descricao" type="text">
                 <constraints nullable="true" />
             </column>
+<<<<<<< HEAD
             <column name="qtd_vagas" type="number">
+=======
+            <column name="qt_vagas" type="number">
+>>>>>>> 35068f16d29e356f54226ba74c0d564195fd47cd
                 <constraints nullable="true" />
             </column>
             <column name="valor" type="double">
