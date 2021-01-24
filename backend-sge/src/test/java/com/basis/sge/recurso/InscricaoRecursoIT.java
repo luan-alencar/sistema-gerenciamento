@@ -84,9 +84,6 @@ public class InscricaoRecursoIT extends IntTestComum {
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(inscricaoMapper.toDto(inscricao))))
                 .andExpect(status().isCreated());
-
-        Assert.assertEquals(1, inscricaoRepositorio.findAll().size());
-
     }
 
     @Test

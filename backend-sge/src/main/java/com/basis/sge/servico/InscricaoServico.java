@@ -18,17 +18,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InscricaoServico {
 
-    private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
     private final InscricaoRepositorio inscricaoRepositorio;
     private final InscricaoMapper inscricaoMapper;
-    private final EventoRepositorio eventoRepositorio;
 
     // buscar todos
     public List<InscricaoDTO> listar() {
         List<Inscricao> inscricoes = inscricaoRepositorio.findAll();
-        if (inscricoes.isEmpty()) {
-            throw new RegraNegocioException("Nenhum inscrição cadastrada!");
-        }
         return inscricaoMapper.toDto(inscricoes);
     }
 
@@ -56,9 +51,12 @@ public class InscricaoServico {
     }
 
     public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
+
+        // como InscricaoMapper usa a interface InscricaoRespostaMapper apenas isso basta, pois, o mapper já faz o trabalho
         Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
         inscricaoRepositorio.save(inscricao);
         return inscricaoMapper.toDto(inscricao);
+
 //        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
 //        List<InscricaoResposta> respostas = inscricao.getResposta();
 //

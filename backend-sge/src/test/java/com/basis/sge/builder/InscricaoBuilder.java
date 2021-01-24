@@ -35,9 +35,9 @@ public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
         TipoSituacao tipoSituacao = new TipoSituacao();
         tipoSituacao.setId(1);
 
-        Usuario usuario = usuarioBuilder.construir();
-        Evento evento = eventoBuilder.construir();
-        Pergunta pergunta = perguntaBuilder.construir();
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        Evento evento = eventoBuilder.construirEntidade();
+        Pergunta pergunta = perguntaBuilder.construirEntidade();
 
         List<InscricaoResposta> respostas = new ArrayList<>();
         respostas.forEach(resposta -> {
