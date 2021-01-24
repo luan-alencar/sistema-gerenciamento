@@ -1,6 +1,5 @@
 package com.basis.sge.recurso;
 
-import com.basis.sge.dominio.Evento;
 import com.basis.sge.servico.EventoServico;
 import com.basis.sge.servico.dto.EventoDTO;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class EventoRecurso {
 
     @GetMapping("/{id}")
     public ResponseEntity<EventoDTO> obterEventoPorId(@PathVariable Integer id) {
-        EventoDTO entidadeDTO = eventoServico.obterPorId(id);
+        EventoDTO entidadeDTO = eventoServico.obterEventoPorId(id);
         return ResponseEntity.ok(entidadeDTO);
     }
 

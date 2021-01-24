@@ -1,6 +1,5 @@
 package com.basis.sge.builder;
 
-import com.basis.sge.dominio.Evento;
 import com.basis.sge.dominio.Usuario;
 import com.basis.sge.servico.UsuarioServico;
 import com.basis.sge.servico.dto.UsuarioDTO;
@@ -14,11 +13,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Component
-public abstract class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
+public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
 
     @Autowired
     private UsuarioServico usuarioServico;
-
     @Autowired
     private UsuarioMapper usuarioMapper;
 
@@ -40,7 +38,6 @@ public abstract class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
         usuarioServico.salvar(usuarioMapper.toDto(entidade));
         return  entidade;
     }
-
 
     @Override
     public Collection<Usuario> obterTodos() {

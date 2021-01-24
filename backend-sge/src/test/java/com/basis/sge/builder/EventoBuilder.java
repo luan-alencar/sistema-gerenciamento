@@ -5,7 +5,7 @@ import com.basis.sge.dominio.EventoPergunta;
 import com.basis.sge.dominio.Pergunta;
 import com.basis.sge.dominio.TipoEvento;
 import com.basis.sge.servico.EventoServico;
-import com.basis.sge.servico.dto.EventoDTO;
+
 import com.basis.sge.servico.mapper.EventoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -24,21 +25,26 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
     @Autowired
     private EventoMapper eventoMapper;
 
+    @Autowired
+    private PerguntaBuilder perguntaBuilder;
+
     @Override
     public Evento construirEntidade() throws ParseException {
+
         TipoEvento tipoEvento = new TipoEvento();
         tipoEvento.setId(1);
 
-        Pergunta pergunta = new Pergunta();
-        pergunta.setTitulo("Quais seus objetivos?");
-        pergunta.setObrigatoriedade(true);
-        pergunta.setId(1);
+        Pergunta pergunta = perguntaBuilder.construir();
+//        pergunta.setTitulo("Quais seus objetivos?");
+//        pergunta.setObrigatoriedade(false);
+//        pergunta.setId(1);
 
         List<EventoPergunta> perguntas = new ArrayList<>();
         perguntas.forEach(i -> {
             i.setPergunta(pergunta);
             i.setEvento(null);
         });
+
         Evento evento = new Evento();
         evento.setLocal("Avenida Visconde Sabugosa");
         evento.setTitulo("Arquitetura Limpa");
@@ -55,18 +61,18 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
     }
 
     @Override
-    protected Evento persistir(Evento evento) {
-        EventoDTO eventoDTO = eventoServico.salvar(eventoMapper.toDto(evento));
-        return eventoMapper.toEntity(eventoDTO);
+    public Evento persistir(Evento evento) {
+        eventoServico.salvar(eventoMapper.toDto(evento));
+        return evento;
     }
 
     @Override
-    public List<Evento> obterTodos() {
+    public Collection<Evento> obterTodos() {
         return eventoMapper.toEntity(eventoServico.listar());
     }
 
     @Override
     public Evento obterPorId(Integer id) {
-        return eventoMapper.toEntity(eventoServico.obterPorId(id));
+        return eventoMapper.toEntity(eventoServico.obterEventoPorId(id));
     }
 }

@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -44,4 +43,5 @@ public class Usuario implements Serializable {
 
     @Column(name = "chave")
     private String chave;
+
 }

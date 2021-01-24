@@ -1,60 +1,74 @@
 package com.basis.sge.builder;
 
-import com.basis.sge.dominio.Evento;
-import com.basis.sge.dominio.Inscricao;
-import com.basis.sge.dominio.TipoSituacao;
-import com.basis.sge.dominio.Usuario;
-import liquibase.pro.packaged.T;
-import org.junit.runner.RunWith;
+import com.basis.sge.dominio.*;
+import com.basis.sge.servico.InscricaoServico;
+import com.basis.sge.servico.mapper.InscricaoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-@RunWith(SpringRunner.class)
-@Transactional
+@Component
 public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
+
+    @Autowired
+    private InscricaoServico inscricaoServico;
+
+    @Autowired
+    private InscricaoMapper inscricaoMapper;
+
+    @Autowired
+    private UsuarioBuilder usuarioBuilder;
 
     @Autowired
     private EventoBuilder eventoBuilder;
 
     @Autowired
-    private UsuarioBuilder usuarioBuilder;
+    private PerguntaBuilder perguntaBuilder;
 
     @Override
-    protected Inscricao construirEntidade() throws ParseException {
+    public Inscricao construirEntidade() throws ParseException {
+
+        TipoSituacao tipoSituacao = new TipoSituacao();
+        tipoSituacao.setId(1);
+
+        Usuario usuario = usuarioBuilder.construir();
+        Evento evento = eventoBuilder.construir();
+        Pergunta pergunta = perguntaBuilder.construir();
+
+        List<InscricaoResposta> respostas = new ArrayList<>();
+        respostas.forEach(resposta -> {
+            resposta.setEvento(evento);
+            resposta.setResposta("resposta teste");
+            resposta.setPergunta(pergunta);
+            resposta.setInscricao(null);
+        });
 
         Inscricao inscricao = new Inscricao();
-        Evento evento = eventoBuilder.construirEntidade();
-        TipoSituacao tipoSituacao = new TipoSituacao();
-        Usuario usuario = usuarioBuilder.construirEntidade();
-
-        inscricao.setIdEvento(evento);
         inscricao.setIdTipoSituacao(tipoSituacao);
         inscricao.setIdUsuario(usuario);
+        inscricao.setIdEvento(evento);
+        inscricao.setResposta(respostas);
 
-        return null;
+        return inscricao;
     }
 
     @Override
     protected Inscricao persistir(Inscricao entidade) {
-        return null;
-    }
-
-    @Override
-    protected Evento persistir(Evento evento) {
-        return null;
+        inscricaoServico.salvar(inscricaoMapper.toDto(entidade));
+        return entidade;
     }
 
     @Override
     protected Collection<Inscricao> obterTodos() {
-        return null;
+        return inscricaoMapper.toEntity(inscricaoServico.listar());
     }
 
     @Override
     protected Inscricao obterPorId(Integer id) {
-        return null;
+        return inscricaoMapper.toEntity(inscricaoServico.obterInscricaoPorId(id));
     }
 }

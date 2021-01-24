@@ -23,7 +23,7 @@ public class InscricaoRecurso {
 
     @GetMapping("/{id}")
     public ResponseEntity<InscricaoDTO> obterPreInscricaoPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(inscricaoServico.obterPreInscricaoPorId(id));
+        return ResponseEntity.ok(inscricaoServico.obterInscricaoPorId(id));
     }
 
     @PostMapping
