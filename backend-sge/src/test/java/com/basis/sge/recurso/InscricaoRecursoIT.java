@@ -65,10 +65,11 @@ public class InscricaoRecursoIT extends IntTestComum {
 
     @Test
     public void listarTest() throws Exception {
-        inscricaoBuilder.construir();
+        inscricaoBuilder.construirEntidade();
 
         getMockMvc().perform(get("/api/inscricoes"))
                 .andExpect(status().isOk());
+        Assert.assertEquals(1, inscricaoRepositorio.findAll().size());
     }
 
     @Test
@@ -80,7 +81,7 @@ public class InscricaoRecursoIT extends IntTestComum {
 
     @Test
     public void obterInscricaoPorIdTest() throws Exception {
-        Inscricao inscricao = inscricaoBuilder.construirEntidade();
+        Inscricao inscricao = inscricaoBuilder.construir();
 
         getMockMvc().perform(get("/api/inscricoes/{id}", inscricao.getId()))
                 .andExpect(status().isOk());

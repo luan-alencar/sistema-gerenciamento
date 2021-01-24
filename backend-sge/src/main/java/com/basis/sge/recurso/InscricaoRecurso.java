@@ -5,6 +5,7 @@ import com.basis.sge.servico.InscricaoServico;
 import com.basis.sge.servico.dto.InscricaoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,6 @@ import java.util.List;
 
 @RequestMapping("/api/inscricoes")
 @RestController
-@ComponentScan
 @RequiredArgsConstructor
 public class InscricaoRecurso {
 
@@ -22,7 +22,7 @@ public class InscricaoRecurso {
     @GetMapping
     public ResponseEntity<List<InscricaoDTO>> listar() {
         List<InscricaoDTO> inscricoes = inscricaoServico.listar();
-        return ResponseEntity.ok(inscricoes);
+        return new ResponseEntity <>(inscricoes, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

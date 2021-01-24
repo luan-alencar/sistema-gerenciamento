@@ -48,9 +48,10 @@ public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
         });
 
         Inscricao inscricao = new Inscricao();
-        inscricao.setIdTipoSituacao(tipoSituacao);
+        inscricao.setId(1);
         inscricao.setIdUsuario(usuario);
         inscricao.setIdEvento(evento);
+        inscricao.setIdTipoSituacao(tipoSituacao);
         inscricao.setResposta(respostas);
 
         return inscricao;
