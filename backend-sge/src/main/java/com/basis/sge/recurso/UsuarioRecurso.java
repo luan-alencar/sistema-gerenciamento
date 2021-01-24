@@ -1,6 +1,5 @@
 package com.basis.sge.recurso;
 
-import com.basis.sge.repositorio.UsuarioRepositorio;
 import com.basis.sge.servico.UsuarioServico;
 import com.basis.sge.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import java.util.List;
 public class UsuarioRecurso {
 
     private final UsuarioServico usuarioService;
-    private final UsuarioRepositorio usuarioRepositorio;
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> listar() {

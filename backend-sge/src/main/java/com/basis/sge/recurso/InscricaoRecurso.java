@@ -3,14 +3,16 @@ package com.basis.sge.recurso;
 import com.basis.sge.servico.InscricaoServico;
 import com.basis.sge.servico.dto.InscricaoDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
 
-@RestController
 @RequestMapping("/api/inscricoes")
+@RestController
+@ComponentScan
 @RequiredArgsConstructor
 public class InscricaoRecurso {
 
@@ -33,8 +35,8 @@ public class InscricaoRecurso {
     }
 
     @PutMapping
-    public ResponseEntity<InscricaoDTO> editar(@RequestBody InscricaoDTO preincricaoDTO) {
-        return ResponseEntity.ok(inscricaoServico.atualizar(preincricaoDTO));
+    public ResponseEntity<InscricaoDTO> editar(@RequestBody InscricaoDTO incricaoDTO) {
+        return ResponseEntity.ok(inscricaoServico.atualizar(incricaoDTO));
     }
 
     @DeleteMapping("/{id}")
