@@ -24,6 +24,9 @@ public class InscricaoServico {
     // buscar todos
     public List<InscricaoDTO> listar() {
         List<Inscricao> inscricoes = inscricaoRepositorio.findAll();
+        if (inscricoes.size() == 0) {
+            throw new RegraNegocioException("Sem inscrições até o momento.");
+        }
         return inscricaoMapper.toDto(inscricoes);
     }
 

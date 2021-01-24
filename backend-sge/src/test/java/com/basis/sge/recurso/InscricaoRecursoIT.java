@@ -6,9 +6,11 @@ import com.basis.sge.dominio.TipoSituacao;
 import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.repositorio.InscricaoRepositorio;
 import com.basis.sge.repositorio.UsuarioRepositorio;
+import com.basis.sge.servico.InscricaoServico;
 import com.basis.sge.servico.mapper.InscricaoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,6 +30,9 @@ public class InscricaoRecursoIT extends IntTestComum {
 
     @Autowired
     private InscricaoBuilder inscricaoBuilder;
+
+    @Autowired
+    private InscricaoServico inscricaoServico;
 
     @Autowired
     private InscricaoRepositorio inscricaoRepositorio;
@@ -40,7 +47,7 @@ public class InscricaoRecursoIT extends IntTestComum {
     private EventoRepositorio eventoRepositorio;
 
     @BeforeEach
-    public void inicializar(){
+    public void inicializar() {
         inscricaoRepositorio.deleteAll();
         usuarioRepositorio.deleteAll();
         eventoRepositorio.deleteAll();
@@ -58,7 +65,7 @@ public class InscricaoRecursoIT extends IntTestComum {
 
     @Test
     public void listarTest() throws Exception {
-        inscricaoBuilder.construirEntidade();
+        inscricaoBuilder.construir();
 
         getMockMvc().perform(get("/api/inscricoes"))
                 .andExpect(status().isOk());
@@ -66,8 +73,9 @@ public class InscricaoRecursoIT extends IntTestComum {
 
     @Test
     public void listarNullTest() throws Exception {
-        getMockMvc().perform(get("/api/inscricoes"))
-                .andExpect(status().isBadRequest());
+        String result = getMockMvc().perform(get("/api/inscricoes"))
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+        Assert.assertEquals("Sem inscrições até o momento.", result);
     }
 
     @Test
@@ -95,7 +103,7 @@ public class InscricaoRecursoIT extends IntTestComum {
         tipoSituacao.setId(4);
 
         inscricao.setIdTipoSituacao(tipoSituacao);
-        getMockMvc().perform(put( "/api/inscricoes")
+        getMockMvc().perform(put("/api/inscricoes")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(inscricaoMapper.toDto(inscricao))))
                 .andExpect(status().isOk());
@@ -114,7 +122,7 @@ public class InscricaoRecursoIT extends IntTestComum {
     public void removerIdInvalidoTest() throws Exception {
         inscricaoBuilder.construir();
 
-        getMockMvc().perform(delete( "/api/inscricoes/2"))
+        getMockMvc().perform(delete("/api/inscricoes/2"))
                 .andExpect(status().isBadRequest());
 
     }
