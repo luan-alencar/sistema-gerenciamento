@@ -47,8 +47,18 @@ public class InscricaoRecursoIT extends IntTestComum {
     }
 
     @Test
+    public void salvarTest() throws Exception {
+        Inscricao inscricao = inscricaoBuilder.construirEntidade();
+
+        getMockMvc().perform(post("/api/inscricoes")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(inscricaoMapper.toDto(inscricao))))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
     public void listarTest() throws Exception {
-        inscricaoBuilder.construir();
+        inscricaoBuilder.construirEntidade();
 
         getMockMvc().perform(get("/api/inscricoes"))
                 .andExpect(status().isOk());
@@ -76,15 +86,6 @@ public class InscricaoRecursoIT extends IntTestComum {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
-    public void salvarTest() throws Exception {
-        Inscricao inscricao = inscricaoBuilder.construirEntidade();
-
-        getMockMvc().perform(post("/api/inscricoes")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(inscricaoMapper.toDto(inscricao))))
-                .andExpect(status().isCreated());
-    }
 
     @Test
     public void editarTest() throws Exception {

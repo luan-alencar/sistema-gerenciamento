@@ -1,5 +1,6 @@
 package com.basis.sge.recurso;
 
+import com.basis.sge.dominio.Inscricao;
 import com.basis.sge.servico.InscricaoServico;
 import com.basis.sge.servico.dto.InscricaoDTO;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,8 @@ public class InscricaoRecurso {
 
     @GetMapping
     public ResponseEntity<List<InscricaoDTO>> listar() {
-        return ResponseEntity.ok(inscricaoServico.listar());
+        List<InscricaoDTO> inscricoes = inscricaoServico.listar();
+        return ResponseEntity.ok(inscricoes);
     }
 
     @GetMapping("/{id}")
