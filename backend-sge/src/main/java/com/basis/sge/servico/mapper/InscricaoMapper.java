@@ -7,7 +7,6 @@ import org.mapstruct.Mapping;
 
 
 @Mapper(componentModel = "spring", uses = {InscricaoRespostaMapper.class})
-
 public interface InscricaoMapper extends EntityMapper<InscricaoDTO, Inscricao> {
 
     @Override

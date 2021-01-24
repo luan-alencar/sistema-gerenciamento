@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -21,10 +22,10 @@ public class InscricaoServico {
 
     // buscar todos
     public List<InscricaoDTO> listar() {
-        List<Inscricao> inscricoes = inscricaoRepositorio.findAll();
-        if (inscricoes.size() == 0) {
+        if (inscricaoRepositorio.findAll().size() == 0) {
             throw new RegraNegocioException("Sem inscrições até o momento.");
         }
+        List<Inscricao> inscricoes = inscricaoRepositorio.findAll();
         return inscricaoMapper.toDto(inscricoes);
     }
 

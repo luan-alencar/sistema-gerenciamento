@@ -5,7 +5,6 @@ import com.basis.sge.dominio.EventoPergunta;
 import com.basis.sge.dominio.Pergunta;
 import com.basis.sge.dominio.TipoEvento;
 import com.basis.sge.servico.EventoServico;
-
 import com.basis.sge.servico.mapper.EventoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -52,7 +51,7 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         evento.setQtdVagas(20);
         evento.setValor(10.0);
         evento.setPerguntas(perguntas);
-        evento.setDataInicio(LocalDateTime.of(2021, 07, 22, 10, 15, 30));
+        evento.setDataInicio(LocalDateTime.of(2021, 7, 22, 10, 15, 30));
         evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
         evento.setTipoInscricao(true);
         evento.setTipoEvento(tipoEvento);
