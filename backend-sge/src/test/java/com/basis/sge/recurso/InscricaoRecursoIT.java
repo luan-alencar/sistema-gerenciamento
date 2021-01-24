@@ -6,11 +6,9 @@ import com.basis.sge.dominio.TipoSituacao;
 import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.repositorio.InscricaoRepositorio;
 import com.basis.sge.repositorio.UsuarioRepositorio;
-import com.basis.sge.servico.InscricaoServico;
 import com.basis.sge.servico.mapper.InscricaoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,8 +16,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,9 +26,6 @@ public class InscricaoRecursoIT extends IntTestComum {
 
     @Autowired
     private InscricaoBuilder inscricaoBuilder;
-
-    @Autowired
-    private InscricaoServico inscricaoServico;
 
     @Autowired
     private InscricaoRepositorio inscricaoRepositorio;
@@ -55,7 +48,7 @@ public class InscricaoRecursoIT extends IntTestComum {
 
     @Test
     public void salvarTest() throws Exception {
-        Inscricao inscricao = inscricaoBuilder.construirEntidade();
+        Inscricao inscricao = inscricaoBuilder.construir();
 
         getMockMvc().perform(post("/api/inscricoes")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -65,8 +58,7 @@ public class InscricaoRecursoIT extends IntTestComum {
 
     @Test
     public void listarTest() throws Exception {
-        inscricaoBuilder.construirEntidade();
-
+        inscricaoBuilder.construir();
         getMockMvc().perform(get("/api/inscricoes"))
                 .andExpect(status().isOk());
         Assert.assertEquals(1, inscricaoRepositorio.findAll().size());

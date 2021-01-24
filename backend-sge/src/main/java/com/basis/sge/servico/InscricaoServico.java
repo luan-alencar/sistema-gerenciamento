@@ -1,16 +1,14 @@
 package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Inscricao;
-import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.repositorio.InscricaoRepositorio;
-import com.basis.sge.repositorio.InscricaoRespostaRepositorio;
 import com.basis.sge.servico.dto.InscricaoDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.InscricaoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service

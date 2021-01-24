@@ -48,7 +48,6 @@ public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
         });
 
         Inscricao inscricao = new Inscricao();
-        inscricao.setId(1);
         inscricao.setIdUsuario(usuario);
         inscricao.setIdEvento(evento);
         inscricao.setIdTipoSituacao(tipoSituacao);
@@ -64,12 +63,13 @@ public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
     }
 
     @Override
-    protected Collection<Inscricao> obterTodos() {
+    public Collection<Inscricao> obterTodos() {
+
         return inscricaoMapper.toEntity(inscricaoServico.listar());
     }
 
     @Override
-    protected Inscricao obterPorId(Integer id) {
+    public Inscricao obterPorId(Integer id) {
         return inscricaoMapper.toEntity(inscricaoServico.obterInscricaoPorId(id));
     }
 }
