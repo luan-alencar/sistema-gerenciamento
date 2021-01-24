@@ -32,7 +32,8 @@ public class EventoServico {
     }
 
     public EventoDTO obterEventoPorId(Integer id) {
-        Evento evento = eventoRepositorio.findById(id)
+
+        Evento evento =  eventoRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado"));
         return eventoMapper.toDto(evento);
     }
@@ -92,13 +93,13 @@ public class EventoServico {
 
     public void remover(Integer id) {
         eventoRepositorio.delete(eventoRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
+            .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
 
-    public void enviarEmail(Usuario usuario) {
+    public void enviarEmail(Usuario usuario){
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro de usuário");
-        emailDTO.setCorpo("Você foi cadastrado com sucesso na plataforma de eventos, esta é sua chave de inscrição em eventos: <b>" + usuario.getChave() + "</b>");
+        emailDTO.setCorpo("Você foi cadastrado com sucesso na plataforma de eventos, esta é sua chave de inscrição em eventos: <b>"+usuario.getChave()+"</b>");
         emailDTO.setDestinatario(usuario.getEmail());
         emailServico.sendMail(emailDTO);
     }

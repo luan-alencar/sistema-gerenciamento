@@ -1,6 +1,5 @@
 package com.basis.sge.servico.dto;
 
-import com.basis.sge.dominio.EventoPergunta;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,5 +22,5 @@ public class EventoDTO implements Serializable {
     private LocalDateTime dataFim;
     private Boolean tipoInscricao;
     private Integer idTipoEvento;
-    private List<EventoPergunta> perguntas;
+    private List<EventoPerguntaDTO> perguntas;
 }

@@ -8,10 +8,10 @@ import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @Transactional
 public class EventoRecursoIT extends IntTestComum {
 
@@ -44,7 +44,7 @@ public class EventoRecursoIT extends IntTestComum {
 //    }
 
     @Test
-    protected void listarTest() throws Exception {
+    public void listarTest() throws Exception {
         eventoBuilder.construir();
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
@@ -105,7 +105,7 @@ public class EventoRecursoIT extends IntTestComum {
 
 
     @Test
-    void testValorException() throws ParseException {
+    public void testValorException() throws ParseException {
         try {
             Evento evento = eventoBuilder.construirEntidade();
             evento.setValor(0.1);

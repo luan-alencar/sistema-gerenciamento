@@ -50,4 +50,5 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
     public Usuario obterPorId(Integer id) {
         return usuarioMapper.toEntity(usuarioServico.obterUsuarioPorId(id));
     }
+
 }
