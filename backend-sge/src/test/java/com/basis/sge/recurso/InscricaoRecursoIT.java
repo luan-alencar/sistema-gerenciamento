@@ -2,6 +2,7 @@ package com.basis.sge.recurso;
 
 import com.basis.sge.builder.InscricaoBuilder;
 import com.basis.sge.dominio.Inscricao;
+import com.basis.sge.dominio.TipoSituacao;
 import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.repositorio.InscricaoRepositorio;
 import com.basis.sge.repositorio.UsuarioRepositorio;
@@ -92,7 +93,10 @@ public class InscricaoRecursoIT extends IntTestComum {
     public void editarTest() throws Exception {
 
         Inscricao inscricao = inscricaoBuilder.construir();
+        TipoSituacao tipoSituacao = new TipoSituacao();
+        tipoSituacao.setId(4);
 
+        inscricao.setIdTipoSituacao(tipoSituacao);
         getMockMvc().perform(put( "/api/inscricoes")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(inscricaoMapper.toDto(inscricao))))

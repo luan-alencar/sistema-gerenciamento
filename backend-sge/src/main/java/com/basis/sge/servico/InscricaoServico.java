@@ -1,6 +1,6 @@
 package com.basis.sge.servico;
 
-import com.basis.sge.dominio.*;
+import com.basis.sge.dominio.Inscricao;
 import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.repositorio.InscricaoRepositorio;
 import com.basis.sge.repositorio.InscricaoRespostaRepositorio;
@@ -26,7 +26,7 @@ public class InscricaoServico {
     // buscar todos
     public List<InscricaoDTO> listar() {
         List<Inscricao> inscricoes = inscricaoRepositorio.findAll();
-        if(inscricoes.isEmpty()){
+        if (inscricoes.isEmpty()) {
             throw new RegraNegocioException("Nenhum inscrição cadastrada!");
         }
         return inscricaoMapper.toDto(inscricoes);
@@ -38,9 +38,15 @@ public class InscricaoServico {
         return inscricaoMapper.toDto(inscricao);
     }
 
+    // método privado para servir somente como utilidade para encontrar um elemento e retornar uma exceçao caso não encontre
+    private Inscricao obterIdUtil(Integer id) {
+        return inscricaoRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("O id da inscrição informado não foi encontrado!"));
+    }
+
     public void deletar(Integer id) {
-        inscricaoRepositorio.delete(inscricaoRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
+        Inscricao inscricao = obterIdUtil(id);
+        inscricaoRepositorio.delete(inscricao);
     }
 
     public InscricaoDTO atualizar(InscricaoDTO inscricaoDTO) {
@@ -50,24 +56,26 @@ public class InscricaoServico {
     }
 
     public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
-
         Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
-        List<InscricaoResposta> respostas = inscricao.getResposta();
-
-        Evento evento = eventoRepositorio.findById(inscricao.getIdEvento().getId())
-                .orElseThrow(() -> new RegraNegocioException("Id do evento incorreto"));
-
-        inscricao.setResposta(inscricao.getResposta());
-
         inscricaoRepositorio.save(inscricao);
-
-        respostas.forEach(resposta -> {
-            resposta.setInscricao(inscricao);
-            resposta.setEvento(evento);
-        });
-
-        inscricaoRespostaRepositorio.saveAll(respostas);
-
         return inscricaoMapper.toDto(inscricao);
+//        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
+//        List<InscricaoResposta> respostas = inscricao.getResposta();
+//
+//        Evento evento = eventoRepositorio.findById(inscricao.getIdEvento().getId())
+//                .orElseThrow(() -> new RegraNegocioException("Id do evento incorreto"));
+//
+//        inscricao.setResposta(inscricao.getResposta());
+//
+//        inscricaoRepositorio.save(inscricao);
+//
+//        respostas.forEach(resposta -> {
+//            resposta.setInscricao(inscricao);
+//            resposta.setEvento(evento);
+//        });
+//
+//        inscricaoRespostaRepositorio.saveAll(respostas);
+//
+//        return inscricaoMapper.toDto(inscricao);
     }
 }

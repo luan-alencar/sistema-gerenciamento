@@ -25,7 +25,8 @@ public class InscricaoRecurso {
 
     @GetMapping("/{id}")
     public ResponseEntity<InscricaoDTO> obterInscricaoPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(inscricaoServico.obterInscricaoPorId(id));
+        InscricaoDTO inscricaoDTO = inscricaoServico.obterInscricaoPorId(id);
+        return ResponseEntity.ok(inscricaoDTO);
     }
 
     @PostMapping
