@@ -7,10 +7,10 @@ import com.basis.sge.servico.mapper.EventoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
 import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -35,13 +35,10 @@ public class EventoRecursoIT extends IntTestComum {
     @Autowired
     private EventoRepositorio eventoRepositorio;
 
-    @Autowired
-    private MessageSource messageSource;
-
-//    @BeforeEach
-//    public void inicializar() {
-//        eventoRepositorio.deleteAll();
-//    }
+    @BeforeEach
+    public void inicializar() {
+        eventoRepositorio.deleteAll();
+    }
 
     @Test
     public void listarTest() throws Exception {
@@ -53,12 +50,13 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     public void salvarTest() throws Exception {
-        Evento evento = eventoBuilder.construirEntidade();
+        Evento evento = eventoBuilder.construir();
 
         getMockMvc().perform(post("/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
                 .andExpect(status().isCreated());
+        Assert.assertEquals(1, eventoRepositorio.findAll().size());
     }
 
     @Test

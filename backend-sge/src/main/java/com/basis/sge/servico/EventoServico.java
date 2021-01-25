@@ -93,7 +93,7 @@ public class EventoServico {
 
     public void remover(Integer id) {
         eventoRepositorio.delete(eventoRepositorio.findById(id)
-            .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
+                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
 
     public void enviarEmail(Usuario usuario){

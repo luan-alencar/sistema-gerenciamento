@@ -29,14 +29,11 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
 
     @Override
     public Evento construirEntidade() throws ParseException {
-
         TipoEvento tipoEvento = new TipoEvento();
         tipoEvento.setId(1);
+        tipoEvento.setDescricao("Aguardando Aprovação");
 
         Pergunta pergunta = perguntaBuilder.construir();
-//        pergunta.setTitulo("Quais seus objetivos?");
-//        pergunta.setObrigatoriedade(false);
-//        pergunta.setId(1);
 
         List<EventoPergunta> perguntas = new ArrayList<>();
         perguntas.forEach(i -> {
@@ -55,7 +52,6 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
         evento.setTipoInscricao(true);
         evento.setTipoEvento(tipoEvento);
-
         return evento;
     }
 

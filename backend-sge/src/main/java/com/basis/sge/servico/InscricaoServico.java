@@ -1,7 +1,11 @@
 package com.basis.sge.servico;
 
+import com.basis.sge.dominio.Evento;
 import com.basis.sge.dominio.Inscricao;
+import com.basis.sge.dominio.InscricaoResposta;
+import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.repositorio.InscricaoRepositorio;
+import com.basis.sge.repositorio.InscricaoRespostaRepositorio;
 import com.basis.sge.servico.dto.InscricaoDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.InscricaoMapper;
@@ -19,6 +23,8 @@ public class InscricaoServico {
 
     private final InscricaoRepositorio inscricaoRepositorio;
     private final InscricaoMapper inscricaoMapper;
+    private final EventoRepositorio eventoRepositorio;
+    private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
 
     // buscar todos
     public List<InscricaoDTO> listar() {
@@ -53,29 +59,28 @@ public class InscricaoServico {
     }
 
     public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
-
         // como InscricaoMapper usa a interface InscricaoRespostaMapper apenas isso basta, pois, o mapper já faz o trabalho
-        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
-        inscricaoRepositorio.save(inscricao);
-        return inscricaoMapper.toDto(inscricao);
-
 //        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
-//        List<InscricaoResposta> respostas = inscricao.getResposta();
-//
-//        Evento evento = eventoRepositorio.findById(inscricao.getIdEvento().getId())
-//                .orElseThrow(() -> new RegraNegocioException("Id do evento incorreto"));
-//
-//        inscricao.setResposta(inscricao.getResposta());
-//
 //        inscricaoRepositorio.save(inscricao);
-//
-//        respostas.forEach(resposta -> {
-//            resposta.setInscricao(inscricao);
-//            resposta.setEvento(evento);
-//        });
-//
-//        inscricaoRespostaRepositorio.saveAll(respostas);
-//
 //        return inscricaoMapper.toDto(inscricao);
+
+        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
+        List<InscricaoResposta> respostas = inscricao.getResposta();
+
+        Evento evento = eventoRepositorio.findById(inscricao.getIdEvento().getId())
+                .orElseThrow(() -> new RegraNegocioException("Id do evento incorreto"));
+
+        inscricao.setResposta(inscricao.getResposta());
+
+        inscricaoRepositorio.save(inscricao);
+
+        respostas.forEach(resposta -> {
+            resposta.setInscricao(inscricao);
+            resposta.setEvento(evento);
+        });
+
+        inscricaoRespostaRepositorio.saveAll(respostas);
+
+        return inscricaoMapper.toDto(inscricao);
     }
 }
