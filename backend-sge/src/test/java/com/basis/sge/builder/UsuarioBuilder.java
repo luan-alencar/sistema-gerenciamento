@@ -24,6 +24,7 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
     public Usuario construirEntidade() throws ParseException {
 
         Usuario usuario = new Usuario();
+        usuario.setId(1);
         usuario.setNome("usuario de teste");
         usuario.setCpf("12369874563");
         usuario.setEmail("teste@gmail.com");

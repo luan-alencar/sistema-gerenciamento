@@ -37,7 +37,7 @@ public class UsuarioRecurso {
         return ResponseEntity.created(URI.create("/usuario"+usuarioDTO.getId())).build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id) {
         usuarioService.remover(id);
         return ResponseEntity.ok().build();

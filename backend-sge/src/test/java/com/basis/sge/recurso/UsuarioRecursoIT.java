@@ -54,9 +54,9 @@ public class UsuarioRecursoIT extends IntTestComum {
 
     @Test
     public void obterUsuarioPorIdTest() throws Exception {
-        Usuario usuario = usuarioBuilder.construir();
+        usuarioBuilder.construir();
 
-        getMockMvc().perform(get("/api/usuarios/{id}", usuario.getId()))
+        getMockMvc().perform(get("/api/usuarios/1"))
                 .andExpect(status().isOk());
     }
 
@@ -205,9 +205,9 @@ public class UsuarioRecursoIT extends IntTestComum {
 
     @Test
     public void removerTest() throws Exception {
-        Usuario usuario = usuarioBuilder.construir();
+        usuarioBuilder.construir();
 
-        getMockMvc().perform(delete("/api/usuarios/" + usuario.getId()))
+        getMockMvc().perform(delete("/api/usuarios/1"))
                 .andExpect(status().isOk());
 
     }
