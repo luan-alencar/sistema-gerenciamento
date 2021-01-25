@@ -32,6 +32,7 @@ public class EventoServico {
     }
 
     public EventoDTO obterEventoPorId(Integer id) {
+
         Evento evento =  eventoRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado"));
         return eventoMapper.toDto(evento);
