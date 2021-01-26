@@ -27,8 +27,7 @@ public class EventoServico {
     private final EmailServico emailServico;
 
     public List<EventoDTO> listar() {
-        List<Evento> lista = eventoRepositorio.findAll();
-        return eventoMapper.toDto(lista);
+        return eventoMapper.toDto(eventoRepositorio.findAll());
     }
 
     public EventoDTO obterEventoPorId(Integer id) {
