@@ -45,12 +45,11 @@ public class EventoRecursoIT extends IntTestComum {
         eventoBuilder.construir();
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
-        Assert.assertEquals(1, eventoRepositorio.findAll().size());
     }
 
     @Test
     public void salvarTest() throws Exception {
-        Evento evento = eventoBuilder.construir();
+        Evento evento = eventoBuilder.construirEntidade();
 
         getMockMvc().perform(post("/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

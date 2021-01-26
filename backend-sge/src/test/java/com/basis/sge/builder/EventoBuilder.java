@@ -35,13 +35,13 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         TipoEvento tipoEvento = new TipoEvento();
         tipoEvento.setId(1);
 
-        Pergunta pergunta = perguntaBuilder.construir();
+        Pergunta pergunta = perguntaBuilder.construirEntidade();
 
         List<EventoPergunta> perguntas = new ArrayList<>();
-//        perguntas.forEach(i -> {
-//            i.setPergunta(pergunta);
-//            i.setEvento(null);
-//        });
+        perguntas.forEach(i -> {
+            i.setPergunta(pergunta);
+            i.setEvento(null);
+        });
 
         Evento evento = new Evento();
         evento.setLocal("Avenida Visconde Sabugosa");

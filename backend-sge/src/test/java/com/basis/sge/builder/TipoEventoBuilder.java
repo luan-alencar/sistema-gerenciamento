@@ -1,7 +1,6 @@
 package com.basis.sge.builder;
 
 import com.basis.sge.dominio.TipoEvento;
-import com.basis.sge.repositorio.TipoEventoRepositorio;
 import com.basis.sge.servico.TipoEventoServico;
 import com.basis.sge.servico.mapper.TipoEventoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,6 @@ public class TipoEventoBuilder extends ConstrutorDeEntidade<TipoEvento> {
 
     @Autowired
     private TipoEventoServico tipoEventoServico;
-
-    @Autowired
-    private TipoEventoRepositorio tipoEventoRepositorio;
 
     @Autowired
     private TipoEventoMapper tipoEventoMapper;
@@ -38,11 +34,11 @@ public class TipoEventoBuilder extends ConstrutorDeEntidade<TipoEvento> {
 
     @Override
     protected Collection<TipoEvento> obterTodos() {
-        return null;
+        return tipoEventoMapper.toEntity(tipoEventoServico.listar());
     }
 
     @Override
     protected TipoEvento obterPorId(Integer id) {
-        return null;
+        return tipoEventoMapper.toEntity(tipoEventoServico.obterTipoEventoPorId(id));
     }
 }

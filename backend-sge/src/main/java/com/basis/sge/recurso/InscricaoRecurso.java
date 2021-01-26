@@ -12,6 +12,7 @@ import java.util.List;
 
 @RequestMapping("/api/inscricoes")
 @RestController
+@ComponentScan
 @RequiredArgsConstructor
 public class InscricaoRecurso {
 
