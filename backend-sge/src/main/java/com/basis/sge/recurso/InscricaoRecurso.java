@@ -3,7 +3,7 @@ package com.basis.sge.recurso;
 import com.basis.sge.servico.InscricaoServico;
 import com.basis.sge.servico.dto.InscricaoDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +19,12 @@ public class InscricaoRecurso {
 
     @GetMapping
     public ResponseEntity<List<InscricaoDTO>> listar() {
-        List<InscricaoDTO> inscricoes = inscricaoServico.listar();
-        return new ResponseEntity<>(inscricoes, HttpStatus.OK);
+        return ResponseEntity.ok(inscricaoServico.listar());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<InscricaoDTO> obterInscricaoPorId(@PathVariable Integer id) {
-        InscricaoDTO inscricaoDTO = inscricaoServico.obterInscricaoPorId(id);
-        return ResponseEntity.ok(inscricaoDTO);
+        return ResponseEntity.ok(inscricaoServico.obterInscricaoPorId(id));
     }
 
     @PostMapping

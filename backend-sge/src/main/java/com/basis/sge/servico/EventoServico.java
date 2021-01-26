@@ -33,13 +33,34 @@ public class EventoServico {
 
     public EventoDTO obterEventoPorId(Integer id) {
 
-        Evento evento =  eventoRepositorio.findById(id)
+        Evento evento = eventoRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado"));
         return eventoMapper.toDto(evento);
     }
 
     public EventoDTO salvar(EventoDTO eventoDTO) {
+        condicoesParaExceptions(eventoDTO);
 
+        Evento evento = eventoMapper.toEntity(eventoDTO);
+        List<EventoPergunta> perguntas = evento.getPerguntas();
+        evento.setPerguntas(new ArrayList<>());
+
+        eventoRepositorio.save(evento);
+
+        if (perguntas == null) {
+            eventoPerguntaRepositorio.saveAll(perguntas);
+            return eventoMapper.toDto(evento);
+        }
+
+        perguntas.forEach(pergunta -> {
+            pergunta.setEvento(evento);
+        });
+
+        eventoPerguntaRepositorio.saveAll(perguntas);
+        return eventoMapper.toDto(evento);
+    }
+
+    private void condicoesParaExceptions(EventoDTO eventoDTO) {
         if (eventoDTO.getTipoInscricao() == null) {
             throw new RegraNegocioException("Escolha o tipo de inscrição para o evento");
         }
@@ -67,21 +88,6 @@ public class EventoServico {
         if (eventoDTO.getPerguntas() == null) {
             throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
         }
-
-        Evento evento = eventoMapper.toEntity(eventoDTO);
-        List<EventoPergunta> perguntas = new ArrayList<>();
-
-        evento.setPerguntas(evento.getPerguntas());
-
-        eventoRepositorio.save(evento);
-
-        perguntas.forEach(pergunta -> {
-            pergunta.setEvento(evento);
-        });
-
-        eventoPerguntaRepositorio.saveAll(perguntas);
-
-        return eventoMapper.toDto(evento);
     }
 
     public EventoDTO editar(EventoDTO eventoDTO) {
@@ -96,10 +102,10 @@ public class EventoServico {
                 .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
 
-    public void enviarEmail(Usuario usuario){
+    public void enviarEmail(Usuario usuario) {
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro de usuário");
-        emailDTO.setCorpo("Você foi cadastrado com sucesso na plataforma de eventos, esta é sua chave de inscrição em eventos: <b>"+usuario.getChave()+"</b>");
+        emailDTO.setCorpo("Você foi cadastrado com sucesso na plataforma de eventos, esta é sua chave de inscrição em eventos: <b>" + usuario.getChave() + "</b>");
         emailDTO.setDestinatario(usuario.getEmail());
         emailServico.sendMail(emailDTO);
     }

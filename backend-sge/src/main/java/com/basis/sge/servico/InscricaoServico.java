@@ -1,8 +1,6 @@
 package com.basis.sge.servico;
 
-import com.basis.sge.dominio.Evento;
-import com.basis.sge.dominio.Inscricao;
-import com.basis.sge.dominio.InscricaoResposta;
+import com.basis.sge.dominio.*;
 import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.repositorio.InscricaoRepositorio;
 import com.basis.sge.repositorio.InscricaoRespostaRepositorio;
@@ -12,8 +10,7 @@ import com.basis.sge.servico.mapper.InscricaoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import org.springframework.transaction.annotation.Transactional;
-
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -21,17 +18,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InscricaoServico {
 
+    private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
     private final InscricaoRepositorio inscricaoRepositorio;
     private final InscricaoMapper inscricaoMapper;
     private final EventoRepositorio eventoRepositorio;
-    private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
 
     // buscar todos
     public List<InscricaoDTO> listar() {
-        if (inscricaoRepositorio.findAll().size() == 0) {
-            throw new RegraNegocioException("Sem inscrições até o momento.");
-        }
         List<Inscricao> inscricoes = inscricaoRepositorio.findAll();
+        if(inscricoes.isEmpty()){
+            throw new RegraNegocioException("Nenhum inscrição cadastrada!");
+        }
         return inscricaoMapper.toDto(inscricoes);
     }
 
@@ -41,15 +38,9 @@ public class InscricaoServico {
         return inscricaoMapper.toDto(inscricao);
     }
 
-    // método privado para servir somente como utilidade para encontrar um elemento e retornar uma exceçao caso não encontre
-    private Inscricao obterIdUtil(Integer id) {
-        return inscricaoRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("O id da inscrição informado não foi encontrado!"));
-    }
-
     public void deletar(Integer id) {
-        Inscricao inscricao = obterIdUtil(id);
-        inscricaoRepositorio.delete(inscricao);
+        inscricaoRepositorio.delete(inscricaoRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
 
     public InscricaoDTO atualizar(InscricaoDTO inscricaoDTO) {
@@ -59,10 +50,6 @@ public class InscricaoServico {
     }
 
     public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
-        // como InscricaoMapper usa a interface InscricaoRespostaMapper apenas isso basta, pois, o mapper já faz o trabalho
-//        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
-//        inscricaoRepositorio.save(inscricao);
-//        return inscricaoMapper.toDto(inscricao);
 
         Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
         List<InscricaoResposta> respostas = inscricao.getResposta();

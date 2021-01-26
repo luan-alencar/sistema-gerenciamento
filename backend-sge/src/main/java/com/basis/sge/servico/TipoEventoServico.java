@@ -27,4 +27,9 @@ public class TipoEventoServico {
         return tipoEventoMapper.toDto(tipoEvento);
     }
 
+    public TipoEventoDTO salvar(TipoEventoDTO tipoEventoDTO){
+        TipoEvento tipoEvento = tipoEventoMapper.toEntity(tipoEventoDTO);
+        tipoEventoRepositorio.save(tipoEvento);
+        return tipoEventoMapper.toDto(tipoEvento);
+    }
 }

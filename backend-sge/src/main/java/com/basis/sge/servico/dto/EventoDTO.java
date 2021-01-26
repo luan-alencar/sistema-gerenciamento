@@ -12,7 +12,7 @@ import java.util.List;
 public class EventoDTO implements Serializable {
 
     private Integer id;
-
+    
     private String local;
     private String titulo;
     private String descricao;

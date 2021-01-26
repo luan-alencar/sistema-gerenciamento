@@ -27,19 +27,21 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
     @Autowired
     private PerguntaBuilder perguntaBuilder;
 
+    @Autowired
+    private TipoEventoBuilder tipoEventoBuilder;
+
     @Override
     public Evento construirEntidade() throws ParseException {
         TipoEvento tipoEvento = new TipoEvento();
         tipoEvento.setId(1);
-        tipoEvento.setDescricao("Aguardando Aprovação");
 
         Pergunta pergunta = perguntaBuilder.construir();
 
         List<EventoPergunta> perguntas = new ArrayList<>();
-        perguntas.forEach(i -> {
-            i.setPergunta(pergunta);
-            i.setEvento(null);
-        });
+//        perguntas.forEach(i -> {
+//            i.setPergunta(pergunta);
+//            i.setEvento(null);
+//        });
 
         Evento evento = new Evento();
         evento.setLocal("Avenida Visconde Sabugosa");
@@ -51,7 +53,7 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         evento.setDataInicio(LocalDateTime.of(2021, 7, 22, 10, 15, 30));
         evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
         evento.setTipoInscricao(true);
-        evento.setTipoEvento(tipoEvento);
+        evento.setTipoEvento(this.tipoEventoBuilder.construirEntidade());
         return evento;
     }
 

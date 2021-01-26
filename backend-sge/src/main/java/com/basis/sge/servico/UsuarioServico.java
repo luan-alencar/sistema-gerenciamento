@@ -32,9 +32,13 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO obterUsuarioPorId(Integer id) {
-        Usuario usuario = usuarioRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
+        Usuario usuario = obterIdUsuarioException(id);
         return usuarioMapper.toDto(usuario);
+    }
+
+    private Usuario obterIdUsuarioException(Integer id) {
+        return usuarioRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
     }
 
     public UsuarioDTO obterUsuarioPorCpf(String cpf){

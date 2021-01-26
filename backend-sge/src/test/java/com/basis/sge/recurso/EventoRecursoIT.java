@@ -56,7 +56,6 @@ public class EventoRecursoIT extends IntTestComum {
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
                 .andExpect(status().isCreated());
-        Assert.assertEquals(1, eventoRepositorio.findAll().size());
     }
 
     @Test

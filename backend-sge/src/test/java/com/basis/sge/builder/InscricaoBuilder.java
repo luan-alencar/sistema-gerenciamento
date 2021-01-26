@@ -35,9 +35,9 @@ public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
         TipoSituacao tipoSituacao = new TipoSituacao();
         tipoSituacao.setId(1);
 
-        Usuario usuario = usuarioBuilder.construirEntidade();
-        Evento evento = eventoBuilder.construirEntidade();
-        Pergunta pergunta = perguntaBuilder.construirEntidade();
+        Usuario usuario = usuarioBuilder.construir();
+        Evento evento = eventoBuilder.construir();
+        Pergunta pergunta = perguntaBuilder.construir();
 
         List<InscricaoResposta> respostas = new ArrayList<>();
         respostas.forEach(resposta -> {
@@ -48,9 +48,9 @@ public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
         });
 
         Inscricao inscricao = new Inscricao();
+        inscricao.setIdTipoSituacao(tipoSituacao);
         inscricao.setIdUsuario(usuario);
         inscricao.setIdEvento(evento);
-        inscricao.setIdTipoSituacao(tipoSituacao);
         inscricao.setResposta(respostas);
 
         return inscricao;
@@ -63,13 +63,12 @@ public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
     }
 
     @Override
-    public Collection<Inscricao> obterTodos() {
-
+    protected Collection<Inscricao> obterTodos() {
         return inscricaoMapper.toEntity(inscricaoServico.listar());
     }
 
     @Override
-    public Inscricao obterPorId(Integer id) {
+    protected Inscricao obterPorId(Integer id) {
         return inscricaoMapper.toEntity(inscricaoServico.obterInscricaoPorId(id));
     }
 }
