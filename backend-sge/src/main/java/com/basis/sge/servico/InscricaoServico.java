@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,7 +35,7 @@ public class InscricaoServico {
 
     public InscricaoDTO obterInscricaoPorId(Integer id) {
         Inscricao inscricao = inscricaoRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Usuario não existe!"));
+                .orElseThrow(() -> new RegraNegocioException("Inscrição não existe!"));
         return inscricaoMapper.toDto(inscricao);
     }
 
@@ -51,23 +52,36 @@ public class InscricaoServico {
 
     public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
 
+        //Validação de dados null - falta
+
         Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
         List<InscricaoResposta> respostas = inscricao.getResposta();
 
-        Evento evento = eventoRepositorio.findById(inscricao.getIdEvento().getId())
-                .orElseThrow(() -> new RegraNegocioException("Id do evento incorreto"));
-
-        inscricao.setResposta(inscricao.getResposta());
+        inscricao.setResposta(new ArrayList<>());
 
         inscricaoRepositorio.save(inscricao);
 
         respostas.forEach(resposta -> {
             resposta.setInscricao(inscricao);
-            resposta.setEvento(evento);
         });
 
         inscricaoRespostaRepositorio.saveAll(respostas);
 
         return inscricaoMapper.toDto(inscricao);
+    }
+
+    private void validarDadosNull(InscricaoDTO inscricaoDTO){
+        if(inscricaoDTO.getIdEvento() == null){
+            throw new RegraNegocioException("Id do evento precisa ser informado!");
+        }
+        if(inscricaoDTO.getIdUsuario() == null){
+            throw new RegraNegocioException("Id do usuario precisa ser informado!");
+        }
+        if(inscricaoDTO.getIdTipoSituacao() == null){
+            throw new RegraNegocioException("Id da situacao do usuario precisa ser informado!");
+        }
+        if(inscricaoDTO.getIdUsuario() == null){
+            throw new RegraNegocioException("Id do usuario precisa ser informado!");
+        }
     }
 }

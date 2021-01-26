@@ -28,6 +28,9 @@ public class EventoServico {
 
     public List<EventoDTO> listar() {
         List<Evento> lista = eventoRepositorio.findAll();
+        if(lista.isEmpty()){
+            throw new RegraNegocioException("Nenhum evento cadastrado!");
+        }
         return eventoMapper.toDto(lista);
     }
 
@@ -69,9 +72,9 @@ public class EventoServico {
         }
 
         Evento evento = eventoMapper.toEntity(eventoDTO);
-        List<EventoPergunta> perguntas = new ArrayList<>();
+        List<EventoPergunta> perguntas = evento.getPerguntas();
 
-        evento.setPerguntas(evento.getPerguntas());
+        evento.setPerguntas(new ArrayList<>());
 
         eventoRepositorio.save(evento);
 

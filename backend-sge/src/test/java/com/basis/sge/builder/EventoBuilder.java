@@ -1,11 +1,9 @@
 package com.basis.sge.builder;
 
 import com.basis.sge.dominio.Evento;
-import com.basis.sge.dominio.EventoPergunta;
-import com.basis.sge.dominio.Pergunta;
 import com.basis.sge.dominio.TipoEvento;
+import com.basis.sge.repositorio.TipoEventoRepositorio;
 import com.basis.sge.servico.EventoServico;
-
 import com.basis.sge.servico.mapper.EventoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +12,6 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Component
 public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
@@ -28,30 +25,23 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
     @Autowired
     private PerguntaBuilder perguntaBuilder;
 
+    @Autowired
+    private TipoEventoRepositorio tipoEventoRepositorio;
+
     @Override
     public Evento construirEntidade() throws ParseException {
 
+        Evento evento = new Evento();
         TipoEvento tipoEvento = new TipoEvento();
         tipoEvento.setId(1);
+        tipoEventoRepositorio.save(tipoEvento);
 
-        Pergunta pergunta = perguntaBuilder.construir();
-//        pergunta.setTitulo("Quais seus objetivos?");
-//        pergunta.setObrigatoriedade(false);
-//        pergunta.setId(1);
-
-        List<EventoPergunta> perguntas = new ArrayList<>();
-        perguntas.forEach(i -> {
-            i.setPergunta(pergunta);
-            i.setEvento(null);
-        });
-
-        Evento evento = new Evento();
         evento.setLocal("Avenida Visconde Sabugosa");
         evento.setTitulo("Arquitetura Limpa");
         evento.setDescricao("Workshop sobre o livro Arquitetura Limpa do autor Robert Cecil Martin");
         evento.setQtdVagas(20);
         evento.setValor(10.0);
-        evento.setPerguntas(perguntas);
+        evento.setPerguntas(new ArrayList<>());
         evento.setDataInicio(LocalDateTime.of(2021, 07, 22, 10, 15, 30));
         evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
         evento.setTipoInscricao(true);

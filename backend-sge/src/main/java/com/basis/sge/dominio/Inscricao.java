@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,6 +34,6 @@ public class Inscricao implements Serializable {
     @JoinColumn(name = "id_tipo_situacao")
     private TipoSituacao idTipoSituacao;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "inscricao")
-    private List<InscricaoResposta> resposta;
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "inscricao")
+    private List<InscricaoResposta> resposta = new ArrayList<>();
 }
