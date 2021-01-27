@@ -1,19 +1,20 @@
-import { Observable, of } from 'rxjs';
+import { environment } from './../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Usuario } from 'src/app/dominios/usuario';
 
 @Injectable()
 export class UsuarioService {
 
-  constructor() { }
+   url = environment.apiUrl;
 
-  getUsuarios(): Observable<string[]> {
-    return of(this.mockUsuarios());
+  constructor(private http: HttpClient) { }
+
+  getUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.getUsuarios}/usuarios`);
   }
 
-  private mockUsuarios: Observable<string[]> {
-  const usuarios: string[] = [];
-  setTimeout((usuarios) => {
-    usuarios = ['Luan', 'teste'];
-  }, 1000);
-  return of(usuarios);
+0
+
 }
