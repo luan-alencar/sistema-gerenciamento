@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
     templateUrl: './app.component.html'
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
+    [x: string]: any;
 
     layoutCompact = true;
 
@@ -52,6 +53,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
         this.menuService.itens = [
             {label: 'Usuarios', icon: 'dashboard', routerLink:['/usuarios']},
+            {label: 'Evento', icon: 'dashboard', routerLink:['/eventos']},
             { label: 'Dashboard', icon: 'dashboard', routerLink: ['/'] }
         ];
     }
