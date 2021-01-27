@@ -1,7 +1,12 @@
 package com.basis.sge.builder;
 
-import com.basis.sge.dominio.*;
+import com.basis.sge.dominio.Evento;
+import com.basis.sge.dominio.Inscricao;
+import com.basis.sge.dominio.InscricaoResposta;
+import com.basis.sge.dominio.TipoSituacao;
+import com.basis.sge.repositorio.TipoSituacaoRepositorio;
 import com.basis.sge.servico.InscricaoServico;
+import com.basis.sge.servico.dto.InscricaoDTO;
 import com.basis.sge.servico.mapper.InscricaoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,37 +34,36 @@ public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
     @Autowired
     private PerguntaBuilder perguntaBuilder;
 
+    @Autowired
+    private TipoSituacaoRepositorio tipoSituacaoRepositorio;
+
     @Override
     public Inscricao construirEntidade() throws ParseException {
 
+        Inscricao inscricao = new Inscricao();
+        Evento evento = eventoBuilder.construir();
         TipoSituacao tipoSituacao = new TipoSituacao();
         tipoSituacao.setId(1);
+        tipoSituacaoRepositorio.save(tipoSituacao);
+        List<InscricaoResposta> respostaList = new ArrayList<>();
+        InscricaoResposta resposta = new InscricaoResposta();
 
-        Usuario usuario = usuarioBuilder.construir();
-        Evento evento = eventoBuilder.construir();
-        Pergunta pergunta = perguntaBuilder.construir();
-
-        List<InscricaoResposta> respostas = new ArrayList<>();
-        respostas.forEach(resposta -> {
-            resposta.setEvento(evento);
-            resposta.setResposta("resposta teste");
-            resposta.setPergunta(pergunta);
-            resposta.setInscricao(null);
-        });
-
-        Inscricao inscricao = new Inscricao();
-        inscricao.setIdTipoSituacao(tipoSituacao);
-        inscricao.setIdUsuario(usuario);
         inscricao.setIdEvento(evento);
-        inscricao.setResposta(respostas);
+        inscricao.setIdUsuario(usuarioBuilder.construir());
+        inscricao.setIdTipoSituacao(tipoSituacao);
+
+        resposta.setResposta("resposta teste");
+        respostaList.add(resposta);
+
+        inscricao.setResposta(respostaList);
 
         return inscricao;
     }
 
     @Override
     protected Inscricao persistir(Inscricao entidade) {
-        inscricaoServico.salvar(inscricaoMapper.toDto(entidade));
-        return entidade;
+        InscricaoDTO inscricaoDTO = inscricaoServico.salvar(inscricaoMapper.toDto(entidade));
+        return inscricaoMapper.toEntity(inscricaoDTO);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.basis.sge.servico.mapper.EventoMapper;
 import com.basis.sge.util.IntTestComum;
 import com.basis.sge.util.TestUtil;
 import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,13 @@ public class EventoRecursoIT extends IntTestComum {
     @Autowired
     private EventoRepositorio eventoRepositorio;
 
-//    @BeforeEach
-//    public void inicializar() {
-//        eventoRepositorio.deleteAll();
-//    }
+    @Autowired
+    private MessageSource messageSource;
+
+    @BeforeEach
+    public void inicializar() {
+        eventoRepositorio.deleteAll();
+    }
 
     @Test
     public void listarTest() throws Exception {

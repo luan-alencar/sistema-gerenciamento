@@ -27,7 +27,12 @@ public class EventoServico {
     private final EmailServico emailServico;
 
     public List<EventoDTO> listar() {
-        return eventoMapper.toDto(eventoRepositorio.findAll());
+        List<Evento> lista = eventoRepositorio.findAll();
+        if(lista.isEmpty()){
+            throw new RegraNegocioException("Nenhum evento cadastrado!");
+        }
+        return eventoMapper.toDto(lista);
+
     }
 
     public EventoDTO obterEventoPorId(Integer id) {
@@ -87,6 +92,22 @@ public class EventoServico {
         if (eventoDTO.getPerguntas() == null) {
             throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
         }
+
+        Evento evento = eventoMapper.toEntity(eventoDTO);
+        List<EventoPergunta> perguntas = evento.getPerguntas();
+
+        evento.setPerguntas(new ArrayList<>());
+
+        eventoRepositorio.save(evento);
+
+        perguntas.forEach(pergunta -> {
+            pergunta.setEvento(evento);
+        });
+
+        eventoPerguntaRepositorio.saveAll(perguntas);
+
+        return eventoMapper.toDto(evento);
+
     }
 
     public EventoDTO editar(EventoDTO eventoDTO) {
