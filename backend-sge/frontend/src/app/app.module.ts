@@ -1,3 +1,4 @@
+import { EventoModule } from './modulos/evento/evento.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -39,7 +40,8 @@ import {AccordionModule} from 'primeng/accordion';     //accordion and accordion
         VersionTagModule,
         AccordionModule,
         SecurityModule.forRoot(environment.auth),
-        MenuModule
+        MenuModule,
+        EventoModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

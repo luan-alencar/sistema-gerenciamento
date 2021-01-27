@@ -35,9 +35,6 @@ public class EventoRecursoIT extends IntTestComum {
     @Autowired
     private EventoRepositorio eventoRepositorio;
 
-    @Autowired
-    private MessageSource messageSource;
-
     @BeforeEach
     public void inicializar() {
         eventoRepositorio.deleteAll();

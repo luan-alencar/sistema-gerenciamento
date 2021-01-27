@@ -45,7 +45,7 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         evento.setDataInicio(LocalDateTime.of(2021, 07, 22, 10, 15, 30));
         evento.setDataFim(LocalDateTime.of(2021, 10, 22, 10, 15, 30));
         evento.setTipoInscricao(true);
-        evento.setTipoEvento(this.tipoEventoBuilder.construirEntidade());
+        evento.setTipoEvento(null);
         return evento;
     }
 

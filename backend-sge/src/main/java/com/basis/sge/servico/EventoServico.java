@@ -28,11 +28,17 @@ public class EventoServico {
 
     public List<EventoDTO> listar() {
         List<Evento> lista = eventoRepositorio.findAll();
-        if(lista.isEmpty()){
+        if (lista.isEmpty()) {
             throw new RegraNegocioException("Nenhum evento cadastrado!");
         }
         return eventoMapper.toDto(lista);
 
+    }
+
+    public EventoDTO editar(EventoDTO eventoDTO) {
+        Evento evento = eventoMapper.toEntity(eventoDTO);
+        eventoRepositorio.save(evento);
+        return eventoMapper.toDto(evento);
     }
 
     public EventoDTO obterEventoPorId(Integer id) {
@@ -93,28 +99,6 @@ public class EventoServico {
             throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
         }
 
-        Evento evento = eventoMapper.toEntity(eventoDTO);
-        List<EventoPergunta> perguntas = evento.getPerguntas();
-
-        evento.setPerguntas(new ArrayList<>());
-
-        eventoRepositorio.save(evento);
-
-        perguntas.forEach(pergunta -> {
-            pergunta.setEvento(evento);
-        });
-
-        eventoPerguntaRepositorio.saveAll(perguntas);
-
-        return eventoMapper.toDto(evento);
-
-    }
-
-    public EventoDTO editar(EventoDTO eventoDTO) {
-        Evento evento = eventoMapper.toEntity(eventoDTO);
-        eventoRepositorio.save(evento);
-
-        return eventoMapper.toDto(evento);
     }
 
     public void remover(Integer id) {

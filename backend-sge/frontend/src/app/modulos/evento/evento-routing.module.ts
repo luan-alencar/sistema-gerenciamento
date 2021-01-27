@@ -1,24 +1,15 @@
-import { CardComponent } from 'src/app/shared/components/card/card.component';
-import { ListagemComponent } from './../usuario/components/listagem/listagem.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { FormularioComponent } from './components/formulario/formulario.component';
+import { RouterModule, Routes } from '@angular/router';
+import { FormularioComponent } from './formulario/formulario.component';
+
 
 
 const routes: Routes = [
-{
-  path: 'listagem',
-  component: ListagemComponent
-},
-{
-  path: 'formulario',
-  component: FormularioComponent
-},
 
-{
-  path: 'card',
-  component: CardComponent
-}
+  {
+    path: '',
+    component: FormularioComponent
+  }
 
 ];
 
