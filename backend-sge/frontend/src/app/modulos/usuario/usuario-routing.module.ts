@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { ListagemComponent } from './components/listagem/listagem.component';
 
-
 const routes: Routes = [
 
   {
@@ -16,7 +15,6 @@ const routes: Routes = [
   },
   
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

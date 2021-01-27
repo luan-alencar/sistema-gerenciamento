@@ -1,8 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { FormularioComponent } from './formulario/formulario.component';
+import { ListagemComponent } from './listagem/listagem.component';
 
+const routes: Routes = [
 
-const routes: Routes = [];
+  {
+    path:'',
+    component: ListagemComponent
+  },
+  {
+    path:'formulario',
+    component: FormularioComponent
+  },
+  
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
