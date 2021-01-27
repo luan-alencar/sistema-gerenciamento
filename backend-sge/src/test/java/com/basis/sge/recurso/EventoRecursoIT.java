@@ -90,14 +90,14 @@ public class EventoRecursoIT extends IntTestComum {
     @Test
     public void removerTest() throws Exception {
         Evento evento = eventoBuilder.construir();
-        getMockMvc().perform(delete("/api/eventos/{id}", evento.getId()))
+        getMockMvc().perform(delete("/api/eventos/" + evento.getId()))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void buscarPorIdTest() throws Exception {
         Evento evento = eventoBuilder.construir();
-        getMockMvc().perform(get("/api/eventos/{id}", evento.getId()))
+        getMockMvc().perform(get("/api/eventos/" + evento.getId()))
                 .andExpect(status().isOk());
     }
 
