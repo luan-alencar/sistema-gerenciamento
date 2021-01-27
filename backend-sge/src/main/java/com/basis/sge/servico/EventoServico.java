@@ -93,21 +93,6 @@ public class EventoServico {
             throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
         }
 
-        Evento evento = eventoMapper.toEntity(eventoDTO);
-        List<EventoPergunta> perguntas = evento.getPerguntas();
-
-        evento.setPerguntas(new ArrayList<>());
-
-        eventoRepositorio.save(evento);
-
-        perguntas.forEach(pergunta -> {
-            pergunta.setEvento(evento);
-        });
-
-        eventoPerguntaRepositorio.saveAll(perguntas);
-
-        return eventoMapper.toDto(evento);
-
     }
 
     public EventoDTO editar(EventoDTO eventoDTO) {

@@ -35,9 +35,6 @@ public class EventoRecursoIT extends IntTestComum {
     @Autowired
     private EventoRepositorio eventoRepositorio;
 
-    @Autowired
-    private MessageSource messageSource;
-
     @BeforeEach
     public void inicializar() {
         eventoRepositorio.deleteAll();
@@ -45,6 +42,8 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     public void listarTest() throws Exception {
+        eventoBuilder.construir();
+
         eventoBuilder.obterTodos();
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
