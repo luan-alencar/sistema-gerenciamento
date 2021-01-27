@@ -11,7 +11,7 @@ export class Evento{
     dataFim: Date;
     tipoInscricao: boolean;
     idTipoEvento: number;
-    perguntas: EventoPergunta[];
+    perguntas: EventoPergunta[]= [];
 
     constructor() {}
 }

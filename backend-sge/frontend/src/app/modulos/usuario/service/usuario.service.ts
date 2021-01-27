@@ -15,6 +15,5 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(`${this.getUsuarios}/usuarios`);
   }
 
-0
 
 }

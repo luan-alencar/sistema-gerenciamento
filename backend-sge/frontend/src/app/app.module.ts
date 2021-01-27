@@ -40,8 +40,7 @@ import {AccordionModule} from 'primeng/accordion';     //accordion and accordion
         VersionTagModule,
         AccordionModule,
         SecurityModule.forRoot(environment.auth),
-        MenuModule,
-        EventoModule
+        MenuModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

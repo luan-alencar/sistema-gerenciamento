@@ -10,6 +10,11 @@ export class FormularioComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.buscarEventos();
+  }
+
+  private buscarEventos() {
+    this
   }
 
 }

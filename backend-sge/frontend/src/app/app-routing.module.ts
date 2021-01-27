@@ -7,10 +7,8 @@ import { EventoModule } from './modulos/evento/evento.module';
 
 const routes: Routes = [
     
-  { 
-  path: 'usuarios',
-  loadChildren: () => UsuarioModule, 
-  },
+  { path: 'usuarios', loadChildren: () => UsuarioModule,},
+  { path: 'eventos', loadChildren: () => EventoModule,},
   { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros'} },
   { path: 'login-success', component: LoginSuccessComponent },
 ];
