@@ -1,7 +1,8 @@
+import { CardComponent } from 'src/app/shared/components/card/card.component';
 import { ListagemComponent } from './../usuario/components/listagem/listagem.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FormularioComponent } from '../usuario/components/formulario/formulario.component';
+import { FormularioComponent } from './components/formulario/formulario.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,11 @@ const routes: Routes = [
 {
   path: 'formulario',
   component: FormularioComponent
+},
+
+{
+  path: 'card',
+  component: CardComponent
 }
 
 ];

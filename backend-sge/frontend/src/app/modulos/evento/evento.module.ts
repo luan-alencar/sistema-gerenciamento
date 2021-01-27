@@ -5,11 +5,11 @@ import { EventoRoutingModule } from './evento-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ListagemComponent } from '../usuario/components/listagem/listagem.component';
 import { CardComponent } from 'src/app/shared/components/card/card.component';
-import { FormularioComponent } from '../usuario/components/formulario/formulario.component';
+import { FormularioComponent } from './components/formulario/formulario.component';
 
 
 @NgModule({
-  declarations: [ListagemComponent, FormularioComponent],
+  declarations: [FormularioComponent, CardComponent],
   imports: [
     CommonModule,
     EventoRoutingModule,
