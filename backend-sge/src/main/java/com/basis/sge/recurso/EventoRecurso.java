@@ -3,7 +3,7 @@ package com.basis.sge.recurso;
 import com.basis.sge.servico.EventoServico;
 import com.basis.sge.servico.dto.EventoDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,6 @@ import java.util.List;
 
 @RequestMapping(value = "/api/eventos", produces = "application/json")
 @RestController
-@ComponentScan
 @RequiredArgsConstructor
 public class EventoRecurso {
 

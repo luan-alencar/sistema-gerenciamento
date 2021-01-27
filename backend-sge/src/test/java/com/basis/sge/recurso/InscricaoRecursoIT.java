@@ -89,7 +89,6 @@ public class InscricaoRecursoIT extends IntTestComum {
 
     @Test
     public void editarTest() throws Exception {
-
         Inscricao inscricao = inscricaoBuilder.construir();
 
         getMockMvc().perform(put( "/api/inscricoes")

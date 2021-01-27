@@ -43,7 +43,7 @@ public class UsuarioRecursoIT extends IntTestComum {
         usuarioBuilder.construir();
 
         getMockMvc().perform(get("/api/usuarios"))
-            .andExpect(status().isOk());
+                .andExpect(status().isOk());
     }
 
     @Test

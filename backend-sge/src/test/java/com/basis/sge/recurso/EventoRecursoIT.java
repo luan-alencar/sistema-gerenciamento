@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -46,15 +45,14 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Test
     public void listarTest() throws Exception {
-        eventoBuilder.construir();
+        eventoBuilder.obterTodos();
         getMockMvc().perform(get("/api/eventos"))
                 .andExpect(status().isOk());
-        Assert.assertEquals(1, eventoRepositorio.findAll().size());
     }
 
     @Test
     public void salvarTest() throws Exception {
-        Evento evento = eventoBuilder.construirEntidade();
+        Evento evento = eventoBuilder.construir();
 
         getMockMvc().perform(post("/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -104,7 +102,6 @@ public class EventoRecursoIT extends IntTestComum {
                 .andExpect(status().isOk());
     }
 
-
     @Test
     public void testValorException() throws ParseException {
         try {
@@ -112,7 +109,7 @@ public class EventoRecursoIT extends IntTestComum {
             evento.setValor(0.1);
             evento.setTipoInscricao(true);
             getMockMvcIsOk(evento);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
 
@@ -167,13 +164,6 @@ public class EventoRecursoIT extends IntTestComum {
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
                 .andExpect(status().isBadRequest());
     }
-
-    @Test
-    public void perguntasNullTest() throws Exception {
-        Evento evento = eventoBuilder.construirEntidade();
-        evento.setPerguntas(null);
-        getMockMvcPost(evento, post("/api/eventos"), status().isBadRequest());    }
-
 
     // método extraido
     private String getString() throws Exception {
