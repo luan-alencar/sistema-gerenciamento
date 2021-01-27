@@ -8,7 +8,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
-  declarations: [ListagemComponent],
+  declarations: [
+    ListagemComponent
+  ],
+  
+  providers:[
+
+  ],
+  
   imports: [
     CommonModule,
     UsuarioRoutingModule,
