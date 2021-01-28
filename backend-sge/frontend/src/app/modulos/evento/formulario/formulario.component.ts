@@ -1,20 +1,27 @@
 import { EventoService } from './service/evento.service';
 import { Component, OnInit } from '@angular/core';
 import { Evento } from 'src/app/dominios/evento';
-import { HttpClient } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng';
 
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.css']
+  styleUrls: ['./formulario.component.css'],
+    styles: [`
+        :host ::ng-deep .p-dialog .product-image {
+            width: 150px;
+            margin: 0 auto 2rem auto;
+            display: block;
+        }
+    `],
+    providers: [MessageService,ConfirmationService]
 })
 
 export class FormularioComponent implements OnInit {
 
   eventos: Evento[] = [];
 
-  productDialog: boolean;
+  eventoDialog: boolean;
 
     submitted: boolean;
 
@@ -37,7 +44,7 @@ export class FormularioComponent implements OnInit {
     openNew() {
         this.eventos = [];
         this.submitted = false;
-        this.productDialog = true;
+        this.eventoDialog = true;
     }
 
     deleteSelectedEventos() {
@@ -55,7 +62,7 @@ export class FormularioComponent implements OnInit {
 
     editEvento(evento: Evento) {
         this.evento = {...this.evento};
-        this.productDialog = true;
+        this.eventoDialog = true;
     }
 
     deleteEvento(evento: Evento) {
@@ -66,13 +73,13 @@ export class FormularioComponent implements OnInit {
             accept: () => {
                 this.eventos = this.eventos.filter(val => val.idTipoEvento !== evento.idTipoEvento);
                 this.evento = {};
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Evento Deletado', life: 3000});
             }
         });
     }
 
     hideDialog() {
-        this.productDialog = false;
+        this.eventoDialog = false;
         this.submitted = false;
     }
     
@@ -82,16 +89,16 @@ export class FormularioComponent implements OnInit {
         if (this.evento.local.trim()) {
             if (this.evento.perguntas) {
                 this.eventos[this.findIndexById(this.evento.titulo)] = this.evento;                
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Evento Atualizado!', life: 3000});
             }
             else {
                 this.evento.local = this.createId();
                 this.eventos.push(this.evento);
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Evento Criado!', life: 3000});
             }
 
             this.eventos = [...this.eventos];
-            this.productDialog = false;
+            this.eventoDialog = false;
             this.evento = {};
         }
     }
