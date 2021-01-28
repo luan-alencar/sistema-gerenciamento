@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { EventoRoutingModule } from './evento-routing.module';
 import { FormularioComponent } from './formulario/formulario.component';
 import { CommonModule } from '@angular/common';
@@ -11,7 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     EventoRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ]
 
 })

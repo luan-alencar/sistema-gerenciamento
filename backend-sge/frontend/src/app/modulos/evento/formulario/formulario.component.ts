@@ -1,4 +1,7 @@
+import { EventoService } from './service/evento.service';
 import { Component, OnInit } from '@angular/core';
+import { Evento } from 'src/app/dominios/evento';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-formulario',
@@ -7,14 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormularioComponent implements OnInit {
 
-  constructor() { }
+  eventos: Evento[] = [];
+
+  constructor(private servico: HttpClient) { }
 
   ngOnInit(): void {
     this.buscarEventos();
   }
 
   private buscarEventos() {
-    this
+    return this.servico.getEventos()
+      .subscribe((eventos: Evento[]) => {
+        console.log('subscribe-eventos');
+        this.eventos = eventos;
+      });
   }
-
 }

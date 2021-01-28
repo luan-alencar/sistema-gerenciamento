@@ -1,27 +1,23 @@
-<div class="evento">
-    <h5>Evento</h5>
-    <p-table [value]="">
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="titulo">Título<p-sortIcon field="titulo"></p-sortIcon></th>
-                <th pSortableColumn="local">Local <p-sortIcon field="local"></p-sortIcon></th>
-                <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
-                <th pSortableColumn="quantidade">Quantidade de vagas <p-sortIcon field="quantidade"></p-sortIcon></th>
-                <th pSortableColumn="valor">Valor <p-sortIcon field="valor"></p-sortIcon></th>
-                <th pSortableColumn="data-inicio">Data início<p-sortIcon field="data-inicio"></p-sortIcon></th>
-                <th pSortableColumn="data-fim">Data fim<p-sortIcon field="data-fim"></p-sortIcon></th>
-                <th pSortableColumn="tipo-inscricao">Tipo inscrição<p-sortIcon field="tipo-inscricao"></p-sortIcon></th>
-                <th pSortableColumn="tipo-evento">Tipo evento<p-sortIcon field="tipo-evento"></p-sortIcon></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-evento>
-            <tr>
-                <td>{{evento.}}</td>
-                <td>{{evento.name}}</td>
-                <td>{{evento.category}}</td>
-                <td>{{evento.quantity}}</td>
-                <td>{{evento.price | currency: 'USD'}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
+<p-table [value]="eventos">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Local</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Quantidade de Vagas</th>
+            <th>Valor</th>
+            <th>Data Inicio</th>
+            <th>Data Fim</th>
+            <th>Tipo Inscricao</th>
+            <th>Tipo Evento</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-car>
+        <tr>
+            <td>{{eventos.}}</td>
+            <td>{{car.year}}</td>
+            <td>{{car.brand}}</td>
+            <td>{{car.color}}</td>
+        </tr>
+    </ng-template>
+</p-table>
