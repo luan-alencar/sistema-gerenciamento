@@ -1,4 +1,3 @@
-import { EventoModule } from './modulos/evento/evento.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';

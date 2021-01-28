@@ -3,18 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { UsuarioRoutingModule } from './usuario-routing.module';
 
-import { ListagemComponent } from './components/formulario/listagem.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { FormularioComponent } from '../evento/formulario/formulario.component';
 import { UsuarioService } from './service/usuario.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormularioComponent } from './components/formulario/formulario.component';
+import { ListagemComponent } from './components/listagem/listagem.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [FormularioComponent, ListagemComponent],
+  declarations: [ListagemComponent, FormularioComponent],
   providers: [UsuarioService],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     UsuarioRoutingModule,
     SharedModule,
     HttpClientModule
