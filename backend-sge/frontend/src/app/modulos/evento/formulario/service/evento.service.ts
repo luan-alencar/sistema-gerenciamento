@@ -6,7 +6,7 @@ import { Evento } from 'src/app/dominios/evento';
 
 @Injectable()
 export class EventoService {
-
+ 
   url = environment.apiUrl;
 
   constructor(private http: HttpClient) { }

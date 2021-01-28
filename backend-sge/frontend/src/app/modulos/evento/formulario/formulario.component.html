@@ -1,23 +1,65 @@
-<p-table [value]="eventos">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Local</th>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Quantidade de Vagas</th>
-            <th>Valor</th>
-            <th>Data Inicio</th>
-            <th>Data Fim</th>
-            <th>Tipo Inscricao</th>
-            <th>Tipo Evento</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-car>
-        <tr>
-            <td>{{eventos.}}</td>
-            <td>{{car.year}}</td>
-            <td>{{car.brand}}</td>
-            <td>{{car.color}}</td>
-        </tr>
-    </ng-template>
-</p-table>
+<p-toast></p-toast>
+
+<div class="evento">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            <button pButton pRipple [label]="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedEventos()" [disabled]="!selectedEventos || !selectedEventos.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="eventos" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
+        [(selection)]="selectedEventos" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Gerente de Eventos</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="local">Local <p-sortIcon field="local"></p-sortIcon></th>
+                <th>Image</th>
+                <th pSortableColumn="valor">Valor <p-sortIcon field="valor"></p-sortIcon></th>
+                <th pSortableColumn="idTipoEvento">Tipo Evento <p-sortIcon field="idTipoEvento"></p-sortIcon></th>
+                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
+                <th pSortableColumn="inventoryStatus">Descrição <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                <th></th>   
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-eventos>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="evento"></p-tableCheckbox>
+                </td>
+                <td>{{evento.local}}</td>
+                <td><img [src]="'assets/showcase/images/demo/eventos/' + eventos.image" [alt]="eventos.name" width="100" class="p-shadow-4" /></td>
+                <td>{{evento.valor | currency:'USD'}}</td>
+                <td>{{evento.idTipoEvento}}</td>
+                <td><p-rating [ngModel]="eventos.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                <td><span [class]="'evento-badge status-' + (evento.descricao ? evento.descricao.toLowerCase() : '')">{{evento.descricao}}</span></td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editEvento(evento)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEvento(evento)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                In total there are {{eventos ? eventos.length : 0 }} eventos.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
