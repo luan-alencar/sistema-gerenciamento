@@ -110,7 +110,7 @@ public class InscricaoRecursoIT extends IntTestComum {
     public void removerIdInvalidoTest() throws Exception {
         inscricaoBuilder.construir();
 
-        getMockMvc().perform(delete( "/api/inscricoes/2"))
+        getMockMvc().perform(delete( "/api/inscricoes/1"))
                 .andExpect(status().isBadRequest());
 
     }

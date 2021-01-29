@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/dominios/usuario';
-import { UsuarioService } from '../../service/usuario.service';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-listagem',
@@ -11,16 +11,26 @@ export class ListagemComponent implements OnInit {
 
   usuarios: Usuario[] = [];
 
-  constructor(private usuarioServico: UsuarioService) { }
+
+  constructor(public servico: UsuarioService) { }
 
   ngOnInit(): void {
     this.buscarUsuarios();
   }
 
-  private buscarUsuarios() {
-    this.usuarioServico.getUsuarios()
+  private buscarUsuarios(){
+    this.servico.getUsuarios()
       .subscribe((usuarios: Usuario[]) => {
-        this.usuarios = usuarios;
+      console.log('subscribe')
+      this.usuarios = usuarios;
+    });
+  }
+
+  deletarUsuario(id: number){
+    this.servico.deletarUsuario(id)
+      .subscribe(() => {
+        alert('Usuario removido');
+        this.buscarUsuarios();
       });
   }
 

@@ -101,6 +101,13 @@ public class EventoServico {
 
     }
 
+    public EventoDTO editar(EventoDTO eventoDTO) {
+        Evento evento = eventoMapper.toEntity(eventoDTO);
+        eventoRepositorio.save(evento);
+
+        return eventoMapper.toDto(evento);
+    }
+
     public void remover(Integer id) {
         eventoRepositorio.delete(eventoRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
