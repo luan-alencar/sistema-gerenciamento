@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
 import { UsuarioModule } from './modulos/usuario/usuario.module';
+import { EventoModule } from './modulos/evento/evento.module';
 
 const routes: Routes = [
     
@@ -12,7 +13,7 @@ const routes: Routes = [
     },
     { 
       path: 'eventos',
-      loadChildren: () => UsuarioModule, 
+      loadChildren: () => EventoModule, 
       },
     { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros'} },
     { path: 'login-success', component: LoginSuccessComponent },

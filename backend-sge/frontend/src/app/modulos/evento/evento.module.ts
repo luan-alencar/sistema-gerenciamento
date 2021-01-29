@@ -12,6 +12,9 @@ import { EventoListagemComponent } from './evento-listagem/evento-listagem.compo
     EventoFormularioComponent,
     EventoListagemComponent
   ],
+  providers: [
+    
+  ],
   imports: [
     CommonModule,
     EventoRoutingModule,
