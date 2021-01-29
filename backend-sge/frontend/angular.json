@@ -21,6 +21,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeflex/primeflex.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/@nuvem/angular-base/src/lib/accessibility/accessibility.scss",
@@ -144,6 +147,6 @@
     }
   },
   "cli": {
-    "analytics": "18e9296a-e911-4b8e-822a-e8bdcbc5e639"
+    "analytics": "c704dd24-2235-4609-ab7a-2e60dcde48d8"
   }
 }

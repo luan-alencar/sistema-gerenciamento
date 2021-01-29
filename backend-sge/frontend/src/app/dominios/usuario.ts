@@ -1,5 +1,3 @@
-import { Evento } from "./evento";
-
 export class Usuario{
     
     id: number

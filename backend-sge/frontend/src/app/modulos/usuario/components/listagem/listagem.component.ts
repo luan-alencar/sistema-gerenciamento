@@ -11,6 +11,7 @@ export class ListagemComponent implements OnInit {
 
   usuarios: Usuario[] = [];
 
+
   constructor(public servico: UsuarioService) { }
 
   ngOnInit(): void {
@@ -33,4 +34,12 @@ export class ListagemComponent implements OnInit {
       });
   }
 
+  deletarUsuario(id: number) {
+    this.usuarioServico.deletarUsuario(id)
+      .subscribe(() => {
+        alert('Usuário deletado!');
+        this.buscarUsuarios();
+      },
+        err => alert(err));
+  }
 }

@@ -1,7 +1,8 @@
 import { EventoPergunta } from "./evento-pergunta";
 
-export class Evento{
-  
+export class Evento {
+
+    id: number;
     local: string;
     titulo: string;
     descricao: string;
@@ -11,7 +12,7 @@ export class Evento{
     dataFim: Date;
     tipoInscricao: boolean;
     idTipoEvento: number;
-    perguntas: EventoPergunta[];
+    perguntas: EventoPergunta[] = [];
 
-    constructor() {}
+    constructor() { }
 }
