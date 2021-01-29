@@ -1,1 +1,17 @@
-<p>evento-formulario works!</p>
+<form [formGroup]="formEvento">
+
+    <div class="p-grid p-dir-col">
+  
+      <input type="text" [(ngModel)]="evento.titulo" placeholder="Título do Evento" formControlName="titulo" pInputText />
+      <div *ngIf="formEvento.get('titulo').invalid">Nome inválido</div>
+  
+      <input type="text" [(ngModel)]="evento.cpf" placeholder="CPF" formControlName="cpf" pInputText />
+      <input type="text" [(ngModel)]="evento.email" placeholder="Email" formControlName="email" pInputText />
+      <input type="text" [(ngModel)]="evento.telefone" placeholder="Telefone" formControlName="telefone" pInputText />
+      <input type="text" [(ngModel)]="evento.dataNascimento" placeholder="Data de Nascimento" formControlName="dataNascimento" pInputText />
+    </div>
+  
+  </form>
+  
+  <button (click)="salvar()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'" ></button>
+  

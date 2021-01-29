@@ -17,7 +17,7 @@ const routes: Routes = [
     path: 'evento-formulario/:id',
     component: EventoFormularioComponent
   },
-  
+
 ];
 
 @NgModule({

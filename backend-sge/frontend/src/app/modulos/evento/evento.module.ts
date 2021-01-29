@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { EventoRoutingModule } from './evento-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { EventoFormularioComponent } from './evento-formulario/evento-formulario.component';
 import { EventoListagemComponent } from './evento-listagem/evento-listagem.component';
+import { EventoRoutingModule } from './evento-routing.module';
+import { EventoService } from './services/evento.service';
+
 
 
 @NgModule({
@@ -13,12 +16,16 @@ import { EventoListagemComponent } from './evento-listagem/evento-listagem.compo
     EventoListagemComponent
   ],
   providers: [
-    
+    EventoService
   ],
   imports: [
     CommonModule,
     EventoRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
+    HttpClientModule
   ]
 })
 

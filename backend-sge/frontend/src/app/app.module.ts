@@ -13,7 +13,7 @@ import { PageNotificationModule, BreadcrumbModule, MenuModule, ErrorStackModule 
 import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { BlockUIModule } from 'ng-block-ui';
-import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
+import { AccordionModule } from 'primeng/accordion';     //accordion and accordion tab
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import {AccordionModule} from 'primeng/accordion';     //accordion and accordion
     imports: [
         BlockUIModule.forRoot({
             message: "Carregando..."
-          }),
+        }),
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
