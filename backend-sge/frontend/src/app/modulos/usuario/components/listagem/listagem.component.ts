@@ -11,35 +11,28 @@ export class ListagemComponent implements OnInit {
 
   usuarios: Usuario[] = [];
 
-
-  constructor(public servico: UsuarioService) { }
+  constructor(
+    private servico: UsuarioService
+  ) { }
 
   ngOnInit(): void {
     this.buscarUsuarios();
   }
 
-  private buscarUsuarios(){
+  private buscarUsuarios() {
     this.servico.getUsuarios()
       .subscribe((usuarios: Usuario[]) => {
-      console.log('subscribe')
-      this.usuarios = usuarios;
-    });
-  }
-
-  deletarUsuario(id: number){
-    this.servico.deletarUsuario(id)
-      .subscribe(() => {
-        alert('Usuario removido');
-        this.buscarUsuarios();
+        this.usuarios = usuarios;
       });
   }
 
   deletarUsuario(id: number) {
-    this.usuarioServico.deletarUsuario(id)
+    this.servico.deletarUsuario(id)
       .subscribe(() => {
-        alert('Usuário deletado!');
+        alert('Usuário deletado');
         this.buscarUsuarios();
       },
-        err => alert(err));
+      err => alert(err));
   }
+
 }

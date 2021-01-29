@@ -72,32 +72,4 @@ export class FormularioComponent implements OnInit {
     }
 
   }
-
-  buscarUsuario(id: number) {
-    this.usuarioServico.buscarUsuarioPorId(id)
-      .subscribe(usuario => this.usuario = usuario);
-  }
-
-  salvar() {
-    if (this.formUsuario.invalid) {
-      alert('Formulário inválido!');
-      return;
-    }
-    if (this.edicao) {
-      this.usuarioServico.editarUsuario(this.usuario)
-        .subscribe(usuario => {
-          alert('Usuário editado!');
-        }, (erro: HttpErrorResponse) => {
-          alert(erro.error.message);
-        });
-    } else {
-      this.usuarioServico.salvarUsuario(this.usuario)
-        .subscribe(usuario => {
-          console.log('usuario salvo', usuario);
-          alert('Usuário salvo')
-        }, (erro: HttpErrorResponse) => {
-          alert(erro.error.message);
-        });
-    }
-  }
 }

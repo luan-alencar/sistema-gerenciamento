@@ -1,37 +1,28 @@
-<app-card [titulo]="'lista de usuários'">
-<!--
-<ul>
-    <li *ngFor="let usuario of usuarios">{{usuario.nome}} - {{ usuario.dataNascimento | date: 'dd/MM/yyyy' }}</li>
-</ul>
 
-<div *ngIf="usuarios.length > 1">Contém mais de um usuario</div>
--->
-<div class="p-d-flex p-jc-end">
-    <button routerLink="/usuarios/formulario" pButton type="button" label="Cadastrar Usuario"></button>
-</div>
-<p-table [value]="usuarios">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>E-mail</th>
-            <th>Telefone</th>
-            <th>Data Nascimento</th>
-            <th>Ações</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-usuario>
-        <tr>
-            <td>{{usuario.nome}}</td>
-            <td>{{usuario.cpf}}</td>
-            <td>{{usuario.email}}</td>
-            <td>{{usuario.telefone}}</td>
-            <td>{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
-            <td class="p-d-flex p-jc-center">
+<app-card [titulo]="'Lista de usuários'">
+
+    <div class="p-d-flex p-jc-end">
+        <button routerLink="formulario" pButton type="button" label="Cadastrar Usuário" ></button>
+    </div>
+
+    <p-table [value]="usuarios">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Nome</th>
+              <th>Data de Nascimento</th>
+              <th style="width: 80px;">Ações</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-usuario>
+          <tr>
+              <td>{{usuario.nome}}</td>
+              <td>{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
+              <td class="p-d-flex p-jc-center">
                 <button [routerLink]="['formulario', usuario.id]" pButton type="button" icon="pi pi-pencil"></button>
-                <button (click)="deletarUsuario(usuario.id)" pButton type="button" icon="pi pi-trash"></button>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
+                <button (click)="deletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+              </td>
+          </tr>
+      </ng-template>
+    </p-table>
+
 </app-card>

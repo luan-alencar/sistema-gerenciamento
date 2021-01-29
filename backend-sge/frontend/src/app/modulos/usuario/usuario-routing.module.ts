@@ -1,24 +1,22 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormularioComponent } from './components/formulario/formulario.component';
+import { ListagemComponent } from './components/listagem/listagem.component';
 
 
 const routes: Routes = [
-
   {
-    path:'',
+    path: '',
     component: ListagemComponent
   },
-
   {
     path: 'formulario',
     component: FormularioComponent
   },
   {
     path: 'formulario/:id',
-    component: FormularioComponent 
-  }
-  
+    component: FormularioComponent
+  },
 ];
 
 @NgModule({
