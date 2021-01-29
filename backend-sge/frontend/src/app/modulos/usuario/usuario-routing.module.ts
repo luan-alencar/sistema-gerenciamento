@@ -1,7 +1,7 @@
-import { ListagemComponent } from './listagem/listagem.component';
+import { ListagemComponent } from './components/listagem/listagem.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormularioComponent } from './formulario/formulario.component';
+import { FormularioComponent } from './components/formulario/formulario.component';
 
 
 
