@@ -25,4 +25,12 @@ export class ListagemComponent implements OnInit {
     });
   }
 
+  deletarUsuario(id: number){
+    this.servico.deletarUsuario(id)
+      .subscribe(() => {
+        alert('Usuario removido');
+        this.buscarUsuarios();
+      });
+  }
+
 }

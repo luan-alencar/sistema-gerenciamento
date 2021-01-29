@@ -42,8 +42,10 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO obterUsuarioPorCpf(String cpf){
-        Usuario usuario = usuarioRepositorio.findByCpf(cpf)
-                .orElseThrow(() -> new RegraNegocioException("Cpf não cadastrado"));
+        Usuario usuario = usuarioRepositorio.findByCpf(cpf);
+        if(usuario == null){
+            throw new RegraNegocioException("Cpf não cadastrado");
+        }
         return usuarioMapper.toDto(usuario);
     }
 
@@ -80,8 +82,10 @@ public class UsuarioServico {
                 for (UsuarioDTO lista : usuarios) {
 
                     validarDadosNull(lista);
+                    validarCpf(lista);
+                    validarEmail(lista);
 
-                    validarDadosDuplicados(lista);
+                    //validarDadosDuplicados(lista);
 
                 }
 
@@ -113,16 +117,6 @@ public class UsuarioServico {
         }
     }
 
-    private void validarDadosDuplicados(UsuarioDTO usuario){
-        if (usuarioRepositorio.findByCpf(usuario.getCpf()).isPresent()) {
-            throw new RegraNegocioException("Já existe usuario cadastrado com esse cpf");
-        }
-
-        if (usuarioRepositorio.findByEmail(usuario.getEmail()).isPresent()) {
-            throw new RegraNegocioException("Já existe usuario cadastrado com esse e-mail");
-        }
-    }
-
     private void validarIdade(UsuarioDTO usuario){
         int idade = LocalDate.now().getYear() - usuario.getDataNascimento().getYear();
         if (idade > 115 || idade < 10) {
@@ -130,7 +124,7 @@ public class UsuarioServico {
         }
     }
 
-    public void enviarEmail(Usuario usuario){
+    private void enviarEmail(Usuario usuario){
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro de usuário");
         emailDTO.setCorpo("<h1> Você foi cadastrado com sucesso na plataforma de evento! </h1> <p>Esta é sua chave de inscrição em eventos: <b>" + usuario.getChave() + "</b> </p>");
@@ -138,4 +132,24 @@ public class UsuarioServico {
         emailDTO.setDestinatario(usuario.getEmail());
         emailServico.sendMail(emailDTO);
     }
+
+    private Usuario obter(Integer id) {
+        return usuarioRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
+    }
+
+    private void validarEmail(UsuarioDTO usuarioDTO) {
+        Usuario usuario = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
+        if(usuario != null && !usuario.getId().equals(usuarioDTO.getId())) {
+            throw new RegraNegocioException("Email já cadastrado");
+        }
+    }
+
+    private void validarCpf(UsuarioDTO usuarioDTO) {
+        Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
+        if(usuario != null && !usuario.getId().equals(usuarioDTO.getId())) {
+            throw new RegraNegocioException("CPF já cadastrado");
+        }
+    }
+
 }
