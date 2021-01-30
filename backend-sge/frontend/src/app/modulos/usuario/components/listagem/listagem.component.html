@@ -1,5 +1,5 @@
 
-<app-card [titulo]="'lista de usuários'">
+<app-card [titulo]="'Lista de usuários'">
 <!--
 <ul>
     <li *ngFor="let usuario of usuarios">{{usuario.nome}} - {{ usuario.dataNascimento | date: 'dd/MM/yyyy' }}</li>
@@ -8,7 +8,7 @@
 <div *ngIf="usuarios.length > 1">Contém mais de um usuario</div>
 -->
 <div class="p-d-flex p-jc-end">
-    <button routerLink="/usuarios/formulario" pButton type="button" label="Cadastrar Usuario"></button>
+    <button  class="p-ml-2" routerLink="/usuarios/formulario" pButton type="button" label="Cadastrar Usuario"></button>
 </div>
 <p-table [value]="usuarios">
     <ng-template pTemplate="header">
@@ -18,7 +18,7 @@
             <th>E-mail</th>
             <th>Telefone</th>
             <th>Data Nascimento</th>
-            <th>Ações</th>
+            <th style="width: 80px;">Ações</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-usuario>
@@ -29,11 +29,28 @@
             <td>{{usuario.telefone}}</td>
             <td>{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
             <td class="p-d-flex p-jc-center">
-                <button [routerLink]="['formulario', usuario.id]" pButton type="button" icon="pi pi-pencil"></button>
-                <button (click)="deletarUsuario(usuario.id)" pButton type="button" icon="pi pi-trash"></button>
-            </td>
+                <button (click)="mostrarDialogEditar(usuario.id)" pButton type="button" icon="pi pi-pencil"></button>
+                <button (click)="confirmarDeletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+            </td> 
         </tr>
     </ng-template>
 </p-table>
 
 </app-card>
+
+<p-dialog header="Title" [(visible)]="exibirDialog">
+    <app-formulario
+        [usuario]="usuario"
+        [edicao]="formularioEdicao"
+        (usuarioSalvo)="fecharDialog($event)"
+    ></app-formulario>
+</p-dialog>
+
+
+
+<p-confirmDialog #cd header="Confirmar Remover Usuário" icon="pi pi-exclamation-triangle">
+    <p-footer>
+            <button type="button" pButton icon="pi pi-times" label="Não" (click)="cd.reject()"></button>
+            <button type="button" pButton icon="pi pi-check" label="Sim" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>

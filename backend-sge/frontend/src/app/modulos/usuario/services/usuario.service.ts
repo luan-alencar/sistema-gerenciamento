@@ -12,11 +12,11 @@ export class UsuarioService {
   constructor(private http: HttpClient) { }
 
   buscarUsuarioPorId(id: number): Observable<Usuario>{
-    return this.http.get<Usuario>(this.url);
+    return this.http.get<Usuario>(`${this.url}/${id}`);
   }
 
   getUsuarios(): Observable<Usuario[]>{
-    return this.http.get<Usuario[]>(this.url);
+    return this.http.get<Usuario[]>(`${this.url}`);
   }
 
   salvarUsuario(usuario: Usuario): Observable<Usuario>{

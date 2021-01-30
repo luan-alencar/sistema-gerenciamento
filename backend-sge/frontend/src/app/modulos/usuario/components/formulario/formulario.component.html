@@ -1,12 +1,12 @@
 
-<form [formGroup]="formUsuario">
+<form [formGroup]="cadastroUsuario">
     <input type="text" [(ngModel)]="usuario.nome" placeHolder="nome" formControlName="nome" pInputText />
-    <div *ngIf="formUsuario.get('nome').invalid">Nome inválido</div>
+    <div *ngIf="cadastroUsuario.get('nome').invalid">Nome inválido</div>
     <input type="text" [(ngModel)]="usuario.cpf" placeHolder="cpf" formControlName="cpf" pInputText />
     <input type="text" [(ngModel)]="usuario.email" placeHolder="email" formControlName="email" pInputText />
     <input type="text" [(ngModel)]="usuario.telefone" placeHolder="telefone" formControlName="telefone" pInputText />
-    <input type="text" [(ngModel)]="usuario.dataNascimento" placeHolder="data de Nascimento" formControlName="dataNascimento" pInputText />
+    <input type="text" [(ngModel)]="usuario.dataNascimento" placeHolder="data de Nascimento" formControlName="dataNascimento" pInputText/>
 </form>
 
-<button (click)='salvar()' pButton type="button" label="Cadastrar"></button>
+<button (click)="salvar()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'" ></button>
 

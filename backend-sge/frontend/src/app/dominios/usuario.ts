@@ -8,6 +8,7 @@ export class Usuario{
     email: String;
     telefone: String;
     dataNascimento: Date;
+    chave: string;
 
     constructor(){}
 }
