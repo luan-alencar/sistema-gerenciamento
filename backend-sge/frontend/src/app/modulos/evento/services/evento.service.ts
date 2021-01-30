@@ -15,7 +15,8 @@ export class EventoService {
     return this.http.get<Evento>(this.url);
   }
 
-  getEventos(): Observable<Evento[]> {
+  // Pega todos os Eventos
+  getAllEventos(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.url);
   }
 

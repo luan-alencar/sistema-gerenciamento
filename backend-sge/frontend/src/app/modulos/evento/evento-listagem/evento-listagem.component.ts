@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/dominios/evento';
 import { EventoService } from '../services/evento.service';
 
@@ -9,21 +11,35 @@ import { EventoService } from '../services/evento.service';
 })
 export class EventoListagemComponent implements OnInit {
 
+  // declaracoes
   eventos: Evento[] = [];
+  formEvento: FormBuilder;
+  edicao = false;
 
-  constructor(private eventoService: EventoService) { }
+  // construtor
+  constructor(
+    // EventoService
+    private eventoService: EventoService,
+    // FormBuilder
+    private fb: FormBuilder,
+    // ActivatedRoute
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.buscarEventos();
+    // this.buscarEventos();
+    this.route.
   }
 
-  private buscarEventos() {
-    this.eventoService.getEventos()
+  // Metodo para buscar os Eventos 
+  private searchEventos() {
+    this.eventoService.getAllEventos()
       .subscribe((eventos: Evento[]) => {
         this.eventos = eventos;
       });
   }
 
+  // Metodo para deletar um Evento
   deletarEvento(id: number) {
     this.eventoService.deletarEvento(id)
       .subscribe(() => {
@@ -32,4 +48,6 @@ export class EventoListagemComponent implements OnInit {
       },
         err => alert(err));
   }
+
+  // 
 }

@@ -25,14 +25,14 @@ export class FormularioComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      if(params.id){
+      if (params.id) {
         this.edicao = true;
       }
     });
 
-    this.formUsuario = this.fb.group({
+    this.formUsuario = this.fb.group({  
       //pode ser iniciado aqui e ser editado na pagina
-      nome: ['', Validators.nullValidator], 
+      nome: ['', Validators.nullValidator],
       cpf: '',
       email: '',
       telefone: '',
@@ -40,34 +40,34 @@ export class FormularioComponent implements OnInit {
     });
   }
 
-  buscarUsuario(id: number){
+  buscarUsuario(id: number) {
     this.usuarioService.buscarUsuarioPorId(id)
       .subscribe(usario => {
       });
   }
 
-  salvar(){
-    if(this.formUsuario.invalid){
+  salvar() {
+    if (this.formUsuario.invalid) {
       alert('formulario invalido')
       return;
     }
 
-    if(this.edicao){
+    if (this.edicao) {
       this.usuarioService.editarUsuario(this.usuario)
-      .subscribe(usuario => {
-        console.log("usuario salvo", usuario);
-        alert('Usuario salvo')
-      }, (erro: HttpErrorResponse) => {
-        alert(erro.error.message);
-      });
-    }else{
+        .subscribe(usuario => {
+          console.log("usuario salvo", usuario);
+          alert('Usuario salvo')
+        }, (erro: HttpErrorResponse) => {
+          alert(erro.error.message);
+        });
+    } else {
       this.usuarioService.salvarUsuario(this.usuario)
-      .subscribe(usuario => {
-        console.log("usuario salvo", usuario);
-        alert('Usuario salvo')
-      }, (erro: HttpErrorResponse) => {
-        alert(erro.error.message);
-      });
+        .subscribe(usuario => {
+          console.log("usuario salvo", usuario);
+          alert('Usuario salvo')
+        }, (erro: HttpErrorResponse) => {
+          alert(erro.error.message);
+        });
     }
 
   }
