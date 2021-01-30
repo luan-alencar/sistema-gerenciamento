@@ -1,5 +1,10 @@
 
+<<<<<<< HEAD
 <form [formGroup]="cadastroUsuario">
+=======
+
+<form [formGroup]="formUsuario">
+>>>>>>> 089d6f124418304216683073ac78e3af0dc4b49c
     <input type="text" [(ngModel)]="usuario.nome" placeHolder="nome" formControlName="nome" pInputText />
     <div *ngIf="cadastroUsuario.get('nome').invalid">Nome inválido</div>
     <input type="text" [(ngModel)]="usuario.cpf" placeHolder="cpf" formControlName="cpf" pInputText />
@@ -8,5 +13,9 @@
     <input type="text" [(ngModel)]="usuario.dataNascimento" placeHolder="data de Nascimento" formControlName="dataNascimento" pInputText/>
 </form>
 
+<<<<<<< HEAD
 <button (click)="salvar()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'" ></button>
 
+=======
+<button (click)='salvar()' pButton type="button" label="Cadastrar"></button>
+>>>>>>> 089d6f124418304216683073ac78e3af0dc4b49c

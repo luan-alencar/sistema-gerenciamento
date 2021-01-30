@@ -28,11 +28,17 @@ public class EventoServico {
 
     public List<EventoDTO> listar() {
         List<Evento> lista = eventoRepositorio.findAll();
-        if(lista.isEmpty()){
+        if (lista.isEmpty()) {
             throw new RegraNegocioException("Nenhum evento cadastrado!");
         }
         return eventoMapper.toDto(lista);
 
+    }
+
+    public EventoDTO editar(EventoDTO eventoDTO) {
+        Evento evento = eventoMapper.toEntity(eventoDTO);
+        eventoRepositorio.save(evento);
+        return eventoMapper.toDto(evento);
     }
 
     public EventoDTO obterEventoPorId(Integer id) {

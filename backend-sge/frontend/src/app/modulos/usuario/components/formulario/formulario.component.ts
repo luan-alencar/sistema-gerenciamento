@@ -37,7 +37,12 @@ export class FormularioComponent implements OnInit {
       }
     });
 
+<<<<<<< HEAD
     this.cadastroUsuario = this.fb.group({
+=======
+    this.formUsuario = this.fb.group({
+      
+>>>>>>> 089d6f124418304216683073ac78e3af0dc4b49c
       nome: ['', Validators.nullValidator], //pode ser iniciado aqui e ser editado na pagina
       cpf: '',
       email: '',
@@ -76,10 +81,41 @@ export class FormularioComponent implements OnInit {
         alert(erro.error.message);
       });
     }
+
   }
 
+  buscarUsuario(id: number) {
+    this.usuarioServico.buscarUsuarioPorId(id)
+      .subscribe(usuario => this.usuario = usuario);
+  }
+
+<<<<<<< HEAD
   fecharDialog(usuarioSalvo: Usuario) {
     this.usuarioSalvo.emit(usuarioSalvo);
   }
 
+=======
+  salvar() {
+    if (this.formUsuario.invalid) {
+      alert('Formulário inválido!');
+      return;
+    }
+    if (this.edicao) {
+      this.usuarioServico.editarUsuario(this.usuario)
+        .subscribe(usuario => {
+          alert('Usuário editado!');
+        }, (erro: HttpErrorResponse) => {
+          alert(erro.error.message);
+        });
+    } else {
+      this.usuarioServico.salvarUsuario(this.usuario)
+        .subscribe(usuario => {
+          console.log('usuario salvo', usuario);
+          alert('Usuário salvo')
+        }, (erro: HttpErrorResponse) => {
+          alert(erro.error.message);
+        });
+    }
+  }
+>>>>>>> 089d6f124418304216683073ac78e3af0dc4b49c
 }

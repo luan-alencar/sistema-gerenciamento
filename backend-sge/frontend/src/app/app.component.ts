@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
     templateUrl: './app.component.html'
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
+    [x: string]: any;
 
     layoutCompact = true;
 
