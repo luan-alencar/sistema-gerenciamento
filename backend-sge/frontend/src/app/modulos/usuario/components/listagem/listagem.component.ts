@@ -15,15 +15,10 @@ export class ListagemComponent implements OnInit {
   exibirDialog = false;
   formularioEdicao: boolean;
 
-<<<<<<< HEAD
   constructor(
     private servico: UsuarioService,
     private confirmationService: ConfirmationService
   ) { }
-=======
-
-  constructor(public servico: UsuarioService) { }
->>>>>>> 089d6f124418304216683073ac78e3af0dc4b49c
 
   ngOnInit(): void {
     this.buscarUsuarios();
@@ -64,16 +59,8 @@ export class ListagemComponent implements OnInit {
     });
   }
 
-  private deletarUsuario(id: number){
+  private deletarUsuario(id: number) {
     this.servico.deletarUsuario(id)
-      .subscribe(() => {
-        alert('Usuario removido');
-        this.buscarUsuarios();
-      });
-  }
-
-  deletarUsuario(id: number) {
-    this.usuarioServico.deletarUsuario(id)
       .subscribe(() => {
         alert('Usuário deletado!');
         this.buscarUsuarios();

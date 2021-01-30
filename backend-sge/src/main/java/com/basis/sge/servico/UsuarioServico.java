@@ -22,6 +22,7 @@ public class UsuarioServico {
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
     private final EmailServico emailServico;
+    private final ProdutorServico produtorServico;
 
     public List<UsuarioDTO> listar() {
         List<Usuario> usuarios = usuarioRepositorio.findAll();
@@ -49,13 +50,27 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuario);
     }
 
+    public UsuarioDTO obterUsuarioPorEmail(String email) {
+        Usuario usuario = usuarioRepositorio.findByEmail(email);
+        if(usuario == null){
+            throw new RegraNegocioException("Cpf não cadastrado");
+        }
+        return usuarioMapper.toDto(usuario);
+    }
+
     public void remover(Integer id) {
         usuarioRepositorio.delete(usuarioRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
 
     public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RegraNegocioException {
+        validarDadosNull(usuarioDTO);
+        validarEmail(usuarioDTO);
+        validarCpf(usuarioDTO);
+        validarIdade(usuarioDTO);
+        Usuario usuarioBD = obter(usuarioDTO.getId());
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setChave(usuarioBD.getChave());
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
@@ -71,7 +86,8 @@ public class UsuarioServico {
 
             usuario.setChave(UUID.randomUUID().toString());
             usuarioRepositorio.save(usuario);
-            enviarEmail(usuario);
+            EmailDTO emailDTO = enviarEmail(usuario);
+            produtorServico.enviarEmail(emailDTO);
         }
         else {
 
@@ -93,7 +109,8 @@ public class UsuarioServico {
 
                 usuario.setChave(UUID.randomUUID().toString());
                 usuarioRepositorio.save(usuario);
-                enviarEmail(usuario);
+                EmailDTO emailDTO = enviarEmail(usuario);
+                produtorServico.enviarEmail(emailDTO);
             }
         }
         return usuarioMapper.toDto(usuario);
@@ -124,13 +141,13 @@ public class UsuarioServico {
         }
     }
 
-    private void enviarEmail(Usuario usuario){
+    private EmailDTO enviarEmail(Usuario usuario){
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro de usuário");
         emailDTO.setCorpo("<h1> Você foi cadastrado com sucesso na plataforma de evento! </h1> <p>Esta é sua chave de inscrição em eventos: <b>" + usuario.getChave() + "</b> </p>");
 
         emailDTO.setDestinatario(usuario.getEmail());
-        emailServico.sendMail(emailDTO);
+        return emailDTO;
     }
 
     private Usuario obter(Integer id) {
@@ -151,5 +168,6 @@ public class UsuarioServico {
             throw new RegraNegocioException("CPF já cadastrado");
         }
     }
+
 
 }

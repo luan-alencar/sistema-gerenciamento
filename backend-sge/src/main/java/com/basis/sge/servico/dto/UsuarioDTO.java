@@ -1,5 +1,7 @@
 package com.basis.sge.servico.dto;
 
+
+
 import lombok.Getter;
 import lombok.Setter;
 
