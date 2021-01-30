@@ -1,17 +1,33 @@
 <form [formGroup]="formEvento">
 
-    <div class="p-grid p-dir-col">
-  
-      <input type="text" [(ngModel)]="evento.titulo" placeholder="Título do Evento" formControlName="titulo" pInputText />
-      <div *ngIf="formEvento.get('titulo').invalid">Nome inválido</div>
-  
-      <input type="text" [(ngModel)]="evento.cpf" placeholder="CPF" formControlName="cpf" pInputText />
-      <input type="text" [(ngModel)]="evento.email" placeholder="Email" formControlName="email" pInputText />
-      <input type="text" [(ngModel)]="evento.telefone" placeholder="Telefone" formControlName="telefone" pInputText />
-      <input type="text" [(ngModel)]="evento.dataNascimento" placeholder="Data de Nascimento" formControlName="dataNascimento" pInputText />
+  <div class="p-grid p-dir-col">
+
+    <input type="text" [(ngModel)]="evento.titulo" placeholder="Título do Evento" formControlName="titulo" pInputText />
+    <div *ngIf="formEvento.get('titulo').invalid">Nome inválido</div>
+    <br>
+    <input type="text" [(ngModel)]="evento.local" placeholder="Local" formControlName="local" pInputText />
+    <br>
+    <input type="text" [(ngModel)]="evento.descricao" placeholder="Descrição" formControlName="descricao" pInputText />
+    <br>
+    <input type="text" [(ngModel)]="evento.qtdVagas" placeholder="Quantidade de Vagas" formControlName="qtdVagas"
+      pInputText />
+    <br>
+
+    <div class="checkboxTipoInscricao">
+      <p>Marque a checkbox caso seja um evento pago:</p>
+      <p-checkbox [(ngModel)]="evento.tipoInscricao" [binary]="true"></p-checkbox>
     </div>
-  
-  </form>
-  
-  <button (click)="salvar()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'" ></button>
-  
+    <br>
+    <input type="text" [(ngModel)]="evento.valor" placeholder="Valor" formControlName="valor" pInputText />
+    <br>
+
+    <input type="text" [(ngModel)]="evento.dataInicio" placeholder="Data de Início" formControlName="dataInicio"
+      pInputText />
+      <br>
+    <input type="text" [(ngModel)]="evento.dataFim" placeholder="Data Fim" formControlName="dataFim" pInputText />
+
+  </div>
+
+</form>
+<br>
+<button (click)="postEvento()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'"></button>

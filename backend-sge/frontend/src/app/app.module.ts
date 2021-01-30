@@ -37,7 +37,6 @@ import { AccordionModule } from 'primeng/accordion';     //accordion and accordi
         BreadcrumbModule,
         ErrorStackModule,
         VersionTagModule,
-        AccordionModule,
         SecurityModule.forRoot(environment.auth),
         MenuModule
     ],

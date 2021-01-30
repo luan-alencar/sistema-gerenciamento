@@ -4,8 +4,8 @@ export class Evento {
 
     id: number;
     local: string;
-    titulo: string;
     descricao: string;
+    titulo: string;
     qtdVagas: number;
     valor: number;
     dataInicio: Date;

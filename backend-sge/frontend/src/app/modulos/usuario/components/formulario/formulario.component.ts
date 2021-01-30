@@ -1,9 +1,9 @@
-import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
-import { Usuario } from './../../../../dominios/usuario';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
+import { Usuario } from './../../../../dominios/usuario';
 
 @Component({
   selector: 'app-formulario',
@@ -42,7 +42,7 @@ export class FormularioComponent implements OnInit {
 
   buscarUsuario(id: number) {
     this.usuarioService.buscarUsuarioPorId(id)
-      .subscribe(usario => {
+      .subscribe(usuario => {
       });
   }
 

@@ -1,5 +1,5 @@
 <app-card [titulo]="'Lista de Eventos'">
-
+    
     <div class="p-d-flex p-jc-end">
         <button routerLink="evento-listagem" pButton type="button" label="Cadastrar Evento"></button>
     </div>
@@ -14,7 +14,6 @@
                 <th>Valor</th>
                 <th>Data de Início</th>
                 <th>Data Fim</th>
-                <th style="width: 80px;">Ações</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-evento>
@@ -27,9 +26,9 @@
                 <td>{{evento.dataInicio}}</td>
                 <td>{{evento.dataFim}}</td>
                 <td class="p-d-flex p-jc-center">
-                    <button [routerLink]="['evento-formulario', evento.id]" pButton type="button"
+                    <button [routerLink]="['eventoformulario', evento.id]" pButton type="button"
                         icon="pi pi-pencil"></button>
-                    <button (click)="deletarEvento(evento.id)" class="p-ml-2" pButton type="button" 
+                    <button (click)="deleteEvento(evento.id)" class="p-ml-2" pButton type="button"
                         icon="pi pi-trash"></button>
                 </td>
             </tr>
