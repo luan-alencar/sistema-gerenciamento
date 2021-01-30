@@ -31,8 +31,8 @@ export class FormularioComponent implements OnInit {
     });
 
     this.formUsuario = this.fb.group({
-      
-      nome: ['', Validators.nullValidator], //pode ser iniciado aqui e ser editado na pagina
+      //pode ser iniciado aqui e ser editado na pagina
+      nome: ['', Validators.nullValidator], 
       cpf: '',
       email: '',
       telefone: '',
@@ -43,7 +43,6 @@ export class FormularioComponent implements OnInit {
   buscarUsuario(id: number){
     this.usuarioService.buscarUsuarioPorId(id)
       .subscribe(usario => {
-
       });
   }
 
