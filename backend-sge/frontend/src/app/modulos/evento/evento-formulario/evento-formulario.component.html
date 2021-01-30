@@ -3,12 +3,14 @@
   <div class="p-grid p-dir-col">
 
     <input type="text" [(ngModel)]="evento.titulo" placeholder="Título do Evento" formControlName="titulo" pInputText />
-    <div *ngIf="formEvento.get('titulo').invalid">Nome inválido</div>
     <br>
+
     <input type="text" [(ngModel)]="evento.local" placeholder="Local" formControlName="local" pInputText />
     <br>
+
     <input type="text" [(ngModel)]="evento.descricao" placeholder="Descrição" formControlName="descricao" pInputText />
     <br>
+
     <input type="text" [(ngModel)]="evento.qtdVagas" placeholder="Quantidade de Vagas" formControlName="qtdVagas"
       pInputText />
     <br>
@@ -18,14 +20,21 @@
       <p-checkbox [(ngModel)]="evento.tipoInscricao" [binary]="true"></p-checkbox>
     </div>
     <br>
+
+    <div class="div">
+      <p>Selecione o Tipo de Evento:</p>
+      <p-dropdown [options]="tipoEventos" [(ngModel)]="evento.idTipoEvento" optionLabel="descricao"></p-dropdown>
+    </div>
+    <br>
+
     <input type="text" [(ngModel)]="evento.valor" placeholder="Valor" formControlName="valor" pInputText />
     <br>
 
     <input type="text" [(ngModel)]="evento.dataInicio" placeholder="Data de Início" formControlName="dataInicio"
       pInputText />
-      <br>
-    <input type="text" [(ngModel)]="evento.dataFim" placeholder="Data Fim" formControlName="dataFim" pInputText />
+    <br>
 
+    <input type="text" [(ngModel)]="evento.dataFim" placeholder="Data Fim" formControlName="dataFim" pInputText />
   </div>
 
 </form>

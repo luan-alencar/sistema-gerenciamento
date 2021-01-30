@@ -1,9 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/dominios/evento';
+import { TipoEvento } from 'src/app/dominios/tipo-evento';
 import { EventoService } from '../services/evento.service';
+
 
 @Component({
   selector: 'app-evento-formulario',
@@ -16,15 +18,26 @@ export class EventoFormularioComponent implements OnInit {
   formEvento: FormGroup;
 
   @Input() evento = new Evento();
+
   @Input() edicao = false;
   @Input() value: boolean;
+  tipoEventos: TipoEvento[] = [];
+  selectTipoEvento: TipoEvento;
+
   @Output() eventoSalvo = new EventEmitter<Evento>();
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private eventoService: EventoService
-  ) { }
+  ) {
+    this.tipoEventos = [
+      { id: 1, descricao: 'Workshop' },
+      { id: 2, descricao: 'Reunião' },
+      { id: 3, descricao: 'Mini Curso' },
+      { id: 4, descricao: 'Palestra' },
+    ]
+  }
 
   // Inicio ngOnInit
   ngOnInit(): void {
@@ -44,6 +57,7 @@ export class EventoFormularioComponent implements OnInit {
       descricao: '',
       qtdVagas: '',
       tipoInscricao: '',
+      idTipoEvento: '',
       valor: '',
       dataInicio: '',
       dataFim: '',
