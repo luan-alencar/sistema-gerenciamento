@@ -20,9 +20,9 @@ export class EventoFormularioComponent implements OnInit {
   @Input() evento = new Evento();
 
   @Input() edicao = false;
-  @Input() value: boolean;
-  tipoEventos: TipoEvento[] = [];
-  selectTipoEvento: TipoEvento;
+  @Input() valueCheck: boolean;
+  @Input() tipoEventos: TipoEvento[] = [];
+  @Output() selectTipoEvento: TipoEvento;
 
   @Output() eventoSalvo = new EventEmitter<Evento>();
 
@@ -56,8 +56,8 @@ export class EventoFormularioComponent implements OnInit {
       local: '',
       descricao: '',
       qtdVagas: '',
-      tipoInscricao: '',
-      idTipoEvento: '',
+      tipoInscricao: this.valueCheck,
+      idTipoEvento: this.tipoEventos,
       valor: '',
       dataInicio: '',
       dataFim: '',

@@ -15,15 +15,13 @@
       pInputText />
     <br>
 
-    <div class="checkboxTipoInscricao">
-      <p>Marque a checkbox caso seja um evento pago:</p>
-      <p-checkbox [(ngModel)]="evento.tipoInscricao" [binary]="true"></p-checkbox>
-    </div>
+    <p>Marque a checkbox caso seja um evento pago:</p>
+    <p-checkbox formControlName="" [(ngModel)]="evento.tipoInscricao" [binary]="true"></p-checkbox>
     <br>
 
-    <div class="div">
+    <div>
       <p>Selecione o Tipo de Evento:</p>
-      <p-dropdown [options]="tipoEventos" [(ngModel)]="evento.idTipoEvento" optionLabel="descricao"></p-dropdown>
+      <p-dropdown [options]="selectTipoEvento" [(ngModel)]="evento.idTipoEvento" optionLabel="tipoEventos"></p-dropdown>
     </div>
     <br>
 
