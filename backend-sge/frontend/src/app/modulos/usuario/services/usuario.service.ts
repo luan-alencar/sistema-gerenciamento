@@ -35,4 +35,8 @@ export class UsuarioService {
     return this.http.delete<Usuario>(`${this.url}/${id}`);
   }
 
+  /*loginSucesso(): Observable<HttpClient>{
+    return this.http.get<HttpClient>(`${this.url}/login-success`);
+  }*/
+
 }

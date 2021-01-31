@@ -13,7 +13,11 @@ import { PageNotificationModule, BreadcrumbModule, MenuModule, ErrorStackModule 
 import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { BlockUIModule } from 'ng-block-ui';
-import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
+import {AccordionModule} from 'primeng/accordion';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AdminComponent } from './pages/admin/admin.component';     //accordion and accordion tab
 
 
 @NgModule({
@@ -22,7 +26,11 @@ import {AccordionModule} from 'primeng/accordion';     //accordion and accordion
         AppTopbarComponent,
         AppFooterComponent,
         // CardModule,
-        DiarioErrosComponent
+        DiarioErrosComponent,
+        LoginComponent,
+        SignupComponent,
+        HomeComponent,
+        AdminComponent
     ],
     imports: [
         BlockUIModule.forRoot({

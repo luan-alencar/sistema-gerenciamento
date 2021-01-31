@@ -1,7 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from './../../../dominios/usuario';
+import { Usuario } from '../../dominios/usuario';
 import { Component, Input, OnInit } from '@angular/core';
-import { UsuarioService } from '../services/usuario.service';
+import { UsuarioService } from '../../modulos/usuario/services/usuario.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     this.route.params.subscribe(params => {
       if(params.email){
         this.buscarUsuarioPorEmail(params.email);
+        console.log(params.email);
       }
     });
 
@@ -38,8 +39,8 @@ export class LoginComponent implements OnInit {
 
   buscarUsuarioPorEmail(email: string){
     this.usuarioService.buscarUsuarioPorEmail(email)
-      .subscribe(usuario => {
-        this.usuario = usuario;
+      .subscribe(usuarios => {
+        this.usuario = usuarios;
       });
   }
 
@@ -47,11 +48,16 @@ export class LoginComponent implements OnInit {
     if(this.loginUsuario.invalid){
       alert('email inválido');
       return;
-    }else{
-      if(chave != this.usuario.chave){
-        alert('senha ou chave de acesso incorretos');
+    }
+      if(chave.toString() !== this.usuario.chave.toString()){
+        alert('senha ou chave de acesso incorretos' + this.usuario.email + this.usuario.chave);
         return;
       }
+    
+    if(email.toString() === this.usuario.email.toString() && 
+       chave.toString() === this.usuario.chave.toString()){
+      alert('usuario válido');
+      //this.usuarioService.loginSucesso();
     }
   }
 

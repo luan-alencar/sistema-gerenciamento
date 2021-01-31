@@ -40,9 +40,9 @@ export class FormularioComponent implements OnInit {
 
     this.cadastroUsuario = this.fb.group({
       nome: ['', Validators.nullValidator], //pode ser iniciado aqui e ser editado na pagina
-      cpf: '',
-      email: '',
-      telefone: '',
+      cpf: ['', Validators.pattern('[0-9]{2}\.?[0-9]{3}\.?[0-9]{3}\/?[0-9]{4}\-?[0-9]{2}')],
+      email: ['', Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')],
+      telefone: ['', Validators.pattern('(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})')],
       dataNascimento: '',
     });
   }

@@ -1,3 +1,5 @@
+import { LoginSuccessComponent } from '@nuvem/angular-base';
+import { AppRoutingModule } from './../../app-routing.module';
 import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +13,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from '../../pages/login/login.component';
 
 
 @NgModule({
