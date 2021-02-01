@@ -2,19 +2,19 @@
 
   <div class="p-grid p-dir-col">
 
+    <p>Título:</p>
     <input type="text" [(ngModel)]="evento.titulo" placeholder="Título do Evento" formControlName="titulo" pInputText />
     <br>
 
+    <p>Local:</p>
     <input type="text" [(ngModel)]="evento.local" placeholder="Local" formControlName="local" pInputText />
     <br>
 
+    <p>Descrição:</p>
     <input type="text" [(ngModel)]="evento.descricao" placeholder="Descrição" formControlName="descricao" pInputText />
     <br>
-    
-    <!-- <p>Adicione uma pergunta ao Evento:</p>
-    <textarea pInputTextarea [(ngModel)]="evento.perguntas"></textarea>
-    <br> -->
 
+    <p>Quantidade de vagas:</p>
     <input type="text" [(ngModel)]="evento.qtdVagas" placeholder="Quantidade de Vagas" formControlName="qtdVagas"
       pInputText />
     <br>
@@ -28,15 +28,22 @@
       optionLabel="descricao" optionValue="id"></p-dropdown>
     <br>
 
-    <input type="text" [(ngModel)]="evento.valor" placeholder="Valor" formControlName="valor" pInputText />
+    <p>Valor:</p>
+    <!-- <p-inputNumber [(ngModel)]="evento.valor" mode="decimal" locale="pt-BR" [minFractionDigits]="2"></p-inputNumber> -->
+    <input type="text" [(ngModel)]="evento.valor" placeholder="R$" formControlName="valor" pInputText />
     <br>
 
+    <p>Data início:</p>
     <input type="text" [(ngModel)]="evento.dataInicio" placeholder="Data de Início" formControlName="dataInicio"
       pInputText />
     <br>
 
+    <p>Data fim:</p>
     <input type="text" [(ngModel)]="evento.dataFim" placeholder="Data Fim" formControlName="dataFim" pInputText />
   </div>
+
+  <p>Cadastrar perguntas:</p>
+  <button (click)="criarPerguntas()" pButton type="button" label="Perguntas"></button>
 
 </form>
 <br>

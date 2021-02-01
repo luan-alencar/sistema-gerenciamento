@@ -26,7 +26,7 @@
                 <td>{{evento.dataInicio}}</td>
                 <td>{{evento.dataFim}}</td>
                 <td class="p-d-flex p-jc-center">
-                    <button [routerLink]="['eventoformulario', evento.id]" pButton type="button"
+                    <button [routerLink]="['evento-formulario', evento.id]" pButton type="button"
                         icon="pi pi-pencil"></button>
                     <button (click)="deleteEvento(evento.id)" class="p-ml-2" pButton type="button"
                         icon="pi pi-trash"></button>
@@ -36,3 +36,7 @@
     </p-table>
 
 </app-card>
+
+<!-- <p-dialog [(visible)]="displayPerguntas">
+    <app-perguntas></app-perguntas>
+</p-dialog> -->

@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Evento } from 'src/app/dominios/evento';
 import { Pergunta } from 'src/app/dominios/pergunta';
 import { EventoService } from '../services/evento.service';
@@ -30,7 +30,8 @@ export class EventoFormularioComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private eventoService: EventoService
+    private eventoService: EventoService,
+    private router: Router
   ) {
     this.tipoEventos = [
       { id: 1, descricao: 'Workshop' },
@@ -38,6 +39,7 @@ export class EventoFormularioComponent implements OnInit {
       { id: 3, descricao: 'Mini Curso' },
       { id: 4, descricao: 'Palestra' }
     ]
+
   }
 
   // Inicio ngOnInit
@@ -71,11 +73,10 @@ export class EventoFormularioComponent implements OnInit {
       .subscribe(evento => this.evento = evento);
   }
 
-
   postEvento() {
     this.evento.tipoEvento = this.selectTipoEvento.id;
     // this.evento.perguntas = this.perguntasEvento;
-      console.log(this.evento);
+    console.log(this.evento);
     if (this.formEvento.invalid) {
       alert('Formulário Inválido');
       return;
@@ -106,6 +107,10 @@ export class EventoFormularioComponent implements OnInit {
         value: params.id
       }
     });
+  }
+
+  criarPerguntas() {
+    this.router.navigate([`eventos/evento-formularios/cadastro-perguntas`])
   }
 
   closeDialog(eventoSalvo: Evento) {

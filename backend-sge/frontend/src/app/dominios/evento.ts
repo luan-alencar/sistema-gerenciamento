@@ -1,7 +1,5 @@
-import { TipoSituacao } from './tipo-situacao';
-import { TipoEvento } from './tipo-evento';
 import { EventoPergunta } from "./evento-pergunta";
-import { SelectItem } from 'primeng';
+import { TipoSituacao } from './tipo-situacao';
 
 export class Evento {
 

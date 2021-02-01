@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
-import { UsuarioModule } from './modulos/usuario/usuario.module';
+import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { EventoModule } from './modulos/evento/evento.module';
+import { UsuarioModule } from './modulos/usuario/usuario.module';
 
 const routes: Routes = [
 
@@ -15,6 +15,7 @@ const routes: Routes = [
     path: 'eventos',
     loadChildren: () => EventoModule,
   },
+
   { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros' } },
   { path: 'login-success', component: LoginSuccessComponent },
 

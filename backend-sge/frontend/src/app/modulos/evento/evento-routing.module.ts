@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { EventoFormularioComponent } from './evento-formulario/evento-formulario.component';
 import { EventoListagemComponent } from './evento-listagem/evento-listagem.component';
+import { PerguntasCadastroComponent } from './perguntas-cadastro/perguntas-cadastro.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,10 @@ const routes: Routes = [
     path: 'evento-formulario/:id',
     component: EventoFormularioComponent
   },
+  {
+    path: 'evento-formularios/cadastro-perguntas',
+    component: PerguntasCadastroComponent
+  }
 
 ];
 
