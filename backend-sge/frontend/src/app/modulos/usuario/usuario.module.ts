@@ -13,7 +13,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from '../../pages/login/login.component';
+import { LoginComponent } from 'src/app/components/login/login.component';
 
 
 @NgModule({

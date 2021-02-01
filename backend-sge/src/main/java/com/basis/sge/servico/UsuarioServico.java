@@ -53,7 +53,7 @@ public class UsuarioServico {
     public UsuarioDTO obterUsuarioPorEmail(String email) {
         Usuario usuario = usuarioRepositorio.findByEmail(email);
         if(usuario == null){
-            throw new RegraNegocioException("Cpf não cadastrado");
+            throw new RegraNegocioException("Email não cadastrado");
         }
         return usuarioMapper.toDto(usuario);
     }
@@ -85,6 +85,7 @@ public class UsuarioServico {
             validarIdade(usuarioDTO);
 
             usuario.setChave(UUID.randomUUID().toString());
+            usuario.setTipoUsuario("u");
             usuarioRepositorio.save(usuario);
             EmailDTO emailDTO = enviarEmail(usuario);
             produtorServico.enviarEmail(emailDTO);
@@ -108,6 +109,7 @@ public class UsuarioServico {
                 validarIdade(usuarioDTO);
 
                 usuario.setChave(UUID.randomUUID().toString());
+                usuario.setTipoUsuario("u");
                 usuarioRepositorio.save(usuario);
                 EmailDTO emailDTO = enviarEmail(usuario);
                 produtorServico.enviarEmail(emailDTO);

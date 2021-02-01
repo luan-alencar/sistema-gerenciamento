@@ -7,6 +7,6 @@ export class Usuario{
     telefone: String;
     dataNascimento: Date;
     chave: string;
-
+    tipoUsuario: string;
     constructor(){}
 }

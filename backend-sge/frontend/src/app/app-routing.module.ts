@@ -1,10 +1,9 @@
-import { EventoModule } from './modulos/evento/evento.module';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
+import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
+import { EventoModule } from './modulos/evento/evento.module';
 import { UsuarioModule } from './modulos/usuario/usuario.module';
-import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
     

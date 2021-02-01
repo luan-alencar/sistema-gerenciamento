@@ -1,7 +1,7 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from '../../dominios/usuario';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Usuario } from 'src/app/dominios/usuario';
 import { Component, Input, OnInit } from '@angular/core';
-import { UsuarioService } from '../../modulos/usuario/services/usuario.service';
+import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   @Input() usuario = new Usuario();
 
-  loginUsuario: FormGroup
+  loginUsuario: FormGroup;
 
   constructor(
     private fb: FormBuilder,

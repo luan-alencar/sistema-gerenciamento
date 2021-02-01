@@ -1,24 +1,20 @@
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
+import { BreadcrumbModule, ErrorStackModule, MenuModule, PageNotificationModule } from '@nuvem/primeng-components';
+import { BlockUIModule } from 'ng-block-ui';
+import { AccordionModule } from 'primeng/accordion';
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
-import { AppTopbarComponent } from './components/topbar/app.topbar.component';
-import { AppFooterComponent } from './components/footer/app.footer.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { environment } from '../environments/environment';
-import { HttpClientModule } from '@angular/common/http';
-import { PageNotificationModule, BreadcrumbModule, MenuModule, ErrorStackModule } from '@nuvem/primeng-components';
-import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
-import { BlockUIModule } from 'ng-block-ui';
-import {AccordionModule} from 'primeng/accordion';
-import { LoginComponent } from './pages/login/login.component';
-import { SignupComponent } from './pages/signup/signup.component';
-import { HomeComponent } from './pages/home/home.component';
-import { AdminComponent } from './pages/admin/admin.component';     //accordion and accordion tab
-
+import { AppFooterComponent } from './components/footer/app.footer.component';
+import { AppTopbarComponent } from './components/topbar/app.topbar.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -26,11 +22,7 @@ import { AdminComponent } from './pages/admin/admin.component';     //accordion 
         AppTopbarComponent,
         AppFooterComponent,
         // CardModule,
-        DiarioErrosComponent,
-        LoginComponent,
-        SignupComponent,
-        HomeComponent,
-        AdminComponent
+        DiarioErrosComponent
     ],
     imports: [
         BlockUIModule.forRoot({
@@ -47,7 +39,9 @@ import { AdminComponent } from './pages/admin/admin.component';     //accordion 
         VersionTagModule,
         AccordionModule,
         SecurityModule.forRoot(environment.auth),
-        MenuModule
+        MenuModule,
+        ReactiveFormsModule,
+        FormsModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }
