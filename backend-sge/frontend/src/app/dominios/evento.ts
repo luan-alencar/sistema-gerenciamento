@@ -1,4 +1,7 @@
+import { TipoSituacao } from './tipo-situacao';
+import { TipoEvento } from './tipo-evento';
 import { EventoPergunta } from "./evento-pergunta";
+import { SelectItem } from 'primeng';
 
 export class Evento {
 
@@ -10,8 +13,8 @@ export class Evento {
     valor: number;
     dataInicio: Date;
     dataFim: Date;
-    tipoInscricao: boolean;
-    idTipoEvento: number;
+    tipoInscricao: TipoSituacao;
+    tipoEvento: number;
     perguntas: EventoPergunta[] = [];
 
     constructor() { }

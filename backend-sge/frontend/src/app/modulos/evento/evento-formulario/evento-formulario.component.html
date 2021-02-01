@@ -10,19 +10,22 @@
 
     <input type="text" [(ngModel)]="evento.descricao" placeholder="Descrição" formControlName="descricao" pInputText />
     <br>
+    
+    <!-- <p>Adicione uma pergunta ao Evento:</p>
+    <textarea pInputTextarea [(ngModel)]="evento.perguntas"></textarea>
+    <br> -->
 
     <input type="text" [(ngModel)]="evento.qtdVagas" placeholder="Quantidade de Vagas" formControlName="qtdVagas"
       pInputText />
     <br>
 
     <p>Marque a checkbox caso seja um evento pago:</p>
-    <p-checkbox formControlName="" [(ngModel)]="evento.tipoInscricao" [binary]="true"></p-checkbox>
+    <p-checkbox formControlName="tipoInscricao" [(ngModel)]="evento.tipoInscricao" [binary]="true"></p-checkbox>
     <br>
 
-    <div>
-      <p>Selecione o Tipo de Evento:</p>
-      <p-dropdown [options]="selectTipoEvento" [(ngModel)]="evento.idTipoEvento" optionLabel="tipoEventos"></p-dropdown>
-    </div>
+    <p>Selecione o Tipo de Evento:</p>
+    <p-dropdown [options]="tipoEventos" formControlName="tipoEvento" [(ngModel)]="selectTipoEvento"
+      optionLabel="descricao" optionValue="id"></p-dropdown>
     <br>
 
     <input type="text" [(ngModel)]="evento.valor" placeholder="Valor" formControlName="valor" pInputText />

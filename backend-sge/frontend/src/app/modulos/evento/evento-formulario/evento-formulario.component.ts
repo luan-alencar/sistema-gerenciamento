@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/dominios/evento';
-import { TipoEvento } from 'src/app/dominios/tipo-evento';
+import { Pergunta } from 'src/app/dominios/pergunta';
 import { EventoService } from '../services/evento.service';
+import { TipoEvento } from './../../../dominios/tipo-evento';
 
 
 @Component({
@@ -17,12 +18,12 @@ export class EventoFormularioComponent implements OnInit {
   // Formulario Reativo: encurta a cricao de instancias de um FormControl
   formEvento: FormGroup;
 
-  @Input() evento = new Evento();
-
-  @Input() edicao = false;
-  @Input() valueCheck: boolean;
-  @Input() tipoEventos: TipoEvento[] = [];
-  @Output() selectTipoEvento: TipoEvento;
+  evento = new Evento();
+  edicao = false;
+  valueCheck: boolean;
+  tipoEventos: TipoEvento[] = [];
+  selectTipoEvento: TipoEvento;
+  perguntasEvento: Pergunta[] = [];
 
   @Output() eventoSalvo = new EventEmitter<Evento>();
 
@@ -35,12 +36,13 @@ export class EventoFormularioComponent implements OnInit {
       { id: 1, descricao: 'Workshop' },
       { id: 2, descricao: 'Reunião' },
       { id: 3, descricao: 'Mini Curso' },
-      { id: 4, descricao: 'Palestra' },
+      { id: 4, descricao: 'Palestra' }
     ]
   }
 
   // Inicio ngOnInit
   ngOnInit(): void {
+    // this.createDropDown();
 
     this.route.params.subscribe(params => {
       if (params.id) {
@@ -56,8 +58,8 @@ export class EventoFormularioComponent implements OnInit {
       local: '',
       descricao: '',
       qtdVagas: '',
-      tipoInscricao: this.valueCheck,
-      idTipoEvento: this.tipoEventos,
+      tipoInscricao: null,
+      tipoEvento: null,
       valor: '',
       dataInicio: '',
       dataFim: '',
@@ -71,11 +73,13 @@ export class EventoFormularioComponent implements OnInit {
 
 
   postEvento() {
+    this.evento.tipoEvento = this.selectTipoEvento.id;
+    // this.evento.perguntas = this.perguntasEvento;
+      console.log(this.evento);
     if (this.formEvento.invalid) {
       alert('Formulário Inválido');
       return;
     }
-
     if (this.edicao) {
       this.eventoService.putEvento(this.evento)
         .subscribe(evento => {
@@ -93,6 +97,15 @@ export class EventoFormularioComponent implements OnInit {
           alert(erro.error.message);
         });
     }
+  }
+
+  createDropDown() {
+    this.tipoEventos.forEach(params => {
+      return {
+        label: params.descricao,
+        value: params.id
+      }
+    });
   }
 
   closeDialog(eventoSalvo: Evento) {
