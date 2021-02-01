@@ -9,11 +9,11 @@ import org.mapstruct.Mapping;
 public interface EventoMapper extends EntityMapper<EventoDTO, Evento> {
 
     @Override
-    @Mapping(source = "idTipoEvento", target = "tipoEvento.id")
+    @Mapping(source = "tipoEvento", target = "tipoEvento.id")
     Evento toEntity(EventoDTO eventoDTO);
 
     @Override
-    @Mapping(source = "tipoEvento.id", target = "idTipoEvento")
+    @Mapping(source = "tipoEvento.id", target = "tipoEvento")
     EventoDTO toDto(Evento evento);
 
 }

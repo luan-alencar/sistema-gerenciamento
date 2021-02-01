@@ -1,5 +1,7 @@
 <div class="perguntas">
+    <p-dropdown [options]="tipoEventos" formControlName="tipoEvento" [(ngModel)]="salvarPerguntaEvento"
+        optionLabel="descricao" optionValue="id"></p-dropdown>
     <p>Cadastrar perguntas:</p>
     <textarea pInputTextarea></textarea>
+    <button pButton type="button" label="Link" class="p-button-link"></button>
 </div>
-<button pButton type="button" label="Salvar"></button>

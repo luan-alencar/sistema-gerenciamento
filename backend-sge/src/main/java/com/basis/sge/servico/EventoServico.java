@@ -1,7 +1,6 @@
 package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Evento;
-import com.basis.sge.dominio.EventoPergunta;
 import com.basis.sge.dominio.Usuario;
 import com.basis.sge.repositorio.EventoPerguntaRepositorio;
 import com.basis.sge.repositorio.EventoRepositorio;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,38 +40,8 @@ public class EventoServico {
     public EventoDTO salvar(EventoDTO eventoDTO) {
 //        condicoesParaExceptions(eventoDTO);
         Evento evento = eventoMapper.toEntity(eventoDTO);
+        eventoRepositorio.save(evento);
         return eventoMapper.toDto(evento);
-    }
-
-    private void condicoesParaExceptions(EventoDTO eventoDTO) {
-        if (eventoDTO.getTipoInscricao() == null) {
-            throw new RegraNegocioException("Escolha o tipo de inscrição para o evento");
-        }
-
-        if (eventoDTO.getTitulo() == null) {
-            throw new RegraNegocioException("Campo de titulo é obrigatorio!");
-        }
-
-        if (eventoDTO.getDataInicio() == null) {
-            throw new RegraNegocioException("O campo data de inicio e obrigatorio!");
-        }
-
-        if (eventoDTO.getDataFim() == null) {
-            throw new RegraNegocioException("O campo data de fim e obrigatorio!");
-        }
-
-        if (eventoDTO.getLocal() == null) {
-            throw new RegraNegocioException("O campo local é obrigatorio!");
-        }
-
-        if (eventoDTO.getDescricao() == null) {
-            throw new RegraNegocioException("A descrição do evento é obrigatória!");
-        }
-
-        if (eventoDTO.getPerguntas() == null) {
-            throw new RegraNegocioException("Pelo menos 1 pergunta deve ser atribuida a um evento!");
-        }
-
     }
 
     public EventoDTO editar(EventoDTO eventoDTO) {
