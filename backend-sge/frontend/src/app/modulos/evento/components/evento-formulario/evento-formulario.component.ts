@@ -66,7 +66,7 @@ export class EventoFormularioComponent implements OnInit {
       qtdVagas: '',
       tipoInscricao: null,
       tipoEvento: null,
-      perguntas: '',
+      perguntas: null,
       valor: '',
       dataInicio: '',
       dataFim: '',
