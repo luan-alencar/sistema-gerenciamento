@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
 import { Pergunta } from 'src/app/dominios/pergunta';
 import { EventoService } from '../services/evento.service';
@@ -23,7 +24,7 @@ export class EventoFormularioComponent implements OnInit {
   edicao = false;
   valueCheck: boolean;
   display: boolean;
-  checagemDeObrigatoriedadePergunta =  true;
+  checagemDeObrigatoriedadePergunta = true;
   selectTipoEvento: TipoEvento;
 
   tipoEventos: TipoEvento[] = [];
@@ -35,15 +36,15 @@ export class EventoFormularioComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private eventoService: EventoService,
-    private router: Router
+    private router: Router,
+    private confirmationService: ConfirmationService
   ) {
     this.tipoEventos = [
       { id: 1, descricao: 'Workshop' },
-      { id: 2, descricao: 'Reunião' },
-      { id: 3, descricao: 'Mini Curso' },
+      { id: 2, descricao: 'Minicurso' },
+      { id: 3, descricao: 'Treinamento' },
       { id: 4, descricao: 'Palestra' }
     ]
-
   }
 
   // Inicio ngOnInit
@@ -82,36 +83,17 @@ export class EventoFormularioComponent implements OnInit {
     this.eventoSalvo.emit(eventoSalvo);
   }
 
+  clickSalvarPergunta(pergunta: Pergunta) {
+    this.perguntasEvento.push(pergunta);
+  }
+
+  concluirDialogPerguntas() {
+    // TODO
+  }
+
   searchEvento(id: number) {
     this.eventoService.findEventoById(id)
       .subscribe(evento => this.evento = evento);
-  }
-
-  postEvento() {
-    this.evento.tipoEvento = this.selectTipoEvento.id;
-    // this.evento.perguntas = this.perguntasEvento;
-    console.log(this.evento);
-    if (this.formEvento.invalid) {
-      alert('Formulário Inválido');
-      return;
-    }
-    if (this.edicao) {
-      this.eventoService.putEvento(this.evento)
-        .subscribe(evento => {
-          console.log('Evento cadastrado!', evento);
-          alert('Evento cadastrado')
-        }, (erro: HttpErrorResponse) => {
-          alert(erro.error.message);
-        });
-    } else {
-      this.eventoService.postEvento(this.evento)
-        .subscribe(evento => {
-          console.log('Evento cadastrado!', evento);
-          alert('Evento cadastrado')
-        }, (erro: HttpErrorResponse) => {
-          alert(erro.error.message);
-        });
-    }
   }
 
   criarDropDown() {
@@ -123,7 +105,37 @@ export class EventoFormularioComponent implements OnInit {
     });
   }
 
-  criarPerguntas() {
-    this.router.navigate([`eventos/evento-formularios/cadastro-perguntas`])
+  salvar() {
+    this.confirmationService.confirm({
+      message: 'Voce deseja confirmar o cadastro?',
+      accept: () => {
+
+        this.evento.tipoEvento = this.selectTipoEvento.id;
+        // this.evento.perguntas = this.perguntasEvento;
+        console.log(this.evento);
+        if (this.formEvento.invalid) {
+          alert('Formulário Inválido');
+          return;
+        }
+        if (this.edicao) {
+          this.eventoService.putEvento(this.evento)
+            .subscribe(evento => {
+              console.log('Evento cadastrado!', evento);
+              alert('Evento cadastrado')
+            }, (erro: HttpErrorResponse) => {
+              alert(erro.error.message);
+            });
+        } else {
+          this.evento.perguntas = this.perguntasEvento;
+          this.eventoService.postEvento(this.evento)
+            .subscribe(evento => {
+              console.log('Evento cadastrado!', evento);
+              alert('Evento cadastrado')
+            }, (erro: HttpErrorResponse) => {
+              alert(erro.error.message);
+            });
+        }
+      }
+    });
   }
 }

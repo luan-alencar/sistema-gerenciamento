@@ -1,8 +1,9 @@
 <app-card [titulo]="'Lista de Eventos'">
 
     <div class="p-d-flex p-jc-end">
-        <button routerLink="evento-formulario" pButton type="button" label="Cadastrar Evento"></button>
+        <button routerLink="evento-formulario"  pButton type="button" label="Cadastrar Evento"></button>
     </div>
+    <br>
 
     <p-table [value]="eventos">
         <ng-template pTemplate="header">
@@ -22,7 +23,7 @@
                 <td>{{evento.local}}</td>
                 <td>{{evento.descricao}}</td>
                 <td>{{evento.qtdVagas}}</td>
-                <td>{{evento.valor | currency:'BRL':'symbol':'0.1-2':'pt'}}</td>
+                <td>{{evento.valor}}</td>
                 <td>{{evento.dataInicio| date:'dd/MM/yyyy HH:mm'}}</td>
                 <td>{{evento.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
                 <td class="p-d-flex p-jc-center">

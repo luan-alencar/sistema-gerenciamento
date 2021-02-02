@@ -34,32 +34,38 @@
     <br>
 
     <p>Data início:</p>
-    <p-calendar [(ngModel)]="evento.dataInicio" dateFormat="dd.mm.yy" formControlName="dataInicio"></p-calendar>
+    <input type="text" [(ngModel)]="evento.dataInicio" placeholder="Data de Início" formControlName="dataInicio"
+      pInputText />
     <br>
 
     <p>Data fim:</p>
-    <p-calendar [(ngModel)]="evento.dataFim " dateFormat="dd.mm.yy" formControlName="dataFim"></p-calendar>
+    <input type="text" [(ngModel)]="evento.dataFim" placeholder="Data Fim" formControlName="dataFim" pInputText />
   </div>
 
+  <p>Cadastrar perguntas:</p>
   <!-- Botão para cadastrar perguntas ao Evento -->
-  <p-dialog header="Cadastrar perguntas" [(visible)]="display">
+  <button (click)="showDialog()" pButton type="button" icon="pi pi-info-circle" label="Show" label="Perguntas"></button>
 
-    <!-- Dialog para adicionar perguntas - Início -->
+  <!-- Dialog para adicionar perguntas - Início -->
+  <p-dialog header="Perguntas" [(visible)]="display">
+
     <div class="perguntas">
 
       <div class="obrigatoriedade">
         <p-inputSwitch [(ngModel)]="pergunta.obrigatoriedade"></p-inputSwitch>
       </div>
       <input type="text" pInputText />
-      <p-button label="Salvar" [(ngModel)]="evento.perguntas"></p-button>
+      <p-button label="Salvar" [(ngModel)]="evento.perguntas" (onClick)="clickSalvarPergunta()"></p-button>
+      <br>
+      <br>
+
+      <p-button label="Concluir" (onClick)="concluirDialogPerguntas()"></p-button>
 
     </div> <!-- Dialog para adicionar perguntas - Fim -->
 
   </p-dialog>
 
-  <p>Cadastrar perguntas:</p>
-  <button (click)="showDialog()" pButton type="button" icon="pi pi-info-circle" label="Show" label="Perguntas"></button>
-
 </form>
 <br>
-<button (click)="postEvento()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'"></button>
+<button (click)="salvar()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'"></button>
+<p-confirmDialog header="Confirmação de cadastro" icon="pi pi-exclamation-triangle"></p-confirmDialog>
