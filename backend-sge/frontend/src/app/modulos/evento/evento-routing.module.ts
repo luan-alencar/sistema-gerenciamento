@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EventoFormularioComponent } from './evento-formulario/evento-formulario.component';
-import { EventoListagemComponent } from './evento-listagem/evento-listagem.component';
+import { EventoFormularioComponent } from './components/evento-formulario/evento-formulario.component';
+import { EventoListagemComponent } from './components/evento-listagem/evento-listagem.component';
 
 const routes: Routes = [
 
@@ -16,8 +16,7 @@ const routes: Routes = [
   {
     path: 'evento-formulario/:id',
     component: EventoFormularioComponent
-  },
-
+  }
 
 ];
 

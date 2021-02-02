@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
 import { Pergunta } from 'src/app/dominios/pergunta';
-import { EventoService } from '../services/evento.service';
-import { TipoEvento } from './../../../dominios/tipo-evento';
+import { EventoService } from '../../services/evento.service';
+import { TipoEvento } from '../../../../dominios/tipo-evento';
 
 
 @Component({
@@ -24,19 +24,19 @@ export class EventoFormularioComponent implements OnInit {
   edicao = false;
   valueCheck: boolean;
   display: boolean;
-  checagemDeObrigatoriedadePergunta = true;
+  checagemDeObrigatoriedadePergunta: boolean;
   selectTipoEvento: TipoEvento;
 
   tipoEventos: TipoEvento[] = [];
   perguntasEvento: Pergunta[] = [];
 
   @Output() eventoSalvo = new EventEmitter<Evento>();
+  @Output() perguntaSalva = new EventEmitter<Pergunta>();
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private eventoService: EventoService,
-    private router: Router,
     private confirmationService: ConfirmationService
   ) {
     this.tipoEventos = [
@@ -49,7 +49,6 @@ export class EventoFormularioComponent implements OnInit {
 
   // Inicio ngOnInit
   ngOnInit(): void {
-    // this.createDropDown();
 
     this.route.params.subscribe(params => {
       if (params.id) {
@@ -67,11 +66,11 @@ export class EventoFormularioComponent implements OnInit {
       qtdVagas: '',
       tipoInscricao: null,
       tipoEvento: null,
+      perguntas: '',
       valor: '',
       dataInicio: '',
       dataFim: '',
     });
-
 
   } // Fim ngOnInit
 
@@ -79,16 +78,12 @@ export class EventoFormularioComponent implements OnInit {
     this.display = true;
   }
 
-  closeDialog(eventoSalvo: Evento) {
-    this.eventoSalvo.emit(eventoSalvo);
+  closeDialog(perguntaSalva: Pergunta) {
+    this.perguntaSalva.emit(perguntaSalva);
   }
 
   clickSalvarPergunta(pergunta: Pergunta) {
     this.perguntasEvento.push(pergunta);
-  }
-
-  concluirDialogPerguntas() {
-    // TODO
   }
 
   searchEvento(id: number) {
@@ -110,8 +105,8 @@ export class EventoFormularioComponent implements OnInit {
       message: 'Voce deseja confirmar o cadastro?',
       accept: () => {
 
+        this.evento.perguntas = this.perguntasEvento;
         this.evento.tipoEvento = this.selectTipoEvento.id;
-        // this.evento.perguntas = this.perguntasEvento;
         console.log(this.evento);
         if (this.formEvento.invalid) {
           alert('Formulário Inválido');
@@ -126,7 +121,6 @@ export class EventoFormularioComponent implements OnInit {
               alert(erro.error.message);
             });
         } else {
-          this.evento.perguntas = this.perguntasEvento;
           this.eventoService.postEvento(this.evento)
             .subscribe(evento => {
               console.log('Evento cadastrado!', evento);
