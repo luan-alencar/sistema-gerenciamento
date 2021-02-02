@@ -107,6 +107,7 @@ export class EventoFormularioComponent implements OnInit {
 
         this.evento.perguntas = this.perguntasEvento;
         this.evento.tipoEvento = this.selectTipoEvento.id;
+        
         console.log(this.evento);
         if (this.formEvento.invalid) {
           alert('Formulário Inválido');

@@ -42,6 +42,7 @@
     <input type="text" [(ngModel)]="evento.dataFim" placeholder="Data Fim" formControlName="dataFim" pInputText />
   </div>
 
+
   <p>Cadastrar perguntas:</p>
   <!-- Botão para cadastrar perguntas ao Evento -->
   <button (click)="showDialog()" pButton type="button" icon="pi pi-info-circle" label="Show" label="Perguntas"></button>
@@ -55,7 +56,7 @@
         <p-inputSwitch [(ngModel)]="pergunta.obrigatoriedade"></p-inputSwitch>
       </div>
       <input type="text" pInputText />
-      <p-button label="Salvar" [(ngModel)]="evento.perguntas" (onClick)="clickSalvarPergunta()"></p-button>
+      <p-button label="Salvar" [(ngModel)]="evento.perguntas" (onClick)="clickSalvarPergunta(evento.perguntas)"></p-button>
       <br>
       <br>
 

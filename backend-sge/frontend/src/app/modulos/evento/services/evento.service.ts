@@ -24,6 +24,10 @@ export class EventoService {
     return this.http.post<Evento>(this.url, evento);
   }
 
+  // postPergunta(pergunta: Pergunta): Observable<Pergunta> {
+  //   return this.http.post<Pergunta>(this.url, pergunta);
+  // }
+
   putEvento(evento: Evento): Observable<Evento> {
     return this.http.put<Evento>(this.url, evento);
   }
