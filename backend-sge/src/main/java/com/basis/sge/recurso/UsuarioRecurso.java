@@ -31,13 +31,18 @@ public class UsuarioRecurso {
         return ResponseEntity.ok(usuarioService.obterUsuarioPorCpf(cpf));
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UsuarioDTO> obterUsuarioPorEmail(@PathVariable String email){
+        return ResponseEntity.ok(usuarioService.obterUsuarioPorEmail(email));
+    }
+
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
         return ResponseEntity.created(URI.create("/usuario"+usuarioDTO.getId())).build();
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id) {
         usuarioService.remover(id);
         return ResponseEntity.ok().build();

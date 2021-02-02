@@ -1,21 +1,29 @@
+import { UsuarioService } from './../modulos/usuario/services/usuario.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from 'src/app/shared/components/login/login.component';
 import { NgModule } from '@angular/core';
-import { ConfirmationService } from 'primeng';
 import { PRIMENG_IMPORTS } from './primeng-imports';
-import { CardComponent } from './components/card/card.component';
+import {CardComponent} from './components/card/card.component';
+import { ConfirmationService } from 'primeng';
 
 @NgModule({
     declarations: [
-        CardComponent
-    ],
+        CardComponent,
+        LoginComponent
+    ], 
     imports: [
         PRIMENG_IMPORTS,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
-        ConfirmationService
+        ConfirmationService,
+        UsuarioService
     ],
     exports: [
         PRIMENG_IMPORTS,
-        CardComponent
+        CardComponent,
+        LoginComponent
     ]
 })
 export class SharedModule { }
