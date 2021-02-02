@@ -1,4 +1,5 @@
 import { EventoPergunta } from "./evento-pergunta";
+import { Pergunta } from "./pergunta";
 import { TipoSituacao } from './tipo-situacao';
 
 export class Evento {
@@ -13,7 +14,7 @@ export class Evento {
     dataFim: Date;
     tipoInscricao: TipoSituacao;
     tipoEvento: number;
-    perguntas: EventoPergunta[] = [];
+    perguntas: Pergunta[] = [];
 
     constructor() { }
 }

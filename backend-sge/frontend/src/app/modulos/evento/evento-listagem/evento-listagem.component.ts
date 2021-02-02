@@ -19,11 +19,11 @@ export class EventoListagemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.searchEventos();
+    this.buscarEventos();
   }
 
   // Metodo para buscar os Eventos 
-  private searchEventos() {
+  private buscarEventos() {
     this.eventoService.getAllEventos()
       .subscribe((eventos: Evento[]) => {
         this.eventos = eventos;
@@ -35,7 +35,7 @@ export class EventoListagemComponent implements OnInit {
     this.eventoService.deleteEvento(id)
       .subscribe(() => {
         alert('Evento deletado');
-        this.searchEventos();
+        this.buscarEventos();
       },
         err => alert(err));
   }

@@ -19,10 +19,14 @@ export class EventoFormularioComponent implements OnInit {
   formEvento: FormGroup;
 
   evento = new Evento();
+  pergunta = new Pergunta();
   edicao = false;
   valueCheck: boolean;
-  tipoEventos: TipoEvento[] = [];
+  display: boolean;
+  checagemDeObrigatoriedadePergunta =  true;
   selectTipoEvento: TipoEvento;
+
+  tipoEventos: TipoEvento[] = [];
   perguntasEvento: Pergunta[] = [];
 
   @Output() eventoSalvo = new EventEmitter<Evento>();
@@ -66,7 +70,17 @@ export class EventoFormularioComponent implements OnInit {
       dataInicio: '',
       dataFim: '',
     });
+
+
   } // Fim ngOnInit
+
+  showDialog() {
+    this.display = true;
+  }
+
+  closeDialog(eventoSalvo: Evento) {
+    this.eventoSalvo.emit(eventoSalvo);
+  }
 
   searchEvento(id: number) {
     this.eventoService.findEventoById(id)
@@ -100,7 +114,7 @@ export class EventoFormularioComponent implements OnInit {
     }
   }
 
-  createDropDown() {
+  criarDropDown() {
     this.tipoEventos.forEach(params => {
       return {
         label: params.descricao,
@@ -112,9 +126,4 @@ export class EventoFormularioComponent implements OnInit {
   criarPerguntas() {
     this.router.navigate([`eventos/evento-formularios/cadastro-perguntas`])
   }
-
-  closeDialog(eventoSalvo: Evento) {
-    this.eventoSalvo.emit(eventoSalvo);
-  }
-
 }

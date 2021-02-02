@@ -12,7 +12,7 @@ export class EventoService {
   constructor(private http: HttpClient) { }
 
   findEventoById(id: number): Observable<Evento> {
-    return this.http.get<Evento>(this.url); 
+    return this.http.get<Evento>(`${this.url}/${id}`); 
   }
 
   // Pega todos os Eventos
@@ -28,7 +28,7 @@ export class EventoService {
     return this.http.put<Evento>(this.url, evento);
   }
 
-  deleteEvento(id: number): Observable<Evento> {
-    return this.http.delete<Evento>(`${this.url}/${id}`)
+  deleteEvento(id: number): Observable<any> {
+    return this.http.delete<Evento>(`${this.url}/${id}`);
   }
 }

@@ -22,9 +22,9 @@
                 <td>{{evento.local}}</td>
                 <td>{{evento.descricao}}</td>
                 <td>{{evento.qtdVagas}}</td>
-                <td>{{evento.valor}}</td>
-                <td>{{evento.dataInicio}}</td>
-                <td>{{evento.dataFim}}</td>
+                <td>{{evento.valor | currency:'BRL':'symbol':'0.1-2':'pt'}}</td>
+                <td>{{evento.dataInicio| date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{evento.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
                 <td class="p-d-flex p-jc-center">
                     <button [routerLink]="['evento-formulario', evento.id]" pButton type="button"
                         icon="pi pi-pencil"></button>

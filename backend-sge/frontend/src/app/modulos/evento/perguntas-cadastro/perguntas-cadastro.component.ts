@@ -1,5 +1,5 @@
-import { EventoFormularioComponent } from './../evento-formulario/evento-formulario.component';
 import { Component, OnInit } from '@angular/core';
+import { Evento } from 'src/app/dominios/evento';
 import { TipoEvento } from 'src/app/dominios/tipo-evento';
 import { EventoService } from '../services/evento.service';
 
@@ -37,8 +37,9 @@ export class PerguntasCadastroComponent implements OnInit {
     });
   }
 
-  salvarPerguntaEvento(){
-    this.eventoService.postEvento
+  salvarPerguntaEvento() {
+    this.createDropDown();
+    // this.eventoService.postEvento(Evento);
   }
 
 }

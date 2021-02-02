@@ -34,16 +34,31 @@
     <br>
 
     <p>Data início:</p>
-    <input type="text" [(ngModel)]="evento.dataInicio" placeholder="Data de Início" formControlName="dataInicio"
-      pInputText />
+    <p-calendar [(ngModel)]="evento.dataInicio" dateFormat="dd.mm.yy" formControlName="dataInicio"></p-calendar>
     <br>
 
     <p>Data fim:</p>
-    <input type="text" [(ngModel)]="evento.dataFim" placeholder="Data Fim" formControlName="dataFim" pInputText />
+    <p-calendar [(ngModel)]="evento.dataFim " dateFormat="dd.mm.yy" formControlName="dataFim"></p-calendar>
   </div>
 
+  <!-- Botão para cadastrar perguntas ao Evento -->
+  <p-dialog header="Cadastrar perguntas" [(visible)]="display">
+
+    <!-- Dialog para adicionar perguntas - Início -->
+    <div class="perguntas">
+
+      <div class="obrigatoriedade">
+        <p-inputSwitch [(ngModel)]="pergunta.obrigatoriedade"></p-inputSwitch>
+      </div>
+      <input type="text" pInputText />
+      <p-button label="Salvar" [(ngModel)]="evento.perguntas"></p-button>
+
+    </div> <!-- Dialog para adicionar perguntas - Fim -->
+
+  </p-dialog>
+
   <p>Cadastrar perguntas:</p>
-  <button (click)="criarPerguntas()" pButton type="button" label="Perguntas"></button>
+  <button (click)="showDialog()" pButton type="button" icon="pi pi-info-circle" label="Show" label="Perguntas"></button>
 
 </form>
 <br>
