@@ -40,7 +40,7 @@ public class EventoRecurso {
         return ResponseEntity.ok(newEventoDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id) {
         eventoServico.remover(id);
         return ResponseEntity.ok().build();

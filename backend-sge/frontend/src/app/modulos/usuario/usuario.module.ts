@@ -1,23 +1,15 @@
-import { LoginSuccessComponent } from '@nuvem/angular-base';
-import { AppRoutingModule } from './../../app-routing.module';
-import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { UsuarioRoutingModule } from './usuario-routing.module';
-
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { ListagemComponent } from './components/listagem/listagem.component';
-import { CardComponent } from '../../shared/components/card/card.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from 'src/app/components/login/login.component';
-
+import { UsuarioRoutingModule } from './usuario-routing.module';
 
 @NgModule({
-  declarations: [FormularioComponent, ListagemComponent, LoginComponent],
+  declarations: [FormularioComponent, ListagemComponent],
   providers: [UsuarioService],
   imports: [
     CommonModule,

@@ -21,7 +21,6 @@ import { SharedModule } from './shared/shared.module';
         AppComponent,
         AppTopbarComponent,
         AppFooterComponent,
-        // CardModule,
         DiarioErrosComponent
     ],
     imports: [

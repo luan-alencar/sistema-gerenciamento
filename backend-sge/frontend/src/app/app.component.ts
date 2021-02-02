@@ -1,7 +1,10 @@
+
+import { Usuario } from './dominios/usuario';
 import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { ScrollPanel } from 'primeng';
 import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
 import { RouterLink } from '@angular/router';
+import {LoginComponent} from 'src/app/shared/components/login/login.component'
 
 @Component({
     selector: 'app-root',
@@ -9,6 +12,8 @@ import { RouterLink } from '@angular/router';
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
     [x: string]: any;
+    
+    usuarioLogado : Usuario
 
     layoutCompact = true;
 

@@ -1,3 +1,4 @@
+import { LoginComponent } from 'src/app/shared/components/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
@@ -6,7 +7,6 @@ import { EventoModule } from './modulos/evento/evento.module';
 import { UsuarioModule } from './modulos/usuario/usuario.module';
 
 const routes: Routes = [
-    
     { 
     path: 'usuarios',
     loadChildren: () => UsuarioModule, 

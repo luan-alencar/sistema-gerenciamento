@@ -26,11 +26,6 @@ public class UsuarioRecurso {
         return ResponseEntity.ok(usuarioService.obterUsuarioPorId(id));
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<UsuarioDTO> validarLoginUsuario(@RequestBody UsuarioDTO usuarioDTO){
-        return ResponseEntity.ok(usuarioService.validarLoginUsuario(usuarioDTO));
-    }
-
     @GetMapping("/cpf/{cpf}")
     public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf){
         return ResponseEntity.ok(usuarioService.obterUsuarioPorCpf(cpf));
@@ -47,7 +42,7 @@ public class UsuarioRecurso {
         return ResponseEntity.created(URI.create("/usuario"+usuarioDTO.getId())).build();
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id) {
         usuarioService.remover(id);
         return ResponseEntity.ok().build();

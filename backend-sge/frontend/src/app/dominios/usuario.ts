@@ -8,7 +8,7 @@ export class Usuario{
     dataNascimento: Date;
     chave: string;
     tipoUsuario: string;
-    roles: string[];
+    roles: string[] = ["u", "a"];
     name: string;
     constructor(){}
 }

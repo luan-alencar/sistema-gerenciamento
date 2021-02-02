@@ -1,15 +1,11 @@
 <form [formGroup]="loginUsuario">
   <div class="p-d-flex p-jc-center">
-    <label for="email">E-mail:</label>
-    <input type="email" [(ngModel)]='usuario.email' placeHolder="e-mail" formControlName="email" pInputText/>
-  </div>
-  <div class="p-d-flex p-jc-center">
     <label for="password">Chave de acesso:</label>
     <input type="password" [(ngModel)]='usuario.chave' placeHolder="chave de acesso" formControlName="chave" pInputText />
   </div>
   <div class="p-d-flex p-jc-center">
     <span class="p-buttonset">
-      <button pButton type="button" (click)="entrar()" label="Entrar" class="ui-button-raised ui-button-rounded"></button>
+      <button pButton type="button" (click)="login()" label="Login" class="ui-button-raised ui-button-rounded"></button>
       <button pButton type="button" label="Cancelar" class="ui-button-raised ui-button-rounded"></button>
     </span>
   </div>

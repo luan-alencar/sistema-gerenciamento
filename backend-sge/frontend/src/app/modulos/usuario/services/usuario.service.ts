@@ -35,8 +35,8 @@ export class UsuarioService {
     return this.http.delete<Usuario>(`${this.url}/${id}`);
   }
 
-  loginSucesso(): Observable<Usuario>{
-    return this.http.get<Usuario>(`${this.url}/login`);
+  loginSucesso(email: string): Observable<Usuario>{
+    return this.http.get<Usuario>(`${this.url}/login/${email}`);
   }
 
 }
