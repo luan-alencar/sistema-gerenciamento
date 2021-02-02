@@ -1,14 +1,19 @@
-export class Usuario{
+import { User } from '@nuvem/angular-base';
+
+export class Usuario implements User{
     
-    id: number
-    nome: String;
-    cpf: String;
-    email: String;
-    telefone: String;
+    id: number;
+    nome: string;
+    cpf: string;
+    email: string;
+    telefone: string;
     dataNascimento: Date;
-    chave: string;
     tipoUsuario: string;
-    roles: string[] = ["u", "a"];
+    roles: string[];
     name: string;
-    constructor(){}
+
+    constructor(){
+        this.roles = ["u", "a"];
+    }
+
 }

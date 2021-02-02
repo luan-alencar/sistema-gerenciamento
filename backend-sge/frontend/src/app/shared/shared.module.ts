@@ -1,4 +1,4 @@
-import { UsuarioService } from './../modulos/usuario/services/usuario.service';
+import { UsuarioService } from '../services/usuario.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from 'src/app/shared/components/login/login.component';
 import { NgModule } from '@angular/core';

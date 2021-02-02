@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
 import { Pergunta } from 'src/app/dominios/pergunta';
-import { EventoService } from '../../services/evento.service';
+import { EventoService } from 'src/app/services/evento.service';
 import { TipoEvento } from '../../../../dominios/tipo-evento';
 
 

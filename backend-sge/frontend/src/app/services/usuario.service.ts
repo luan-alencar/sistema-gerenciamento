@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/dominios/usuario';
 import { environment } from 'src/environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UsuarioService {
 
   url = `${environment.apiUrl}/usuarios`;
@@ -33,10 +35,6 @@ export class UsuarioService {
 
   deletarUsuario(id: number): Observable<Usuario>{
     return this.http.delete<Usuario>(`${this.url}/${id}`);
-  }
-
-  loginSucesso(email: string): Observable<Usuario>{
-    return this.http.get<Usuario>(`${this.url}/login/${email}`);
   }
 
 }
