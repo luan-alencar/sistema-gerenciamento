@@ -1,0 +1,71 @@
+<form [formGroup]="formEvento">
+
+  <div class="p-grid p-dir-col">
+
+    <p>Título:</p>
+    <input type="text" [(ngModel)]="evento.titulo" placeholder="Título do Evento" formControlName="titulo" pInputText />
+    <br>
+
+    <p>Local:</p>
+    <input type="text" [(ngModel)]="evento.local" placeholder="Local" formControlName="local" pInputText />
+    <br>
+
+    <p>Descrição:</p>
+    <input type="text" [(ngModel)]="evento.descricao" placeholder="Descrição" formControlName="descricao" pInputText />
+    <br>
+
+    <p>Quantidade de vagas:</p>
+    <input type="text" [(ngModel)]="evento.qtdVagas" placeholder="Quantidade de Vagas" formControlName="qtdVagas"
+      pInputText />
+    <br>
+
+    <p>Marque a checkbox caso seja um evento pago:</p>
+    <p-checkbox formControlName="tipoInscricao" [(ngModel)]="evento.tipoInscricao" [binary]="true"></p-checkbox>
+    <br>
+
+    <p>Selecione o Tipo de Evento:</p>
+    <p-dropdown [options]="tipoEventos" formControlName="tipoEvento" [(ngModel)]="selectTipoEvento"
+      optionLabel="descricao" optionValue="id"></p-dropdown>
+    <br>
+
+    <p>Valor:</p>
+    <!-- <p-inputNumber [(ngModel)]="evento.valor" mode="decimal" locale="pt-BR" [minFractionDigits]="2"></p-inputNumber> -->
+    <input type="text" [(ngModel)]="evento.valor" placeholder="R$" formControlName="valor" pInputText />
+    <br>
+
+    <p>Data início:</p>
+    <input type="text" [(ngModel)]="evento.dataInicio" placeholder="Data de Início" formControlName="dataInicio"
+      pInputText />
+    <br>
+
+    <p>Data fim:</p>
+    <input type="text" [(ngModel)]="evento.dataFim" placeholder="Data Fim" formControlName="dataFim" pInputText />
+  </div>
+
+  <p>Cadastrar perguntas:</p>
+  <!-- Botão para cadastrar perguntas ao Evento -->
+  <button (click)="showDialog()" pButton type="button" icon="pi pi-info-circle" label="Show" label="Perguntas"></button>
+
+  <!-- Dialog para adicionar perguntas - Início -->
+  <p-dialog header="Perguntas" [(visible)]="display">
+
+    <div class="perguntas">
+
+      <div class="obrigatoriedade">
+        <p-inputSwitch [(ngModel)]="pergunta.obrigatoriedade"></p-inputSwitch>
+      </div>
+      <input type="text" pInputText />
+      <p-button label="Salvar" [(ngModel)]="evento.perguntas" (onClick)="clickSalvarPergunta()"></p-button>
+      <br>
+      <br>
+
+      <p-button label="Concluir" (onClick)="closeDialog()"></p-button>
+
+    </div> <!-- Dialog para adicionar perguntas - Fim -->
+
+  </p-dialog>
+
+</form>
+<br>
+<button (click)="salvar()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'"></button>
+<p-confirmDialog header="Confirmação de cadastro" icon="pi pi-exclamation-triangle"></p-confirmDialog>

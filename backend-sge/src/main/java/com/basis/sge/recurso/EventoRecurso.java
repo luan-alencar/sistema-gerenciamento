@@ -7,10 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
-@RequestMapping(value = "/api/eventos", produces = "application/json")
+@RequestMapping(value = "/api/eventos")
 @RestController
 @RequiredArgsConstructor
 public class EventoRecurso {
@@ -19,7 +18,7 @@ public class EventoRecurso {
 
     @GetMapping
     public ResponseEntity<List<EventoDTO>> listar() {
-        return ResponseEntity.ok(eventoServico.listar());
+        return new ResponseEntity<>(eventoServico.listar(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -30,8 +29,7 @@ public class EventoRecurso {
 
     @PostMapping
     public ResponseEntity<EventoDTO> salvar(@RequestBody EventoDTO eventoDTO) {
-        eventoServico.salvar(eventoDTO);
-        return ResponseEntity.created(URI.create("/eventos" + eventoDTO.getId())).build();
+        return ResponseEntity.ok(eventoServico.salvar(eventoDTO));
     }
 
     @PutMapping

@@ -7,8 +7,7 @@ import { Usuario } from './../../../../dominios/usuario';
 
 @Component({
   selector: 'app-formulario',
-  templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.css']
+  templateUrl: './formulario.component.html'
 })
 export class FormularioComponent implements OnInit {
 
