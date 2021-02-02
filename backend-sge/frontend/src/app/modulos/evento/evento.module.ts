@@ -1,13 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared/shared.module';
-import { EventoFormularioComponent } from './components/evento-formulario/evento-formulario.component';
 import { EventoListagemComponent } from './components/evento-listagem/evento-listagem.component';
-import { EventoRoutingModule } from './evento-routing.module';
+import { EventoFormularioComponent } from './components/evento-formulario/evento-formulario.component';
 import { EventoService } from './services/evento.service';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
+import { EventoRoutingModule } from './evento-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -20,13 +20,11 @@ import { EventoService } from './services/evento.service';
   ],
   imports: [
     CommonModule,
-    EventoRoutingModule,
-    SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    EventoRoutingModule,
     SharedModule,
     HttpClientModule
   ]
 })
-
 export class EventoModule { }

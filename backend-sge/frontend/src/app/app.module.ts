@@ -14,30 +14,28 @@ import { AppFooterComponent } from './components/footer/app.footer.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { SharedModule } from './shared/shared.module';
 
-
 @NgModule({
     declarations: [
         AppComponent,
         AppTopbarComponent,
         AppFooterComponent,
-        // CardModule,
         DiarioErrosComponent
     ],
     imports: [
         BlockUIModule.forRoot({
             message: "Carregando..."
-        }),
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        SharedModule,
-        HttpClientModule,
-        PageNotificationModule,
-        BreadcrumbModule,
-        ErrorStackModule,
-        VersionTagModule,
-        SecurityModule.forRoot(environment.auth),
-        MenuModule
+          }),
+          BrowserModule,
+          BrowserAnimationsModule,
+          AppRoutingModule,
+          SharedModule,
+          HttpClientModule,
+          PageNotificationModule,
+          BreadcrumbModule,
+          ErrorStackModule,
+          VersionTagModule,
+          SecurityModule.forRoot(environment.auth),
+          MenuModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

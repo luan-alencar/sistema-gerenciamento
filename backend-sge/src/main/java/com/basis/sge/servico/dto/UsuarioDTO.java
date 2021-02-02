@@ -1,5 +1,7 @@
 package com.basis.sge.servico.dto;
 
+
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +23,7 @@ public class UsuarioDTO implements Serializable {
     private String telefone;
 
     private LocalDate dataNascimento;
+
+    private String tipoUsuario;
 
 }

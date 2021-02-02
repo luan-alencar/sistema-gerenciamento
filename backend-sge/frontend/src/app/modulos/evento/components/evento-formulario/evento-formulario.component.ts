@@ -7,6 +7,7 @@ import { Evento } from 'src/app/dominios/evento';
 import { Pergunta } from 'src/app/dominios/pergunta';
 import { EventoService } from '../../services/evento.service';
 import { TipoEvento } from '../../../../dominios/tipo-evento';
+import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
 
 
 @Component({
@@ -19,16 +20,21 @@ export class EventoFormularioComponent implements OnInit {
   // Formulario Reativo: encurta a cricao de instancias de um FormControl
   formEvento: FormGroup;
 
+  // instancias
   evento = new Evento();
   pergunta = new Pergunta();
+
   edicao = false;
+
   valueCheck: boolean;
   display: boolean;
   checagemDeObrigatoriedadePergunta: boolean;
+
   selectTipoEvento: TipoEvento;
 
   tipoEventos: TipoEvento[] = [];
   perguntasEvento: Pergunta[] = [];
+  perguntasEventoPergunta: EventoPergunta[] = [];
 
   @Output() eventoSalvo = new EventEmitter<Evento>();
   @Output() perguntaSalva = new EventEmitter<Pergunta>();
@@ -44,7 +50,13 @@ export class EventoFormularioComponent implements OnInit {
       { id: 2, descricao: 'Minicurso' },
       { id: 3, descricao: 'Treinamento' },
       { id: 4, descricao: 'Palestra' }
-    ]
+    ],
+      this.perguntasEvento = [
+        { id: null, titulo: null, obrigatoriedade: null }
+      ],
+      this.perguntasEventoPergunta = [
+        { idEvento: this.evento.id, idPergunta: this.pergunta.id }
+      ]
   }
 
   // Inicio ngOnInit
@@ -66,7 +78,7 @@ export class EventoFormularioComponent implements OnInit {
       qtdVagas: '',
       tipoInscricao: null,
       tipoEvento: null,
-      perguntas: null,
+      perguntas: '',
       valor: '',
       dataInicio: '',
       dataFim: '',
@@ -84,6 +96,10 @@ export class EventoFormularioComponent implements OnInit {
 
   clickSalvarPergunta(pergunta: Pergunta) {
     this.perguntasEvento.push(pergunta);
+  }
+
+  transformarPerguntaEventoPergunta(idEvento: Evento, idPergunta: Pergunta) {
+    
   }
 
   searchEvento(id: number) {
@@ -105,9 +121,9 @@ export class EventoFormularioComponent implements OnInit {
       message: 'Voce deseja confirmar o cadastro?',
       accept: () => {
 
-        this.evento.perguntas = this.perguntasEvento;
         this.evento.tipoEvento = this.selectTipoEvento.id;
-        
+        this.evento.perguntas = this.perguntasEventoPergunta;
+
         console.log(this.evento);
         if (this.formEvento.invalid) {
           alert('Formulário Inválido');

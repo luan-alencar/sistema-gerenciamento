@@ -14,7 +14,6 @@ export class EventoListagemComponent implements OnInit {
 
   // construtor
   constructor(
-    // EventoService
     private eventoService: EventoService,
   ) { }
 
@@ -22,7 +21,6 @@ export class EventoListagemComponent implements OnInit {
     this.buscarEventos();
   }
 
-  // Metodo para buscar os Eventos 
   private buscarEventos() {
     this.eventoService.getAllEventos()
       .subscribe((eventos: Evento[]) => {
@@ -30,7 +28,6 @@ export class EventoListagemComponent implements OnInit {
       });
   }
 
-  // Metodo para deletar um Evento
   deleteEvento(id: number) {
     this.eventoService.deleteEvento(id)
       .subscribe(() => {

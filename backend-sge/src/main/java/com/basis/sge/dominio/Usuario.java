@@ -10,9 +10,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "usuario")
 @Getter
 @Setter
-@Table(name = "usuario")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario implements Serializable {
@@ -43,5 +43,8 @@ public class Usuario implements Serializable {
 
     @Column(name = "chave")
     private String chave;
+
+    @Column(name = "tipo_usuario")
+    private String tipoUsuario;
 
 }
