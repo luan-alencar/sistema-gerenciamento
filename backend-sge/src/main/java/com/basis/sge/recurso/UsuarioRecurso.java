@@ -26,6 +26,11 @@ public class UsuarioRecurso {
         return ResponseEntity.ok(usuarioService.obterUsuarioPorId(id));
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<UsuarioDTO> validarLoginUsuario(@RequestBody UsuarioDTO usuarioDTO){
+        return ResponseEntity.ok(usuarioService.validarLoginUsuario(usuarioDTO));
+    }
+
     @GetMapping("/cpf/{cpf}")
     public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf){
         return ResponseEntity.ok(usuarioService.obterUsuarioPorCpf(cpf));

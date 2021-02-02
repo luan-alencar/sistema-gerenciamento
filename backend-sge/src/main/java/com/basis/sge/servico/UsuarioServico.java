@@ -21,7 +21,6 @@ public class UsuarioServico {
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
-    private final EmailServico emailServico;
     private final ProdutorServico produtorServico;
 
     public List<UsuarioDTO> listar() {
@@ -116,6 +115,14 @@ public class UsuarioServico {
             }
         }
         return usuarioMapper.toDto(usuario);
+    }
+
+    public UsuarioDTO validarLoginUsuario(UsuarioDTO usuarioDTO){
+        Usuario usuario = obter(usuarioDTO.getId());
+        if(usuario.getEmail().equals(usuarioDTO.getEmail())){
+            return  usuarioDTO;
+        }
+        return null;
     }
 
     private void validarDadosNull(UsuarioDTO usuario){
