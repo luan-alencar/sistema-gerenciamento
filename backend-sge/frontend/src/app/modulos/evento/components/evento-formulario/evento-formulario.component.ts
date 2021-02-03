@@ -6,6 +6,7 @@ import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
 import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
 import { Pergunta } from 'src/app/dominios/pergunta';
+import { PerguntasService } from 'src/app/modulos/perguntas/services/perguntas.service';
 import { EventoService } from '../../services/evento.service';
 import { TipoEvento } from './../../../../dominios/tipo-evento';
 
@@ -43,7 +44,8 @@ export class EventoFormularioComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private eventoService: EventoService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private perguntaService: PerguntasService
   ) {
     this.tipoEventos = [
       { id: 1, descricao: 'Workshop' },
@@ -62,14 +64,14 @@ export class EventoFormularioComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params.id) {
         this.edicao = true;
-        this.searchEvento(params.id);
+        this.buscarEvento(params.id);
       }
     });
 
     // Criando o Formulario Reativo(FormBuilder) que recebe uma rota associada
     // a um componente carregado. No caso, EventoFormularioComponent.
     this.formEvento = this.fb.group({
-      titulo : '',
+      titulo: '',
       periodoInicio: '',
       periodoFim: '',
       tipoInsc: '',
@@ -92,11 +94,11 @@ export class EventoFormularioComponent implements OnInit {
     this.perguntaSalva.emit(perguntaSalva);
   }
 
-  salvarPergunta() {
+  addPergunta() {
     this.perguntaAdd = true;
   }
 
-  searchEvento(id: number) {
+  buscarEvento(id: number) {
     this.eventoService.findEventoById(id)
       .subscribe(evento => this.evento = evento);
   }
@@ -110,7 +112,7 @@ export class EventoFormularioComponent implements OnInit {
     });
   }
 
-  salvar() {
+  salvarEvento() {
     this.confirmationService.confirm({
       message: 'Voce deseja confirmar o cadastro?',
       accept: () => {
@@ -141,5 +143,29 @@ export class EventoFormularioComponent implements OnInit {
         }
       }
     });
+  }
+
+  salvarPergunta(pergunta: Pergunta) {
+    this.perguntaService.postPergunta(pergunta)
+      .subscribe(perg => {
+        alert('Pergunta salva!');
+        this.perguntaAdd = false;
+      }, (erro: HttpErrorResponse) => {
+        alert(erro.error.message);
+      });
+  }
+
+  buscarTipoEvento() {
+    this.eventoService.getAllTipoEvento()
+      .subscribe((tipoEventos: TipoEvento[]) => {
+        this.tipoEventos = tipoEventos;
+      });
+  }
+
+  buscarPerguntas() {
+    this.perguntaService.getAllPerguntas()
+      .subscribe((perguntas: Pergunta[]) => {
+        this.perguntasEvento = perguntas;
+      })
   }
 }

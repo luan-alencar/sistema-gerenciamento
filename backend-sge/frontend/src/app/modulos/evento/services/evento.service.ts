@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Evento } from 'src/app/dominios/evento';
 import { environment } from 'src/environments/environment';
+import { TipoEvento } from './../../../dominios/tipo-evento';
 
 @Injectable()
 export class EventoService {
@@ -12,12 +13,16 @@ export class EventoService {
   constructor(private http: HttpClient) { }
 
   findEventoById(id: number): Observable<Evento> {
-    return this.http.get<Evento>(`${this.url}/${id}`); 
+    return this.http.get<Evento>(`${this.url}/${id}`);
   }
 
   // Pega todos os Eventos
   getAllEventos(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.url);
+  }
+
+  getAllTipoEvento(): Observable<TipoEvento[]> {
+    return this.http.get<TipoEvento[]>(this.url);
   }
 
   postEvento(evento: Evento): Observable<Evento> {
