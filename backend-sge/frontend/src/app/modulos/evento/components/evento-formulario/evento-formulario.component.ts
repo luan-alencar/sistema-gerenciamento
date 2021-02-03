@@ -23,9 +23,10 @@ export class EventoFormularioComponent implements OnInit {
 
   // instancias
   @Input() evento = new Evento();
+  @Input()edicao = false;
+  @Output() eventoSalvo = new EventEmitter<Evento>();
   pergunta = new Pergunta();
 
-  edicao = false;
   tipoInscricao = false;
 
   valueCheck: boolean;
@@ -39,7 +40,6 @@ export class EventoFormularioComponent implements OnInit {
   perguntasEvento: Pergunta[] = [];
   perguntaEventoPergunta: EventoPergunta;
 
-  @Output() eventoSalvo = new EventEmitter<Evento>();
 
   constructor(
     private fb: FormBuilder,
@@ -91,6 +91,10 @@ export class EventoFormularioComponent implements OnInit {
     this.display = true;
   }
 
+  fecharDialog(eventoSalvo: Evento) {
+    this.eventoSalvo.emit(eventoSalvo);
+  }
+
   addPergunta() {
     this.perguntaAdd = true;
   }
@@ -123,10 +127,6 @@ export class EventoFormularioComponent implements OnInit {
           });
       }
     });
-  }
-
-  fecharDialog(eventoSalvo: Evento) {
-    this.eventoSalvo.emit(eventoSalvo);
   }
 
   salvarPergunta(pergunta: Pergunta) {

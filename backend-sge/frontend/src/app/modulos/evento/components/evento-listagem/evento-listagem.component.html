@@ -31,11 +31,9 @@
                 <td>{{evento.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
 
                 <td class="p-d-flex p-jc-center">
-
-                    <button [routerLink]="['evento-formulario', evento.id]" pButton type="button"
-                        icon="pi pi-pencil"></button>
-
-                    <button (click)="deleteEvento(evento.id)" class="p-ml-2" pButton type="button"
+                    <!-- <button [routerLink]="['formulario', usuario.id]" pButton type="button" icon="pi pi-pencil"></button> -->
+                    <button (click)="mostrarDialogEditar(evento.id)" pButton type="button" icon="pi pi-pencil"></button>
+                    <button (click)="confirmarDeletarEvento(evento.id)" class="p-ml-2" pButton type="button"
                         icon="pi pi-trash"></button>
                 </td>
             </tr>
@@ -43,6 +41,16 @@
     </p-table>
 
 </app-card>
+<p-dialog header="Title" [(visible)]="exibirDialog">
+    <app-evento-formulario
+        [evento]="evento"
+        [edicao]="formularioEdicao"
+        (eventoSalvo)="fecharDialog($event)"
+    ></app-evento-formulario>
+    <p-confirmDialog header="Confirmar Remover Usuário" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+</p-dialog>
+
+
 
 <app-card [titulo]="'Lista de eventos - Usuario'">
 
@@ -73,7 +81,7 @@
 
                 <td>
                     <div class="p-d-flex p-jc-end">
-                        <button id="button-criar" routerLink="/eventos/inscricao" pButton type="button"
+                        <button id="button-criar" routerLink="/eventos/inscricoes" pButton type="button"
                             label="Inscrever-se"></button>
                     </div>
                 </td>
@@ -83,7 +91,3 @@
 
 </app-card>
 
-
-<!-- <p-dialog [(visible)]="displayPerguntas">
-    <app-perguntas></app-perguntas>
-</p-dialog> -->

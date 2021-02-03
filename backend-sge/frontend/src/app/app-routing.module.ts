@@ -1,3 +1,4 @@
+import { UsuarioModule } from './modulos/usuario/usuario.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
@@ -8,6 +9,10 @@ const routes: Routes = [
   {
     path: 'eventos',
     loadChildren: () => EventoModule,
+  },
+  {
+    path: 'usuarios',
+    loadChildren: () => UsuarioModule,
   },
   { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros'} }
 

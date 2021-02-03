@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Evento } from 'src/app/dominios/evento';
 import { Usuario } from 'src/app/dominios/usuario';
 import { EventoService } from '../../services/evento.service';
@@ -11,12 +12,16 @@ import { EventoService } from '../../services/evento.service';
 export class EventoListagemComponent implements OnInit {
 
   // declaracoes
+  @Output() eventoSalvo = new EventEmitter<Evento>();
   eventos: Evento[] = [];
-  usuario: Usuario;
+  evento = new Evento();
+  exibirDialog = false;
+  formularioEdicao: boolean;
 
   // construtor
   constructor(
     private eventoService: EventoService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit() {
@@ -30,7 +35,32 @@ export class EventoListagemComponent implements OnInit {
       });
   }
 
-  deleteEvento(id: number) {
+  mostrarDialogEditar(id: number) {
+    this.eventoService.findEventoById(id)
+      .subscribe(evento => {
+        this.evento = evento;
+      });
+  }
+
+  mostrarDialog(edicao = false) {
+    this.exibirDialog = false;
+    this.buscarEventos();
+  }
+
+  confirmarDeletarEvento(id: number) {
+    this.confirmationService.confirm({
+      message: 'Deseja realmente excluir este Evento?',
+      accept: () => {
+        this.deleteEvento(id);
+      }
+    });
+  }
+
+  fecharDialog(eventoSalvo: Evento) {
+    this.eventoSalvo.emit(eventoSalvo);
+  }
+
+  deleteEvento(id?: number) {
     this.eventoService.deleteEvento(id)
       .subscribe(() => {
         alert('Evento deletado');
