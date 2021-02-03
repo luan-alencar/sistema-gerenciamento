@@ -24,17 +24,21 @@ export class EventoFormularioComponent implements OnInit {
   // instancias
   @Input() evento = new Evento();
   pergunta = new Pergunta();
+
   edicao = false;
   tipoInscricao = false;
+
   valueCheck: boolean;
   display: boolean;
   perguntaAdd: boolean;
   checagemDeObrigatoriedadePergunta: boolean;
+  
+  tipoEvento: TipoEvento;
   tipoEventos: TipoEvento[] = [];
   perguntasEvento: Pergunta[] = [];
   perguntaEventoPergunta: EventoPergunta;
 
-  selectTipoEvento: TipoEvento;
+  selecionarIdTipoEvento: TipoEvento;
 
 
   @Output() eventoSalvo = new EventEmitter<Evento>();
@@ -52,14 +56,14 @@ export class EventoFormularioComponent implements OnInit {
       { id: 2, descricao: 'Minicurso' },
       { id: 3, descricao: 'Treinamento' },
       { id: 4, descricao: 'Palestra' }
-    ],
-      this.perguntasEvento = [
-        { id: null, titulo: null, obrigatoriedade: null }
-      ]
+    ]
   }
 
   // Inicio ngOnInit
   ngOnInit(): void {
+
+    this.buscarTipoEvento();
+    this.buscarPerguntas();
 
     this.route.params.subscribe(params => {
       if (params.id) {
@@ -117,7 +121,7 @@ export class EventoFormularioComponent implements OnInit {
       message: 'Voce deseja confirmar o cadastro?',
       accept: () => {
 
-        this.evento.tipoEvento = this.selectTipoEvento.id;
+        this.evento.tipoEvento = this.selecionarIdTipoEvento.id;
         this.evento.tipoInscricao = this.tipoInscricao;
         console.log(this.evento);
         if (this.formEvento.invalid) {

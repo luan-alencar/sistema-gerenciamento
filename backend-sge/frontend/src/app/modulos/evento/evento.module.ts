@@ -8,6 +8,7 @@ import { EventoRoutingModule } from './evento-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PerguntasService } from '../perguntas/services/perguntas.service';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     EventoListagemComponent
   ],
   providers: [
-    EventoService
+    EventoService,
+    PerguntasService
   ],
   imports: [
     CommonModule,

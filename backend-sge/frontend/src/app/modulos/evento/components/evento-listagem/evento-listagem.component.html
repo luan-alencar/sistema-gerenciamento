@@ -1,4 +1,4 @@
-<app-card [titulo]="'Lista de Eventos'">
+<app-card [titulo]="'Lista de Eventos - Administrador'">
 
     <div class="p-d-flex p-jc-end">
         <button routerLink="evento-formulario" pButton type="button" label="Cadastrar Evento"></button>
@@ -29,9 +29,12 @@
                 <td>{{evento.tipoEvento}}</td>
                 <td>{{evento.dataInicio| date:'dd/MM/yyyy HH:mm'}}</td>
                 <td>{{evento.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
+
                 <td class="p-d-flex p-jc-center">
+
                     <button [routerLink]="['evento-formulario', evento.id]" pButton type="button"
                         icon="pi pi-pencil"></button>
+
                     <button (click)="deleteEvento(evento.id)" class="p-ml-2" pButton type="button"
                         icon="pi pi-trash"></button>
                 </td>
@@ -40,6 +43,44 @@
     </p-table>
 
 </app-card>
+
+<app-card [titulo]="'Lista de eventos'">
+    
+    <p-table [value]="eventos">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Titulo</th>
+                <th>Local</th>
+                <th>Descricao</th>
+                <th>Quantidade de vagas</th>
+                <th>Tipo Evento</th>
+                <th>Valor</th>
+                <th>Inicio</th>
+                <th>Fim</th>
+                <th>Inscrição</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-evento>
+            <tr>
+                <td>{{evento.titulo}}</td>
+                <td>{{evento.descricao}}</td>
+                <td>{{evento.periodoInicio | date: 'dd/MM/yyy HH:mm'}}</td>
+                <td>{{evento.periodoFim | date: 'dd/MM/yyy HH:mm'}}</td>
+                <td>{{evento.qtdVagas}}</td>
+                <td>{{evento.tipoEvento}}</td>
+                <td>{{evento.valor}}</td>
+                <td>{{evento.local}}</td>
+                <td>
+                    <div class="p-d-flex p-jc-end">
+                    <button id="button-criar" routerLink="/eventos/inscricao" pButton type="button" label="Inscrever-se" ></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    
+    </app-card>
+
 
 <!-- <p-dialog [(visible)]="displayPerguntas">
     <app-perguntas></app-perguntas>

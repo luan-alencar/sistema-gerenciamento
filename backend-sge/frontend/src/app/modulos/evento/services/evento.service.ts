@@ -9,6 +9,7 @@ import { TipoEvento } from './../../../dominios/tipo-evento';
 export class EventoService {
 
   url = `${environment.apiUrl}/eventos`;
+  url2 = `${environment.apiUrl}/tiposeventos`;
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +23,7 @@ export class EventoService {
   }
 
   getAllTipoEvento(): Observable<TipoEvento[]> {
-    return this.http.get<TipoEvento[]>(this.url);
+    return this.http.get<TipoEvento[]>(this.url2);
   }
 
   postEvento(evento: Evento): Observable<Evento> {

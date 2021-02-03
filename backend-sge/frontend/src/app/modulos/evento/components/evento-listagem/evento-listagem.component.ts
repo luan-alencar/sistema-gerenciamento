@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Evento } from 'src/app/dominios/evento';
+import { Usuario } from 'src/app/dominios/usuario';
 import { EventoService } from '../../services/evento.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class EventoListagemComponent implements OnInit {
 
   // declaracoes
   eventos: Evento[] = [];
+  usuario: Usuario;
 
   // construtor
   constructor(
