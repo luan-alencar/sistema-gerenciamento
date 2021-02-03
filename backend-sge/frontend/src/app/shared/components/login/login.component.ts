@@ -1,32 +1,38 @@
-import { Chave } from './../../../dominios/chave';
-import { LoginService } from './../../../services/login.service';
+import { UsuarioService } from './../../../modulos/usuario/services/usuario.service';
+import { Environment } from 'node_modules/ng-environmenter/lib/environmenter/environment.d';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UsuarioService } from '../../../services/usuario.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Authentication, LoginSuccessComponent } from '@nuvem/angular-base';
 import { Usuario } from 'src/app/dominios/usuario';
+import { Chave } from './../../../dominios/chave';
+import { ENVIRONMENTER } from 'ng-environmenter';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends LoginSuccessComponent implements OnInit {
 
   display: boolean = false;
   loginUsuario: FormGroup;
   @Input() usuario = new Usuario();
-  ChaveInput: string;
+  chaveInput: string;
   chave = new Chave();
   @Output() emitUsuario = new EventEmitter<Usuario>();
 
   constructor(
     private fb: FormBuilder,
+    @Inject(ENVIRONMENTER) public environment: any,
     private usuarioService: UsuarioService,
-    private loginService: LoginService,
-    private route: ActivatedRoute
-  ) {}
-
+    private route: ActivatedRoute,
+    private authentication: Authentication<Usuario>,
+  ) {
+    super(authentication);
+  }
+  
   ngOnInit(): void {
     this.loginUsuario = this.fb.group({
       chave: ['', Validators.required]
@@ -40,10 +46,18 @@ export class LoginComponent implements OnInit {
 
   login(chaveInput: string){
     this.chave.chave = chaveInput
-    this.loginService.login(this.chave)
+    this.usuarioService.buscarUsuarioPorChave(this.chave)
       .subscribe((user: Usuario) => {
         this.emitUsuario.emit(this.usuario);
         localStorage.setItem("usuario", JSON.stringify(user));
+        //precisa ver variaveis de environment
+        if(this.authentication.isAuthenticated){
+          this.authentication.login();
+          this.environment.ActivatedRoute;
+          this.authentication.redirect();
+        }
+        //this.authentication.redirect();
+
       });
   }
 

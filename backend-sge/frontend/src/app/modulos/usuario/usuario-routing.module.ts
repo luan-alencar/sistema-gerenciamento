@@ -1,8 +1,7 @@
-import { Component, NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { FormularioComponent } from './components/formulario/formulario.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { FormularioComponent } from '../../shared/components/formulario/formulario.component';
 import { ListagemComponent } from './components/listagem/listagem.component';
-import { LoginComponent } from 'src/app/shared/components/login/login.component';
 
 
 const routes: Routes = [

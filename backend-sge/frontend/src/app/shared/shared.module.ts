@@ -1,15 +1,17 @@
-import { UsuarioService } from '../services/usuario.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from 'src/app/shared/components/login/login.component';
 import { NgModule } from '@angular/core';
 import { PRIMENG_IMPORTS } from './primeng-imports';
 import {CardComponent} from './components/card/card.component';
 import { ConfirmationService } from 'primeng';
+import { AUTH_CONFIG } from '@nuvem/angular-base';
+import { FormularioComponent } from './components/formulario/formulario.component';
 
 @NgModule({
     declarations: [
         CardComponent,
-        LoginComponent
+        LoginComponent,
+        FormularioComponent
     ], 
     imports: [
         PRIMENG_IMPORTS,
@@ -17,13 +19,13 @@ import { ConfirmationService } from 'primeng';
         ReactiveFormsModule
     ],
     providers: [
-        ConfirmationService,
-        UsuarioService
+        ConfirmationService
     ],
     exports: [
         PRIMENG_IMPORTS,
         CardComponent,
-        LoginComponent
+        LoginComponent,
+        FormularioComponent
     ]
 })
 export class SharedModule { }

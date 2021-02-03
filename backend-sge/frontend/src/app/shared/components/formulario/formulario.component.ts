@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Usuario } from './../../../../dominios/usuario';
+import { Usuario } from '../../../dominios/usuario';
 
 @Component({
   selector: 'app-formulario',
@@ -12,7 +12,8 @@ import { Usuario } from './../../../../dominios/usuario';
 export class FormularioComponent implements OnInit {
 
   @Input() usuario = new Usuario();
-  @Input() edicao = false;
+  edicao = false;
+  usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
   @Output() usuarioSalvo = new EventEmitter<Usuario>();
 
   cadastroUsuario: FormGroup;
@@ -25,26 +26,32 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(this.usuarioLogado){
+      this.usuario = this.usuarioLogado;
+      this.edicao = true;
+    }
+
     this.route.params.subscribe(params => {
       if (params.id) {
         this.edicao = true;
-        this.buscarUsuario(params.id);
+        this.buscarUsuarioPorId(params.id);
       }
     });
 
     this.cadastroUsuario = this.fb.group({
-      nome: ['', Validators.nullValidator], //pode ser iniciado aqui e ser editado na pagina
-      cpf: '',
-      email: ['', Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')],
+      nome: ['', Validators.minLength(3)],
+      cpf: ['', [Validators.maxLength(11), Validators.minLength(11)]],
+      email: ['', Validators.email],
       telefone: '',
       dataNascimento: '',
     });
   }
 
-  buscarUsuario(id: number) {
+  buscarUsuarioPorId(id: number) {
     this.usuarioService.buscarUsuarioPorId(id)
       .subscribe(usuario => {
         this.usuario = usuario;
+        console.log(this.usuario);
       });
   }
 

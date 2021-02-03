@@ -1,14 +1,21 @@
+import { Environmenter } from 'ng-environmenter';
+import { environment } from 'src/environments/environment';
+import { AUTH_CONFIG } from '@nuvem/angular-base';
 
 import { Usuario } from './dominios/usuario';
-import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, OnInit, NgZone } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, OnInit, NgZone, Inject } from '@angular/core';
 import { ScrollPanel } from 'primeng';
 import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
 import { RouterLink } from '@angular/router';
 import {LoginComponent} from 'src/app/shared/components/login/login.component'
+import { template } from 'ng-block-ui/components/block-ui-content/block-ui-content.component.template';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html'
+    /*template:`
+    <p>{{ getEnvironment() | json }}</p>
+  `,*/
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
     [x: string]: any;
@@ -51,7 +58,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
     rippleMouseDownListener: EventListenerOrEventListenerObject;
 
-    constructor(public renderer2: Renderer2, public zone: NgZone, public menuService: MenusService) { }
+    constructor(public renderer2: Renderer2, public zone: NgZone, public menuService: MenusService, private environmenter: Environmenter) { }
 
     ngOnInit() {
         this.zone.runOutsideAngular(() => { this.bindRipple(); });
@@ -62,6 +69,14 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
             { label: 'Dashboard', icon: 'dashboard', routerLink: ['/'] }
         ];
     }
+
+    getEnvironment() {
+        return [
+          this.environmenter.getApplicationEnvironment(),
+          this.environmenter.getGlobalEnvironment(),
+          this.environmenter.getEnvironment(),
+        ];
+      }
 
     bindRipple() {
         this.rippleInitListener = this.init.bind(this);
