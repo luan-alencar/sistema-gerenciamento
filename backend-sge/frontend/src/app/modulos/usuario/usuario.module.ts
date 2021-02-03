@@ -4,13 +4,20 @@ import { CommonModule } from '@angular/common';
 import { UsuarioRoutingModule } from './usuario-routing.module';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { ListagemComponent } from './components/listagem/listagem.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'primeng';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [FormularioComponent, ListagemComponent],
   imports: [
     CommonModule,
-    UsuarioRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    UsuarioRoutingModule,
+    SharedModule,
+    HttpClientModule
   ]
 })
 export class UsuarioModule { }
