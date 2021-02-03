@@ -12,7 +12,7 @@ export class Evento {
     valor: number;
     dataInicio: Date;
     dataFim: Date;
-    tipoInscricao: TipoSituacao;
+    tipoInscricao: boolean;
     tipoEvento: number;
     perguntas: EventoPergunta[] = [];
 

@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
+import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
 import { Pergunta } from 'src/app/dominios/pergunta';
 import { EventoService } from '../../services/evento.service';
-import { TipoEvento } from '../../../../dominios/tipo-evento';
-import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
+import { TipoEvento } from './../../../../dominios/tipo-evento';
 
 
 @Component({
@@ -21,20 +21,20 @@ export class EventoFormularioComponent implements OnInit {
   formEvento: FormGroup;
 
   // instancias
-  evento = new Evento();
+  @Input() evento = new Evento();
   pergunta = new Pergunta();
-
   edicao = false;
-
+  tipoInscricao = false;
   valueCheck: boolean;
   display: boolean;
+  perguntaAdd: boolean;
   checagemDeObrigatoriedadePergunta: boolean;
+  tipoEventos: TipoEvento[] = [];
+  perguntasEvento: Pergunta[] = [];
+  perguntaEventoPergunta: EventoPergunta;
 
   selectTipoEvento: TipoEvento;
 
-  tipoEventos: TipoEvento[] = [];
-  perguntasEvento: Pergunta[] = [];
-  perguntasEventoPergunta: EventoPergunta[] = [];
 
   @Output() eventoSalvo = new EventEmitter<Evento>();
   @Output() perguntaSalva = new EventEmitter<Pergunta>();
@@ -53,9 +53,6 @@ export class EventoFormularioComponent implements OnInit {
     ],
       this.perguntasEvento = [
         { id: null, titulo: null, obrigatoriedade: null }
-      ],
-      this.perguntasEventoPergunta = [
-        { idEvento: this.evento.id, idPergunta: this.pergunta.id }
       ]
   }
 
@@ -72,16 +69,17 @@ export class EventoFormularioComponent implements OnInit {
     // Criando o Formulario Reativo(FormBuilder) que recebe uma rota associada
     // a um componente carregado. No caso, EventoFormularioComponent.
     this.formEvento = this.fb.group({
-      titulo: '',
-      local: '',
+      titulo : '',
+      periodoInicio: '',
+      periodoFim: '',
+      tipoInsc: '',
       descricao: '',
       qtdVagas: '',
-      tipoInscricao: null,
-      tipoEvento: null,
-      perguntas: '',
+      idTipoEvento: '',
       valor: '',
-      dataInicio: '',
-      dataFim: '',
+      local: '',
+      eventoPerguntas: '',
+      pergunta: ''
     });
 
   } // Fim ngOnInit
@@ -94,12 +92,8 @@ export class EventoFormularioComponent implements OnInit {
     this.perguntaSalva.emit(perguntaSalva);
   }
 
-  clickSalvarPergunta(pergunta: Pergunta) {
-    this.perguntasEvento.push(pergunta);
-  }
-
-  transformarPerguntaEventoPergunta(idEvento: Evento, idPergunta: Pergunta) {
-    
+  salvarPergunta() {
+    this.perguntaAdd = true;
   }
 
   searchEvento(id: number) {
@@ -122,8 +116,7 @@ export class EventoFormularioComponent implements OnInit {
       accept: () => {
 
         this.evento.tipoEvento = this.selectTipoEvento.id;
-        this.evento.perguntas = this.perguntasEventoPergunta;
-
+        this.evento.tipoInscricao = this.tipoInscricao;
         console.log(this.evento);
         if (this.formEvento.invalid) {
           alert('Formulário Inválido');

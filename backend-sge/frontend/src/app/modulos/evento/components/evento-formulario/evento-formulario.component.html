@@ -57,7 +57,7 @@
         <p-inputSwitch [(ngModel)]="pergunta.obrigatoriedade"></p-inputSwitch>
       </div>
       <input type="text" pInputText />
-      <p-button label="Salvar" [(ngModel)]="evento.perguntas" (onClick)="clickSalvarPergunta(evento.perguntas)">
+      <p-button label="Salvar" [(ngModel)]="evento.perguntas" (onClick)="transformarPerguntaEmEventoPergunta(evento.perguntas)">
       </p-button>
       <br>
       <br>
