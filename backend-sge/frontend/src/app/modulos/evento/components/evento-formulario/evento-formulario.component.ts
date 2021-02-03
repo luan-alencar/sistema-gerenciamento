@@ -32,17 +32,14 @@ export class EventoFormularioComponent implements OnInit {
   display: boolean;
   perguntaAdd: boolean;
   checagemDeObrigatoriedadePergunta: boolean;
-  
+
+
   tipoEvento: TipoEvento;
   tipoEventos: TipoEvento[] = [];
   perguntasEvento: Pergunta[] = [];
   perguntaEventoPergunta: EventoPergunta;
 
-  selecionarIdTipoEvento: TipoEvento;
-
-
   @Output() eventoSalvo = new EventEmitter<Evento>();
-  @Output() perguntaSalva = new EventEmitter<Pergunta>();
 
   constructor(
     private fb: FormBuilder,
@@ -51,12 +48,12 @@ export class EventoFormularioComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private perguntaService: PerguntasService
   ) {
-    this.tipoEventos = [
-      { id: 1, descricao: 'Workshop' },
-      { id: 2, descricao: 'Minicurso' },
-      { id: 3, descricao: 'Treinamento' },
-      { id: 4, descricao: 'Palestra' }
-    ]
+    // this.tipoEventos = [
+    //   { id: 1, descricao: 'Workshop' },
+    //   { id: 2, descricao: 'Minicurso' },
+    //   { id: 3, descricao: 'Treinamento' },
+    //   { id: 4, descricao: 'Palestra' }
+    // ]
   }
 
   // Inicio ngOnInit
@@ -76,14 +73,14 @@ export class EventoFormularioComponent implements OnInit {
     // a um componente carregado. No caso, EventoFormularioComponent.
     this.formEvento = this.fb.group({
       titulo: '',
-      periodoInicio: '',
-      periodoFim: '',
-      tipoInsc: '',
+      local: '',
       descricao: '',
       qtdVagas: '',
-      idTipoEvento: '',
+      tipoEvento: '',
+      tipoInscricao: '',
       valor: '',
-      local: '',
+      dataInicio: '',
+      dataFim: '',
       eventoPerguntas: '',
       pergunta: ''
     });
@@ -92,10 +89,6 @@ export class EventoFormularioComponent implements OnInit {
 
   showDialog() {
     this.display = true;
-  }
-
-  closeDialog(perguntaSalva: Pergunta) {
-    this.perguntaSalva.emit(perguntaSalva);
   }
 
   addPergunta() {
@@ -107,52 +100,40 @@ export class EventoFormularioComponent implements OnInit {
       .subscribe(evento => this.evento = evento);
   }
 
-  criarDropDown() {
-    this.tipoEventos.forEach(params => {
-      return {
-        label: params.descricao,
-        value: params.id
-      }
-    });
-  }
-
   salvarEvento() {
     this.confirmationService.confirm({
       message: 'Voce deseja confirmar o cadastro?',
       accept: () => {
 
-        this.evento.tipoEvento = this.selecionarIdTipoEvento.id;
-        this.evento.tipoInscricao = this.tipoInscricao;
+        this.evento.tipoEvento = this.tipoEvento.id
+        this.evento.tipoInscricao = this.tipoInscricao
         console.log(this.evento);
-        if (this.formEvento.invalid) {
-          alert('Formulário Inválido');
-          return;
-        }
-        if (this.edicao) {
-          this.eventoService.putEvento(this.evento)
-            .subscribe(evento => {
-              console.log('Evento cadastrado!', evento);
-              alert('Evento cadastrado')
-            }, (erro: HttpErrorResponse) => {
-              alert(erro.error.message);
-            });
-        } else {
-          this.eventoService.postEvento(this.evento)
-            .subscribe(evento => {
-              console.log('Evento cadastrado!', evento);
-              alert('Evento cadastrado')
-            }, (erro: HttpErrorResponse) => {
-              alert(erro.error.message);
-            });
-        }
+        this.perguntasEvento.forEach(perg => {
+          this.perguntaEventoPergunta = new EventoPergunta()
+          this.perguntaEventoPergunta.idEvento = null
+          this.perguntaEventoPergunta.idPergunta = perg.id
+          this.evento.perguntas.push(this.perguntaEventoPergunta);
+        });
+        this.eventoService.postEvento(this.evento)
+          .subscribe(evento => {
+            alert('Evento Salvo!');
+            console.log(evento)
+          }, (erro: HttpErrorResponse) => {
+            alert(erro.error.message)
+          });
       }
     });
   }
 
+  fecharDialog(eventoSalvo: Evento) {
+    this.eventoSalvo.emit(eventoSalvo);
+  }
+
   salvarPergunta(pergunta: Pergunta) {
     this.perguntaService.postPergunta(pergunta)
-      .subscribe(perg => {
+      .subscribe(() => {
         alert('Pergunta salva!');
+        console.log(pergunta);
         this.perguntaAdd = false;
       }, (erro: HttpErrorResponse) => {
         alert(erro.error.message);

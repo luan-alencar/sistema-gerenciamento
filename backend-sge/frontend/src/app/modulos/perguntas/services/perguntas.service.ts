@@ -7,15 +7,15 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class PerguntasService {
 
-  url = `${environment.apiUrl}/perguntas`;
+  url = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   getAllPerguntas(): Observable<Pergunta[]> {
-    return this.http.get<Pergunta[]>(this.url);
+    return this.http.get<Pergunta[]>(`${this.url}/perguntas`);
   }
 
   postPergunta(pergunta: Pergunta): Observable<Pergunta> {
-    return this.http.post<Pergunta>(this.url, pergunta);
+    return this.http.post<Pergunta>(`${this.url}/perguntas`, pergunta)
   }
 }

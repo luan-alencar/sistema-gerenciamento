@@ -20,10 +20,10 @@
     <br>
 
     <div class="p-field p-col-12 p-md-6">
-      <p-dropdown [options]="tipoEventos" placeholder="Categorias do Eventos" 
-      [(ngModel)]="selecionarIdTipoEvento" formControlName="idTipoEvento"
-      optionLabel="descricao" optionValue="id"></p-dropdown>
-  </div>
+      <p-dropdown [options]="tipoEventos" placeholder="Categorias do Eventos" [(ngModel)]="tipoEvento"
+        formControlName="tipoEvento" optionLabel="descricao" optionValue="id"></p-dropdown>
+    
+    </div>
 
 
     <p>Informe se o evento sera pago ou gratuito:</p>
@@ -36,49 +36,51 @@
     <br>
 
     <p>Data início:</p>
-    <input type="text" [(ngModel)]="evento.dataInicio" placeholder="Data de Início" formControlName="dataInicio"
-      pInputText />
+    <input type="text" [(ngModel)]="evento.dataInicio" type="datetime-local" placeholder="Data de Início" formControlName="dataInicio"pInputText />
     <br>
 
     <p>Data fim:</p>
-    <input type="text" [(ngModel)]="evento.dataFim" placeholder="Data Fim" formControlName="dataFim" pInputText />
+    <input type="text" [(ngModel)]="evento.dataFim" type="datetime-local" placeholder="Data Fim" formControlName="dataFim" pInputText />
   </div>
 
 
   <p>Cadastrar perguntas:</p>
   <!-- Botão para cadastrar perguntas ao Evento -->
-            <p-multiSelect class="input" (click)="buscarPerguntas()" formControlName="eventoPerguntas" [options]="perguntasEvento"  [virtualScroll]="true" itemSize="40"
-            [(ngModel)]="perguntaSalva" optionLabel="titulo"></p-multiSelect>
+  <p-multiSelect class="input" (click)="buscarPerguntas()" formControlName="eventoPerguntas" [options]="perguntasEvento"
+    [virtualScroll]="true" itemSize="40" [(ngModel)]="perguntasEvento" optionLabel="titulo"></p-multiSelect>
 
   <!-- Dialog para adicionar perguntas - Início -->
   <p-dialog header="Perguntas" [(visible)]="display">
 
-      <input type="text" pInputText />
-      <!-- <p-button label="Salvar" [(ngModel)]="evento.perguntas"
-        (onClick)="">
-      </p-button> -->
-      <br>
-      <br>
+    <input type="text" pInputText />
+    <p-button label="Salvar" [(ngModel)]="evento.perguntas"
+        (onClick)="salvarPergunta()">
+      </p-button>
+    <br>
+    <br>
 
-      <p-button label="Concluir" (onClick)="closeDialog()"></p-button>
+    <!-- <p-button label="Concluir" (onClick)="closeDialog()"></p-button> -->
 
-     <!-- Dialog para adicionar perguntas - Fim -->
+    <!-- Dialog para adicionar perguntas - Fim -->
 
   </p-dialog>
 
   <p-toolbar>
-    <p>Crie uma nova pergunta caso queira: </p>
+    <p>Novas perguntas: </p>
     <div class="p-toolbar-group-center">
-        
-        <p-button (click)="salvarPergunta()" label="Novo" icon="pi pi-plus" ></p-button>
-        
-        <input class="input" type="text"  [(ngModel)]="pergunta.titulo" formControlName="pergunta"  placeholder="Digite o titulo da pergunta: " formControlName="pergunta" pInputText *ngIf="perguntaAdd"/>
-        <i class="pi pi-bars"></i>
-        <p-checkbox  [(ngModel)]="pergunta.obrigatoriedade" [binary]="true" *ngIf="perguntaAdd" formControlName="pergunta"></p-checkbox>
-        <i class="pi pi-bars"></i>
-        <p-button  (click)="salvarPergunta(pergunta)" label="Save" icon="pi pi-check" styleClass="p-button-warning" *ngIf="perguntaAdd"></p-button>
+
+      <p-button (click)="addPergunta()" label="Novo" icon="pi pi-plus"></p-button>
+
+      <input class="input" type="text" [(ngModel)]="pergunta.titulo" formControlName="pergunta"
+        placeholder="Título da pergunta: " formControlName="pergunta" pInputText *ngIf="perguntaAdd" />
+      <i class="pi pi-bars"></i>
+      <p-checkbox [(ngModel)]="pergunta.obrigatoriedade" [binary]="true" *ngIf="perguntaAdd" formControlName="pergunta">
+      </p-checkbox>
+      <i class="pi pi-bars"></i>
+      <p-button (click)="salvarPergunta(pergunta)" label="Save" icon="pi pi-check" styleClass="p-button-warning"
+        *ngIf="perguntaAdd"></p-button>
     </div>
-</p-toolbar>
+  </p-toolbar>
 
 </form>
 <br>
