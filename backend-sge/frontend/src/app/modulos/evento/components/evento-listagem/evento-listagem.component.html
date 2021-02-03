@@ -44,32 +44,33 @@
 
 </app-card>
 
-<app-card [titulo]="'Lista de eventos'">
+<app-card [titulo]="'Lista de eventos - Usuario'">
     
     <p-table [value]="eventos">
         <ng-template pTemplate="header">
             <tr>
-                <th>Titulo</th>
+                <th>Título</th>
                 <th>Local</th>
-                <th>Descricao</th>
+                <th>Descrição</th>
                 <th>Quantidade de vagas</th>
-                <th>Tipo Evento</th>
                 <th>Valor</th>
-                <th>Inicio</th>
-                <th>Fim</th>
+                <th>Tipo Evento</th>
+                <th>Data de Início</th>
+                <th>Data Fim</th>
                 <th>Inscrição</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-evento>
             <tr>
                 <td>{{evento.titulo}}</td>
-                <td>{{evento.descricao}}</td>
-                <td>{{evento.periodoInicio | date: 'dd/MM/yyy HH:mm'}}</td>
-                <td>{{evento.periodoFim | date: 'dd/MM/yyy HH:mm'}}</td>
-                <td>{{evento.qtdVagas}}</td>
-                <td>{{evento.tipoEvento}}</td>
-                <td>{{evento.valor}}</td>
                 <td>{{evento.local}}</td>
+                <td>{{evento.descricao}}</td>
+                <td>{{evento.qtdVagas}}</td>
+                <td>{{evento.valor}}</td>
+                <td>{{evento.tipoEvento}}</td>
+                <td>{{evento.dataInicio| date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{evento.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
+
                 <td>
                     <div class="p-d-flex p-jc-end">
                     <button id="button-criar" routerLink="/eventos/inscricao" pButton type="button" label="Inscrever-se" ></button>
