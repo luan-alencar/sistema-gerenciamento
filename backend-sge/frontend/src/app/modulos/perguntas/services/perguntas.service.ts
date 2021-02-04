@@ -11,11 +11,11 @@ export class PerguntasService {
 
   constructor(private http: HttpClient) { }
 
-  getAllPerguntas(): Observable<Pergunta[]> {
+  buscarTodasPerguntas(): Observable<Pergunta[]> {
     return this.http.get<Pergunta[]>(`${this.url}/perguntas`);
   }
 
-  postPergunta(pergunta: Pergunta): Observable<Pergunta> {
+  salvarPergunta(pergunta: Pergunta): Observable<Pergunta> {
     return this.http.post<Pergunta>(`${this.url}/perguntas`, pergunta)
   }
 }

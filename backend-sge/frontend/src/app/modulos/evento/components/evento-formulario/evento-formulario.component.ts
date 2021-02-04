@@ -147,7 +147,7 @@ export class EventoFormularioComponent implements OnInit {
   }
 
   salvarPergunta(pergunta: Pergunta) {
-    this.perguntaService.postPergunta(pergunta)
+    this.perguntaService.salvarPergunta(pergunta)
       .subscribe(() => {
         alert('Pergunta salva!');
         console.log(pergunta);
@@ -165,7 +165,7 @@ export class EventoFormularioComponent implements OnInit {
   }
 
   buscarPerguntas() {
-    this.perguntaService.getAllPerguntas()
+    this.perguntaService.buscarTodasPerguntas()
       .subscribe((perguntas: Pergunta[]) => {
         this.perguntasEvento = perguntas;
       })
