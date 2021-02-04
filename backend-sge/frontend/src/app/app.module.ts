@@ -1,31 +1,30 @@
-import { LoginComponent } from './shared/components/login/login.component';
-import { UsuarioService } from './modulos/usuario/services/usuario.service';
-import { environment } from './../environments/environment';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SecurityModule, VersionTagModule, AUTH_CONFIG, AuthConfig } from '@nuvem/angular-base';
-import { BreadcrumbModule, ErrorStackModule, MenuModule, PageNotificationModule } from '@nuvem/primeng-components';
-import { BlockUIModule } from 'ng-block-ui';
-import { AccordionModule } from 'primeng/accordion';
+import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
-import { AppFooterComponent } from './components/footer/app.footer.component';
-import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { SharedModule } from './shared/shared.module';
-//import { environment as env } from '../environments/environment';
-//import { ENVIRONMENTER, EnvironmenterModule } from 'ng-environmenter';
+import { AppTopbarComponent } from './components/topbar/app.topbar.component';
+import { AppFooterComponent } from './components/footer/app.footer.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
+import { PageNotificationModule, BreadcrumbModule, MenuModule, ErrorStackModule } from '@nuvem/primeng-components';
+import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
+import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
+import { BlockUIModule } from 'ng-block-ui';
+import { UsuarioService } from './modulos/usuario/services/usuario.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './shared/components/login/login.component';
+
 
 @NgModule({
     declarations: [
         AppComponent,
         AppTopbarComponent,
         AppFooterComponent,
-        DiarioErrosComponent
+        DiarioErrosComponent,
+       
     ],
     imports: [
         BlockUIModule.forRoot({
@@ -40,18 +39,15 @@ import { SharedModule } from './shared/shared.module';
         BreadcrumbModule,
         ErrorStackModule,
         VersionTagModule,
-        AccordionModule,
         SecurityModule.forRoot(environment.auth),
         MenuModule,
         ReactiveFormsModule,
-        FormsModule,
-        //EnvironmenterModule
+        FormsModule
+        
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
-        //{ provide: ENVIRONMENTER, useValue: environment },
-        UsuarioService,
-        LoginComponent
+        { provide: LocationStrategy, useClass: HashLocationStrategy, },
+        UsuarioService, LoginComponent
     ],
     bootstrap: [AppComponent]
 })

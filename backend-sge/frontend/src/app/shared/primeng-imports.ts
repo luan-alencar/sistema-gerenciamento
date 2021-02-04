@@ -1,7 +1,7 @@
 import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import {ButtonModule} from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';

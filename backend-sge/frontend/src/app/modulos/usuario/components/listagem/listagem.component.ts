@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ConfirmationService } from 'primeng';
 import { Usuario } from 'src/app/dominios/usuario';
 import { UsuarioService } from '../../services/usuario.service';
@@ -10,9 +10,11 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class ListagemComponent implements OnInit {
 
+  @Output() emitUsuario: EventEmitter<Usuario> = new EventEmitter;
+  @Input() usuario: Usuario;
   usuarios: Usuario[] = [];
-  usuario = new Usuario();
-  exibirDialog = false;
+  admin = false;
+  exibirDialog: boolean = false;
   formularioEdicao: boolean;
 
   constructor(
@@ -22,6 +24,7 @@ export class ListagemComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscarUsuarios();
+    this.usuario = JSON.parse(localStorage.getItem('usuario'));
   }
 
   private buscarUsuarios(){
@@ -39,9 +42,16 @@ export class ListagemComponent implements OnInit {
       }); 
   }
 
+  Edicao(usuarioEditado: Usuario){
+    this.exibirDialog = false
+    localStorage.removeItem('usuario');
+    localStorage.setItem("usuario", JSON.stringify(usuarioEditado));
+    location.reload()
+  }
+
   mostrarDialog(edicao = false) {
     this.exibirDialog = true;
-    this.formularioEdicao = edicao;
+    //this.formularioEdicao = edicao;
   }
 
   fecharDialog(usuarioSalvo: Usuario) {
@@ -54,7 +64,8 @@ export class ListagemComponent implements OnInit {
     this.confirmationService.confirm({
         message: 'Tem certeza que deseja remover usuário?',
         accept: () => {
-            this.deletarUsuario(id);
+            this.deletarLoginUsuario(id);
+            localStorage.removeItem("usuario")
         }
     });
   }
@@ -67,4 +78,24 @@ export class ListagemComponent implements OnInit {
       },
         err => alert(err));
   }
+
+  deletarLoginUsuario(id: number){
+    this.servico.deletarUsuario(id)
+      .subscribe(() => {
+        alert('Usuário deletado');
+        this.buscarUsuarios();
+        localStorage.removeItem("usuario")
+        location.reload()
+      },
+      err => alert(err))
+  }
+
+  buscarUsuarioPorId(id: number){
+    this.servico.buscarUsuarioPorId(id)
+      .subscribe((usuario: Usuario) => {
+        this.usuario = usuario;
+      },
+      err => alert(err))
+  }
+
 }

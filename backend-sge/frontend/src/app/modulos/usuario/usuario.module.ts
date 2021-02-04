@@ -12,11 +12,11 @@ import { UsuarioRoutingModule } from './usuario-routing.module';
   providers: [UsuarioService],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     UsuarioRoutingModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class UsuarioModule { }

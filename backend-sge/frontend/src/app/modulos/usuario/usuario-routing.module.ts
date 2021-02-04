@@ -11,15 +11,16 @@ const routes: Routes = [
     component: ListagemComponent
   },
   {
-    path: 'formulario',
+    path:'formulario',
     component: FormularioComponent
   },
   {
-    path: 'formulario/:id',
-    component: FormularioComponent 
+    path:'formulario/:id',
+    component: FormularioComponent
   }
   
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

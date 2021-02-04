@@ -1,12 +1,8 @@
 import { UsuarioService } from './../../../modulos/usuario/services/usuario.service';
-//import { Environment } from 'node_modules/ng-environmenter/lib/environmenter/environment.d';
 import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import { ActivatedRoute } from '@angular/router';
-//import { Authentication, LoginSuccessComponent } from '@nuvem/angular-base';
 import { Usuario } from 'src/app/dominios/usuario';
 import { Chave } from './../../../dominios/chave';
-//import { ENVIRONMENTER } from 'ng-environmenter';
 
 @Component({
   selector: 'app-login',
