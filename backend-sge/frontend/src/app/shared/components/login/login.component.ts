@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UsuarioService } from './../../../modulos/usuario/services/usuario.service';
 import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,18 +14,20 @@ import { Chave } from './../../../dominios/chave';
 export class LoginComponent implements OnInit {
 
   display: boolean = false;
-  loginUsuario: FormGroup;
+  formLoginUsuario: FormGroup;
   chaveInput: string;
   chave = new Chave();
   @Output() emitUsuario = new EventEmitter<Usuario>();
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    public usuarioService: UsuarioService,
+    private router: Router
   ) {}
   
   ngOnInit(): void {
-    this.loginUsuario = this.fb.group({
+    this.pegarUsuarioLocalStorage();
+    this.formLoginUsuario = this.fb.group({
       chave: ['', Validators.required]
     });
   }
@@ -35,6 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(chaveInput: string){
+    this.router.navigate(['eventos'])
     this.chave.chave = chaveInput
     this.usuarioService.buscarUsuarioPorChave(this.chave)
       .subscribe((usuario: Usuario) => {

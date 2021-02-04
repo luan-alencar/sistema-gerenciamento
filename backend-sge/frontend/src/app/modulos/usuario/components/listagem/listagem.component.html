@@ -1,5 +1,5 @@
 
-<app-card [titulo]="'Lista de usuários'">
+<app-card [titulo]="'Lista de usuários'" *ngIf="">
 <!--
 <ul>
     <li *ngFor="let usuario of usuarios">{{usuario.nome}} - {{ usuario.dataNascimento | date: 'dd/MM/yyyy' }}</li>
@@ -38,12 +38,18 @@
 
 </app-card>
 
+<app-card [titulo]="'Seu Perfil'" *ngIf="">
+    <div class="p-d-flex p-jc-center">
+
+    </div>
+</app-card>
+
 <p-dialog header="Title" [(visible)]="exibirDialog">
-    <app-formulario
+    <!--app-formulario
         [usuario]="usuario"
         [edicao]="formularioEdicao"
         (usuarioSalvo)="fecharDialog($event)"
-    ></app-formulario>
+    ></app-formulario-->
 </p-dialog>
 
 
