@@ -1,6 +1,7 @@
 <app-card [titulo]="'Lista de Eventos - Administrador'">
 
 
+    <!-- Botao de Cadastrar um Evento -->
     <div class="p-d-flex p-jc-end">
         <button (click)="mostrarDialogCadastrar()" routerLink="evento-formulario" pButton type="button"
             label="Cadastrar Evento"></button>
@@ -90,6 +91,5 @@
 <p-dialog header="Title" [(visible)]="exibirDialog">
     <app-evento-formulario [evento]="evento" [edicao]="formularioEdicao" (eventoSalvo)="fecharDialog($event)">
     </app-evento-formulario>
+    <p-confirmDialog header="Confirmar Deseja confirmar a edição?" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </p-dialog>
-
-<p-confirmDialog header="Confirmar Remover Usuário" icon="pi pi-exclamation-triangle"></p-confirmDialog>

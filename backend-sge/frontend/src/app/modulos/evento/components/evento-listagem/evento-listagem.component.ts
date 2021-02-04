@@ -23,7 +23,7 @@ export class EventoListagemComponent implements OnInit {
     private confirmationService: ConfirmationService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.buscarEventos();
   }
 

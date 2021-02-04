@@ -26,11 +26,11 @@ export class EventoService {
     return this.http.get<TipoEvento[]>(`${this.url2}`);
   }
 
-  postEvento(evento: Evento): Observable<Evento> {
+  salvarEvento(evento: Evento): Observable<Evento> {
     return this.http.post<Evento>(this.url, evento);
   }
 
-  putEvento(evento: Evento): Observable<Evento> {
+  editarEvento(evento: Evento): Observable<Evento> {
     return this.http.put<Evento>(this.url, evento);
   }
 
