@@ -10,7 +10,7 @@ import { UsuarioRoutingModule } from './usuario-routing.module';
 
 
 @NgModule({
-  declarations: [FormularioComponent, ListagemComponent],
+  declarations: [ListagemComponent],
   providers: [
     UsuarioService
   ],

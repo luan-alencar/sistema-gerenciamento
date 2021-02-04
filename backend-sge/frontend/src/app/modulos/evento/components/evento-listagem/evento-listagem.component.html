@@ -1,7 +1,9 @@
 <app-card [titulo]="'Lista de Eventos - Administrador'">
 
+
     <div class="p-d-flex p-jc-end">
-        <button routerLink="evento-formulario" pButton type="button" label="Cadastrar Evento"></button>
+        <button (click)="mostrarDialogCadastrar()" routerLink="evento-formulario" pButton type="button"
+            label="Cadastrar Evento"></button>
     </div>
     <br>
 
@@ -31,7 +33,6 @@
                 <td>{{evento.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
 
                 <td class="p-d-flex p-jc-center">
-                    <!-- <button [routerLink]="['formulario', usuario.id]" pButton type="button" icon="pi pi-pencil"></button> -->
                     <button (click)="mostrarDialogEditar(evento.id)" pButton type="button" icon="pi pi-pencil"></button>
                     <button (click)="confirmarDeletarEvento(evento.id)" class="p-ml-2" pButton type="button"
                         icon="pi pi-trash"></button>
@@ -39,15 +40,10 @@
             </tr>
         </ng-template>
     </p-table>
-
 </app-card>
 <p-dialog header="Title" [(visible)]="exibirDialog">
-    <app-evento-formulario
-        [evento]="evento"
-        [edicao]="formularioEdicao"
-        (eventoSalvo)="fecharDialog($event)"
-    ></app-evento-formulario>
-    <p-confirmDialog header="Confirmar Remover Usuário" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+    <app-evento-formulario [evento]="evento" [edicao]="formularioEdicao" (eventoSalvo)="fecharDialog($event)">
+    </app-evento-formulario>
 </p-dialog>
 
 
@@ -91,3 +87,9 @@
 
 </app-card>
 
+<p-dialog header="Title" [(visible)]="exibirDialog">
+    <app-evento-formulario [evento]="evento" [edicao]="formularioEdicao" (eventoSalvo)="fecharDialog($event)">
+    </app-evento-formulario>
+</p-dialog>
+
+<p-confirmDialog header="Confirmar Remover Usuário" icon="pi pi-exclamation-triangle"></p-confirmDialog>

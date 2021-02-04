@@ -6,9 +6,9 @@ import { TipoSituacao } from './tipo-situacao';
 export class Evento {
 
     id: number;
+    titulo: string;
     local: string;
     descricao: string;
-    titulo: string;
     qtdVagas: number;
     valor: number;
     dataInicio: Date;

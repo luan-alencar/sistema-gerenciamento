@@ -23,11 +23,11 @@ export class EventoFormularioComponent implements OnInit {
 
   // instancias
   @Input() evento = new Evento();
-  @Input()edicao = false;
+  @Input() edicao = false;
   @Output() eventoSalvo = new EventEmitter<Evento>();
   pergunta = new Pergunta();
 
-  tipoInscricao = false;
+  inscricaoTipo = false;
 
   valueCheck: boolean;
   display: boolean;
@@ -35,10 +35,12 @@ export class EventoFormularioComponent implements OnInit {
   checagemDeObrigatoriedadePergunta: boolean;
 
 
-  tipoEvento: TipoEvento;
+  eventoTipo: TipoEvento;
   tipoEventos: TipoEvento[] = [];
   perguntasEvento: Pergunta[] = [];
   perguntaEventoPergunta: EventoPergunta;
+
+  perguntasEventoSelecionadas: Pergunta[] = [];
 
 
   constructor(
@@ -105,12 +107,27 @@ export class EventoFormularioComponent implements OnInit {
   }
 
   salvarEvento() {
+    if (this.formEvento.invalid) {
+      alert('Formulário Inválido!');
+      return;
+    }
+
+    if (this.edicao) {
+      this.eventoService.putEvento(this.evento)
+        .subscribe(evento => {
+          alert('Evento Editado!');
+          this.fecharDialog(evento);
+        }, (erro: HttpErrorResponse) => {
+          (erro.error.message);
+        });
+    }
+
     this.confirmationService.confirm({
       message: 'Voce deseja confirmar o cadastro?',
       accept: () => {
 
-        this.evento.tipoEvento = this.tipoEvento.id
-        this.evento.tipoInscricao = this.tipoInscricao
+        this.evento.tipoEvento = this.eventoTipo.id
+        this.evento.tipoInscricao = this.inscricaoTipo
         console.log(this.evento);
         this.perguntasEvento.forEach(perg => {
           this.perguntaEventoPergunta = new EventoPergunta()
@@ -127,6 +144,7 @@ export class EventoFormularioComponent implements OnInit {
           });
       }
     });
+
   }
 
   salvarPergunta(pergunta: Pergunta) {

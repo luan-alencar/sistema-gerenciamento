@@ -1,7 +1,6 @@
-import { ConfirmationService } from 'primeng';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
-import { Usuario } from 'src/app/dominios/usuario';
 import { EventoService } from '../../services/evento.service';
 
 @Component({
@@ -39,12 +38,18 @@ export class EventoListagemComponent implements OnInit {
     this.eventoService.findEventoById(id)
       .subscribe(evento => {
         this.evento = evento;
+        this.mostrarDialog(true);
       });
   }
 
+  mostrarDialogCadastrar() {
+    this.evento = new Evento();
+    this.mostrarDialog();
+  }
+
   mostrarDialog(edicao = false) {
-    this.exibirDialog = false;
-    this.buscarEventos();
+    this.exibirDialog = true;
+    this.formularioEdicao = edicao;
   }
 
   confirmarDeletarEvento(id: number) {
@@ -56,8 +61,9 @@ export class EventoListagemComponent implements OnInit {
     });
   }
 
-  fecharDialog(eventoSalvo: Evento) {
-    this.eventoSalvo.emit(eventoSalvo);
+  fecharDialog() {
+    this.exibirDialog = false;
+    this.buscarEventos();
   }
 
   deleteEvento(id?: number) {
