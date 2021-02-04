@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { PRIMENG_IMPORTS } from './primeng-imports';
 import {CardComponent} from './components/card/card.component';
 import { ConfirmationService } from 'primeng';
-import { AUTH_CONFIG } from '@nuvem/angular-base';
+//import { AUTH_CONFIG } from '@nuvem/angular-base';
 import { FormularioComponent } from './components/formulario/formulario.component';
 
 @NgModule({

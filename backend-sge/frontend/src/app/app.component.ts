@@ -58,7 +58,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
     rippleMouseDownListener: EventListenerOrEventListenerObject;
 
-    constructor(public renderer2: Renderer2, public zone: NgZone, public menuService: MenusService, private environmenter: Environmenter) { }
+    constructor(public renderer2: Renderer2, public zone: NgZone, public menuService: MenusService) { }
 
     ngOnInit() {
         this.zone.runOutsideAngular(() => { this.bindRipple(); });
@@ -69,14 +69,6 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
             { label: 'Dashboard', icon: 'dashboard', routerLink: ['/'] }
         ];
     }
-
-    getEnvironment() {
-        return [
-          this.environmenter.getApplicationEnvironment(),
-          this.environmenter.getGlobalEnvironment(),
-          this.environmenter.getEnvironment(),
-        ];
-      }
 
     bindRipple() {
         this.rippleInitListener = this.init.bind(this);

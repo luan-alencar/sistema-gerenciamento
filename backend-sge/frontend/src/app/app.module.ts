@@ -1,3 +1,5 @@
+import { LoginComponent } from './shared/components/login/login.component';
+import { UsuarioService } from './modulos/usuario/services/usuario.service';
 import { environment } from './../environments/environment';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,8 +17,8 @@ import { DiarioErrosComponent } from './components/diario-erros/diario-erros.com
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { SharedModule } from './shared/shared.module';
-import { environment as env } from '../environments/environment';
-import { ENVIRONMENTER, EnvironmenterModule } from 'ng-environmenter';
+//import { environment as env } from '../environments/environment';
+//import { ENVIRONMENTER, EnvironmenterModule } from 'ng-environmenter';
 
 @NgModule({
     declarations: [
@@ -43,11 +45,13 @@ import { ENVIRONMENTER, EnvironmenterModule } from 'ng-environmenter';
         MenuModule,
         ReactiveFormsModule,
         FormsModule,
-        EnvironmenterModule
+        //EnvironmenterModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        { provide: ENVIRONMENTER, useValue: environment }
+        //{ provide: ENVIRONMENTER, useValue: environment },
+        UsuarioService,
+        LoginComponent
     ],
     bootstrap: [AppComponent]
 })
