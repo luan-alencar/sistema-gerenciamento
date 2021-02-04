@@ -102,7 +102,7 @@ export class EventoFormularioComponent implements OnInit {
   }
 
   buscarEvento(id: number) {
-    this.eventoService.findEventoById(id)
+    this.eventoService.encontrarEventoPorId(id)
       .subscribe(evento => this.evento = evento);
   }
 
@@ -158,7 +158,7 @@ export class EventoFormularioComponent implements OnInit {
   }
 
   buscarTipoEvento() {
-    this.eventoService.getAllTipoEvento()
+    this.eventoService.buscarTodosTipoEvento()
       .subscribe((tipoEventos: TipoEvento[]) => {
         this.tipoEventos = tipoEventos;
       });

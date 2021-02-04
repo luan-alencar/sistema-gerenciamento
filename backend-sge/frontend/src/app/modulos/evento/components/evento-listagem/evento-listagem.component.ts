@@ -28,14 +28,14 @@ export class EventoListagemComponent implements OnInit {
   }
 
   private buscarEventos() {
-    this.eventoService.getAllEventos()
+    this.eventoService.buscarTodosEventos()
       .subscribe((eventos: Evento[]) => {
         this.eventos = eventos;
       });
   }
 
   mostrarDialogEditar(id: number) {
-    this.eventoService.findEventoById(id)
+    this.eventoService.encontrarEventoPorId(id)
       .subscribe(evento => {
         this.evento = evento;
         this.mostrarDialog(true);

@@ -13,16 +13,15 @@ export class EventoService {
 
   constructor(private http: HttpClient) { }
 
-  findEventoById(id: number): Observable<Evento> {
+  encontrarEventoPorId(id: number): Observable<Evento> {
     return this.http.get<Evento>(`${this.url}/${id}`);
   }
 
-  // Pega todos os Eventos
-  getAllEventos(): Observable<Evento[]> {
+  buscarTodosEventos(): Observable<Evento[]> {
     return this.http.get<Evento[]>(`${this.url}`);
   }
 
-  getAllTipoEvento(): Observable<TipoEvento[]> {
+  buscarTodosTipoEvento(): Observable<TipoEvento[]> {
     return this.http.get<TipoEvento[]>(`${this.url2}`);
   }
 
