@@ -25,10 +25,10 @@
             <breadcrumb></breadcrumb>
             <div class="layout-content">
                 <div *ngIf="usuarioLogado">
-                    <router-outlet></router-outlet>
+                    <router-outlet [user] = "usuarioLogado"></router-outlet>
                 </div>
                 <div *ngIf="!usuarioLogado">
-                    <app-login></app-login>
+                    <app-login (emitUsuario) = "logarUsuario($event)"></app-login>
                 </div>
                 <app-footer></app-footer>
             </div>

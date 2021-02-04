@@ -1,15 +1,14 @@
+import { ListagemComponent } from './modulos/usuario/components/listagem/listagem.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
 import { UsuarioModule } from './modulos/usuario/usuario.module';
 import { EventoModule } from './modulos/evento/evento.module';
-import { ListagemComponent } from './modulos/usuario/components/listagem/listagem.component';
-//import { ListagemComponent } from './modulos/evento/components/listagem/listagem.component';
 //import { InscricaoModule } from './modulos/inscricao/inscricao.module';
 
 const routes: Routes = [
-    { //isso é pra ser listagem de eventos na real
+    {
     path: '',
     component:ListagemComponent
     },
