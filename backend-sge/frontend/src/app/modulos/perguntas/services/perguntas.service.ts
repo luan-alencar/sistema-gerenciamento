@@ -16,7 +16,7 @@ export class PerguntasService {
   }
 
   buscarPergunta(id: number): Observable<Pergunta> {
-    return this.http.get<Pergunta>(`${this.url}/${id}`);
+    return this.http.get<Pergunta>(`${this.url}/perguntas/${id}`);
   }
 
   salvarPergunta(pergunta: Pergunta): Observable<Pergunta> {

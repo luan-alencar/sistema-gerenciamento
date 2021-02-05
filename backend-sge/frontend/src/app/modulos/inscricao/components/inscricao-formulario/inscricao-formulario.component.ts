@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/dominios/evento';
@@ -23,6 +23,13 @@ export class InscricaoFormularioComponent implements OnInit {
 
 
   @Input() inscricao = new Inscricao();
+  @Output() inscricaoSalva = new EventEmitter<Inscricao>();
+  @Input() edicao = false;
+  @Input('idEvento') set idEventofn(idEvento: number) {
+    if (idEvento) {
+      this.buscarEvento(idEvento);
+    }
+  }
   inscricaoResposta = new InscricaoResposta();
   usuario = new Usuario();
   pergunta = new Pergunta();
@@ -48,11 +55,10 @@ export class InscricaoFormularioComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.buscarEvento(params.id);
-    });
+    });    
   }
 
   buscarEvento(id: number) {
-    this.perguntasEvento = [];
 
     this.eventoService.encontrarEventoPorId(id).subscribe((evento: Evento) => {
       this.evento = evento;

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
 import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
+import { Inscricao } from 'src/app/dominios/inscricao';
 import { Pergunta } from 'src/app/dominios/pergunta';
 import { PerguntasService } from 'src/app/modulos/perguntas/services/perguntas.service';
 import { EventoService } from '../../services/evento.service';
@@ -25,6 +26,8 @@ export class EventoFormularioComponent implements OnInit {
   @Input() evento = new Evento();
   @Input() edicao = false;
   @Output() eventoSalvo = new EventEmitter<Evento>();
+  @Output() inscricaoSalva = new EventEmitter<Inscricao>();
+ 
   pergunta = new Pergunta();
 
   inscricaoTipo = false;

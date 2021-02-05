@@ -1,3 +1,4 @@
+import { InscricaoFormularioComponent } from './../inscricao/components/inscricao-formulario/inscricao-formulario.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InscricaoListagemComponent } from '../inscricao/components/inscricao-listagem/inscricao-listagem.component';
@@ -21,8 +22,8 @@ const routes: Routes = [
     component: EventoFormularioComponent
   },
   {
-    path: 'inscricoes',
-    component: InscricaoListagemComponent
+    path: 'inscricoes/:id',
+    component: InscricaoFormularioComponent
   }
 ];
 
