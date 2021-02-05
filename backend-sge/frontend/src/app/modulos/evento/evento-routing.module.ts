@@ -10,7 +10,6 @@ const routes: Routes = [
     path: '',
     component: EventoListagemComponent
   },
-
   {
     path: 'evento-formulario',
     component: EventoFormularioComponent

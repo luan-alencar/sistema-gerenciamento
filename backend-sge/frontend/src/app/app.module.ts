@@ -9,36 +9,45 @@ import { BlockUIModule } from 'ng-block-ui';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
-import { AppFooterComponent } from './components/footer/app.footer.component';
-import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { SharedModule } from './shared/shared.module';
+import { AppTopbarComponent } from './components/topbar/app.topbar.component';
+import { AppFooterComponent } from './components/footer/app.footer.component';
+import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
+import { UsuarioService } from './modulos/usuario/services/usuario.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './shared/components/login/login.component';
+
 
 @NgModule({
     declarations: [
         AppComponent,
         AppTopbarComponent,
         AppFooterComponent,
-        DiarioErrosComponent
+        DiarioErrosComponent,
+       
     ],
     imports: [
         BlockUIModule.forRoot({
             message: "Carregando..."
           }),
-          BrowserModule,
-          BrowserAnimationsModule,
-          AppRoutingModule,
-          SharedModule,
-          HttpClientModule,
-          PageNotificationModule,
-          BreadcrumbModule,
-          ErrorStackModule,
-          VersionTagModule,
-          SecurityModule.forRoot(environment.auth),
-          MenuModule
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        SharedModule,
+        HttpClientModule,
+        PageNotificationModule,
+        BreadcrumbModule,
+        ErrorStackModule,
+        VersionTagModule,
+        SecurityModule.forRoot(environment.auth),
+        MenuModule,
+        ReactiveFormsModule,
+        FormsModule
+        
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        { provide: LocationStrategy, useClass: HashLocationStrategy, },
+        UsuarioService, LoginComponent
     ],
     bootstrap: [AppComponent]
 })
