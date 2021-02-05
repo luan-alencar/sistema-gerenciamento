@@ -3,8 +3,7 @@
 
     <!-- Botao de Cadastrar um Evento -->
     <div class="p-d-flex p-jc-end">
-        <button (click)="mostrarDialogCadastrar()" routerLink="evento-formulario" pButton type="button"
-            label="Cadastrar Evento"></button>
+        <button routerLink="evento-formulario" pButton type="button" label="Cadastrar Evento"></button>
     </div>
     <br>
 
@@ -36,7 +35,7 @@
                 <td class="p-d-flex p-jc-center">
                     <button (click)="mostrarDialogEditar(evento.id)" pButton type="button" icon="pi pi-pencil"></button>
                     <button (click)="confirmarDeletarEvento(evento.id)" class="p-ml-2" pButton type="button"
-                        icon="pi pi-trash"></button>
+                    icon="pi pi-trash"></button>
                 </td>
             </tr>
         </ng-template>

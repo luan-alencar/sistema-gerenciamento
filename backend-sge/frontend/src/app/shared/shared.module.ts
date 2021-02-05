@@ -5,6 +5,7 @@ import {CardComponent} from './components/card/card.component';
 import { ConfirmationService } from 'primeng';
 import { AUTH_CONFIG } from '@nuvem/angular-base';
 import { FormularioComponent } from '../modulos/usuario/components/formulario/formulario.component';
+import { InscricaoFormularioComponent } from '../modulos/inscricao/components/inscricao-formulario/inscricao-formulario.component';
 
 @NgModule({
     declarations: [

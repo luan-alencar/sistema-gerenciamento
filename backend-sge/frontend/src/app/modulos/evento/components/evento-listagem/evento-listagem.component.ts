@@ -67,7 +67,7 @@ export class EventoListagemComponent implements OnInit {
   }
 
   deleteEvento(id?: number) {
-    this.eventoService.deleteEvento(id)
+    this.eventoService.deletarEvento(id)
       .subscribe(() => {
         alert('Evento deletado');
         this.buscarEventos();

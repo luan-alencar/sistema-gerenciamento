@@ -15,6 +15,10 @@ export class PerguntasService {
     return this.http.get<Pergunta[]>(`${this.url}/perguntas`);
   }
 
+  buscarPergunta(id: number): Observable<Pergunta> {
+    return this.http.get<Pergunta>(`${this.url}/${id}`);
+  }
+
   salvarPergunta(pergunta: Pergunta): Observable<Pergunta> {
     return this.http.post<Pergunta>(`${this.url}/perguntas`, pergunta)
   }

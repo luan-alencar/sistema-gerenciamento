@@ -33,7 +33,7 @@ export class EventoService {
     return this.http.put<Evento>(this.url, evento);
   }
 
-  deleteEvento(id: number): Observable<any> {
+  deletarEvento(id: number): Observable<any> {
     return this.http.delete<Evento>(`${this.url}/${id}`);
   }
 }

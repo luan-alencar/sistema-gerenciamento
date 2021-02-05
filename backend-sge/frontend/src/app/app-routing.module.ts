@@ -1,8 +1,9 @@
-import { UsuarioModule } from './modulos/usuario/usuario.module';
+import { InscricaoModule } from './modulos/inscricao/inscricao.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { EventoModule } from './modulos/evento/evento.module';
+import { UsuarioModule } from './modulos/usuario/usuario.module';
 
 const routes: Routes = [
 
@@ -14,7 +15,13 @@ const routes: Routes = [
     path: 'usuarios',
     loadChildren: () => UsuarioModule,
   },
-  { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros'} }
+
+  {
+    path:'inscricoes',
+    loadChildren: () => InscricaoModule
+  },  
+
+  { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros' } }
 
 ];
 
