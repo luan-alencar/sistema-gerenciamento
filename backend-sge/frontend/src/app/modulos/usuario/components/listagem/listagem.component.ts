@@ -44,7 +44,7 @@ export class ListagemComponent implements OnInit {
       }); 
   }
 
-  Edicao(usuarioEditado: Usuario){
+  edicao(usuarioEditado: Usuario){
     this.exibirDialog = false
     localStorage.removeItem('usuario');
     localStorage.setItem("usuario", JSON.stringify(usuarioEditado));
@@ -72,7 +72,7 @@ export class ListagemComponent implements OnInit {
     });
   }
 
-  private deletarUsuario(id: number) {
+  public deletarUsuario(id: number) {
     this.servico.deletarUsuario(id)
       .subscribe(() => {
         alert('Usuário deletado!');

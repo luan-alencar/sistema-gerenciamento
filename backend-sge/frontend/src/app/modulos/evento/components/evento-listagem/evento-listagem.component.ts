@@ -1,3 +1,4 @@
+import { Usuario } from './../../../../dominios/usuario';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
@@ -16,6 +17,7 @@ export class EventoListagemComponent implements OnInit {
   evento = new Evento();
   exibirDialog = false;
   formularioEdicao: boolean;
+  usuario: Usuario;
 
   // construtor
   constructor(
@@ -32,6 +34,11 @@ export class EventoListagemComponent implements OnInit {
       .subscribe((eventos: Evento[]) => {
         this.eventos = eventos;
       });
+  }
+
+  pegarUsuarioLocalStorage() {
+    const usuario = JSON.parse(window.localStorage.getItem("usuario")); 
+    this.usuario = usuario;
   }
 
   mostrarDialogEditar(id: number) {

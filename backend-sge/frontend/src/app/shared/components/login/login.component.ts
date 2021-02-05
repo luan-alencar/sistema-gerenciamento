@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     public usuarioService: UsuarioService,
     private router: Router
-  ) {}
-  
+  ) { }
+
   ngOnInit(): void {
     this.pegarUsuarioLocalStorage();
     this.formLoginUsuario = this.fb.group({
@@ -32,13 +32,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  pegarUsuarioLocalStorage(){
+  pegarUsuarioLocalStorage() {
     const usuario = JSON.parse(window.localStorage.getItem("usuario"));
     this.emitUsuario.emit(usuario);
   }
 
-  login(chaveInput: string){
-    this.router.navigate(['/eventos'])
+  login(chaveInput: string) {
+    this.router.navigate(['/usuarios'])
     this.chave.chave = chaveInput
     this.usuarioService.buscarUsuarioPorChave(this.chave)
       .subscribe((usuario: Usuario) => {
@@ -47,11 +47,22 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  mostrarDialog(){
+  usuarioAdministrador(chave: string) {
+    this.chave.chave = chave;
+    this.usuarioService.buscarUsuarioPorChave(this.chave)
+      .subscribe((user: Usuario) => {
+        if (chave === 'admin' && user.tipoUsuario === 'a') {
+          this.emitUsuario.emit(user);
+          localStorage.setItem("admin", JSON.stringify(user));
+        }
+      });
+  }
+
+  mostrarDialog() {
     this.display = true;
   }
 
-  logout(){
+  logout() {
     localStorage.clear();
     location.reload();
   }
