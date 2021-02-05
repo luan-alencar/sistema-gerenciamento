@@ -1,18 +1,17 @@
 <app-card [titulo]="evento.descricao">
 
     <div class="card">
-        sdasda
+
         <p-table [value]="perguntasEvento">
-            <ng-template pTemplate="header">
+            <ng-template pTemplate="header" >
                 <tr>
-                    <th pSortableColumn="obrigatoriedade">Obrigatoriedade<p-sortIcon field="obrigatoriedade">
-                        </p-sortIcon>
+                    <th>Obrigatoriedade
                     </th>
                     <th>Título</th>
                     <th>Resposta</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-pergunta>
+            <ng-template pTemplate="body" *ngFor="let pergunta of perguntasEvento">
                 <tr>
                     <td>{{pergunta.obrigatoriedade}}</td>
                     <td>{{pergunta.titulo}}</td>

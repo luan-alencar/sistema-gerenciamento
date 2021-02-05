@@ -68,9 +68,11 @@ export class InscricaoFormularioComponent implements OnInit {
       });
     });
   }
+
   buscarTodasPerguntasDoEvento(idPergunta: number) {
     this.perguntaService.buscarPergunta(idPergunta).subscribe((pergunta: Pergunta) => {
       this.perguntasEvento.push(pergunta);
+      console.log(this.perguntasEvento);
     });
   }
 }

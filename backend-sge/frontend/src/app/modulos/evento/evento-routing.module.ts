@@ -20,10 +20,6 @@ const routes: Routes = [
   {
     path: 'evento-formulario/:id',
     component: EventoFormularioComponent
-  },
-  {
-    path: 'inscricoes/:id',
-    component: InscricaoFormularioComponent
   }
 ];
 

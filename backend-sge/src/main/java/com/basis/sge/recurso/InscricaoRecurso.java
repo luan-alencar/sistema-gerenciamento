@@ -31,7 +31,7 @@ public class InscricaoRecurso {
     @PostMapping
     public ResponseEntity<InscricaoDTO> salvar(@RequestBody InscricaoDTO inscricaoDTO) {
         inscricaoServico.salvar(inscricaoDTO);
-        return ResponseEntity.created(URI.create("/inscricao" + inscricaoDTO.getId())).build();
+        return ResponseEntity.created(URI.create("/inscricoes" + inscricaoDTO.getId())).build();
     }
 
     @PutMapping
