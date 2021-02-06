@@ -62,9 +62,14 @@ public class EventoServico {
         return eventoMapper.toDto(evento);
     }
 
+    private Evento obter(Integer id) {
+        return eventoRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("O id do Evento informado não foi encontrado"));
+    }
+
     public void remover(Integer id) {
-        eventoRepositorio.delete(eventoRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
+        Evento evento = obter(id);
+        eventoRepositorio.delete(evento);
     }
 
     public void enviarEmail(Usuario usuario) {

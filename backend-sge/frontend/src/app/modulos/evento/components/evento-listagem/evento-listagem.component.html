@@ -34,8 +34,7 @@
 
                 <td class="p-d-flex p-jc-center">
                     <button style="margin: 5px;" (click)="mostrarDialogEditar(evento.id)" pButton type="button" icon="pi pi-pencil" class="ui-button-raised ui-button-rounded"></button>
-                    <button style="margin: 5px;" (click)="confirmarDeletarEvento(evento.id)" class="p-ml-2" pButton type="button"
-                        icon="pi pi-trash"></button>
+                    <button style="margin: 5px;" (click)="confirmarDeletarEvento(evento.id)" pButton type="button"  icon="pi pi-trash" class="p-ml-2"></button>
                 </td>
             </tr>
         </ng-template>
@@ -47,7 +46,7 @@
     </app-evento-formulario>
 </p-dialog>
 
-
+<p-confirmDialog header="Confirmar Remover Evento" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
 <app-card [titulo]="'Lista de eventos'">
 
@@ -95,10 +94,10 @@
 <p-dialog header="Perguntas" [(visible)]="exibirDialogInscricao">
     <app-inscricao-formulario [idEvento]="idEventoSelecionado" [inscricao]="inscricao" [edicao]="formularioInscricao"
         (inscricaoSalva)="fecharDialogInscricao($event)">
-
-
     </app-inscricao-formulario>
 </p-dialog>
+
+
 
 <p-dialog header="Title" [(visible)]="exibirDialog">
     <app-evento-formulario [evento]="evento" [edicao]="formularioEdicao" (eventoSalvo)="fecharDialog($event)">
