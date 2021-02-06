@@ -27,7 +27,7 @@ export class EventoFormularioComponent implements OnInit {
   @Input() edicao = false;
   @Output() eventoSalvo = new EventEmitter<Evento>();
   @Output() inscricaoSalva = new EventEmitter<Inscricao>();
- 
+
   pergunta = new Pergunta();
 
   inscricaoTipo = false;
@@ -87,7 +87,8 @@ export class EventoFormularioComponent implements OnInit {
       dataInicio: '',
       dataFim: '',
       eventoPerguntas: '',
-      pergunta: ''
+      pergunta: '',
+      obrigatoriedade: ''
     });
 
   } // Fim ngOnInit
@@ -150,11 +151,15 @@ export class EventoFormularioComponent implements OnInit {
   }
 
   salvarPergunta(pergunta: Pergunta) {
+    console.log(pergunta)
+    if (pergunta.obrigatoriedade == null) {
+      pergunta.obrigatoriedade = false;
+    }
     this.perguntaService.salvarPergunta(pergunta)
       .subscribe(() => {
         alert('Pergunta salva!');
-        console.log(pergunta);
         this.perguntaAdd = false;
+        console.log(pergunta)
       }, (erro: HttpErrorResponse) => {
         alert(erro.error.message);
       });

@@ -1,10 +1,9 @@
-import { PerguntasService } from 'src/app/modulos/perguntas/services/perguntas.service';
-import { InscricaoService } from './../../../inscricao/services/inscricao.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
-import { EventoService } from '../../services/evento.service';
 import { Inscricao } from 'src/app/dominios/inscricao';
+import { PerguntasService } from 'src/app/modulos/perguntas/services/perguntas.service';
+import { EventoService } from '../../services/evento.service';
 
 @Component({
   selector: 'app-evento-listagem',
@@ -15,7 +14,7 @@ export class EventoListagemComponent implements OnInit {
 
   // declaracoes
   @Output() eventoSalvo = new EventEmitter<Evento>();
- 
+
   eventos: Evento[] = [];
   evento = new Evento();
   inscricao = new Inscricao();
@@ -24,7 +23,7 @@ export class EventoListagemComponent implements OnInit {
 
   exibirDialog = false;
   exibirDialogInscricao = false;
-  
+
   formularioInscricao: boolean;
   formularioEdicao: boolean;
 
@@ -51,9 +50,13 @@ export class EventoListagemComponent implements OnInit {
     this.perguntasService.buscarTodasPerguntas();
   }
 
+  fecharDialog() {
+    this.exibirDialog = false;
+    this.buscarEventos();
+  }
+
   mostrarDialogInscricao(evento: Evento) {
     this.idEventoSelecionado = evento.id;
-    console.log(evento);
     this.exibirDialogInscricao = true;
     this.formularioInscricao = true;
   }
@@ -76,6 +79,11 @@ export class EventoListagemComponent implements OnInit {
     this.formularioEdicao = edicao;
   }
 
+  fecharDialogInscricao() {
+    this.exibirDialog = false;
+    this.buscarPerguntas();
+  }
+
   confirmarDeletarEvento(id: number) {
     this.confirmationService.confirm({
       message: 'Deseja realmente excluir este Evento?',
@@ -83,16 +91,6 @@ export class EventoListagemComponent implements OnInit {
         this.deleteEvento(id);
       }
     });
-  }
-
-  fecharDialog() {
-    this.exibirDialog = false;
-    this.buscarEventos();
-  }
-
-  fecharDialogInscricao() {
-    this.exibirDialog = false;
-    this.buscarPerguntas();
   }
 
   deleteEvento(id?: number) {
@@ -103,4 +101,5 @@ export class EventoListagemComponent implements OnInit {
       },
         err => alert(err));
   }
+
 }
