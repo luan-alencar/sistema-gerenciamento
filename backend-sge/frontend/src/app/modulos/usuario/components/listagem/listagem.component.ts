@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConfirmationService } from 'primeng';
 import { Usuario } from 'src/app/dominios/usuario';
 import { UsuarioService } from '../../services/usuario.service';
@@ -91,6 +91,7 @@ export class ListagemComponent implements OnInit {
       },
         err => alert(err))
   }
+
 
   buscarUsuarioPorId(id: number) {
     this.servico.buscarUsuarioPorId(id)

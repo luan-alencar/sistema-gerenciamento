@@ -7,7 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PRIMENG_IMPORTS } from './primeng-imports';
 
 @NgModule({
-    declarations: [CardComponent, LoginComponent, FormularioComponent], 
+    declarations: [CardComponent, LoginComponent, FormularioComponent],
     imports: [
         PRIMENG_IMPORTS,
         ReactiveFormsModule,
@@ -15,7 +15,7 @@ import { PRIMENG_IMPORTS } from './primeng-imports';
     ],
     providers: [ConfirmationService],
     exports: [
-        PRIMENG_IMPORTS,CardComponent,LoginComponent, FormularioComponent
+        PRIMENG_IMPORTS, CardComponent, LoginComponent, FormularioComponent
     ]
 })
 export class SharedModule { }

@@ -1,3 +1,4 @@
+import { Usuario } from './../../../../dominios/usuario';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
@@ -26,6 +27,7 @@ export class EventoListagemComponent implements OnInit {
 
   formularioInscricao: boolean;
   formularioEdicao: boolean;
+  usuario: Usuario;
 
   // construtor
   constructor(
@@ -46,6 +48,12 @@ export class EventoListagemComponent implements OnInit {
       });
   }
 
+
+  pegarUsuarioLocalStorage() {
+    const usuario = JSON.parse(window.localStorage.getItem("usuario"));
+    this.usuario = usuario;
+
+  }
   private buscarPerguntas() {
     this.perguntasService.buscarTodasPerguntas();
   }
@@ -59,6 +67,7 @@ export class EventoListagemComponent implements OnInit {
     this.idEventoSelecionado = evento.id;
     this.exibirDialogInscricao = true;
     this.formularioInscricao = true;
+
   }
 
   mostrarDialogEditar(id: number) {
@@ -91,6 +100,7 @@ export class EventoListagemComponent implements OnInit {
         this.deleteEvento(id);
       }
     });
+
   }
 
   deleteEvento(id?: number) {

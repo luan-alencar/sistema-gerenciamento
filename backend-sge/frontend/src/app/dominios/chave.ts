@@ -1,5 +1,5 @@
-export class Chave{
+export class Chave {
     chave: string;
 
-    constructor(){}
+    constructor() { }
 }

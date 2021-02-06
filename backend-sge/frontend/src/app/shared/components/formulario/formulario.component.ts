@@ -27,7 +27,7 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.usuarioLogado){
+    if (this.usuarioLogado) {
       this.usuario = this.usuarioLogado;
       this.edicao = true;
     }

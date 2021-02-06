@@ -85,12 +85,9 @@
               "node_modules/quill/dist/quill.js"
             ],
             "styles": [
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/nova-light/theme.css",
-              "node_modules/primeflex/primeflex.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/quill/dist/quill.snow.css",
-              "src/styles.css"
+              "styles.css"
             ],
             "assets": [
               "src/assets"
@@ -147,6 +144,6 @@
     }
   },
   "cli": {
-    "analytics": "c704dd24-2235-4609-ab7a-2e60dcde48d8"
+    "analytics": "18e9296a-e911-4b8e-822a-e8bdcbc5e639"
   }
 }

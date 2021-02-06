@@ -10,11 +10,11 @@ const routes: Routes = [
     component: ListagemComponent
   },
   {
-    path: 'formulario',
+    path:'formulario',
     component: FormularioComponent
   },
   {
-    path: 'formulario/:id',
+    path:'formulario/:id',
     component: FormularioComponent
   }
 ];
