@@ -1,7 +1,6 @@
-import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, OnInit, NgZone } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { MenuOrientation, MenusService } from '@nuvem/primeng-components';
 import { ScrollPanel } from 'primeng';
-import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
-import { RouterLink } from '@angular/router';
 import { Usuario } from 'src/app/dominios/usuario';
 import { LoginComponent } from './shared/components/login/login.component';
 
@@ -11,7 +10,7 @@ import { LoginComponent } from './shared/components/login/login.component';
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
-    usuarioLogado : Usuario;
+    usuarioLogado: Usuario;
 
     @ViewChild(LoginComponent) login;
 
@@ -50,7 +49,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
     rippleInitListener: EventListenerOrEventListenerObject;
 
     rippleMouseDownListener: EventListenerOrEventListenerObject;
-  title: any;
+    title: any;
 
     constructor(public renderer2: Renderer2, public zone: NgZone, public menuService: MenusService) { }
 
@@ -58,13 +57,14 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.zone.runOutsideAngular(() => { this.bindRipple(); });
 
         this.menuService.itens = [
-            
+
             { label: 'Principal', icon: 'home', routerLink: ['/eventos'] },
-            { label: 'Usuarios', icon: 'perm_identity', routerLink:['/usuarios/listagem'] }
+            { label: 'Eventos', icon: 'dashboard', routerLink: ['/eventos'] },
+            { label: 'Usuarios', icon: 'perm_identity', routerLink: ['/usuarios/listagem'] }
         ];
     }
 
-    logarUsuario(usuario){
+    logarUsuario(usuario) {
         this.usuarioLogado = usuario;
     }
 
@@ -180,7 +180,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.layoutContainer = this.layourContainerViewChild.nativeElement as HTMLDivElement;
         const time = 100;
         setTimeout(() => { this.layoutMenuScrollerViewChild.moveBar(); }, time);
-       
+
     }
 
     onLayoutClick() {

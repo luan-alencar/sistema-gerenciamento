@@ -1,9 +1,9 @@
+import { Router } from '@angular/router';
+import { UsuarioService } from './../../../modulos/usuario/services/usuario.service';
 import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Usuario } from 'src/app/dominios/usuario';
 import { Chave } from './../../../dominios/chave';
-import { UsuarioService } from './../../../modulos/usuario/services/usuario.service';
 
 @Component({
   selector: 'app-login',

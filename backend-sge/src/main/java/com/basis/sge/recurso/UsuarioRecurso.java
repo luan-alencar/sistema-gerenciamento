@@ -45,7 +45,7 @@ public class UsuarioRecurso {
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
         usuarioService.salvar(usuarioDTO);
-        return ResponseEntity.created(URI.create("/usuario"+usuarioDTO.getId())).build();
+        return ResponseEntity.created(URI.create("/usuarios"+usuarioDTO.getId())).build();
     }
 
     @DeleteMapping("/{id}")

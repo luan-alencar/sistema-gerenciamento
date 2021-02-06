@@ -8,7 +8,7 @@ import { Usuario } from '../../../dominios/usuario';
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
-  //styleUrls: ['./formulario.component.css']
+  styleUrls: ['./formulario.component.css']
 })
 export class FormularioComponent implements OnInit {
 
@@ -16,6 +16,8 @@ export class FormularioComponent implements OnInit {
   edicao = false;
   usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
   @Output() usuarioSalvo = new EventEmitter<Usuario>();
+  @Output() emitEdicao : EventEmitter<Usuario> = new EventEmitter
+  @Output() emitDisplay : EventEmitter<boolean> = new EventEmitter
 
   cadastroUsuario: FormGroup;
 
@@ -27,7 +29,7 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.usuarioLogado) {
+    if(this.usuarioLogado){
       this.usuario = this.usuarioLogado;
       this.edicao = true;
     }
