@@ -1,9 +1,9 @@
-<app-card [titulo]="evento.descricao">
+<app-card [titulo]="evento.descricao" [formGroup]="formInscricao">
 
     <div class="card">
 
         <p-table [value]="perguntasEvento">
-            <ng-template pTemplate="header" >
+            <ng-template pTemplate="header">
                 <tr>
                     <th>Obrigatoriedade
                     </th>

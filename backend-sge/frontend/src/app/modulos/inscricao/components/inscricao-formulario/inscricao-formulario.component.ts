@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/dominios/evento';
@@ -25,7 +26,7 @@ export class InscricaoFormularioComponent implements OnInit {
   @Input() inscricao = new Inscricao();
   @Output() inscricaoSalva = new EventEmitter<Inscricao>();
   @Input() edicao = false;
-  @Input('idEvento') set idEventofn(idEvento: number) {
+  @Input('idEvento') set idEvento(idEvento: number) {
     if (idEvento) {
       this.buscarEvento(idEvento);
     }
@@ -56,13 +57,65 @@ export class InscricaoFormularioComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.buscarEvento(params.id);
     });    
+
+    this.formInscricao = this.fb.group ({
+      idUsuario: '',
+      idEvento: '',
+      idTipoSituacao: '',
+      resposta: ''
+    });
   }
+
+  salvarResposta(){
+    this.usuario = JSON.parse(window.localStorage.getItem("usuario")); 
+    let cond = true;
+
+    this.perguntasEvento.forEach(pergunta => {
+      console.log(pergunta.titulo)
+      if (!pergunta.titulo && pergunta.obrigatoriedade){
+        cond = false;
+        alert ("Você não respondeu uma pergunta obrigatoria")
+        location.reload();
+      
+      }
+      
+      this.inscricaoResposta = new InscricaoResposta
+      this.inscricaoResposta.idEvento = this.evento.id
+      this.inscricaoResposta.idPergunta = pergunta.id
+      this.inscricaoResposta.idInscricao = null
+      this.inscricaoResposta.resposta = pergunta.titulo
+
+      this.respostasInscricao.push(this.inscricaoResposta)
+    });
+
+    if (cond){
+
+      this.inscricao.idEvento = this.evento.id
+      this.inscricao.idUsuario = this.usuario.id
+      this.inscricao.idTipoSituacao = 1
+      this.respostasInscricao.forEach(resposta => {
+        this.inscricao.resposta.push(resposta)
+      });
+
+      this.inscricaoService.salvarInscricao(this.inscricao).subscribe(
+        inscricao => {
+          alert('Inscrição salva')    
+        }, (erro : HttpErrorResponse) => {
+          alert(erro.error.message)
+        })
+      // setTimeout(() => {
+      //   this.route.navigate(['/eventos/listagem'])
+      // }, 1500);
+      
+    }
+  }
+  
 
   buscarEvento(id: number) {
 
     this.eventoService.encontrarEventoPorId(id).subscribe((evento: Evento) => {
       this.evento = evento;
-
+      console.log(evento);
       this.evento.perguntas.forEach(eventoPergunta => {
         this.buscarTodasPerguntasDoEvento(eventoPergunta.idPergunta);
       });
