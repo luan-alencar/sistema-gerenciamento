@@ -2,7 +2,7 @@ application:
   appName: sge
 
   mail:
-    endereco-remetente: sapedteste@gmail.com
+    endereco-remetente: basistreinamento@gmail.com
     nome-remetente: basis
 
 spring:
