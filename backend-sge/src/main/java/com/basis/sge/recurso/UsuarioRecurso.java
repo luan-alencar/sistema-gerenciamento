@@ -2,6 +2,7 @@ package com.basis.sge.recurso;
 
 import com.basis.sge.servico.UsuarioServico;
 import com.basis.sge.servico.dto.UsuarioDTO;
+import com.basis.sge.servico.dto.ChaveDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,11 @@ public class UsuarioRecurso {
     @GetMapping("/email/{email}")
     public ResponseEntity<UsuarioDTO> obterUsuarioPorEmail(@PathVariable String email){
         return ResponseEntity.ok(usuarioService.obterUsuarioPorEmail(email));
+    }
+
+    @PostMapping("/login")
+    public  ResponseEntity<UsuarioDTO> obterUsuarioPorChave(@RequestBody ChaveDTO chaveDTO){
+        return  ResponseEntity.ok(usuarioService.buscarPorChave(chaveDTO));
     }
 
     @PostMapping
