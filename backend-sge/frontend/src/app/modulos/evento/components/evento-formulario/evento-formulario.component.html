@@ -37,7 +37,7 @@
 
     <p>Data início:</p>
     <input type="text" [(ngModel)]="evento.dataInicio" type="datetime-local" placeholder="Data de Início"
-      formControlName="dataInicio" InputText />
+      formControlName="dataInicio" pInputText />
     <br>
 
     <p>Data fim:</p>
@@ -45,17 +45,32 @@
       formControlName="dataFim" pInputText />
   </div>
 
-
   <p>Cadastrar perguntas:</p>
   <!-- Botão para cadastrar perguntas ao Evento -->
-  <p-multiSelect class="input" (click)="buscarPerguntas()" [options]="perguntasEvento" [virtualScroll]="true"
-    itemSize="40" [(ngModel)]="perguntasEventoSelecionadas" optionLabel="titulo"></p-multiSelect>
+  <p-toolbar>
+    <p>Crie uma nova pergunta caso queira: </p>
+    <div class="p-toolbar-group-center">
+
+      <!-- <p-button (click)="addPergunta()" label="Novo" icon="pi pi-plus"></p-button> -->
+
+      <input class="input" type="text" [(ngModel)]="pergunta.titulo" placeholder="Título da pergunta: "
+        formControlName="pergunta" pInputText *ngIf="perguntaAdd" />
+      <i class="pi pi-bars"></i>
+      <p-checkbox [(ngModel)]="pergunta.obrigatoriedade" [binary]="true" *ngIf="perguntaAdd"
+        formControlName="obrigatoriedade"></p-checkbox>
+      <i class="pi pi-bars"></i>
+      <p-button (click)="salvarPergunta(pergunta)" label="Save" icon="pi pi-check" styleClass="p-button-warning"
+        *ngIf="perguntaAdd"></p-button>
+    </div>
+  </p-toolbar>
 
   <!-- Dialog para adicionar perguntas - Início -->
   <p-dialog header="Perguntas" [(visible)]="display">
 
-    <input type="text" pInputText />
-    <p-button label="Salvar" (onClick)="salvarPergunta()">
+    <input type="text" pInputText [(ngModel)]="pergunta.titulo" placeholder="Titulo:" formControlName="pergunta"
+      *ngIf="perguntaAdd" />
+    <p-button label="Salvar" (click)="salvarPergunta(pergunta)" label="Save" icon="pi pi-check"
+      styleClass="p-button-warning" *ngIf="perguntaAdd">
     </p-button>
     <br>
     <br>
