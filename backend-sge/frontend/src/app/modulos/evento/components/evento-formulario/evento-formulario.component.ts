@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
 import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
+import { Inscricao } from 'src/app/dominios/inscricao';
 import { Pergunta } from 'src/app/dominios/pergunta';
 import { PerguntasService } from 'src/app/modulos/perguntas/services/perguntas.service';
 import { EventoService } from '../../services/evento.service';
@@ -25,6 +26,8 @@ export class EventoFormularioComponent implements OnInit {
   @Input() evento = new Evento();
   @Input() edicao = false;
   @Output() eventoSalvo = new EventEmitter<Evento>();
+  @Output() inscricaoSalva = new EventEmitter<Inscricao>();
+
   pergunta = new Pergunta();
 
   inscricaoTipo = false;
@@ -84,7 +87,8 @@ export class EventoFormularioComponent implements OnInit {
       dataInicio: '',
       dataFim: '',
       eventoPerguntas: '',
-      pergunta: ''
+      pergunta: '',
+      obrigatoriedade: ''
     });
 
   } // Fim ngOnInit
@@ -147,11 +151,15 @@ export class EventoFormularioComponent implements OnInit {
   }
 
   salvarPergunta(pergunta: Pergunta) {
+    console.log(pergunta)
+    if (pergunta.obrigatoriedade == null) {
+      pergunta.obrigatoriedade = false;
+    }
     this.perguntaService.salvarPergunta(pergunta)
       .subscribe(() => {
         alert('Pergunta salva!');
-        console.log(pergunta);
         this.perguntaAdd = false;
+        console.log(pergunta)
       }, (erro: HttpErrorResponse) => {
         alert(erro.error.message);
       });

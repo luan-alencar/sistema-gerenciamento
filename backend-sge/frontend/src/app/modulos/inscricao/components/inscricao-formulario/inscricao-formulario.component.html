@@ -1,1 +1,24 @@
-<p>inscricao-formulario works!</p>
+<app-card [titulo]="evento.descricao">
+
+    <div class="card">
+
+        <p-table [value]="perguntasEvento">
+            <ng-template pTemplate="header" >
+                <tr>
+                    <th>Obrigatoriedade
+                    </th>
+                    <th>Título</th>
+                    <th>Resposta</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" *ngFor="let pergunta of perguntasEvento">
+                <tr>
+                    <td>{{pergunta.obrigatoriedade}}</td>
+                    <td>{{pergunta.titulo}}</td>
+                    <td><button></button></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</app-card>
+<!-- <dialog-inscricao-formulario-resposta #dialogResposta></dialog-inscricao-formulario-resposta> -->

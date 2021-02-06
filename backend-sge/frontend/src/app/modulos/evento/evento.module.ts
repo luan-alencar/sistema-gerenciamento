@@ -1,3 +1,5 @@
+import { InscricaoService } from './../inscricao/services/inscricao.service';
+import { InscricaoFormularioComponent } from './../inscricao/components/inscricao-formulario/inscricao-formulario.component';
 import { EventoListagemComponent } from './components/evento-listagem/evento-listagem.component';
 import { EventoFormularioComponent } from './components/evento-formulario/evento-formulario.component';
 import { EventoService } from './services/evento.service';
@@ -14,11 +16,13 @@ import { PerguntasService } from '../perguntas/services/perguntas.service';
 @NgModule({
   declarations: [
     EventoFormularioComponent,
-    EventoListagemComponent
+    EventoListagemComponent,
+    InscricaoFormularioComponent
   ],
   providers: [
     EventoService,
-    PerguntasService
+    PerguntasService,
+    InscricaoService
   ],
   imports: [
     CommonModule,

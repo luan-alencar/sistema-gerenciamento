@@ -1,14 +1,16 @@
-import { EventoFormularioComponent } from './../../../evento/components/evento-formulario/evento-formulario.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Evento } from 'src/app/dominios/evento';
 import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
 import { Inscricao } from 'src/app/dominios/inscricao';
 import { InscricaoResposta } from 'src/app/dominios/inscricao-resposta';
 import { Pergunta } from 'src/app/dominios/pergunta';
+import { TipoEvento } from 'src/app/dominios/tipo-evento';
+import { Usuario } from 'src/app/dominios/usuario';
+import { EventoService } from 'src/app/modulos/evento/services/evento.service';
 import { PerguntasService } from 'src/app/modulos/perguntas/services/perguntas.service';
 import { InscricaoService } from '../../services/inscricao.service';
-import { TipoSituacao } from './../../../../dominios/tipo-situacao';
-import { Usuario } from 'src/app/dominios/usuario';
 
 @Component({
   selector: 'app-inscricao-formulario',
@@ -17,47 +19,60 @@ import { Usuario } from 'src/app/dominios/usuario';
 })
 export class InscricaoFormularioComponent implements OnInit {
 
-  respostas: InscricaoResposta[] = [];
-  perguntasEvento: Pergunta[] = [];
+  formInscricao: FormGroup;
+
+
+  @Input() inscricao = new Inscricao();
+  @Output() inscricaoSalva = new EventEmitter<Inscricao>();
+  @Input() edicao = false;
+  @Input('idEvento') set idEventofn(idEvento: number) {
+    if (idEvento) {
+      this.buscarEvento(idEvento);
+    }
+  }
+  inscricaoResposta = new InscricaoResposta();
   usuario = new Usuario();
-  inscricao = new Inscricao();
-  pergunta: Pergunta;
+  pergunta = new Pergunta();
+  evento = new Evento();
+
+  respostasInscricao: InscricaoResposta[] = [];
+  perguntasEvento: Pergunta[] = [];
+
+  resposta: string;
   eventoPergunta: EventoPergunta;
-  tipoSituacao: TipoSituacao;
+  tipoSituacao: TipoEvento;
 
   constructor(
-    private route: ActivatedRoute,
+    private fb: FormBuilder,
     private inscricaoService: InscricaoService,
+    private eventoService: EventoService,
     private perguntaService: PerguntasService,
-    private eventoForm: EventoFormularioComponent
-  ) { }
+    private route: ActivatedRoute
+  ) {
+
+  }
 
   ngOnInit(): void {
-    this.buscarTodasPerguntas();
+    this.route.params.subscribe(params => {
+      this.buscarEvento(params.id);
+    });    
   }
 
-  private buscarTodasPerguntas() {
-    this.eventoForm.buscarPerguntas();
+  buscarEvento(id: number) {
+
+    this.eventoService.encontrarEventoPorId(id).subscribe((evento: Evento) => {
+      this.evento = evento;
+
+      this.evento.perguntas.forEach(eventoPergunta => {
+        this.buscarTodasPerguntasDoEvento(eventoPergunta.idPergunta);
+      });
+    });
   }
 
-  salvar() {
-
-    // Inscricao inscricao = inscricaoMapper.toEntity(inscricaoDTO);
-    //     List<InscricaoResposta> respostas = inscricao.getResposta();
-
-    //     inscricao.setResposta(new ArrayList<>());
-
-    //     inscricaoRepositorio.save(inscricao);
-
-    //     respostas.forEach(resposta -> {
-    //         resposta.setInscricao(inscricao);
-    //     });
-
-    //     inscricaoRespostaRepositorio.saveAll(respostas);
-
-    //     return inscricaoMapper.toDto(inscricao);
-    this.inscricao.resposta.forEach(resp => {
-      this.respostas.push(resp);
+  buscarTodasPerguntasDoEvento(idPergunta: number) {
+    this.perguntaService.buscarPergunta(idPergunta).subscribe((pergunta: Pergunta) => {
+      this.perguntasEvento.push(pergunta);
+      console.log(this.perguntasEvento);
     });
   }
 }

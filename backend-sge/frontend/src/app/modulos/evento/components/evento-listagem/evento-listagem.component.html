@@ -3,8 +3,7 @@
 
     <!-- Botao de Cadastrar um Evento -->
     <div class="p-d-flex p-jc-end">
-        <button (click)="mostrarDialogCadastrar()" routerLink="evento-formulario" pButton type="button"
-            label="Cadastrar Evento"></button>
+        <button routerLink="evento-formulario" pButton type="button" label="Cadastrar Evento"></button>
     </div>
     <br>
 
@@ -34,14 +33,15 @@
                 <td>{{evento.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
 
                 <td class="p-d-flex p-jc-center">
-                    <button (click)="mostrarDialogEditar(evento.id)" pButton type="button" icon="pi pi-pencil"></button>
-                    <button (click)="confirmarDeletarEvento(evento.id)" class="p-ml-2" pButton type="button"
+                    <button style="margin: 5px;" (click)="mostrarDialogEditar(evento.id)" pButton type="button" icon="pi pi-pencil" class="ui-button-raised ui-button-rounded"></button>
+                    <button style="margin: 5px;" (click)="confirmarDeletarEvento(evento.id)" class="p-ml-2" pButton type="button"
                         icon="pi pi-trash"></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </app-card>
+
 <p-dialog header="Title" [(visible)]="exibirDialog">
     <app-evento-formulario [evento]="evento" [edicao]="formularioEdicao" (eventoSalvo)="fecharDialog($event)">
     </app-evento-formulario>
@@ -78,7 +78,7 @@
 
                 <td>
                     <div class="p-d-flex p-jc-end">
-                        <button id="button-criar" routerLink="/eventos/inscricoes" pButton type="button"
+                        <button style="margin: 10px;" id="button-criar" (click)="mostrarDialogInscricao(evento)" pButton type="button"
                             label="Inscrever-se"></button>
                     </div>
                 </td>
@@ -86,10 +86,23 @@
         </ng-template>
     </p-table>
 
+
+
+    <!-- <button type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Enviar Respostas!"></button> -->
+
 </app-card>
+
+<p-dialog header="Perguntas" [(visible)]="exibirDialogInscricao">
+    <app-inscricao-formulario [idEvento]="idEventoSelecionado" [inscricao]="inscricao" [edicao]="formularioInscricao"
+        (inscricaoSalva)="fecharDialogInscricao($event)">
+
+
+    </app-inscricao-formulario>
+</p-dialog>
 
 <p-dialog header="Title" [(visible)]="exibirDialog">
     <app-evento-formulario [evento]="evento" [edicao]="formularioEdicao" (eventoSalvo)="fecharDialog($event)">
+
     </app-evento-formulario>
     <p-confirmDialog header="Confirmar Deseja confirmar a edição?" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </p-dialog>
