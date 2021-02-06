@@ -45,53 +45,24 @@
       formControlName="dataFim" pInputText />
   </div>
 
-  <p>Cadastrar perguntas:</p>
-  <!-- Botão para cadastrar perguntas ao Evento -->
+  <div class=" p-field p-col-12 p-md-6">
+    <p class="input">Selecione as perguntas</p>
+    <p-multiSelect class="input" (click)="buscarPerguntas()" formControlName="eventoPerguntas"
+      [options]="perguntasEvento" [virtualScroll]="true" itemSize="40" [(ngModel)]="perguntasEventoSelecionadas"
+      optionLabel="titulo"></p-multiSelect>
+  </div>
+
   <p-toolbar>
     <p>Crie uma nova pergunta caso queira: </p>
     <div class="p-toolbar-group-center">
 
-      <!-- <p-button (click)="addPergunta()" label="Novo" icon="pi pi-plus"></p-button> -->
+      <p-button (click)="addPergunta()" label="Novo" icon="pi pi-plus"></p-button>
 
-      <input class="input" type="text" [(ngModel)]="pergunta.titulo" placeholder="Título da pergunta: "
+      <input class="input" type="text" [(ngModel)]="pergunta.titulo" placeholder="Digite o titulo da pergunta: "
         formControlName="pergunta" pInputText *ngIf="perguntaAdd" />
       <i class="pi pi-bars"></i>
       <p-checkbox [(ngModel)]="pergunta.obrigatoriedade" [binary]="true" *ngIf="perguntaAdd"
-        formControlName="obrigatoriedade"></p-checkbox>
-      <i class="pi pi-bars"></i>
-      <p-button (click)="salvarPergunta(pergunta)" label="Save" icon="pi pi-check" styleClass="p-button-warning"
-        *ngIf="perguntaAdd"></p-button>
-    </div>
-  </p-toolbar>
-
-  <!-- Dialog para adicionar perguntas - Início -->
-  <p-dialog header="Perguntas" [(visible)]="display">
-
-    <input type="text" pInputText [(ngModel)]="pergunta.titulo" placeholder="Titulo:" formControlName="pergunta"
-      *ngIf="perguntaAdd" />
-    <p-button label="Salvar" (click)="salvarPergunta(pergunta)" label="Save" icon="pi pi-check"
-      styleClass="p-button-warning" *ngIf="perguntaAdd">
-    </p-button>
-    <br>
-    <br>
-
-    <!-- <p-button label="Concluir" (onClick)="closeDialog()"></p-button> -->
-
-    <!-- Dialog para adicionar perguntas - Fim -->
-
-  </p-dialog>
-
-  <p-toolbar>
-    <p>Novas perguntas: </p>
-    <div class="p-toolbar-group-center">
-
-      <p-button (click)="addPergunta()" label="Novo" icon="pi pi-plus"></p-button>
-
-      <input class="input" type="text" [(ngModel)]="pergunta.titulo" placeholder="Título da pergunta: " pInputText
-        *ngIf="perguntaAdd" />
-      <i class="pi pi-bars"></i>
-      <p-checkbox [(ngModel)]="pergunta.obrigatoriedade" [binary]="true" *ngIf="perguntaAdd">
-      </p-checkbox>
+        formControlName="obrigatorio"></p-checkbox>
       <i class="pi pi-bars"></i>
       <p-button (click)="salvarPergunta(pergunta)" label="Save" icon="pi pi-check" styleClass="p-button-warning"
         *ngIf="perguntaAdd"></p-button>

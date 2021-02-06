@@ -1,14 +1,12 @@
 export class Usuario{
     
-    id: number
-    nome: String;
-    cpf: String;
-    email: String;
-    telefone: String;
+    id: number;
+    nome: string;
+    cpf: string;
+    email: string;
+    telefone: string;
     dataNascimento: Date;
-    chave: string;
     tipoUsuario: string;
-    roles: string[] = ["u", "a"];
-    name: string;
+    admin: boolean;
     constructor(){}
 }
