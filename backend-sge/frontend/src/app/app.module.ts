@@ -1,6 +1,7 @@
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
@@ -9,13 +10,10 @@ import { BlockUIModule } from 'ng-block-ui';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
-import { AppTopbarComponent } from './components/topbar/app.topbar.component';
-import { AppFooterComponent } from './components/footer/app.footer.component';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
-import { UsuarioService } from './modulos/usuario/services/usuario.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './shared/components/login/login.component';
+import { AppFooterComponent } from './components/footer/app.footer.component';
+import { AppTopbarComponent } from './components/topbar/app.topbar.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -24,12 +22,12 @@ import { LoginComponent } from './shared/components/login/login.component';
         AppTopbarComponent,
         AppFooterComponent,
         DiarioErrosComponent,
-       
+
     ],
     imports: [
         BlockUIModule.forRoot({
             message: "Carregando..."
-          }),
+        }),
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
@@ -43,11 +41,11 @@ import { LoginComponent } from './shared/components/login/login.component';
         MenuModule,
         ReactiveFormsModule,
         FormsModule
-        
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy, },
-        UsuarioService, LoginComponent
+
     ],
     bootstrap: [AppComponent]
 })
