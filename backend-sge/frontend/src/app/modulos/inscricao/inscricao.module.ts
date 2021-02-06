@@ -1,6 +1,8 @@
 import { EventoService } from './../evento/services/evento.service';
 import { PerguntasService } from './../perguntas/services/perguntas.service';
 import { CommonModule } from '@angular/common';
+import { InscricaoRoutingModule } from './inscricao-routing.module';
+import { InscricaoFormularioComponent } from 'src/app/modulos/inscricao/components/inscricao-formulario/inscricao-formulario.component';
 import { NgModule } from '@angular/core';
 import { InscricaoFormularioComponent } from './components/inscricao-formulario/inscricao-formulario.component';
 import { InscricaoListagemComponent } from './components/inscricao-listagem/inscricao-listagem.component';
