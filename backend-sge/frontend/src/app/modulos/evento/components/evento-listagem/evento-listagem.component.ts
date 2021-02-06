@@ -50,9 +50,10 @@ export class EventoListagemComponent implements OnInit {
 
 
   pegarUsuarioLocalStorage() {
-    const usuario = JSON.parse(window.localStorage.getItem("usuario")); 
+    const usuario = JSON.parse(window.localStorage.getItem("usuario"));
     this.usuario = usuario;
 
+  }
   private buscarPerguntas() {
     this.perguntasService.buscarTodasPerguntas();
   }
@@ -99,6 +100,7 @@ export class EventoListagemComponent implements OnInit {
         this.deleteEvento(id);
       }
     });
+
   }
 
   deleteEvento(id?: number) {

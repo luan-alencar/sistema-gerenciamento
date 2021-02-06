@@ -1,7 +1,5 @@
-import { User } from '@nuvem/angular-base';
+export class Usuario {
 
-export class Usuario{
-    
     id: number;
     nome: string;
     cpf: string;
@@ -10,4 +8,5 @@ export class Usuario{
     dataNascimento: Date;
     tipoUsuario: string;
     admin: boolean;
+    constructor() { }
 }

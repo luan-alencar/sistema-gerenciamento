@@ -41,7 +41,7 @@
         <addUniqueConstraint tableName="usuario" columnNames="email" constraintName="un_email_usuario"/>
         <addUniqueConstraint tableName="usuario" columnNames="chave" constraintName="un_chave_usuario"/>
 
-</changeSet>
+    </changeSet>
 
     <changeSet id="2" author="luan.augusto">
         <createTable tableName="tipo_evento" remarks="Tabela que armazena os tipos de eventos">
