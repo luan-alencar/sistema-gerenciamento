@@ -2,18 +2,23 @@ package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Evento;
 import com.basis.sge.dominio.EventoPergunta;
+import com.basis.sge.dominio.Pergunta;
 import com.basis.sge.dominio.Usuario;
 import com.basis.sge.repositorio.EventoPerguntaRepositorio;
 import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.repositorio.InscricaoRepositorio;
+import com.basis.sge.repositorio.PerguntaRepositorio;
 import com.basis.sge.servico.dto.EmailDTO;
 import com.basis.sge.servico.dto.EventoDTO;
+import com.basis.sge.servico.dto.InscricaoDTO;
+import com.basis.sge.servico.dto.UsuarioDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
 import com.basis.sge.servico.mapper.EventoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +29,10 @@ public class EventoServico {
 
     private final EventoRepositorio eventoRepositorio;
     private final EventoPerguntaRepositorio eventoPerguntaRepositorio;
+    private final PerguntaRepositorio perguntaRepositorio;
     private final InscricaoRepositorio inscricaoRepositorio;
+    private final InscricaoServico inscricaoServico;
+    private final UsuarioServico usuarioServico;
     private final EventoMapper eventoMapper;
     private final EmailServico emailServico;
 
@@ -58,8 +66,29 @@ public class EventoServico {
     }
 
     public EventoDTO editar(EventoDTO eventoDTO) {
-        Evento evento = eventoMapper.toEntity(eventoDTO);
-        eventoRepositorio.save(evento);
+        if(!eventoRepositorio.existsById(eventoDTO.getId())){
+            throw new RegraNegocioException("Evento não existe na base de dados");
+        }
+
+        Evento eventopergunta = eventoRepositorio.findById(eventoDTO.getId()).orElseThrow(()
+                -> new RegraNegocioException("Evento não encontrado"));
+
+        List<Pergunta> listPergunta = new ArrayList<>();
+        eventopergunta.getPerguntas().forEach(eventoPergunta -> listPergunta.add(perguntaRepositorio.
+                findById(eventoPergunta.getPergunta().getId()).orElseThrow(
+                () -> new RegraNegocioException("Pergunta não encontrado"))));
+
+        Evento evento = eventoRepositorio.save(eventoMapper.toEntity(eventoDTO));
+        List<InscricaoDTO> inscricaoDTO = inscricaoServico.buscarInscricaoPeloEventoId(eventoDTO.getId());
+        List<UsuarioDTO> usuariosDtos = new ArrayList<>();
+
+        if (eventoDTO.getDataFim().isBefore(eventoDTO.getDataInicio())
+                || eventoDTO.getDataInicio().isBefore(LocalDateTime.now())){
+            throw new RegraNegocioException("Data do evento inválida");
+        }
+        for (InscricaoDTO preInscricao: inscricaoDTO) {
+            usuariosDtos.add(usuarioServico.obterUsuarioPorId(preInscricao.getIdUsuario()));
+        }
 
         return eventoMapper.toDto(evento);
     }
