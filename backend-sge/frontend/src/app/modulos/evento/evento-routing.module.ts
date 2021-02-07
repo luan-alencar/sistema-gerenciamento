@@ -15,7 +15,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'evento-formulario/:id',
+    path: 'evento-listagem/evento-formulario/:id',
     component: EventoFormularioComponent
   }
 ];

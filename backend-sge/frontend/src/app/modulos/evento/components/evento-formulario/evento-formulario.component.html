@@ -36,10 +36,10 @@
               <p-inputSwitch [(ngModel)]="evento.tipoInscricao" formControlName="tipoInscricao"></p-inputSwitch>
           </div>
           <div class="p-field p-col-12 p-md-6">
-              <p-dropdown [options]="tipoEventos" placeholder="Selecione o Tipo do Evento" 
-              [(ngModel)]="eventoTipo" formControlName="tipoEvento"
-              optionLabel="descricao" optionValue="id"></p-dropdown>
-          </div>
+            <p-dropdown [options]="tipoEventos" placeholder="Selecione o Tipo do Evento" 
+            [(ngModel)]="eventoTipo" formControlName="tipoEvento"
+            optionLabel="descricao" optionValue="id"></p-dropdown>
+        </div>
           <div *ngIf="eventoTipo" class="p-field p-col-12 p-md-6 ">
               <p class="input">Valor:</p>
               <input  class="input " type="number" pKeyFilter="pnum" [(ngModel)]="evento.valor" size="30" formControlName="valor" placeholder="Valor de inscrição:" pInputText/>

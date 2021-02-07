@@ -52,7 +52,6 @@ export class EventoFormularioComponent implements OnInit {
 
   tipoEvento: TipoEvento
 
-
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -129,7 +128,7 @@ export class EventoFormularioComponent implements OnInit {
   }
 
   salvar() {
-    this.evento.tipoEvento = this.tipoEvento.id
+    this.evento.tipoEvento = this.eventoTipo.id
     this.evento.tipoInscricao = this.inscricaoTipo
 
     if (this.evento.valor == null) {
