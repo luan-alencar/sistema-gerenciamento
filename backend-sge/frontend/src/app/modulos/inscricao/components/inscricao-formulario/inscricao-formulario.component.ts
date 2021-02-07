@@ -56,9 +56,9 @@ export class InscricaoFormularioComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.buscarEvento(params.id);
-    });    
+    });
 
-    this.formInscricao = this.fb.group ({
+    this.formInscricao = this.fb.group({
       idUsuario: '',
       idEvento: '',
       idTipoSituacao: '',
@@ -66,29 +66,28 @@ export class InscricaoFormularioComponent implements OnInit {
     });
   }
 
-  salvarResposta(){
-    this.usuario = JSON.parse(window.localStorage.getItem("usuario")); 
-    let cond = true;
+  salvarResposta() {
+    this.usuario = JSON.parse(window.localStorage.getItem("usuario"));
+    let condicao = true;
 
     this.perguntasEvento.forEach(pergunta => {
-      console.log(pergunta.titulo)
-      if (!pergunta.titulo && pergunta.obrigatoriedade){
-        cond = false;
-        alert ("Você não respondeu uma pergunta obrigatoria")
+      if (!pergunta.resposta && pergunta.obrigatoriedade) {
+        condicao = false;
+        alert("Você não respondeu uma pergunta obrigatoria")
         location.reload();
-      
+
       }
-      
-      this.inscricaoResposta = new InscricaoResposta
+
+      this.inscricaoResposta = new InscricaoResposta();
       this.inscricaoResposta.idEvento = this.evento.id
       this.inscricaoResposta.idPergunta = pergunta.id
       this.inscricaoResposta.idInscricao = null
-      this.inscricaoResposta.resposta = pergunta.titulo
+      this.inscricaoResposta.resposta = pergunta.resposta
 
       this.respostasInscricao.push(this.inscricaoResposta)
     });
 
-    if (cond){
+    if (condicao) {
 
       this.inscricao.idEvento = this.evento.id
       this.inscricao.idUsuario = this.usuario.id
@@ -98,18 +97,14 @@ export class InscricaoFormularioComponent implements OnInit {
       });
 
       this.inscricaoService.salvarInscricao(this.inscricao).subscribe(
-        inscricao => {
-          alert('Inscrição salva')    
-        }, (erro : HttpErrorResponse) => {
+        () => {
+          alert('Inscrição salva')
+        }, (erro: HttpErrorResponse) => {
           alert(erro.error.message)
         })
-      // setTimeout(() => {
-      //   this.route.navigate(['/eventos/listagem'])
-      // }, 1500);
-      
     }
   }
-  
+
 
   buscarEvento(id: number) {
 
