@@ -5,6 +5,7 @@ import com.basis.sge.dominio.EventoPergunta;
 import com.basis.sge.dominio.Usuario;
 import com.basis.sge.repositorio.EventoPerguntaRepositorio;
 import com.basis.sge.repositorio.EventoRepositorio;
+import com.basis.sge.repositorio.InscricaoRepositorio;
 import com.basis.sge.servico.dto.EmailDTO;
 import com.basis.sge.servico.dto.EventoDTO;
 import com.basis.sge.servico.exception.RegraNegocioException;
@@ -23,6 +24,7 @@ public class EventoServico {
 
     private final EventoRepositorio eventoRepositorio;
     private final EventoPerguntaRepositorio eventoPerguntaRepositorio;
+    private final InscricaoRepositorio inscricaoRepositorio;
     private final EventoMapper eventoMapper;
     private final EmailServico emailServico;
 
@@ -68,8 +70,14 @@ public class EventoServico {
     }
 
     public void remover(Integer id) {
-        Evento evento = obter(id);
-        eventoRepositorio.delete(evento);
+        // Se no DB nao existir este Evento lanca a Exception
+        if (!eventoRepositorio.existsById(id)) {
+            throw new RegraNegocioException("Evento com esse id não existe");
+        }
+        // Caso contrario ele vai buscar no DB das INscricao o Evento e tb remover de la
+        inscricaoRepositorio.deleteAllByEvento(eventoRepositorio.findById(id).orElseThrow(()
+                -> new RegraNegocioException("O evento não foi cadastrado")));
+        eventoRepositorio.deleteById(id);
     }
 
     public void enviarEmail(Usuario usuario) {
