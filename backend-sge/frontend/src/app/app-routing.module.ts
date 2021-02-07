@@ -6,11 +6,12 @@ import { DiarioErrosComponent } from './components/diario-erros/diario-erros.com
 import { LoginSuccessComponent } from '@nuvem/angular-base';
 import { UsuarioModule } from './modulos/usuario/usuario.module';
 import { EventoModule } from './modulos/evento/evento.module';
+import { ListagemComponent } from './modulos/usuario/listagem/listagem.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: EventoListagemComponent
+    component: ListagemComponent
   },
   {
     path: 'usuarios',

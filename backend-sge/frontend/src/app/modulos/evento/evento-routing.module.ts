@@ -6,11 +6,11 @@ import { EventoListagemComponent } from './components/evento-listagem/evento-lis
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'evento-listagem',
     component: EventoListagemComponent
   },
   {
-    path: 'evento-formulario',
+    path: 'evento-listagem/evento-formulario',
     component: EventoFormularioComponent
   },
 
