@@ -21,6 +21,7 @@
                 <td id="nascimento">{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
                 <td class="p-d-flex p-jc-center">
                     <div style class="botao_apagar">
+                        <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
                         <button (click)="confirmarDeletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
                     </div>
                 </td>
@@ -33,17 +34,13 @@
 
 <!--View do usuario-->
 <div *ngIf="!usuario.admin">
-    <div  id="perfil"class="p-d-flex-column p-jc-center">
+    <div  id="perfil" class="p-d-flex-column p-jc-center">
         <h1 class="titulo">Seu Perfil</h1>
 
         <div id="card">
 
             
             <p-card  header={{usuario.nome}} >
-
-                <!--div class="avatar">
-                    <img id = "img-avatar" src="../../../../../assets/layout/images/avatarperfil.png"/>
-                </div-->
                 <div class="informacoes">
                     <p class="paragrafo"> <i class="pi pi-envelope"></i>
                         {{usuario.email}}</p>
@@ -62,7 +59,7 @@
 
                 <div class="botoes">
                     <button id="round" (click)="confirmarDeletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
-                    <button id="round"  (click)="mostrarDialog()"  pButton type="button" icon="pi pi-pencil"></button>
+                    <button id="round" (click)="mostrarDialog()" class="p-ml-2"  pButton type="button" icon="pi pi-pencil"></button>
                     <br>
                     <button id ="botao-cadastro" pButton type="button" routerLink='/inscricoes/listagem' label="Inscrições"  class="p-button-outlined"></button>
                 </div>

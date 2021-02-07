@@ -1,5 +1,9 @@
+import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
+import { Pergunta } from 'src/app/dominios/pergunta';
+import { TipoEvento } from 'src/app/dominios/tipo-evento';
+import { FormGroup } from '@angular/forms';
 import { Usuario } from './../../../../dominios/usuario';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
 import { Inscricao } from 'src/app/dominios/inscricao';
@@ -17,17 +21,30 @@ export class EventoListagemComponent implements OnInit {
   @Output() eventoSalvo = new EventEmitter<Evento>();
 
   eventos: Evento[] = [];
-  evento = new Evento();
+  //evento = new Evento();
   inscricao = new Inscricao();
 
   idEventoSelecionado: number;
 
-  exibirDialog = false;
   exibirDialogInscricao = false;
 
   formularioInscricao: boolean;
   formularioEdicao: boolean;
   usuario: Usuario;
+
+  edicao = false
+  formEvento: FormGroup
+  @Input() evento = new Evento
+  tipoEventos: TipoEvento[] = []
+  tipoInsc: boolean = false
+  perguntas: Pergunta[] = []
+  perguntaEscolhidas: Pergunta[] = []
+  eventoPergunta: EventoPergunta
+  adicionarPergunta: boolean = false
+  pergunta = new Pergunta
+  display: boolean = false;
+
+  tipoEvento: String
 
   // construtor
   constructor(
@@ -39,6 +56,7 @@ export class EventoListagemComponent implements OnInit {
   ngOnInit(): void {
     this.buscarEventos();
     this.buscarPerguntas();
+    this.pegarUsuarioLocalStorage();
   }
 
   private buscarEventos() {
@@ -48,19 +66,31 @@ export class EventoListagemComponent implements OnInit {
       });
   }
 
-
   pegarUsuarioLocalStorage() {
     const usuario = JSON.parse(window.localStorage.getItem("usuario")); 
     this.usuario = usuario;
   }
 
-  private buscarPerguntas() {
+  buscarPerguntas() {
     this.perguntasService.buscarTodasPerguntas();
   }
 
+  buscarPerguntasDoEvento(eventoPerguntas: EventoPergunta[]){
+    this.perguntas = []
+    eventoPerguntas.forEach(pergunta => {
+      this.perguntasService.buscarPergunta(pergunta.idPergunta).subscribe((pergunta2 => {
+        this.perguntas.push(pergunta2)
+      }))
+    });
+  }
+
   fecharDialog() {
-    this.exibirDialog = false;
+    this.display = false;
     this.buscarEventos();
+  }
+
+  adicionarPerguntas(){
+    this.adicionarPergunta = true
   }
 
   mostrarDialogInscricao(evento: Evento) {
@@ -84,13 +114,29 @@ export class EventoListagemComponent implements OnInit {
   }
 
   mostrarDialog(edicao = false) {
-    this.exibirDialog = true;
+    this.display = true;
     this.formularioEdicao = edicao;
   }
 
   fecharDialogInscricao() {
-    this.exibirDialog = false;
+    this.display = false;
     this.buscarPerguntas();
+  }
+
+  showDialog(id: number) {
+    this.eventoService.encontrarEventoPorId(id)
+      .subscribe(evento => {
+        this.evento = evento
+        this.buscarTipoEvento(evento.tipoEvento)
+        this.buscarPerguntasDoEvento(evento.perguntas)
+        this.display = true;
+      }); 
+  }
+
+  buscarTipoEvento(id: number){
+    this.eventoService.encontrarEventoPorId(id).subscribe((tipoEvento: TipoEvento ) => { 
+      this.tipoEvento = tipoEvento.descricao;
+    }) 
   }
 
   confirmarDeletarEvento(id: number) {

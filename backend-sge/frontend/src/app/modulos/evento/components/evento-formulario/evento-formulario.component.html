@@ -102,3 +102,85 @@
 <br>
 <button (click)="salvar()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'"></button>
 <p-confirmDialog header="Confirmação de cadastro" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+
+
+
+
+
+<app-card [titulo]="'Cadastro de Eventos'" class="cadastro-eventos">
+  <br>
+  <form [formGroup]="formEvento" >
+      
+      <div  class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-6 ui-float-label" >
+              <input id="float-input"  class="input" styleClass="p-d-block ui-state-error" type="text" required [(ngModel)]="evento.titulo" formControlName="titulo" pInputText/>   
+              <label for="float-input" class="label">Titulo do evento:*</label>
+          </div>
+          
+          <div class="p-field p-col-12 p-md-6 ui-float-label">
+              <input id="float-input" class="input " type="text" required [(ngModel)]="evento.descricao"  formControlName="descricao" pInputText/>
+              <label for="float-input" class="label">Descrição do evento:*</label>
+              
+          </div>
+          <div class="p-field p-col-12 p-md-6 ui-float-label">
+              <input id="float-input" class="input " type="text"  required [(ngModel)]="evento.local" formControlName="local" pInputText/>
+              <label for="float-input" class="label">Digite o local do evento:*</label>
+              
+          </div>
+          <div class="p-field p-col-12 p-md-6 ui-float-label">
+              <input id="float-input" class="input " pKeyFilter="pnum" type="number"  [(ngModel)]="evento.qtdVagas" formControlName="qtdVagas" pInputText/>
+              <label for="float-input" class="label">Vagas desse evento:</label>
+          </div>
+          
+          <div class="p-field p-col-12 p-md-6">
+              <p class="input">Data inicial do evento*</p>
+              <input class="input" type="datetime-local" required [(ngModel)]="evento.dataInicio" placeholder="Data e hora do inicio do evento:" formControlName="periodoInicio" pInputText/>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+                  <p class="input">Data Fim do evento*</p>
+                  <input class="input" type="datetime-local" required [(ngModel)]="evento.dataFim" placeholder="Data e hora do fim do evento:" formControlName="periodoFim" pInputText/>
+          </div>   
+          
+          <div class=" p-field p-col-12 p-md-6">
+              <p class="input">Selecione se o tipo da inscrição é paga</p>
+              <p-inputSwitch class="input" [(ngModel)]="inscricaoTipo" formControlName="tipoInsc" ></p-inputSwitch>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+              <p-dropdown [options]="tipoEventos" placeholder="Selecione o Tipo do Evento" 
+              [(ngModel)]="tipoEvento" formControlName="idTipoEvento"
+              optionLabel="descricao" optionValue="id"></p-dropdown>
+          </div>
+          <div *ngIf="inscricaoTipo" class="p-field p-col-12 p-md-6 ">
+              <p class="input">Valor de inscrição</p>
+              <input  class="input " type="number" pKeyFilter="pnum" [(ngModel)]="evento.valor" size="30" formControlName="valor" placeholder="Valor de inscrição:" pInputText/>
+          </div>
+  
+          <div class=" p-field p-col-12 p-md-6" *ngIf="edicao == false">
+              <p class="input">Selecione as perguntas</p>
+              
+              <p-multiSelect class="input" (click)="buscarPerguntas()" formControlName="eventoPerguntas" [options]="perguntas"  
+              [(ngModel)]="perguntaEscolhidas" optionLabel="titulo">
+          
+          </p-multiSelect> 
+          </div>
+      </div>
+  
+      <p-toolbar *ngIf="edicao == false">
+          <p>Crie uma nova pergunta caso queira: </p>
+          <div class="p-toolbar-group-center">
+              
+              <p-button (click)="addPergunta()" label="Novo" icon="pi pi-plus" *ngIf="adicionarPergunta == false"></p-button>
+              
+              <input class="input" type="text"  [(ngModel)]="pergunta.titulo"  placeholder="Digite o titulo da pergunta: " formControlName="pergunta" pInputText *ngIf="adicionarPergunta"/>
+              <i class="pi pi-bars"></i>
+              <p-checkbox  [(ngModel)]="pergunta.obrigatoriedade" [binary]="true" *ngIf="adicionarPergunta" formControlName="obrigatorio"></p-checkbox>
+              <i class="pi pi-bars"></i>
+              <p-button  (click)="salvarPergunta(pergunta)" label="Salvar" icon="pi pi-check" styleClass="p-button-warning" *ngIf="adicionarPergunta"></p-button>
+          </div>
+      </p-toolbar>
+  </form>
+  
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+  <button (click)="confirm()" [disabled]="!formEvento.valid" pButton icon="pi pi-check"  [label]="edicao ?'Editar' : 'Enviar' " class="botao"></button>
+  </app-card>
