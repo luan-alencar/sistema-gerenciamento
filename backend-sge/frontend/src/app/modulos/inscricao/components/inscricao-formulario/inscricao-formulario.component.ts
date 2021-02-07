@@ -79,28 +79,28 @@ export class InscricaoFormularioComponent implements OnInit {
       }
 
       this.inscricaoResposta = new InscricaoResposta();
-      this.inscricaoResposta.idEvento = this.evento.id
-      this.inscricaoResposta.idPergunta = pergunta.id
-      this.inscricaoResposta.idInscricao = null
-      this.inscricaoResposta.resposta = pergunta.resposta
+      this.inscricaoResposta.idEvento = this.evento.id;
+      this.inscricaoResposta.idPergunta = pergunta.id;
+      this.inscricaoResposta.idInscricao = null;
+      this.inscricaoResposta.resposta = pergunta.resposta;
 
       this.respostasInscricao.push(this.inscricaoResposta)
     });
 
     if (condicao) {
 
-      this.inscricao.idEvento = this.evento.id
-      this.inscricao.idUsuario = this.usuario.id
-      this.inscricao.idTipoSituacao = 1
+      this.inscricao.idEvento = this.evento.id;
+      this.inscricao.idUsuario = this.usuario.id;
+      this.inscricao.idTipoSituacao = 1;
       this.respostasInscricao.forEach(resposta => {
-        this.inscricao.resposta.push(resposta)
+        this.inscricao.resposta.push(resposta);
       });
 
       this.inscricaoService.salvarInscricao(this.inscricao).subscribe(
         () => {
-          alert('Inscrição salva')
+          alert('Inscrição salva');
         }, (erro: HttpErrorResponse) => {
-          alert(erro.error.message)
+          alert(erro.error.message);
         })
     }
   }
