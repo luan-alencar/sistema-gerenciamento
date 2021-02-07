@@ -6,10 +6,10 @@
                 <td>{{pergunta.titulo}}</td>
                 <td>
                     <textarea [rows]="5" [cols]="20" [(ngModel)]="pergunta.resposta" 
-                    *ngIf = "pergunta.obrigatorio" placeholder = 'Resposta Obrigatoria' pInputTextarea></textarea>
+                    *ngIf = "pergunta.obrigatoriedade" placeholder = 'Resposta Obrigatoria' pInputTextarea></textarea>
 
                     <textarea [rows]="5" [cols]="20" [(ngModel)]="pergunta.resposta" 
-                    *ngIf = "!pergunta.obrigatorio" placeholder = 'Resposta Não Obrigatoria' pInputTextarea></textarea>
+                    *ngIf = "!pergunta.obrigatoriedade" placeholder = 'Resposta Não Obrigatoria' pInputTextarea></textarea>
                 </td>
             </tr>
 

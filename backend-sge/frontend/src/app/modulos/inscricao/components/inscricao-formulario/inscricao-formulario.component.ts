@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Evento } from 'src/app/dominios/evento';
 import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
 import { Inscricao } from 'src/app/dominios/inscricao';
@@ -46,6 +46,7 @@ export class InscricaoFormularioComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private inscricaoService: InscricaoService,
     private eventoService: EventoService,
     private perguntaService: PerguntasService,
@@ -103,12 +104,14 @@ export class InscricaoFormularioComponent implements OnInit {
         }, (erro: HttpErrorResponse) => {
           alert(erro.error.message);
         })
+        setTimeout(() => {
+          this.router.navigate(['/eventos/evento-listagem'])
+        }, 1500);
     }
   }
 
 
   buscarEvento(id: number) {
-
     this.eventoService.encontrarEventoPorId(id).subscribe((evento: Evento) => {
       this.evento = evento;
       console.log(evento);
