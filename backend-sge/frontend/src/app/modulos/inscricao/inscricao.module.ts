@@ -14,7 +14,11 @@ import { DialogInscricaoFormularioRespostaComponent } from './components/inscric
 
 
 @NgModule({
-  declarations: [InscricaoFormularioComponent, InscricaoListagemComponent, DialogInscricaoFormularioRespostaComponent],
+  declarations: [
+    InscricaoFormularioComponent,
+    InscricaoListagemComponent,
+    DialogInscricaoFormularioRespostaComponent
+  ],
   providers: [
     InscricaoService,
     PerguntasService,
