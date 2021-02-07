@@ -1,3 +1,4 @@
+import { InscricaoService } from './../inscricao/services/inscricao.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -10,7 +11,7 @@ import { UsuarioRoutingModule } from './usuario-routing.module';
 
 @NgModule({
   declarations: [ListagemComponent],
-  providers: [UsuarioService],
+  providers: [UsuarioService, InscricaoService],
   imports: [
     CommonModule,
     UsuarioRoutingModule,

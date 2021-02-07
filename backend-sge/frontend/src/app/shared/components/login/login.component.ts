@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   display: boolean = false;
   formLoginUsuario: FormGroup;
-  chaveInput: string = '';
+  chaveInput: string;
   chave = new Chave();
   @Output() emitUsuario = new EventEmitter<Usuario>();
 
@@ -38,24 +38,30 @@ export class LoginComponent implements OnInit {
   }
 
   login(chaveInput: string) {
-    this.router.navigate(['/usuarios'])
+    this.router.navigate(['/eventos/listagem'])
     this.chave.chave = chaveInput
     this.usuarioService.buscarUsuarioPorChave(this.chave)
       .subscribe((usuario: Usuario) => {
         this.emitUsuario.emit(usuario);
         localStorage.setItem("usuario", JSON.stringify(usuario));
+
+        if(this.usuarioAdministrador(chaveInput)){
+          usuario.admin = true;
+        }
       });
   }
 
-  usuarioAdministrador(chave: string) {
+  usuarioAdministrador(chave: string): boolean {
     this.chave.chave = chave;
     this.usuarioService.buscarUsuarioPorChave(this.chave)
       .subscribe((user: Usuario) => {
         if (chave === 'admin' && user.tipoUsuario === 'a') {
           this.emitUsuario.emit(user);
           localStorage.setItem("admin", JSON.stringify(user));
+          return true;
         }
       });
+      return false;
   }
 
   mostrarDialog() {

@@ -2,6 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { PageNotificationService } from '@nuvem/primeng-components';
+import { MessageService } from 'primeng';
 import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
 import { Usuario } from '../../../dominios/usuario';
 
@@ -16,12 +18,14 @@ export class FormularioComponent implements OnInit {
   edicao = false;
   usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
   @Output() usuarioSalvo = new EventEmitter<Usuario>();
-  @Output() emitEdicao : EventEmitter<Usuario> = new EventEmitter
-  @Output() emitDisplay : EventEmitter<boolean> = new EventEmitter
+  @Output() emitEdicao: EventEmitter<Usuario> = new EventEmitter
+  @Output() emitDisplay: EventEmitter<boolean> = new EventEmitter
 
   cadastroUsuario: FormGroup;
 
   constructor(
+    private pageNotificationService: PageNotificationService,
+    private messageService: MessageService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private route: ActivatedRoute
@@ -29,7 +33,7 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.usuarioLogado){
+    if (this.usuarioLogado) {
       this.usuario = this.usuarioLogado;
       this.edicao = true;
     }
@@ -43,7 +47,7 @@ export class FormularioComponent implements OnInit {
 
     this.cadastroUsuario = this.fb.group({
       nome: ['', Validators.minLength(3)],
-      cpf: ['', [Validators.maxLength(11), Validators.minLength(11)]],
+      cpf: ['', [Validators.minLength(11)]],
       email: ['', Validators.email],
       telefone: '',
       dataNascimento: '',
@@ -71,7 +75,8 @@ export class FormularioComponent implements OnInit {
           alert('Usuario salvo')
         }, (erro: HttpErrorResponse) => {
           alert(erro.error.message);
-        });
+        })
+      this.emitEdicao.emit(this.usuario);
     } else {
       this.usuarioService.salvarUsuario(this.usuario)
         .subscribe(usuario => {
@@ -81,7 +86,6 @@ export class FormularioComponent implements OnInit {
           alert(erro.error.message);
         });
     }
-
   }
 
   fecharDialog(usuarioSalvo: Usuario) {

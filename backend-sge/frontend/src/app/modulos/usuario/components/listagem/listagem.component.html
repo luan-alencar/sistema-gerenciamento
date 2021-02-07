@@ -1,96 +1,78 @@
-<app-card [titulo]="'Lista de usuários'" *ngIf="usuario.admin" class="listagem-usuario-admin">
+<app-card [titulo]="'Lista de usuários'" *ngIf="usuario.admin" class="listagem-usuario-admin">    
 
     <div style Class="tabela">
         <p-table [value]="usuarios">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Nome</th>
-                    <th id="cpf">CPF</th>
-                    <th>Email</th>
-                    <th id="telefone">Telefone</th>
-                    <th id="nascimento">Nascimento</th>
-                    <th style="width: 80px;">Ações</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-usuario>
-                <tr *ngIf="!usuario.admin">
-                    <td>{{usuario.nome}}</td>
-                    <td>{{usuario.cpf}}</td>
-                    <td>{{usuario.email}}</td>
-                    <td>{{usuario.telefone}}</td>
-                    <td>{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
-                    <td class="p-d-flex p-jc-center">
-                        <div style class="botao_apagar">
-                            <button (click)="deletarUsuario(usuario.id)" class="p-ml-2" pButton type="button"
-                                icon="pi pi-trash"></button>
-                        </div>
-                    </td>
-                </tr>
-            </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nome</th>
+                <th id="cpf">CPF</th>
+                <th>Email</th>
+                <th id="telefone">Telefone</th>
+                <th id="nascimento">Nascimento</th>
+                <th style="width: 80px;">Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario>
+            <tr>
+                <td>{{usuario.nome}}</td>
+                <td id="cpf">{{usuario.cpf}}</td>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.telefone}}</td>
+                <td id="nascimento">{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
+                <td class="p-d-flex p-jc-center">
+                    <div style class="botao_apagar">
+                        <button (click)="deletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
         </p-table>
     </div>
 
 </app-card>
 
+<!--View do usuario-->
+<div *ngIf="!usuario.admin">
+    <div  id="perfil"class="p-d-flex-column p-jc-center">
+        <h1 class="titulo">Seu Perfil</h1>
 
-<div *ngIf="!admin">
-    <h1>Seu Perfil</h1>
+        <div id="card">
 
-    <div class="p-d-flex p-jc-start">
-
-
-        <p-card header={{usuario.nome}}>
-            <p> <i class="pi pi-envelope"></i>
-                {{usuario.email}}</p>
-
-            <p> <i class="pi pi-phone"></i>
-                {{usuario.telefone}}</p>
-
-            <p> <i class="pi pi-id-card"></i>
-                CPF: {{usuario.cpf}}</p>
-
-            <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                Data de nascimento: {{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</p>
-
-            <button (click)="confirmarDeletarUsuario(usuario.id)" class="p-ml-2" pButton type="button"
-                icon="pi pi-trash"></button>
-            <button (click)="mostrarDialog()" pButton type="button" icon="pi pi-pencil"></button>
-        </p-card>
-        <p-dialog header="Editar Usuario" [(visible)]="exibirDialog">
-            <app-formulario (emitEdicao)="edicao($event)"></app-formulario>
-        </p-dialog>
-        <p-confirmDialog header="Remover conta" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-    </div>
-
-
-
-    <!--div class="p-d-flex" >
-  
-    <div >
-        <p-card class="ui-card-container" header="Suas Inscrições">
             
-            <div *ngFor="let preinsc of eventos" >
-                <p-card styleClass =insc header="inscricao" >
-                    <p> <i class="pi pi-pi-ticket"></i>
-                         Descrição: {{preinsc.descricao}} </p>
+            <p-card  header={{usuario.nome}} >
 
-                    <p> <i class="pi pi-check-square "></i>
-                         Situação: {{preinsc.situacao}}</p>
-                    
-                    <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                         Inicio: {{preinsc.periodoInicio}}
-                    </p>
-
-                    <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                        Fim: {{preinsc.periodoFim}}
-                   </p>
-                  
-                  </p-card>
+                <!--div class="avatar">
+                    <img id = "img-avatar" src="../../../../../assets/layout/images/avatarperfil.png"/>
+                </div-->
+                <div class="informacoes">
+                    <p class="paragrafo"> <i class="pi pi-envelope"></i>
+                        {{usuario.email}}</p>
                 
-            </div>
+                <p class="paragrafo"> <i class="pi pi-phone"></i>
+                        {{usuario.telefone}}</p>
+                
+                <p class="paragrafo"> <i class="pi pi-id-card"></i>
+                        CPF: {{usuario.cpf}}</p>
+                
+                <p class="paragrafo"> <i class="pi pi-calendar" styleClass="pisize"></i>
+                        Data de nascimento: {{usuario.dataNascimento | date: 'dd/MM/yyyy'}}
+                </p>
+                </div>
             
-             
-        </p-card>
-    </div>
+
+                <div class="botoes">
+                    <button id="round" (click)="confirmarDeletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+                    <button   (click)="mostrarDialog()"  pButton type="button" icon="pi pi-pencil"></button>
+                    <br>
+                    <button id ="botao-cadastro" pButton type="button" routerLink='/inscricao/listagem' label="Inscrições"  class="p-button-outlined"></button>
+                </div>
+                    
+                    
+
+                </p-card>
+            <p-dialog header="Editar Usuario" [(visible)]="exibirDialog">
+                <app-formulario (emitEdicao) = "edicao($event)"></app-formulario>
+            </p-dialog>
+            <p-confirmDialog header="Remover conta" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+        </div>
 </div>
-</div-->

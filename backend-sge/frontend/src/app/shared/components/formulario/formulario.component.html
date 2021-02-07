@@ -1,25 +1,79 @@
-<div class="box">
+<!--div class="box">
     <form [formGroup]="cadastroUsuario" novalidate>
 
         <div class="p-grid p-dir-col">
-            <input class="input" type="text" [(ngModel)]="usuario.nome" placeholder="Nome Completo:"
-                formControlName="nome" pInputText />
-            <div *ngIf="cadastroUsuario.get('nome').invalid">Nome inválido</div>
-            <p-inputMask class="input" type="text" [(ngModel)]="usuario.cpf" placeholder="CPF:" formControlName="cpf"
-                mask="99999999999"></p-inputMask>
-            <input class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:" formControlName="email"
-                pInputText />
-            <input class="input" type="date" [(ngModel)]="usuario.dataNascimento" placeholder="Data de Nascimento"
-                formControlName="dataNascimento" pInputText />
-            <p-inputMask [(ngModel)]="usuario.telefone" placeholder="Telefone" class="input" formControlName="telefone"
-                mask="(99)99999-9999"></p-inputMask>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="field"  ><strong>Nome Completo: <strong class="asterisco">*</strong></strong></label>
+                <input id="field" class="input" type="text"  [(ngModel)]="usuario.nome" placeholder="Nome completo:" formControlName="nome" pInputText/>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="field2"  ><strong>CPF: <strong class="asterisco">*</strong></strong> </label>
+                <p-inputMask id="field2" class="input" type="text"  [(ngModel)]="usuario.cpf" placeholder="CPF:" formControlName="cpf" mask="999.999.999-99"></p-inputMask>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="field3"  ><strong>E-mail: <strong class="asterisco">*</strong></strong></label>
+                <input id="field3" class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:" formControlName="E-mail" pInputText/>
+            </div>
+            <div class="p-field  p-col-12 p-md-6">
+                <label for="field4"  ><strong>(DDD) e Telefone: <strong class="asterisco">*</strong></strong></label>
+                <p-inputMask id="field4" [(ngModel)]="usuario.telefone" placeholder="Telefone" class="input" formControlName="Telefone"  mask="(99)99999-9999"></p-inputMask>
+            </div>    
+            <div class="p-field  p-col-12 p-md-6">
+                <label for="field5" class=""><strong>Data Nascimento: <strong class="asterisco">*</strong></strong></label>
+                <input id="field5" class="input" type="date" [(ngModel)]="usuario.dataNascimento" placeholder="Data Nascimento" formControlName="dataNascimento" pInputText/>
+            </div>
         </div>
 
     </form>
 
-    <div class="botao_cadastrar">
-        <button (click)="salvar()" pButton type="button" [label]="edicao ?'Editar' : 'Enviar' "
-            class="ui-button-rounded"></button>
+    <div>
+        <button class="botao_cadastrar" (click)="salvar()" pButton type="button" [label]="edicao ?'Editar' : 'Enviar' "></button>
     </div>
     
+</div-->
+
+<div>
+    <form [formGroup]="cadastroUsuario" novalidate>
+        <div class="p-field p-grid">
+            <label for="field"><strong>Nome Completo: <strong class="asterisco">*</strong></strong></label>
+            <div class="p-col">
+                <input id="field" class="input" type="text" [(ngModel)]="usuario.nome" placeholder="Nome completo:"
+                    formControlName="nome" pInputText />
+            </div>
+        </div>
+        <div class="p-field p-grid">
+            <label for="field2"><strong>CPF: <strong class="asterisco">*</strong></strong> </label>
+            <div class="p-col">
+                <p-inputMask id="field2" class="input" type="text" [(ngModel)]="usuario.cpf" placeholder="CPF:"
+                    formControlName="cpf" mask="999.999.999-99"></p-inputMask>
+            </div>
+        </div>
+        <div class="p-field p-grid">
+            <label for="field3"><strong>E-mail: <strong class="asterisco">*</strong></strong></label>
+            <div class="p-col">
+                <input id="field3" class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:"
+                    formControlName="E-mail" pInputText />
+            </div>
+        </div>
+        <div class="p-field p-grid">
+            <label for="field4"><strong>(DDD) e Telefone: <strong class="asterisco">*</strong></strong></label>
+            <div class="p-col">
+                <p-inputMask id="field4" [(ngModel)]="usuario.telefone" placeholder="Telefone" class="input"
+                    formControlName="Telefone" mask="(99)99999-9999"></p-inputMask>
+            </div>
+        </div>
+        <div class="p-field p-grid">
+            <label for="field5" class=""><strong>Data Nascimento: <strong class="asterisco">*</strong></strong></label>
+            <div class="p-col">
+                <input id="field5" class="input" type="date" [(ngModel)]="usuario.dataNascimento"
+                    placeholder="Data Nascimento" formControlName="dataNascimento" pInputText />
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <button class="botao_cadastrar" (click)="salvar()" pButton type="button"
+            [label]="edicao ?'Editar' : 'Enviar' "></button>
+    </div>
+
 </div>

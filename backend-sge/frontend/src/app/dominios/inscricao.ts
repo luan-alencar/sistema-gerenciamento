@@ -6,7 +6,7 @@ export class Inscricao {
     idUsuario: number;
     idEvento: number;
     idTipoSituacao: number;
-    resposta: InscricaoResposta[];
+    inscricaoRespostas: InscricaoResposta[];
 
     constructor(){}
 }

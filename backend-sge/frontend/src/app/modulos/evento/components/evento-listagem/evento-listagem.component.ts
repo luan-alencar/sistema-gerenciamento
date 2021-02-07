@@ -52,6 +52,7 @@ export class EventoListagemComponent implements OnInit {
   pegarUsuarioLocalStorage() {
     const usuario = JSON.parse(window.localStorage.getItem("usuario")); 
     this.usuario = usuario;
+  }
 
   private buscarPerguntas() {
     this.perguntasService.buscarTodasPerguntas();

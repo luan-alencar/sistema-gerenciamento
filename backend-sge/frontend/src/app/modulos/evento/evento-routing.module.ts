@@ -8,7 +8,7 @@ import { EventoListagemComponent } from './components/evento-listagem/evento-lis
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'listagem',
     component: EventoListagemComponent
   },
   {
