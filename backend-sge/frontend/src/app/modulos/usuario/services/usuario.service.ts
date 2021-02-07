@@ -1,3 +1,4 @@
+
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -5,9 +6,7 @@ import { Usuario } from 'src/app/dominios/usuario';
 import { environment } from 'src/environments/environment';
 import { Chave } from 'src/app/dominios/chave';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UsuarioService {
 
   //url = `${environment.apiUrl}/usuarios`;

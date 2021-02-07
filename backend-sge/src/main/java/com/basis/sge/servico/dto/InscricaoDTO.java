@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,5 +21,5 @@ public class InscricaoDTO implements Serializable {
 
     private Integer idTipoSituacao;
 
-    private List<InscricaoRespostaDTO> resposta;
+    private List<InscricaoRespostaDTO> resposta = new ArrayList<>();
 }

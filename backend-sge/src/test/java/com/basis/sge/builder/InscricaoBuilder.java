@@ -48,8 +48,8 @@ public class InscricaoBuilder extends ConstrutorDeEntidade<Inscricao> {
         List<InscricaoResposta> respostaList = new ArrayList<>();
         InscricaoResposta resposta = new InscricaoResposta();
 
-        inscricao.setIdEvento(evento);
-        inscricao.setIdUsuario(usuarioBuilder.construir());
+        inscricao.setEvento(evento);
+        inscricao.setUsuario(usuarioBuilder.construir());
         inscricao.setIdTipoSituacao(tipoSituacao);
 
         resposta.setResposta("resposta teste");

@@ -1,13 +1,14 @@
 package com.basis.sge.recurso;
 
 import com.basis.sge.servico.UsuarioServico;
-import com.basis.sge.servico.dto.UsuarioDTO;
 import com.basis.sge.servico.dto.ChaveDTO;
+import com.basis.sge.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RequestMapping("/api/usuarios")
@@ -27,35 +28,24 @@ public class UsuarioRecurso {
         return ResponseEntity.ok(usuarioService.obterUsuarioPorId(id));
     }
 
-    @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf){
-        return ResponseEntity.ok(usuarioService.obterUsuarioPorCpf(cpf));
-    }
-
-    @GetMapping("/email/{email}")
-    public ResponseEntity<UsuarioDTO> obterUsuarioPorEmail(@PathVariable String email){
-        return ResponseEntity.ok(usuarioService.obterUsuarioPorEmail(email));
-    }
-
     @PostMapping("/login")
     public  ResponseEntity<UsuarioDTO> obterUsuarioPorChave(@RequestBody ChaveDTO chaveDTO){
-        return  ResponseEntity.ok(usuarioService.buscarPorChave(chaveDTO));
+        return  ResponseEntity.ok(usuarioService.obterPorChave(chaveDTO));
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
-        usuarioService.salvar(usuarioDTO);
-        return ResponseEntity.created(URI.create("/usuario"+usuarioDTO.getId())).build();
+    public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Validated UsuarioDTO usuarioDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.salvar(usuarioDTO));
+    }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.ok(usuarioService.editar(usuarioDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id) {
         usuarioService.remover(id);
         return ResponseEntity.ok().build();
-    }
-
-    @PutMapping
-    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO) {
-        return ResponseEntity.ok(usuarioService.editar(usuarioDTO));
     }
 }
