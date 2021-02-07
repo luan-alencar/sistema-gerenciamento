@@ -1,4 +1,4 @@
-  <br>
+<app-card>
   <form [formGroup]="formEvento" >
       
       <div  class="p-fluid p-formgrid p-grid">
@@ -32,15 +32,15 @@
           </div>   
           
           <div class=" p-field p-col-12 p-md-6">
-              <p class="input">Selecione se o tipo da inscrição é paga</p>
-              <p-inputSwitch class="input" [(ngModel)]="inscricaoTipo" formControlName="tipoInscricao" ></p-inputSwitch>
+              <p class="input">Informe se o evento sera pago ou gratuito:</p>
+              <p-inputSwitch [(ngModel)]="evento.tipoInscricao" formControlName="tipoInscricao"></p-inputSwitch>
           </div>
           <div class="p-field p-col-12 p-md-6">
               <p-dropdown [options]="tipoEventos" placeholder="Selecione o Tipo do Evento" 
-              [(ngModel)]="evento.tipoEvento" formControlName="tipoEvento"
+              [(ngModel)]="eventoTipo" formControlName="tipoEvento"
               optionLabel="descricao" optionValue="id"></p-dropdown>
           </div>
-          <div *ngIf="evento.tipoInscricao" class="p-field p-col-12 p-md-6 ">
+          <div *ngIf="eventoTipo" class="p-field p-col-12 p-md-6 ">
               <p class="input">Valor:</p>
               <input  class="input " type="number" pKeyFilter="pnum" [(ngModel)]="evento.valor" size="30" formControlName="valor" placeholder="Valor de inscrição:" pInputText/>
           </div>
@@ -101,3 +101,4 @@
   
   <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
   <button (click)="salvar()"  pButton icon="pi pi-check"  [label]="edicao ?'Editar' : 'Cadastrar' " class="botao"></button>
+</app-card>

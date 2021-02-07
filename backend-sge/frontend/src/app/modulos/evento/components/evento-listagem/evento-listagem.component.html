@@ -40,13 +40,12 @@
         </ng-template>
     </p-table>
 </app-card>
-
+<!-- 
 <p-dialog header="Title" [(visible)]="exibirDialog">
     <app-evento-formulario [evento]="evento" [edicao]="formularioEdicao" (eventoSalvo)="fecharDialog($event)">
     </app-evento-formulario>
-</p-dialog>
+</p-dialog> -->
 
-<p-confirmDialog header="Confirmar Remover Evento" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
 <app-card [titulo]="'Lista de eventos'">
 
@@ -102,6 +101,7 @@
 <p-dialog header="Title" [(visible)]="exibirDialog">
     <app-evento-formulario [evento]="evento" [edicao]="formularioEdicao" (eventoSalvo)="fecharDialog($event)">
 
+        <p-confirmDialog header="Confirmar Deseja confirmar a edição?" icon="pi pi-exclamation-triangle"></p-confirmDialog>
     </app-evento-formulario>
-    <p-confirmDialog header="Confirmar Deseja confirmar a edição?" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </p-dialog>
+<p-confirmDialog header="Confirmar Remover Evento" icon="pi pi-exclamation-triangle"></p-confirmDialog>
