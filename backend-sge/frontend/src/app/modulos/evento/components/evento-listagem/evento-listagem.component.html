@@ -1,4 +1,4 @@
-<app-card [titulo]="'Lista de Eventos'" *ngIf="usuario.admin">
+<app-card [titulo]="'Lista de Eventos'" *ngIf="usuario.admin" class="listagem-eventos">
 
 
     <!-- Botao de Cadastrar um Evento -->
@@ -49,7 +49,7 @@
 
 
 
-<app-card [titulo]="'Lista de eventos'" *ngIf="!usuario.admin">
+<app-card [titulo]="'Lista de eventos'" *ngIf="!usuario.admin" class="listagem-eventos">
 
     <p-table [value]="eventos">
         <ng-template pTemplate="header">

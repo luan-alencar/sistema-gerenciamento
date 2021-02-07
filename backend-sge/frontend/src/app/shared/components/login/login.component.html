@@ -6,7 +6,7 @@
           <button pButton type="button" (click)="mostrarDialog()" label="Cadastre-se" class="ui-button-rounded"
             styleClass="loginbutton"></button>
           <p-dialog header="Cadastro" [(visible)]="display">
-            <app-formulario></app-formulario>
+            <app-formulario (emitCadastro)="fecharDialog($event)"></app-formulario>
           </p-dialog>
         </p-card>
       </div>

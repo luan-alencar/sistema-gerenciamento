@@ -7,9 +7,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Inscricao } from 'src/app/dominios/inscricao';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class InscricaoService {
 
   url = `${environment.apiUrl}/inscricoes`;
@@ -25,11 +23,11 @@ export class InscricaoService {
   }
 
   getInscricaoPeloEventoId(id: number): Observable<InscricoesLista[]> {
-    return this.http.get<InscricoesLista[]>(`${this.url}/eventoinscricoes/${id}`);
+    return this.http.get<InscricoesLista[]>(`${this.url}/eventos/inscricoes/${id}`);
   }
 
   getInscricaoPeloUsuarioId(id: number): Observable<InscricaoUsuario[]> {
-    return this.http.get<InscricaoUsuario[]>(`${this.url}/usuarioinscricoes/${id}`);
+    return this.http.get<InscricaoUsuario[]>(`${this.url}/usuarios/inscricoes/${id}`);
   }
 
   salvarInscricao(inscricao: Inscricao): Observable<Inscricao> {

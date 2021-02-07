@@ -44,7 +44,7 @@ public class Usuario implements Serializable {
     @Column(name = "chave")
     private String chave;
 
-    @Column(name = "tipo_usuario")
-    private String tipoUsuario;
+    @Column(name = "admin")
+    private Boolean admin;
 
 }

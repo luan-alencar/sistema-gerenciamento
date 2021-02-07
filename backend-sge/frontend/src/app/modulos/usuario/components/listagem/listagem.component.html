@@ -21,7 +21,7 @@
                 <td id="nascimento">{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
                 <td class="p-d-flex p-jc-center">
                     <div style class="botao_apagar">
-                        <button (click)="deletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+                        <button (click)="confirmarDeletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
                     </div>
                 </td>
             </tr>
@@ -62,15 +62,15 @@
 
                 <div class="botoes">
                     <button id="round" (click)="confirmarDeletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
-                    <button   (click)="mostrarDialog()"  pButton type="button" icon="pi pi-pencil"></button>
+                    <button id="round"  (click)="mostrarDialog()"  pButton type="button" icon="pi pi-pencil"></button>
                     <br>
-                    <button id ="botao-cadastro" pButton type="button" routerLink='/inscricao/listagem' label="Inscrições"  class="p-button-outlined"></button>
+                    <button id ="botao-cadastro" pButton type="button" routerLink='/inscricoes/listagem' label="Inscrições"  class="p-button-outlined"></button>
                 </div>
                     
                     
 
                 </p-card>
-            <p-dialog header="Editar Usuario" [(visible)]="exibirDialog">
+            <p-dialog header="Editar Usuario" [(visible)]="display">
                 <app-formulario (emitEdicao) = "edicao($event)"></app-formulario>
             </p-dialog>
             <p-confirmDialog header="Remover conta" icon="pi pi-exclamation-triangle"></p-confirmDialog>

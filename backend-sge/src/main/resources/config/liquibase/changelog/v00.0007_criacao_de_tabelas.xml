@@ -29,8 +29,8 @@
             <column name="chave" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="tipo_usuario" type="varchar(1)">
-                <constraints nullable="true"/>
+            <column name="admin" type="boolean">
+                <constraints nullable="false"/>
             </column>
 
         </createTable>

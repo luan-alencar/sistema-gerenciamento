@@ -44,28 +44,15 @@ export class LoginComponent implements OnInit {
       .subscribe((usuario: Usuario) => {
         this.emitUsuario.emit(usuario);
         localStorage.setItem("usuario", JSON.stringify(usuario));
-
-        if(this.usuarioAdministrador(chaveInput)){
-          usuario.admin = true;
-        }
       });
-  }
-
-  usuarioAdministrador(chave: string): boolean {
-    this.chave.chave = chave;
-    this.usuarioService.buscarUsuarioPorChave(this.chave)
-      .subscribe((user: Usuario) => {
-        if (chave === 'admin' && user.tipoUsuario === 'a') {
-          this.emitUsuario.emit(user);
-          localStorage.setItem("admin", JSON.stringify(user));
-          return true;
-        }
-      });
-      return false;
   }
 
   mostrarDialog() {
     this.display = true;
+  }
+
+  fecharDialog() {
+    this.display = false;
   }
 
   logout() {

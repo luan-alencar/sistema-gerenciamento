@@ -19,7 +19,7 @@ export class FormularioComponent implements OnInit {
   usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
   @Output() usuarioSalvo = new EventEmitter<Usuario>();
   @Output() emitEdicao: EventEmitter<Usuario> = new EventEmitter
-  @Output() emitDisplay: EventEmitter<boolean> = new EventEmitter
+  @Output() emitCadastro: EventEmitter<Usuario> = new EventEmitter
 
   cadastroUsuario: FormGroup;
 
@@ -85,6 +85,7 @@ export class FormularioComponent implements OnInit {
         }, (erro: HttpErrorResponse) => {
           alert(erro.error.message);
         });
+      this.emitCadastro.emit(this.usuario);
     }
   }
 

@@ -9,7 +9,7 @@ import { EventoModule } from './modulos/evento/evento.module';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'listagem',
     component: EventoListagemComponent
   },
   {

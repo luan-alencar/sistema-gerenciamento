@@ -15,7 +15,7 @@ export class ListagemComponent implements OnInit {
   @Input() usuario: Usuario;
   usuarios: Usuario[] = [];
   admin = false;
-  exibirDialog: boolean = false;
+  display: boolean = false;
   formularioEdicao: boolean;  //será que realmente precisa
 
   constructor(
@@ -49,37 +49,41 @@ export class ListagemComponent implements OnInit {
     this.servico.buscarUsuarioPorId(id)
       .subscribe(usuario => {
         this.usuario = usuario
-        this.mostrarDialog(true);
+        this.mostrarDialog();
       });
   }
 
   edicao(usuarioEditado: Usuario) {
-    this.exibirDialog = false
+    this.display = false
     localStorage.removeItem('usuario');
     localStorage.setItem("usuario", JSON.stringify(usuarioEditado));
     location.reload()
   }
 
-  mostrarDialog(edicao = false) {
-    this.exibirDialog = true;
-    //this.formularioEdicao = edicao;
+  mostrarDialog() {
+    this.display = true;
   }
 
   fecharDialog(usuarioSalvo: Usuario) {
     console.log(usuarioSalvo);
-    this.exibirDialog = false;
+    this.display = false;
     this.buscarUsuarios();
   }
 
   confirmarDeletarUsuario(id: number) {
-    this.confirmationService.confirm({
-      message: 'Tem certeza que deseja remover usuário?',
-      accept: () => {
-        this.deletarLoginUsuario(id);
-        localStorage.removeItem("usuario")
-      }
-    });
-  }
+      this.confirmationService.confirm({
+          message: 'Deseja mesmo esta conta?',
+          accept: () => {
+            if(this.usuario.admin){
+              this.deletarUsuario(id)
+            }else{
+              this.deletarLoginUsuario(id)
+              localStorage.removeItem("usuario")
+            }
+          }
+      });
+    
+    }
 
   public deletarUsuario(id: number) {
     if (this.usuario.admin) {

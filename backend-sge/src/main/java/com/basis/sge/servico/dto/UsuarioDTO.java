@@ -24,6 +24,6 @@ public class UsuarioDTO implements Serializable {
 
     private LocalDate dataNascimento;
 
-    private String tipoUsuario;
+    private Boolean admin;
 
 }

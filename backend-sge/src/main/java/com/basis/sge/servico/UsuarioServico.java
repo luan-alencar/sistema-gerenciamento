@@ -46,7 +46,7 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO){
-        usuarioDTO.setTipoUsuario("u");
+        usuarioDTO.setAdmin(false);
         Usuario usuario = validarDadosCadastrais(usuarioDTO);
         usuario = usuarioRepositorio.save(usuario);
         enviarEmailCadastro(usuario);
