@@ -40,6 +40,7 @@ export class InscricaoFormularioComponent implements OnInit {
   perguntasEvento: Pergunta[] = [];
 
   resposta: string;
+  inscricaoRespostas: InscricaoResposta;
   eventoPergunta: EventoPergunta;
   tipoSituacao: TipoEvento;
 
@@ -93,7 +94,7 @@ export class InscricaoFormularioComponent implements OnInit {
       this.inscricao.idUsuario = this.usuario.id;
       this.inscricao.idTipoSituacao = 1;
       this.respostasInscricao.forEach(resposta => {
-        this.inscricao.resposta.push(resposta);
+        this.inscricao.resposta.push(resposta)
       });
 
       this.inscricaoService.salvarInscricao(this.inscricao).subscribe(
