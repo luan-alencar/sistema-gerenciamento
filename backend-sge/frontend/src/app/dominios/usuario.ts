@@ -10,4 +10,5 @@ export class Usuario{
     dataNascimento: Date;
     tipoUsuario: string;
     admin: boolean;
+    
 }
