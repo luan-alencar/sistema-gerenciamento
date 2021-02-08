@@ -2,8 +2,8 @@ import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, 
 import { ScrollPanel } from 'primeng';
 import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
 import { RouterLink } from '@angular/router';
-import { Usuario } from 'src/app/dominios/usuario';
 import { LoginComponent } from './shared/components/login/login.component';
+import { Usuario } from './dominios/usuario';
 
 @Component({
     selector: 'app-root',
