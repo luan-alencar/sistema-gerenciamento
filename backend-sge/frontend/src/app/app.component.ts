@@ -1,8 +1,14 @@
 import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { MenuOrientation, MenusService } from '@nuvem/primeng-components';
 import { ScrollPanel } from 'primeng';
+<<<<<<< HEAD
 import { Usuario } from './dominios/usuario';
+=======
+import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
+import { RouterLink } from '@angular/router';
+>>>>>>> 531e83657957e0fbcd568a69e7bcfb92523e09b9
 import { LoginComponent } from './shared/components/login/login.component';
+import { Usuario } from './dominios/usuario';
 
 @Component({
     selector: 'app-root',
