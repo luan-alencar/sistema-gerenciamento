@@ -88,7 +88,7 @@ public class EventoServico {
         }
         for (InscricaoDTO preInscricao: inscricaoDTO) {
             usuariosDtos.add(usuarioServico.obterUsuarioPorId(preInscricao.getIdUsuario()));
-        }
+        }   
 
         return eventoMapper.toDto(evento);
     }
