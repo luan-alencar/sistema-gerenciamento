@@ -1,6 +1,7 @@
 package com.basis.sge.servico;
 
 import com.basis.sge.dominio.Evento;
+import com.basis.sge.dominio.EventoPergunta;
 import com.basis.sge.dominio.Usuario;
 import com.basis.sge.repositorio.EventoPerguntaRepositorio;
 import com.basis.sge.repositorio.EventoRepositorio;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,9 +43,15 @@ public class EventoServico {
         Evento evento = eventoMapper.toEntity(eventoDTO);
         if (evento.getTipoInscricao() == null || false) {
             eventoRepositorio.save(evento);
-            return eventoMapper.toDto(evento);  
+            return eventoMapper.toDto(evento);
         }
+
+        List<EventoPergunta> perguntas = evento.getPerguntas();
+
+        evento.setPerguntas(new ArrayList<>());
         eventoRepositorio.save(evento);
+        perguntas.forEach(pergunta -> pergunta.setEvento(evento));
+        eventoPerguntaRepositorio.saveAll(perguntas);
         return eventoMapper.toDto(evento);
     }
 
@@ -54,9 +62,14 @@ public class EventoServico {
         return eventoMapper.toDto(evento);
     }
 
+    private Evento obter(Integer id) {
+        return eventoRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("O id do Evento informado não foi encontrado"));
+    }
+
     public void remover(Integer id) {
-        eventoRepositorio.delete(eventoRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
+        Evento evento = obter(id);
+        eventoRepositorio.delete(evento);
     }
 
     public void enviarEmail(Usuario usuario) {

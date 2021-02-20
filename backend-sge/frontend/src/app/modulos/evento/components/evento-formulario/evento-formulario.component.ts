@@ -1,12 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/evento';
+import { EventoPergunta } from 'src/app/dominios/evento-pergunta';
+import { Inscricao } from 'src/app/dominios/inscricao';
 import { Pergunta } from 'src/app/dominios/pergunta';
-import { EventoService } from 'src/app/modulos/evento/services/evento.service';
-import { TipoEvento } from '../../../../dominios/tipo-evento';
+import { PerguntasService } from 'src/app/modulos/perguntas/services/perguntas.service';
+import { EventoService } from '../../services/evento.service';
+import { TipoEvento } from './../../../../dominios/tipo-evento';
 
 
 @Component({
@@ -19,41 +22,55 @@ export class EventoFormularioComponent implements OnInit {
   // Formulario Reativo: encurta a cricao de instancias de um FormControl
   formEvento: FormGroup;
 
-  evento = new Evento();
+  // instancias
+  @Input() evento = new Evento();
+  @Input() edicao = false;
+  @Output() eventoSalvo = new EventEmitter<Evento>();
+  @Output() inscricaoSalva = new EventEmitter<Inscricao>();
+
   pergunta = new Pergunta();
-  edicao = false;
+
+  inscricaoTipo = false;
+
   valueCheck: boolean;
   display: boolean;
+  perguntaAdd: boolean;
   checagemDeObrigatoriedadePergunta: boolean;
-  selectTipoEvento: TipoEvento;
 
+
+  eventoTipo: TipoEvento;
   tipoEventos: TipoEvento[] = [];
   perguntasEvento: Pergunta[] = [];
+  perguntaEventoPergunta: EventoPergunta;
 
-  @Output() eventoSalvo = new EventEmitter<Evento>();
-  @Output() perguntaSalva = new EventEmitter<Pergunta>();
+  perguntasEventoSelecionadas: Pergunta[] = [];
+
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private eventoService: EventoService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private perguntaService: PerguntasService
   ) {
-    this.tipoEventos = [
-      { id: 1, descricao: 'Workshop' },
-      { id: 2, descricao: 'Minicurso' },
-      { id: 3, descricao: 'Treinamento' },
-      { id: 4, descricao: 'Palestra' }
-    ]
+    // this.tipoEventos = [
+    //   { id: 1, descricao: 'Workshop' },
+    //   { id: 2, descricao: 'Minicurso' },
+    //   { id: 3, descricao: 'Treinamento' },
+    //   { id: 4, descricao: 'Palestra' }
+    // ]
   }
 
   // Inicio ngOnInit
   ngOnInit(): void {
 
+    this.buscarTipoEvento();
+    this.buscarPerguntas();
+
     this.route.params.subscribe(params => {
       if (params.id) {
         this.edicao = true;
-        this.searchEvento(params.id);
+        this.buscarEvento(params.id);
       }
     });
 
@@ -64,12 +81,14 @@ export class EventoFormularioComponent implements OnInit {
       local: '',
       descricao: '',
       qtdVagas: '',
-      tipoInscricao: null,
-      tipoEvento: null,
-      perguntas: null,
+      tipoEvento: '',
+      tipoInscricao: '',
       valor: '',
       dataInicio: '',
       dataFim: '',
+      eventoPerguntas: '',
+      pergunta: '',
+      obrigatoriedade: ''
     });
 
   } // Fim ngOnInit
@@ -78,58 +97,85 @@ export class EventoFormularioComponent implements OnInit {
     this.display = true;
   }
 
-  closeDialog(perguntaSalva: Pergunta) {
-    this.perguntaSalva.emit(perguntaSalva);
+  fecharDialog(eventoSalvo: Evento) {
+    this.eventoSalvo.emit(eventoSalvo);
   }
 
-  clickSalvarPergunta(pergunta: Pergunta) {
-    this.perguntasEvento.push(pergunta);
+  addPergunta() {
+    this.perguntaAdd = true;
   }
 
-  searchEvento(id: number) {
-    this.eventoService.findEventoById(id)
+  buscarEvento(id: number) {
+    this.eventoService.encontrarEventoPorId(id)
       .subscribe(evento => this.evento = evento);
   }
 
-  criarDropDown() {
-    this.tipoEventos.forEach(params => {
-      return {
-        label: params.descricao,
-        value: params.id
-      }
-    });
-  }
-
   salvar() {
+    if (this.formEvento.invalid) {
+      alert('Formulário Inválido!');
+      return;
+    }
+
     this.confirmationService.confirm({
       message: 'Voce deseja confirmar o cadastro?',
       accept: () => {
-
-        this.evento.perguntas = this.perguntasEvento;
-        this.evento.tipoEvento = this.selectTipoEvento.id;
-        console.log(this.evento);
-        if (this.formEvento.invalid) {
-          alert('Formulário Inválido');
-          return;
-        }
         if (this.edicao) {
-          this.eventoService.putEvento(this.evento)
+          this.eventoService.editarEvento(this.evento)
             .subscribe(evento => {
-              console.log('Evento cadastrado!', evento);
-              alert('Evento cadastrado')
+              alert('Evento Editado!');
+              this.fecharDialog(evento);
             }, (erro: HttpErrorResponse) => {
               alert(erro.error.message);
             });
         } else {
-          this.eventoService.postEvento(this.evento)
+
+          this.evento.tipoEvento = this.eventoTipo.id
+          this.evento.tipoInscricao = this.inscricaoTipo
+          console.log(this.evento);
+          this.perguntasEvento.forEach(perg => {
+            this.perguntaEventoPergunta = new EventoPergunta()
+            this.perguntaEventoPergunta.idEvento = null
+            this.perguntaEventoPergunta.idPergunta = perg.id
+            this.evento.perguntas.push(this.perguntaEventoPergunta);
+          });
+          this.eventoService.salvarEvento(this.evento)
             .subscribe(evento => {
-              console.log('Evento cadastrado!', evento);
-              alert('Evento cadastrado')
+              alert('Evento Salvo!');
+              console.log(evento)
             }, (erro: HttpErrorResponse) => {
-              alert(erro.error.message);
+              alert(erro.error.message)
             });
         }
       }
     });
+  }
+
+  salvarPergunta(pergunta: Pergunta) {
+    console.log(pergunta)
+    if (pergunta.obrigatoriedade == null) {
+      pergunta.obrigatoriedade = false;
+    }
+    this.perguntaService.salvarPergunta(pergunta)
+      .subscribe(() => {
+        alert('Pergunta salva!');
+        this.perguntaAdd = false;
+        console.log(pergunta)
+      }, (erro: HttpErrorResponse) => {
+        alert(erro.error.message);
+      });
+  }
+
+  buscarTipoEvento() {
+    this.eventoService.buscarTodosTipoEvento()
+      .subscribe((tipoEventos: TipoEvento[]) => {
+        this.tipoEventos = tipoEventos;
+      });
+  }
+
+  buscarPerguntas() {
+    this.perguntaService.buscarTodasPerguntas()
+      .subscribe((perguntas: Pergunta[]) => {
+        this.perguntasEvento = perguntas;
+      })
   }
 }

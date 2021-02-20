@@ -1,6 +1,6 @@
 import { User } from '@nuvem/angular-base';
 
-export class Usuario implements User{
+export class Usuario{
     
     id: number;
     nome: string;
@@ -9,11 +9,5 @@ export class Usuario implements User{
     telefone: string;
     dataNascimento: Date;
     tipoUsuario: string;
-    roles: string[];
-    name: string;
-
-    constructor(){
-        this.roles = ["u", "a"];
-    }
-
+    admin: boolean;
 }

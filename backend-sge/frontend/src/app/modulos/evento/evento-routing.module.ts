@@ -1,8 +1,10 @@
+import { InscricaoFormularioComponent } from './../inscricao/components/inscricao-formulario/inscricao-formulario.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { InscricaoListagemComponent } from '../inscricao/components/inscricao-listagem/inscricao-listagem.component';
 import { EventoFormularioComponent } from './components/evento-formulario/evento-formulario.component';
 import { EventoListagemComponent } from './components/evento-listagem/evento-listagem.component';
-import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 const routes: Routes = [
   {
@@ -13,6 +15,7 @@ const routes: Routes = [
     path: 'evento-formulario',
     component: EventoFormularioComponent
   },
+
   {
     path: 'evento-formulario/:id',
     component: EventoFormularioComponent

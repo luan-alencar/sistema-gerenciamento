@@ -13,10 +13,7 @@ import { PageNotificationModule, BreadcrumbModule, MenuModule, ErrorStackModule 
 import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { BlockUIModule } from 'ng-block-ui';
-import { UsuarioService } from './modulos/usuario/services/usuario.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './shared/components/login/login.component';
-
+import { AccordionModule, DropdownModule } from 'primeng';
 
 @NgModule({
     declarations: [
@@ -24,7 +21,7 @@ import { LoginComponent } from './shared/components/login/login.component';
         AppTopbarComponent,
         AppFooterComponent,
         DiarioErrosComponent,
-       
+
     ],
     imports: [
         BlockUIModule.forRoot({
@@ -41,13 +38,11 @@ import { LoginComponent } from './shared/components/login/login.component';
         VersionTagModule,
         SecurityModule.forRoot(environment.auth),
         MenuModule,
-        ReactiveFormsModule,
-        FormsModule
-        
+        DropdownModule,
+        AccordionModule
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy, },
-        UsuarioService, LoginComponent
+        { provide: LocationStrategy, useClass: HashLocationStrategy }
     ],
     bootstrap: [AppComponent]
 })

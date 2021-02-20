@@ -4,6 +4,7 @@ package com.basis.sge.recurso;
 import com.basis.sge.servico.PerguntaServico;
 import com.basis.sge.servico.dto.PerguntaDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,12 +44,10 @@ public class PerguntaRecurso {
 
     }
 
+    @SneakyThrows
     @PostMapping
     public ResponseEntity<PerguntaDTO> salvar(@RequestBody PerguntaDTO perguntaDTO){
-
-
-          perguntaServico.salvar(perguntaDTO);
-          return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.created(new URI("/api/eventos")).body(perguntaServico.salvar(perguntaDTO));
     }
 
     @PutMapping

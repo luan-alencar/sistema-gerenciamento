@@ -1,5 +1,3 @@
-import { Usuario } from 'src/app/dominios/usuario';
-import { LoginComponent } from './../../shared/components/login/login.component';
 import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { Authentication, User } from '@nuvem/angular-base';
@@ -10,18 +8,7 @@ import { Authentication, User } from '@nuvem/angular-base';
 })
 export class AppTopbarComponent {
 
-    user = new Usuario
-
-    constructor(
-        public app: AppComponent,
-        private readonly _authentication: Authentication<User>,
-        private loginComponent: LoginComponent
-        ) {
-    }
-
-    buscarNome(){
-        this.user =  JSON.parse(localStorage.getItem('usuario'))
-        return this.user.nome
+    constructor(public app: AppComponent, private readonly _authentication: Authentication<User>) {
     }
 
     get usuario() {
@@ -30,9 +17,5 @@ export class AppTopbarComponent {
 
     isAuthenticated() {
         return this._authentication.isAuthenticated();
-    }
-
-    logout(){
-        this.loginComponent.logout();
     }
 }

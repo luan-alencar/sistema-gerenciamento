@@ -25,9 +25,9 @@ public class PerguntaServico {
     public List<PerguntaDTO> listar() {
 
         List<Pergunta> listaPergunta = perguntaRepositorio.findAll(); //Busca no repositório todas as perguntas
-        if(listaPergunta.isEmpty()){
-            throw new RegraNegocioException("Nenhuma pergunta cadastrada!");
-        }
+//        if (listaPergunta.isEmpty()) {
+//            throw new RegraNegocioException("Nenhuma pergunta cadastrada!");
+//        }
         return perguntaMapper.toDto(listaPergunta); //Passa as perguntas para o dto e envia para os recursos uma listaDto
 
     }
@@ -41,20 +41,15 @@ public class PerguntaServico {
 
     public PerguntaDTO salvar(PerguntaDTO perguntaDTO) {
 
-        Pergunta pergunta = perguntaMapper.toEntity(perguntaDTO);
-
-        if(pergunta.getTitulo() == null){
+        Pergunta pergunta = perguntaRepositorio.save(perguntaMapper.toEntity(perguntaDTO));
+        if (pergunta.getTitulo() == null) {
             throw new RegraNegocioException("Título da pergunta não preenchido");
         }
 
-        if(pergunta.getObrigatoriedade() == null){
+        if (pergunta.getObrigatoriedade() == null) {
             throw new RegraNegocioException("Obrigatoriedade da pergunta não preenchida");
         }
-
-        perguntaRepositorio.save(pergunta);
-
-        return perguntaDTO;
-
+        return perguntaMapper.toDto(pergunta);
     }
 
     public PerguntaDTO atualizar(PerguntaDTO perguntaDTO) {
@@ -67,7 +62,7 @@ public class PerguntaServico {
 
     public void deletar(Integer id) {
         perguntaRepositorio.delete(perguntaRepositorio.findById(id)
-            .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
+                .orElseThrow(() -> new RegraNegocioException("Id informado não encontrado")));
     }
 
 

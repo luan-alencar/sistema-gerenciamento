@@ -1,6 +1,7 @@
 package com.basis.sge.servico;
 
-import com.basis.sge.dominio.*;
+import com.basis.sge.dominio.Inscricao;
+import com.basis.sge.dominio.InscricaoResposta;
 import com.basis.sge.repositorio.EventoRepositorio;
 import com.basis.sge.repositorio.InscricaoRepositorio;
 import com.basis.sge.repositorio.InscricaoRespostaRepositorio;
